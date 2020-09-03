@@ -1,0 +1,28 @@
+.Button {
+    width: 100%;
+    height: 100px;
+    background-color: transparent;
+    border: 1px solid var(--custom-accent-color);
+}
+
+.Button.Highlighted {
+    background-color: var(--custom-shadow-color);
+}
+
+.Button.Highlighted.Active {
+    border-right: 4px solid var(--custom-link-color);
+}
+
+.ButtonText {
+    font-family: var(--custom-font-family);
+    font-size: x-small;
+    font-weight: normal;
+    color: var(--custom-text-color);
+    transform: translateX(10%) translateY(300%) rotate(-90deg);
+    user-select: none;
+}
+
+.ButtonText.Highlighted.Active {
+    font-weight: bold;
+    color: var(--custom-accent-color);
+}
