@@ -3,8 +3,7 @@ import path from "path";
 
 import Block from "./Block";
 import Edge from "./Edge";
-import {findNextOrMissing, Zeros} from "../../helpers/utils";
-import {api} from "../../helpers/constants";
+import {findNextOrMissing, Zeros} from "./helpers/utils";
 
 
 export enum EdgeType {
@@ -48,11 +47,13 @@ export default class Graph {
     public blocks: Block[];
     public readonly edges: Edge[];
     private readonly isTest: boolean;
+    private readonly filePath: string;
 
-    constructor(isTest?: boolean) {
+    constructor(isTest?: boolean, filePath?: string) {
         this.blocks = [];
         this.edges = [];
         this.isTest = isTest ?? false;
+        this.filePath = filePath ?? "";
     }
 
     public getIdFromName(name: string): string {
@@ -64,7 +65,8 @@ export default class Graph {
         if (this.isTest) {
             p = path.resolve(__dirname, '__tests__', 'test_blocks', `${name}.json`);
         } else {
-            p = api.getFileDataPath(`blocks/${name}.json`);
+            // p = api.getFileDataPath(`blocks/${name}.json`);
+            p = path.join(this.filePath, `blocks/${name}.json`);
         }
         const b = new Block(p);
         const tempBlocks = this.blocks.filter(temp => temp.name.split("_")[0] === b.name)
@@ -101,7 +103,7 @@ export default class Graph {
 
     public getAdjacentBlocks(block: Block): Block[] {
         return this.edges.filter(e => e.outputBlock === block.id)
-            .map(e => this.blocks.find(b => b.id === e.inputBlock)??null);
+            .map(e => this.blocks.find(b => b.id === e.inputBlock)!);
     }
 
     public getSourceBlocks(): Block[] {
@@ -156,7 +158,7 @@ export default class Graph {
 
         const retList: Block[] = [];
         while (queue.length > 0) {
-            const element = queue.shift();
+            const element = queue.shift()!;
             retList.push(element);
             const neighbors = this.getAdjacentBlocks(element);
             neighbors.forEach(neighbor => {
@@ -183,7 +185,7 @@ export default class Graph {
             t++;
 
             this.getAdjacentBlocks(dfsBlocks[index].block).map(l => {
-                const findIndex = dfsBlocks.find(l2 => l2.block === l);
+                const findIndex = dfsBlocks.find(l2 => l2.block === l)!;
                 return dfsBlocks.indexOf(findIndex);
             }).forEach(index2 => {
                 if (dfsBlocks[index2].color === NodeCompletion.WHITE) {
@@ -204,8 +206,8 @@ export default class Graph {
 
         const retVec = new Map<string, EdgeType>();
         this.edges.forEach(edge => {
-            const outBlock = dfsBlocks.find(l => l.block.id === edge.outputBlock);
-            const inBlock = dfsBlocks.find(l => l.block.id === edge.inputBlock);
+            const outBlock = dfsBlocks.find(l => l.block.id === edge.outputBlock)!;
+            const inBlock = dfsBlocks.find(l => l.block.id === edge.inputBlock)!;
 
             if (inBlock.D - outBlock.D === 1 || outBlock.F - inBlock.F == 1) {
                 retVec.set(edge.id, EdgeType.TREE);
@@ -233,7 +235,7 @@ export default class Graph {
             if (dfsBlocks[index].color != NodeCompletion.WHITE) return;
             dfsBlocks[index].color = NodeCompletion.GRAY;
             this.getAdjacentBlocks(dfsBlocks[index].block).forEach(v =>
-                visit(dfsBlocks.indexOf(dfsBlocks.find(b => b.block == v))));
+                visit(dfsBlocks.indexOf(dfsBlocks.find(b => b.block == v)!)));
             l.add(dfsBlocks[index])
         };
 
@@ -250,7 +252,7 @@ export default class Graph {
             dfsBlocks[uIndex].color = NodeCompletion.BLACK;
 
             this.getAdjacentBlocks(dfsBlocks[uIndex].block).map(b =>
-                dfsBlocks.indexOf(dfsBlocks.find(b2 => b2.block == b))).forEach(v => {
+                dfsBlocks.indexOf(dfsBlocks.find(b2 => b2.block == b)!)).forEach(v => {
                 assign(v, rootIndex);
             });
         };
@@ -285,7 +287,7 @@ export default class Graph {
             if (!compileOrder.includes(source)) { compileOrder.push(source) }
             this.getAdjacentBlocks(source).flatMap(adjBlock => this.DFS(adjBlock)
                 .filter(dfsBlock => !compileOrder.includes(dfsBlock))
-                .map(dfsBlock => compBlocks.indexOf(compBlocks.find(l => l.block == dfsBlock))))
+                .map(dfsBlock => compBlocks.indexOf(compBlocks.find(l => l.block == dfsBlock)!)))
                 .forEach(compIndex => {
                     compBlocks[compIndex].numInputs--;
                     if (compBlocks[compIndex].numInputs == 0) compileOrder.push(compBlocks[compIndex].block);
@@ -300,14 +302,14 @@ export default class Graph {
         const compOrder = this.getCompileOrder().map(b => b.id);
         while (t <= T) {
             compOrder.map(blockId => {
-                const block = this.blocks.find(b => b.id === blockId);
+                const block = this.blocks.find(b => b.id === blockId)!;
 
-                const prevInputs = block.inputPorts.map(p => p.objectValue);
-                const prevOutputs = block.outputPorts.map(p => p.objectValue);
+                const prevInputs = block.inputPorts.map(p => p.objectValue)!;
+                const prevOutputs = block.outputPorts.map(p => p.objectValue)!;
                 const inputs = block.inputPorts.map(p => {
-                    const edge = this.edges.find(e => e.inputBlock == block.id && e.inputPort == p.name);
-                    const outputBlock = this.blocks.find(b => b.id === edge.outputBlock);
-                    return outputBlock.outputPorts.find(p => p.name === edge.outputPort).objectValue;
+                    const edge = this.edges.find(e => e.inputBlock == block.id && e.inputPort == p.name)!;
+                    const outputBlock = this.blocks.find(b => b.id === edge.outputBlock)!;
+                    return outputBlock.outputPorts.find(p => p.name === edge.outputPort)!.objectValue;
                 });
 
                 for (let i = 0; i < block.inputPorts.length; i++) {

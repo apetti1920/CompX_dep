@@ -15,7 +15,8 @@ export default class electronAPI {
         }
     }
 
-    public getFileDataPath(objPath: string): string {
+    public getFileDataPath(objPath?: string): string {
+        objPath = objPath ?? "";
         return path.join(this.userDataPath, ...objPath.split('/'));
     }
 

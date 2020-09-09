@@ -1,5 +1,5 @@
 import Block from "./Block";
-import {PortType} from "../../types/BlockStorage";
+import {PortType} from "./types/BlockStorage";
 
 export enum PortTypes { string, number}
 export type AcceptedPortTypes = (string | number | null)

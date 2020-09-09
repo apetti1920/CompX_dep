@@ -2,7 +2,7 @@ import fs from "fs";
 import { v4 as uuidv4 } from 'uuid';
 
 import Port, {AcceptedPortTypes} from "./Port";
-import {BlockStorageType, PortType} from "../../types/BlockStorage";
+import {BlockStorageType, PortType} from "./types/BlockStorage";
 
 type Callback = ((t: number, dt: number, prevInputs: unknown[], prevOutputs: unknown[], newInputs: unknown[]) => unknown[]);
 

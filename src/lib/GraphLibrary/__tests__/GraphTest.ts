@@ -39,9 +39,9 @@ test("Test Edge Classifier", () => {
     const g1 = TestUtils.getGraph();
     const edgesClassifiers = g1.edgeClassifier();
     expect(edgesClassifiers.get(g1.edges.find(e => e.outputBlock === g1.getIdFromName("gain_0") &&
-        e.inputBlock === g1.getIdFromName("sum_0")).id)).toBe(EdgeType.BACK);
+        e.inputBlock === g1.getIdFromName("sum_0"))!.id)).toBe(EdgeType.BACK);
     expect(edgesClassifiers.get(g1.edges.find(e => e.outputBlock === g1.getIdFromName("gain_1") &&
-        e.inputBlock === g1.getIdFromName("sum_0")).id)).toBe(EdgeType.BACK);
+        e.inputBlock === g1.getIdFromName("sum_0"))!.id)).toBe(EdgeType.BACK);
 });
 
 test("Test SCC", () => {

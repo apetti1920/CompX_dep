@@ -10,11 +10,47 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7953432-bfcc-4650-a923-43f7ea8791ce" name="Default Changelist" comment="Initial Commit" />
+    <list default="true" id="e7953432-bfcc-4650-a923-43f7ea8791ce" name="Default Changelist" comment="Initial Commit">
+      <change afterPath="$PROJECT_DIR$/src/app/helpers/backgroundWindow.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/helpers/server.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/GraphLibrary/helpers/utils.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/GraphLibrary/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/banner.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/resources/banner.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/colorPalete.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/colorPalete.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/sample_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sample_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/ui_design.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/ui_design.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/helpers/ipcListeners.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/helpers/ipcRenderFunctions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/types/BlockStorage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/GraphLibrary/types/BlockStorage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/types/generic.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/GraphLibrary/types/generic.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers/electronAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/electronAPI.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/Block.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/GraphLibrary/Block.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/Graph.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/GraphLibrary/Graph.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/Port.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/GraphLibrary/Port.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/__tests__/GraphTest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/GraphLibrary/__tests__/GraphTest.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/worker.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/BlockStorage.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/generic.ts" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+        <option value="HTML File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -30,10 +66,13 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="javascript.nodejs.core.library.configured.version" value="12.16.3" />
+    <property name="javascript.nodejs.core.library.typings.version" value="12.12.55" />
     <property name="js.linters.configure.manually.selectedeslint" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -45,19 +84,23 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="settings.javascript.linters.eslint" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/app" />
       <recent name="$PROJECT_DIR$/src/app/components/ComponentUtils" />
       <recent name="$PROJECT_DIR$/src/helpers" />
       <recent name="$PROJECT_DIR$/src/types" />
-      <recent name="$PROJECT_DIR$/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/lib" />
+      <recent name="$PROJECT_DIR$/src/lib/GraphLibrary" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/assets" />
       <recent name="$PROJECT_DIR$/src/lib" />
     </key>
@@ -105,6 +148,12 @@
       <workItem from="1599075845348" duration="5964000" />
       <workItem from="1599157612679" duration="2120000" />
       <workItem from="1599160001023" duration="74000" />
+      <workItem from="1599160195511" duration="562000" />
+      <workItem from="1599441200104" duration="2903000" />
+      <workItem from="1599512153864" duration="53000" />
+      <workItem from="1599532613206" duration="1461000" />
+      <workItem from="1599578142965" duration="15247000" />
+      <workItem from="1599666724253" duration="645000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1599160068442</created>
@@ -149,33 +198,33 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="578" y="290" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1599158485771" />
-    <state x="586" y="398" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1599158675862">
+    <state x="586" y="398" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1599662388618">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="586" y="398" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1680.1027@0.23.1680.1027" timestamp="1599158675862" />
-    <state width="1638" height="280" key="GridCell.Tab.0.bottom" timestamp="1599159735269">
+    <state x="586" y="398" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1680.1027@0.23.1680.1027" timestamp="1599662388618" />
+    <state width="1638" height="280" key="GridCell.Tab.0.bottom" timestamp="1599667428447">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1599159735269" />
-    <state width="1638" height="280" key="GridCell.Tab.0.center" timestamp="1599159735268">
+    <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1599667428447" />
+    <state width="1638" height="280" key="GridCell.Tab.0.center" timestamp="1599667428446">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1599159735268" />
-    <state width="1638" height="280" key="GridCell.Tab.0.left" timestamp="1599159735268">
+    <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1599667428446" />
+    <state width="1638" height="280" key="GridCell.Tab.0.left" timestamp="1599667428446">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1599159735268" />
-    <state width="1638" height="280" key="GridCell.Tab.0.right" timestamp="1599159735268">
+    <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1599667428446" />
+    <state width="1638" height="280" key="GridCell.Tab.0.right" timestamp="1599667428447">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1599159735268" />
+    <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1599667428447" />
     <state x="341" y="175" key="SettingsEditor" timestamp="1598987907494">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="341" y="175" key="SettingsEditor/0.23.1680.1027@0.23.1680.1027" timestamp="1598987907494" />
-    <state x="538" y="291" width="604" height="490" key="find.popup" timestamp="1599159670391">
+    <state x="538" y="291" width="604" height="490" key="find.popup" timestamp="1599587813586">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="538" y="291" width="604" height="490" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1599159670391" />
+    <state x="538" y="291" width="604" height="490" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1599587813586" />
   </component>
 </project>
