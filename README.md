@@ -1,6 +1,4 @@
-<div align="center">
-  <img src="https://github.com/apetti1920/Compx/blob/master/Resources/banner.jpeg">
-</div>
+![Banner](resources/banner.jpeg)
 
 # CompX
 
@@ -18,45 +16,42 @@
 
 ## Background
 
-&nbsp;&nbsp;&nbsp;&nbsp;The project utilizes a .Net core backend to handle the graph creation and execution which are marked by the Graph Library and Graph Builder libraries respectively.  The Graph Library holds block components which can be altered to have an arbetrary number of ports of various types and are connected to other blocks with edges.  The graph data structure includes useful utilities to analyse and run the graph in the correct sorting order.
+&nbsp;&nbsp;&nbsp;&nbsp;The project utilizes a typescript backend to handle the graph creation and execution which is
+ marked by the Graph Library.  The Graph Library holds block components which can be altered to have an arbitrary number
+  of ports of various types and are connected to other blocks with edges.  The graph data structure includes useful
+  utilities to analyse and run the graph in the correct sorting order.
 
-&nbsp;&nbsp;&nbsp;&nbsp;The Graph Builder then autimates the creation of the blocks from JSON files located on disk to represent the addition of blocks to the canvas.  The Graph Builder also utilizes the C# roslyn compiler to dynamically build and run the newly created graph.
+&nbsp;&nbsp;&nbsp;&nbsp;The Graph Builder then automates the creation of the blocks from JSON files located on disk to
+represent the addition of blocks to the canvas.  The Graph Builder also utilizes the javascript compiler to dynamically
+build and run the newly created graph.
 
-&nbsp;&nbsp;&nbsp;&nbsp;The CompX_UI project aims to use .Net to host a react application packaged for crossplatform use with the help of [Electron.NET](https://github.com/ElectronNET/Electron.NET).  Utilizing the power of electron, the frontend can be developed using familiar Javascript and CSS while leveraging the agility of the React framework.
+&nbsp;&nbsp;&nbsp;&nbsp;The CompX project aims to package for cross platform use with the help of 
+[Electron](https://www.electronjs.org).  Utilizing the power of electron, the frontend can be developed using familiar 
+Javascript and CSS while leveraging the agility of the React framework.
 
 ---
 
 ## Install
 
-Beginning guide to installing and developing the CompX software.
+A beginning guide to installing and developing the CompX software.
 
-Reinstall all dotnet nuget packages
+Reinstall all npm packages
 
 ```bash
-$ dotnet restore
+$ npm install
 ```
 
-Install the Electron.Net CLI (*Only Done Once*)
+Start the Electron application
 
 ```bash
-$ dotnet tool install ElectronNET.CLI -g
-```
-
-Start the electron application
-
-```bash
-$ electronize start
+$ npm run start
 ```
 
 ---
 
 ## UI Current
-<div align="center">
-  <img src="https://github.com/apetti1920/Compx/blob/master/Resources/ui_design.png">
-</div>
+![UI Design](resources/ui_design.png)
 ---
 
 ## Example Graph
-
-<img style="float: right;" src="https://github.com/apetti1920/Compx/blob/master/Resources/sample_graph.png">
-
+![Sample Graph](resources/sample_graph.png)
