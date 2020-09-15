@@ -16,7 +16,7 @@
 
 ## Background
 
-&nbsp;&nbsp;&nbsp;&nbsp;The project utilizes a typescript backend to handle the graph creation and execution which is
+&nbsp;&nbsp;&nbsp;&nbsp;The project utilizes a Typescript backend to handle the graph creation and execution which is
  marked by the Graph Library.  The Graph Library holds block components which can be altered to have an arbitrary number
   of ports of various types and are connected to other blocks with edges.  The graph data structure includes useful
   utilities to analyse and run the graph in the correct sorting order.

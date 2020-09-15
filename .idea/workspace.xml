@@ -11,8 +11,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7953432-bfcc-4650-a923-43f7ea8791ce" name="Default Changelist" comment="Initial Commit">
+      <change afterPath="$PROJECT_DIR$/src/app/store/reducers/blockLibraryReducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BrowserWindow/BrowserWindow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BrowserWindow/BrowserWindow.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/FunctionBrowser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/FunctionBrowser.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/FunctionBrowserCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/FunctionBrowserCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/ComponentUtils/Accordion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/Accordion.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Sidebar/SidebarButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Sidebar/SidebarButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/helpers/ipcRenderFunctions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/helpers/ipcRenderFunctions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/helpers/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/helpers/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/actions/actionTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/actions/actionTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/actions/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/actions/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/reducers/canvasReducers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/reducers/canvasReducers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/reducers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/reducers/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/reducers/sidebarButtonReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/reducers/sidebarButtonReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/types/stateTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/types/stateTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers/electronAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/electronAPI.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/types/BlockStorage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/GraphLibrary/types/BlockStorage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +43,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="HTML File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -65,19 +86,19 @@
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser" />
+      <recent name="$PROJECT_DIR$/src/lib" />
+      <recent name="$PROJECT_DIR$/src/lib/GraphLibrary" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/assets" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/app" />
       <recent name="$PROJECT_DIR$/src/app/components/ComponentUtils" />
       <recent name="$PROJECT_DIR$/src/helpers" />
       <recent name="$PROJECT_DIR$/src/types" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/lib" />
-      <recent name="$PROJECT_DIR$/src/lib/GraphLibrary" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src/assets" />
-      <recent name="$PROJECT_DIR$/src/lib" />
     </key>
   </component>
   <component name="RunManager" selected="npm.start">
@@ -130,7 +151,7 @@
       <workItem from="1599578142965" duration="15247000" />
       <workItem from="1599666724253" duration="645000" />
       <workItem from="1599667547727" duration="327000" />
-      <workItem from="1599667880899" duration="348000" />
+      <workItem from="1599667880899" duration="15195000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1599160068442</created>
@@ -167,34 +188,34 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="701" y="436" width="590" height="454" key="#ESLint/0.23.1680.1027@0.23.1680.1027" timestamp="1598988790870" />
-    <state x="304" y="198" width="1071" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598989114232">
+    <state x="304" y="198" width="1071" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599668162862">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="304" y="198" width="1071" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1598989114232" />
+    <state x="304" y="198" width="1071" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1599668162862" />
     <state x="578" y="290" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1599158485771">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="578" y="290" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1599158485771" />
-    <state x="586" y="398" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1599662388618">
+    <state x="586" y="398" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1600129062940">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="586" y="398" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1680.1027@0.23.1680.1027" timestamp="1599662388618" />
-    <state width="1638" height="280" key="GridCell.Tab.0.bottom" timestamp="1599667428447">
+    <state x="586" y="398" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1680.1027@0.23.1680.1027" timestamp="1600129062940" />
+    <state width="1127" height="280" key="GridCell.Tab.0.bottom" timestamp="1600137064263">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1599667428447" />
-    <state width="1638" height="280" key="GridCell.Tab.0.center" timestamp="1599667428446">
+    <state width="1127" height="280" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1600137064263" />
+    <state width="1127" height="280" key="GridCell.Tab.0.center" timestamp="1600137064263">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1599667428446" />
-    <state width="1638" height="280" key="GridCell.Tab.0.left" timestamp="1599667428446">
+    <state width="1127" height="280" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1600137064263" />
+    <state width="1127" height="280" key="GridCell.Tab.0.left" timestamp="1600137064262">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1599667428446" />
-    <state width="1638" height="280" key="GridCell.Tab.0.right" timestamp="1599667428447">
+    <state width="1127" height="280" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1600137064262" />
+    <state width="1127" height="280" key="GridCell.Tab.0.right" timestamp="1600137064263">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1599667428447" />
+    <state width="1127" height="280" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1600137064263" />
     <state x="341" y="175" key="SettingsEditor" timestamp="1598987907494">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>

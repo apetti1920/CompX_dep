@@ -1,31 +1,45 @@
-import {SidebarButtonType, SplitPaneName} from "../types";
-import {ClickedSidebarButtonActionType, MovedCanvas, MovedSplitPaneActionType, ZoomedCanvas} from "./actionTypes";
+import {ActionType, SidebarButtonType, SplitPaneName} from "../types";
+import {
+    ClickedSidebarButtonActionType,
+    MovedCanvasActionType,
+    MovedSplitPaneActionType,
+    UpdatedBlockLibraryActionType,
+    ZoomedCanvasActionType
+} from "./actionTypes";
 import {PointType} from "../../components/types";
+import {BlockStorageType} from "../../../lib/GraphLibrary/types/BlockStorage";
 
-export const ClickedSidebarButtonAction = (button: SidebarButtonType) => {
+export const ClickedSidebarButtonAction = (button: SidebarButtonType): ActionType => {
     return {
         type: ClickedSidebarButtonActionType,
         payload: button
     }
 };
 
-export const MovedSplitPaneAction = (splitName: SplitPaneName, newSize: number) => {
+export const MovedSplitPaneAction = (splitName: SplitPaneName, newSize: number): ActionType => {
     return {
         type: MovedSplitPaneActionType,
         payload: {name: splitName, size: newSize}
     }
 };
 
-export const MovedCanvasAction = (newTranslation: PointType) => {
+export const MovedCanvasAction = (newTranslation: PointType): ActionType => {
     return {
-        type: MovedCanvas,
+        type: MovedCanvasActionType,
         payload: {newTranslation: newTranslation}
     }
 };
 
-export const ZoomedCanvasAction = (newZoom: number) => {
+export const ZoomedCanvasAction = (newZoom: number): ActionType => {
     return {
-        type: ZoomedCanvas,
+        type: ZoomedCanvasActionType,
         payload: {newZoom: newZoom}
     }
 };
+
+export const UpdatedBlockLibraryAction = (newBlocks: BlockStorageType[]): ActionType => {
+    return {
+        type: UpdatedBlockLibraryActionType,
+        payload: {newBlocks: newBlocks}
+    }
+}

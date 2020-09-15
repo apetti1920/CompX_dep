@@ -4,10 +4,12 @@ import SidebarButtonReducer from "./sidebarButtonReducer";
 import ActiveSidebarButtonReducer from "./activeSidebarButtonsReducer";
 import SplitReducer from "./splitReducers";
 import canvasReducers from "./canvasReducers";
+import blockLibraryReducer from "./blockLibraryReducer";
 
 export default combineReducers({
     sidebarButtons: SidebarButtonReducer,
     activeSidebarButtons: ActiveSidebarButtonReducer,
     splitSizes: SplitReducer,
-    canvas: canvasReducers
+    canvas: canvasReducers,
+    blockLibrary: blockLibraryReducer
 })

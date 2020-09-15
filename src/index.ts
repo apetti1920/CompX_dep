@@ -1,6 +1,5 @@
-import {app, BrowserWindow, IpcMainEvent} from 'electron';
+import {app, BrowserWindow, IpcMainEvent, ipcMain as ipc} from 'electron';
 import fs from "fs";
-import {ipcMain as ipc} from 'electron';
 import isDev from 'electron-is-dev';
 
 import {api} from "./helpers/constants";
@@ -36,25 +35,7 @@ const createWindow = (): void => {
         // });
     }
 
-    ipc.on("block_update", (event: IpcMainEvent) => {
-        fs.readdir(api.getFileDataPath("blocks"), (err, files) => {
-            if (err) {
-                console.log(err);
-                return;
-            }
-
-            const blocks: BlockStorageType[] = [];
-            files.forEach((file) => {
-                if (file.split(".").pop() === "json") {
-                    const path = api.getFileDataPath(`blocks/${file}`);
-                    const data = fs.readFileSync(path, {encoding:'utf8', flag:'r'});
-                    const jsonData: BlockStorageType = JSON.parse(data);
-                    blocks.push(jsonData);
-                }
-            });
-            event.sender.send('block_update', blocks);
-        })
-    });
+    api.setupIPC();
 };
 
 app.on('ready', createWindow);

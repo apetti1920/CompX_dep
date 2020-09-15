@@ -82,4 +82,4 @@ function matchDispatchToProps(dispatch: Dispatch) {
     }, dispatch)
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(SidebarButton)
+export default connect(mapStateToProps, matchDispatchToProps)(SidebarButton);

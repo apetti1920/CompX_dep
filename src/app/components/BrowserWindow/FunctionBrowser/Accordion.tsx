@@ -1,9 +1,9 @@
 // @flow
 import * as React from 'react';
-import {DataType} from "../types";
 // eslint-disable-next-line import/no-unresolved
 import CSS from "csstype";
-import {FunctionBrowserCard} from "../BrowserWindow/FunctionBrowser/FunctionBrowserCard";
+import {FunctionBrowserCard} from "./FunctionBrowserCard";
+import {BlockStorageType} from "../../../../lib/GraphLibrary/types/BlockStorage";
 
 const headerButtonStyle: CSS.Properties = {
     width: "100%", height: "var(--sidebar-width)", margin: "var(--border-width)",
@@ -14,7 +14,7 @@ const headerButtonStyle: CSS.Properties = {
 };
 
 type Props = {
-    data: DataType[]
+    data: BlockStorageType[]
 };
 
 type State = {
@@ -55,7 +55,7 @@ export class Accordion extends React.Component<Props, State> {
                 <div style={{display: "flex", flexFlow: "row wrap", alignItems: "start",
                     alignContent: "start", justifyContent: "space-evenly"}}>
                     {
-                        this.props.data.filter(dat => dat.type.includes(category)).map(dat => {
+                        this.props.data.filter(dat => dat.tags.includes(category)).map(dat => {
                             return (<FunctionBrowserCard key={dat.name} data={dat}/>)
                         })
                     }
@@ -67,7 +67,7 @@ export class Accordion extends React.Component<Props, State> {
 
     createAccordionClosed(): void {
         const tempState = {...this.state};
-        const typesList = this.props.data.map(dat => dat.type).flat();
+        const typesList = this.props.data.map(dat => dat.tags).flat();
         const typesSet: string[] = typesList.filter((item, index) =>
             typesList.indexOf(item) === index);
         tempState.returnComponent = (

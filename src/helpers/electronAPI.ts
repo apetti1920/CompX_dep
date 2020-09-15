@@ -1,31 +1,53 @@
-import { app, remote, ipcMain } from 'electron';
-import {blocksDir} from "./constants";
+import {app, remote, ipcMain, ipcMain as ipc, IpcMainEvent} from 'electron';
+
+import {api, blocksDir} from "./constants";
+import {BlockStorageType} from "../lib/GraphLibrary/types/BlockStorage";
 
 const path = require('path');
 const fs = require('fs');
 
 export default class electronAPI {
-    private readonly userDataPath: string;
-
-    constructor() {
-        try {
-            this.userDataPath = (app || remote.app).getPath('userData');
-        } catch (e) {
-            this.userDataPath = "";
-        }
-    }
-
     public getFileDataPath(objPath?: string): string {
+        let userDataPath: string;
+
+        try {
+            userDataPath = (app || remote.app).getPath('userData');
+        } catch (e) {
+            throw "can not get app or remote"
+        }
+
         objPath = objPath ?? "";
-        return path.join(this.userDataPath, ...objPath.split('/'));
+        return path.join(userDataPath, ...objPath.split('/'));
     }
 
     public setupIPC(): void {
-        ipcMain.on('get-blocks', (event, any) => {
-            // fetch blocks
-            fs.readdir(blocksDir, (err: any, files: string | any[]) => {
-                event.reply('block-update', {numFiles: files.length})
-            });
+        ipc.on("block_update", (event: IpcMainEvent) => {
+            fs.readdir(api.getFileDataPath("blocks"), (err: any, files: string[]) => {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+
+                const blocks: BlockStorageType[] = [];
+                files.forEach(async (file) => {
+                    if (file.split(".").pop() === "json") {
+                        const pathStr = api.getFileDataPath(`blocks/${file}`);
+                        const data = fs.readFileSync(pathStr, {encoding:'utf8', flag:'r'});
+                        const jsonData: BlockStorageType = JSON.parse(data);
+                        const p = path.join(path.dirname(pathStr), `${jsonData.name}.jpg`);
+                        console.log(p);
+                        if (fs.existsSync(p)) {
+                            jsonData.imgFile = p;
+                        } else {
+                            jsonData.imgFile = "https://picsum.photos/75"
+                        }
+
+                        console.log(jsonData.imgFile);
+                        blocks.push(jsonData);
+                    }
+                });
+                event.sender.send('block_update', blocks);
+            })
         });
     }
 }
