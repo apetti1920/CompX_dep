@@ -9,3 +9,7 @@ export type DataType = {
     type: string[],
     pictureFile: string
 }
+
+export const DnDItemType = {
+    LIBRARY_CARD: 'LIBRARY_CARD'
+}

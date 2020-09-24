@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-// eslint-disable-next-line import/no-unresolved
-import CSS from "csstype";
 import './App.css';
 
 import Split from "./components/ComponentUtils/Split";
@@ -13,46 +11,46 @@ import Canvas from "./components/Canvas/Canvas";
 import BrowserWindow from "./components/BrowserWindow/BrowserWindow";
 import {setupIPCListeners, removeIPCListeners, getBlockUpdate} from "./helpers/ipcRenderFunctions";
 
-const pageWrapStyle: CSS.Properties = {
+const pageWrapStyle: React.CSSProperties = {
   width: "calc(100vw - 2 * var(--border-width)",
   height: "calc(100vh - 2 * var(--border-width)",
   float: "left",
   border: "var(--border-width) solid var(--custom-accent-color)"
 };
 
-const breadcrumbToolbarWrapStyle: CSS.Properties = {
+const breadcrumbToolbarWrapStyle: React.CSSProperties = {
   height: "var(--breadcrumb-toolbar-height)",
   borderBottom: "var(--border-width) solid var(--custom-accent-color)"
 };
 
-const mainContainerWrapStyle: CSS.Properties = {
+const mainContainerWrapStyle: React.CSSProperties = {
   height: 'calc(100vh - var(--breadcrumb-toolbar-height))',
   width: "100%"
 };
 
-const smallSidebarWrapStyle: CSS.Properties = {
+const smallSidebarWrapStyle: React.CSSProperties = {
   height: "100%",
   width: "var(--sidebar-width)",
   borderRight: "var(--border-width) solid var(--custom-accent-color)",
   float: "left"
 };
 
-const workWindowWrapStyle: CSS.Properties = {
+const workWindowWrapStyle: React.CSSProperties = {
   height: "100%",
   marginLeft: "var(--sidebar-width)"
 };
 
-const editorWrapStyle: CSS.Properties = {
+const editorWrapStyle: React.CSSProperties = {
   height: "75%"
 };
 
-const terminalWrapStyle: CSS.Properties = {
+const terminalWrapStyle: React.CSSProperties = {
   height: "25%",
   width: "100%",
   borderTop: "var(--border-width) solid var(--custom-accent-color)"
 };
 
-const canvasWrapStyle: CSS.Properties = {
+const canvasWrapStyle: React.CSSProperties = {
   height: "100%",
   marginLeft: "var(--browser-bar-width)"
 };

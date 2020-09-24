@@ -11,6 +11,7 @@ import {bindActionCreators, Dispatch} from 'redux';
 import {MovedCanvasAction, ZoomedCanvasAction} from "../../store/actions";
 import {StateType} from "../../store/types/stateTypes";
 import {CanvasType} from "../../store/types/canvasTypes";
+import {MouseCoordinatePosition} from "./MouseCoordinatePosition";
 
 interface StateProps {
     canvasZoom: number,
@@ -26,6 +27,7 @@ type Props = StateProps & DispatchProps
 
 type State = {
     isMouseDown: boolean
+    mouseWorldCoordinates: PointType
 };
 
 //TODO: Fix ruler componet
@@ -40,23 +42,19 @@ class Canvas extends React.Component<Props, State> {
         this.gridRef = React.createRef()
 
         this.state = {
-            isMouseDown: false
+            isMouseDown: false,
+            mouseWorldCoordinates: {x: null, y: null}
         }
     }
 
     screenToWorld(point: PointType): PointType {
         const gX1 = (point.x - this.props.canvasTranslation.x) / this.props.canvasZoom;
-        const gY1 = (point.y - this.props.canvasTranslation.y) / this.props.canvasZoom;
+        const gY1 = -(point.y - this.props.canvasTranslation.y) / this.props.canvasZoom;
         return {x: gX1, y: gY1}
     }
 
-    dropBlock = (e: any) => {
-        e.preventDefault();
-        const cardId = e.dataTransfer.getData('card_id');
-    }
-
     handleScroll = (e: React.WheelEvent) => {
-        const mouseWorld = this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY})
+        const mouseWorld = this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
 
         // noinspection JSSuspiciousNameCombination
         let tempScroll = this.props.canvasZoom + linearInterp(e.deltaY, -100, 100, -0.2, 0.2);
@@ -79,6 +77,8 @@ class Canvas extends React.Component<Props, State> {
     onMouseDown = (e: React.MouseEvent) => {
         const tempState = {...this.state};
         tempState.isMouseDown = true;
+        tempState.mouseWorldCoordinates =
+            this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
         this.setState(tempState);
         e.stopPropagation();
         e.preventDefault();
@@ -109,6 +109,8 @@ class Canvas extends React.Component<Props, State> {
 
         return (
             <div style={{display: "flex", flexDirection: "column", width: "100%", height: "100%"}}>
+                <MouseCoordinatePosition isDragging={this.state.isMouseDown}
+                                         mousePosition={this.state.mouseWorldCoordinates} />
                 <div style={{display: "flex", flexDirection: "row", width: "100%", height: "var(--sidebar-width)"}}>
                     <div style={{width: "var(--sidebar-width)", height: "var(--sidebar-width)",
                         borderRight: "calc(var(--border-width)/2) solid var(--custom-accent-color)",
