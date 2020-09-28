@@ -28,6 +28,7 @@ type Props = StateProps & DispatchProps
 type State = {
     isMouseDown: boolean
     mouseWorldCoordinates: PointType
+    zoomLevel: number
 };
 
 //TODO: Fix ruler componet
@@ -43,13 +44,14 @@ class Canvas extends React.Component<Props, State> {
 
         this.state = {
             isMouseDown: false,
-            mouseWorldCoordinates: {x: null, y: null}
+            mouseWorldCoordinates: {x: null, y: null},
+            zoomLevel: 1
         }
     }
 
     screenToWorld(point: PointType): PointType {
         const gX1 = (point.x - this.props.canvasTranslation.x) / this.props.canvasZoom;
-        const gY1 = -(point.y - this.props.canvasTranslation.y) / this.props.canvasZoom;
+        const gY1 = (point.y - this.props.canvasTranslation.y) / this.props.canvasZoom;
         return {x: gX1, y: gY1}
     }
 
@@ -71,6 +73,11 @@ class Canvas extends React.Component<Props, State> {
         this.props.onZoom(tempCanvas.zoom)
         this.props.onTranslate(tempCanvas.translation)
 
+        const tempState = {...this.state};
+        tempState.zoomLevel = tempCanvas.zoom;
+        tempState.mouseWorldCoordinates = tempCanvas.translation
+        this.setState(tempState);
+
         e.stopPropagation();
     };
 
@@ -86,10 +93,10 @@ class Canvas extends React.Component<Props, State> {
 
     onMouseMove = (e: React.MouseEvent) => {
         if (this.state.isMouseDown) {
-            const tempState = {...this.props};
-            tempState.canvasTranslation = {x: tempState.canvasTranslation.x + e.movementX,
-                y: tempState.canvasTranslation.y + e.movementY}
-            this.props.onTranslate(tempState.canvasTranslation)
+            const tempProps = {...this.props};
+            tempProps.canvasTranslation = {x: tempProps.canvasTranslation.x + e.movementX,
+                y: tempProps.canvasTranslation.y + e.movementY}
+            this.props.onTranslate(tempProps.canvasTranslation)
         }
 
         e.stopPropagation()
@@ -110,7 +117,7 @@ class Canvas extends React.Component<Props, State> {
         return (
             <div style={{display: "flex", flexDirection: "column", width: "100%", height: "100%"}}>
                 <MouseCoordinatePosition isDragging={this.state.isMouseDown}
-                                         mousePosition={this.state.mouseWorldCoordinates} />
+                                         mousePosition={this.state.mouseWorldCoordinates} zoomLevel={this.state.zoomLevel}/>
                 <div style={{display: "flex", flexDirection: "row", width: "100%", height: "var(--sidebar-width)"}}>
                     <div style={{width: "var(--sidebar-width)", height: "var(--sidebar-width)",
                         borderRight: "calc(var(--border-width)/2) solid var(--custom-accent-color)",

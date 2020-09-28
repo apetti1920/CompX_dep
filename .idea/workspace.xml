@@ -11,15 +11,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7953432-bfcc-4650-a923-43f7ea8791ce" name="Default Changelist" comment="Initial Commit">
-      <change afterPath="$PROJECT_DIR$/src/app/components/Canvas/MouseCoordinatePosition.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/FunctionBrowserCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/FunctionBrowserCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/ui_design.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/ui_design.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/Canvas.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/Canvas.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/types/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/MouseCoordinatePosition.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/MouseCoordinatePosition.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,6 +140,8 @@
       <workItem from="1600445066251" duration="1407000" />
       <workItem from="1600906838049" duration="55000" />
       <workItem from="1600906928368" duration="3461000" />
+      <workItem from="1600916239837" duration="90000" />
+      <workItem from="1601251333772" duration="3746000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1599160068442</created>
@@ -197,22 +194,22 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="586" y="398" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1680.1027@0.23.1680.1027" timestamp="1600129062940" />
-    <state width="1638" height="280" key="GridCell.Tab.0.bottom" timestamp="1600916060996">
+    <state width="1638" height="280" key="GridCell.Tab.0.bottom" timestamp="1601255381065">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1600916060996" />
-    <state width="1638" height="280" key="GridCell.Tab.0.center" timestamp="1600916060996">
+    <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1601255381065" />
+    <state width="1638" height="280" key="GridCell.Tab.0.center" timestamp="1601255381064">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1600916060996" />
-    <state width="1638" height="280" key="GridCell.Tab.0.left" timestamp="1600916060996">
+    <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1601255381064" />
+    <state width="1638" height="280" key="GridCell.Tab.0.left" timestamp="1601255381063">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1600916060996" />
-    <state width="1638" height="280" key="GridCell.Tab.0.right" timestamp="1600916060996">
+    <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1601255381063" />
+    <state width="1638" height="280" key="GridCell.Tab.0.right" timestamp="1601255381064">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1600916060996" />
+    <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1601255381064" />
     <state x="341" y="175" key="SettingsEditor" timestamp="1598987907494">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
