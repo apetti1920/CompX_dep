@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/CompX.iml" filepath="$PROJECT_DIR$/.idea/CompX.iml" />
+      <module fileurl="file://$USER_HOME$/Library/Application Support/compx/blocks/.idea/blocks.iml" filepath="$USER_HOME$/Library/Application Support/compx/blocks/.idea/blocks.iml" />
     </modules>
   </component>
 </project>

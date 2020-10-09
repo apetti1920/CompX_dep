@@ -8,26 +8,35 @@ import Ruler from "./Ruler";
 import { ref } from "framework-utils";
 import {connect} from "react-redux";
 import {bindActionCreators, Dispatch} from 'redux';
-import {MovedCanvasAction, ZoomedCanvasAction} from "../../store/actions";
+import {MovedCanvasAction, UpdatedGraphAction, ZoomedCanvasAction} from "../../store/actions";
 import {StateType} from "../../store/types/stateTypes";
 import {CanvasType} from "../../store/types/canvasTypes";
 import {MouseCoordinatePosition} from "./MouseCoordinatePosition";
+import {BlockStorageType} from "../../../lib/GraphLibrary/types/BlockStorage";
+import {BlockVisualType} from "../../../types";
+import { v4 as uuidv4 } from 'uuid';
+import {GraphVisualType} from "../../store/types/graphTypes";
+import {BlockLayer} from "./Block Layer";
 
 interface StateProps {
     canvasZoom: number,
     canvasTranslation: PointType
+    graph: GraphVisualType
 }
 
 interface DispatchProps {
     onZoom: (newZoom: number) => void,
     onTranslate: (newTranslation: PointType) => void
+    onUpdatedGraph: (newGraph: GraphVisualType) => void
 }
 
 type Props = StateProps & DispatchProps
 
 type State = {
-    isMouseDown: boolean
-    mouseWorldCoordinates: PointType
+    isMouseDown: boolean,
+    isDraggingCanvas: boolean,
+    isDraggingBlockFromBrowser: boolean,
+    mouseWorldCoordinates: PointType,
     zoomLevel: number
 };
 
@@ -44,6 +53,8 @@ class Canvas extends React.Component<Props, State> {
 
         this.state = {
             isMouseDown: false,
+            isDraggingCanvas: false,
+            isDraggingBlockFromBrowser: false,
             mouseWorldCoordinates: {x: null, y: null},
             zoomLevel: 1
         }
@@ -84,6 +95,7 @@ class Canvas extends React.Component<Props, State> {
     onMouseDown = (e: React.MouseEvent) => {
         const tempState = {...this.state};
         tempState.isMouseDown = true;
+        tempState.isDraggingCanvas = true;
         tempState.mouseWorldCoordinates =
             this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
         this.setState(tempState);
@@ -92,7 +104,7 @@ class Canvas extends React.Component<Props, State> {
     };
 
     onMouseMove = (e: React.MouseEvent) => {
-        if (this.state.isMouseDown) {
+        if (this.state.isMouseDown && this.state.isDraggingCanvas) {
             const tempProps = {...this.props};
             tempProps.canvasTranslation = {x: tempProps.canvasTranslation.x + e.movementX,
                 y: tempProps.canvasTranslation.y + e.movementY}
@@ -106,18 +118,54 @@ class Canvas extends React.Component<Props, State> {
     onMouseUp = (e: React.MouseEvent) => {
         const tempState = {...this.state};
         tempState.isMouseDown = false;
+        tempState.isDraggingCanvas;
         this.setState(tempState);
         e.stopPropagation()
         e.preventDefault()
     };
 
+    onDragEnterHandler = (e: React.DragEvent<HTMLDivElement>): void => {
+        e.preventDefault();
+        e.stopPropagation();
+        // mouse down
+    }
+
+    onDragOverHandler = (e: React.DragEvent<HTMLDivElement>): void => {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    onDragLeaveHandler = (e: React.DragEvent<HTMLDivElement>): void => {
+        e.preventDefault();
+        e.stopPropagation();
+        // mouse up
+    }
+
+    onDropHandler = (e: React.DragEvent<HTMLDivElement>): void => {
+        e.preventDefault();
+        e.stopPropagation();
+        const cardID = e.dataTransfer.getData("cardData");
+        const card: BlockStorageType = JSON.parse(cardID);
+        const worldPos = this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
+        const block: BlockVisualType = {id: uuidv4(), position: {x: worldPos.x - 10, y: worldPos.y - 10}, rotation: "0",
+            size: {x: 20, y: 20}, blockData: card};
+        const tempGraph = {...this.props.graph};
+        tempGraph.blocks.push(block);
+        this.props.onUpdatedGraph(tempGraph);
+        this.forceUpdate();
+        console.log(block);
+    }
+
+    componentDidMount() {
+        // Todo: Get it to be more center
+        this.centerGrid();
+    }
+
     render() {
-        const cursor = this.state.isMouseDown ? 'crosshair' : 'pointer';
+        const cursor = (this.state.isMouseDown && this.state.isDraggingCanvas) ? "grabbing" : "grab";
 
         return (
             <div style={{display: "flex", flexDirection: "column", width: "100%", height: "100%"}}>
-                <MouseCoordinatePosition isDragging={this.state.isMouseDown}
-                                         mousePosition={this.state.mouseWorldCoordinates} zoomLevel={this.state.zoomLevel}/>
                 <div style={{display: "flex", flexDirection: "row", width: "100%", height: "var(--sidebar-width)"}}>
                     <div style={{width: "var(--sidebar-width)", height: "var(--sidebar-width)",
                         borderRight: "calc(var(--border-width)/2) solid var(--custom-accent-color)",
@@ -138,9 +186,14 @@ class Canvas extends React.Component<Props, State> {
                         borderLeft: "calc(var(--border-width)/2) solid var(--custom-accent-color)",
                         borderTop: "calc(var(--border-width)/2) solid var(--custom-accent-color)"}} onWheel={this.handleScroll}
                          onMouseDown={this.onMouseDown}
-                         onMouseMove={this.onMouseMove} onMouseUp={this.onMouseUp} ref={this.gridRef}>
+                         onMouseMove={this.onMouseMove} onMouseUp={this.onMouseUp} ref={this.gridRef}
+                         onDragEnter={this.onDragEnterHandler} onDragOver={this.onDragOverHandler}
+                         onDragLeave={this.onDragLeaveHandler} onDrop={this.onDropHandler}>
                         <Grid minorTickSpacing={8} majorTickSpacing={80} zoom={this.props.canvasZoom}
                               translate={this.props.canvasTranslation}/>
+                        <BlockLayer graph={this.props.graph} translate={this.props.canvasTranslation} zoom={this.props.canvasZoom}/>
+                        <MouseCoordinatePosition isDragging={this.state.isMouseDown}
+                                                 mousePosition={this.state.mouseWorldCoordinates} zoomLevel={this.state.zoomLevel}/>
                     </div>
                 </div>
             </div>
@@ -160,15 +213,18 @@ class Canvas extends React.Component<Props, State> {
 function mapStateToProps(state: StateType): StateProps {
     return {
         canvasZoom: state.canvas.zoom,
-        canvasTranslation: state.canvas.translation
+        canvasTranslation: state.canvas.translation,
+        graph: state.graph
     };
 }
 
 function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
     return bindActionCreators({
         onZoom: ZoomedCanvasAction,
-        onTranslate: MovedCanvasAction
+        onTranslate: MovedCanvasAction,
+        onUpdatedGraph: UpdatedGraphAction
     }, dispatch)
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Canvas)

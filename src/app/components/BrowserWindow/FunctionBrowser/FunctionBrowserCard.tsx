@@ -1,30 +1,7 @@
 // @flow
 import * as React from 'react';
-import {DragSource, DragSourceCollector} from "react-dnd";
 
 import {BlockStorageType} from "../../../../lib/GraphLibrary/types/BlockStorage";
-
-const cardSource = {
-    beginDrag(props: { item: any; }) {
-        console.log("props type", typeof props);
-        return props.item;
-    },
-    endDrag(props: any, monitor: any, component: any) {
-        console.log("props type", typeof props);
-        console.log("monitor type", typeof monitor);
-        console.log("component type", typeof component);
-        return props.handleDrop(props.item.id)
-    }
-}
-
-function collect(connect: any, monitor: any) {
-    return {
-        connectDragSource: connect.dragSource(),
-        connectDragPreview: connect.dragPreview(),
-        isDragging: monitor.isDragging()
-    }
-}
-
 
 type Props = {
     data: BlockStorageType
@@ -41,11 +18,15 @@ class FunctionBrowserCard extends React.Component<Props, State> {
         // TODO: must update image (if from local use ipc otherwise use src)
         this.state = {imgPath: this.props.data.imgFile};
     }
+    onDragStartHandler = (e: React.DragEvent<HTMLDivElement>): void => {
+        // Should handle the transfer of the data
+        const target = e.target;
+        e.dataTransfer.setData('cardData', JSON.stringify(this.props.data));
+    }
 
-
-    render() {
+    render(): React.ReactNode {
         return (
-        <div className="card">
+        <div className="card" draggable="true" onDragStart={this.onDragStartHandler}>
                 <div style={{
                     width: "40px", height: "50px", display: "flex", flexFlow: "column nowrap", margin: "10px",
                     border: "1px solid #ddd", borderRadius: "4px", backgroundColor: "var(--custom-accent-color)"

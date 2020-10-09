@@ -7,6 +7,7 @@ export type PortType = {
 }
 
 export type BlockStorageType = {
+    id: string,
     version: Version,
     imgFile: string
     name: string,

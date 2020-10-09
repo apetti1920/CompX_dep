@@ -4,10 +4,14 @@ import {
     MovedCanvasActionType,
     MovedSplitPaneActionType,
     UpdatedBlockLibraryActionType,
-    ZoomedCanvasActionType
+    ZoomedCanvasActionType,
+    UpdatedGraphActionType
+
 } from "./actionTypes";
 import {PointType} from "../../components/types";
 import {BlockStorageType} from "../../../lib/GraphLibrary/types/BlockStorage";
+import {BlockVisualType, EdgeVisualType} from "../../../types";
+import {GraphVisualType} from "../types/graphTypes";
 
 export const ClickedSidebarButtonAction = (button: SidebarButtonType): ActionType => {
     return {
@@ -41,5 +45,12 @@ export const UpdatedBlockLibraryAction = (newBlocks: BlockStorageType[]): Action
     return {
         type: UpdatedBlockLibraryActionType,
         payload: {newBlocks: newBlocks}
+    }
+}
+
+export const UpdatedGraphAction = (newGraph: GraphVisualType): ActionType => {
+    return {
+        type: UpdatedGraphActionType,
+        payload: {newGraph: newGraph}
     }
 }

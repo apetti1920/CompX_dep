@@ -2,6 +2,8 @@ import {ActiveSidebarDictionary, SidebarButtonType} from "./sidebarTypes";
 import {SplitSizeDictionaryType} from "./otherTypes";
 import {CanvasType} from "./canvasTypes";
 import {BlockStorageType} from "../../../lib/GraphLibrary/types/BlockStorage";
+import {BlockVisualType, EdgeVisualType} from "../../../types";
+import {GraphVisualType} from "./graphTypes";
 
 export type StateType = {
     sidebarButtons: SidebarButtonType[],
@@ -9,6 +11,7 @@ export type StateType = {
     splitSizes: SplitSizeDictionaryType,
     canvas: CanvasType,
     blockLibrary: BlockStorageType[]
+    graph: GraphVisualType
 }
 
 export const defaultState: StateType = {
@@ -27,5 +30,6 @@ export const defaultState: StateType = {
         zoom: 1,
         translation: {x: 0, y: 0}
     },
-    blockLibrary: []
+    blockLibrary: [],
+    graph: {blocks: [], edges: []}
 }
