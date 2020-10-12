@@ -16,7 +16,7 @@ import {BlockStorageType} from "../../../lib/GraphLibrary/types/BlockStorage";
 import {BlockVisualType} from "../../../types";
 import { v4 as uuidv4 } from 'uuid';
 import {GraphVisualType} from "../../store/types/graphTypes";
-import {BlockLayer} from "./Block Layer";
+import {BlockLayer} from "./BlockLayer/Block Layer";
 
 interface StateProps {
     canvasZoom: number,
@@ -37,7 +37,9 @@ type State = {
     isDraggingCanvas: boolean,
     isDraggingBlockFromBrowser: boolean,
     mouseWorldCoordinates: PointType,
-    zoomLevel: number
+    zoomLevel: number,
+    selectedID?: string,
+    selectedFlag: boolean
 };
 
 //TODO: Fix ruler componet
@@ -56,7 +58,9 @@ class Canvas extends React.Component<Props, State> {
             isDraggingCanvas: false,
             isDraggingBlockFromBrowser: false,
             mouseWorldCoordinates: {x: null, y: null},
-            zoomLevel: 1
+            zoomLevel: 1,
+            selectedID: undefined,
+            selectedFlag: false
         }
     }
 
@@ -98,6 +102,7 @@ class Canvas extends React.Component<Props, State> {
         tempState.isDraggingCanvas = true;
         tempState.mouseWorldCoordinates =
             this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
+        tempState.selectedFlag = true;
         this.setState(tempState);
         e.stopPropagation();
         e.preventDefault();
@@ -109,6 +114,9 @@ class Canvas extends React.Component<Props, State> {
             tempProps.canvasTranslation = {x: tempProps.canvasTranslation.x + e.movementX,
                 y: tempProps.canvasTranslation.y + e.movementY}
             this.props.onTranslate(tempProps.canvasTranslation)
+            const tempState = {...this.state};
+            tempState.selectedFlag = false;
+            this.setState(tempState);
         }
 
         e.stopPropagation()
@@ -119,6 +127,10 @@ class Canvas extends React.Component<Props, State> {
         const tempState = {...this.state};
         tempState.isMouseDown = false;
         tempState.isDraggingCanvas;
+        if (tempState.selectedFlag) {
+            tempState.selectedID = undefined
+            tempState.selectedFlag = false;
+        }
         this.setState(tempState);
         e.stopPropagation()
         e.preventDefault()
@@ -141,14 +153,24 @@ class Canvas extends React.Component<Props, State> {
         // mouse up
     }
 
+    onBlockSelected = (block: BlockVisualType): void => {
+        const tempState = {...this.state};
+        console.log("clicked", tempState.selectedID, block.id);
+        if (block.id === tempState.selectedID) { tempState.selectedID = undefined; }
+        else { tempState.selectedID = block.id; }
+        this.setState(tempState);
+    }
+
     onDropHandler = (e: React.DragEvent<HTMLDivElement>): void => {
         e.preventDefault();
         e.stopPropagation();
         const cardID = e.dataTransfer.getData("cardData");
         const card: BlockStorageType = JSON.parse(cardID);
         const worldPos = this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
-        const block: BlockVisualType = {id: uuidv4(), position: {x: worldPos.x - 10, y: worldPos.y - 10}, rotation: "0",
-            size: {x: 20, y: 20}, blockData: card};
+        const block: BlockVisualType = {id: uuidv4(), position: {x: worldPos.x, y: worldPos.y}, rotation: "0",
+            size: {x: 40, y: 30}, blockData: card};
+        block.position.x -= block.size.x / 2;
+        block.position.y -= block.size.y / 2;
         const tempGraph = {...this.props.graph};
         tempGraph.blocks.push(block);
         this.props.onUpdatedGraph(tempGraph);
@@ -184,16 +206,20 @@ class Canvas extends React.Component<Props, State> {
                     </div>
                     <div style={{height: "100%", cursor: cursor, flex: 1,
                         borderLeft: "calc(var(--border-width)/2) solid var(--custom-accent-color)",
-                        borderTop: "calc(var(--border-width)/2) solid var(--custom-accent-color)"}} onWheel={this.handleScroll}
+                        borderTop: "calc(var(--border-width)/2) solid var(--custom-accent-color)"}}
+                         onWheel={this.handleScroll}
                          onMouseDown={this.onMouseDown}
                          onMouseMove={this.onMouseMove} onMouseUp={this.onMouseUp} ref={this.gridRef}
                          onDragEnter={this.onDragEnterHandler} onDragOver={this.onDragOverHandler}
                          onDragLeave={this.onDragLeaveHandler} onDrop={this.onDropHandler}>
                         <Grid minorTickSpacing={8} majorTickSpacing={80} zoom={this.props.canvasZoom}
                               translate={this.props.canvasTranslation}/>
-                        <BlockLayer graph={this.props.graph} translate={this.props.canvasTranslation} zoom={this.props.canvasZoom}/>
+                        <BlockLayer graph={this.props.graph} translate={this.props.canvasTranslation}
+                                    zoom={this.props.canvasZoom} selectedID={this.state.selectedID}
+                                    onBlockSelected={this.onBlockSelected}/>
                         <MouseCoordinatePosition isDragging={this.state.isMouseDown}
-                                                 mousePosition={this.state.mouseWorldCoordinates} zoomLevel={this.state.zoomLevel}/>
+                                                 mousePosition={this.state.mouseWorldCoordinates}
+                                                 zoomLevel={this.state.zoomLevel}/>
                     </div>
                 </div>
             </div>
