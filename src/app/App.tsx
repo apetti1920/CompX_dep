@@ -10,6 +10,7 @@ import {ActiveSidebarDictionary, SplitSizeDictionaryType} from "./store/types";
 import Canvas from "./components/Canvas/Canvas";
 import BrowserWindow from "./components/BrowserWindow/BrowserWindow";
 import {setupIPCListeners, removeIPCListeners, getBlockUpdate} from "./helpers/ipcRenderFunctions";
+import {Terminal} from "./components/Terminal/Terminal";
 
 const pageWrapStyle: React.CSSProperties = {
   width: "calc(100vw - 2 * var(--border-width)",
@@ -107,7 +108,7 @@ class App extends Component<Props, never> {
                      firstElementMin="350px">
                 {{
                   element0: (functional),
-                  element1: (<div>Terminal</div>)
+                  element1: (<Terminal/>)
                 }}
               </Split>
             </div>

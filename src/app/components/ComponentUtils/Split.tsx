@@ -163,7 +163,7 @@ class Split extends Component<Props, State> {
 
         const tempSize0 = (this.state !== null && this.state.element0Size !== null) ?
             this.state.element0Size.toString() + "px" : "50%";
-        const element0Style: CSS.Properties = this.props.direction === "column" ? {height: tempSize0} : {width: tempSize0, height: "100%"}
+        const element0Style: CSS.Properties = this.props.direction === "column" ? {height: tempSize0} : {width: tempSize0}
 
         const splitStyle: CSS.Properties = {flexDirection: this.props.direction};
 

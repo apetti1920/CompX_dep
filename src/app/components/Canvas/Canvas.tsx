@@ -33,13 +33,12 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps
 
 type State = {
-    isMouseDown: boolean,
-    isDraggingCanvas: boolean,
+    mouseDownOnGrid: boolean,
+    mouseDownOnBlock: boolean,
     isDraggingBlockFromBrowser: boolean,
     mouseWorldCoordinates: PointType,
     zoomLevel: number,
-    selectedID?: string,
-    selectedFlag: boolean
+    selectedID?: string
 };
 
 //TODO: Fix ruler componet
@@ -54,13 +53,12 @@ class Canvas extends React.Component<Props, State> {
         this.gridRef = React.createRef()
 
         this.state = {
-            isMouseDown: false,
-            isDraggingCanvas: false,
+            mouseDownOnGrid: false,
+            mouseDownOnBlock: false,
             isDraggingBlockFromBrowser: false,
             mouseWorldCoordinates: {x: null, y: null},
             zoomLevel: 1,
-            selectedID: undefined,
-            selectedFlag: false
+            selectedID: undefined
         }
     }
 
@@ -96,42 +94,59 @@ class Canvas extends React.Component<Props, State> {
         e.stopPropagation();
     };
 
-    onMouseDown = (e: React.MouseEvent) => {
+    onMouseDownHandlerGrid = (e: React.MouseEvent) => {
         const tempState = {...this.state};
-        tempState.isMouseDown = true;
-        tempState.isDraggingCanvas = true;
+        tempState.mouseDownOnGrid = true;
         tempState.mouseWorldCoordinates =
             this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
-        tempState.selectedFlag = true;
         this.setState(tempState);
         e.stopPropagation();
         e.preventDefault();
     };
 
-    onMouseMove = (e: React.MouseEvent) => {
-        if (this.state.isMouseDown && this.state.isDraggingCanvas) {
-            const tempProps = {...this.props};
-            tempProps.canvasTranslation = {x: tempProps.canvasTranslation.x + e.movementX,
-                y: tempProps.canvasTranslation.y + e.movementY}
-            this.props.onTranslate(tempProps.canvasTranslation)
-            const tempState = {...this.state};
-            tempState.selectedFlag = false;
-            this.setState(tempState);
-        }
-
+    onMouseUpHandlerGrid = (e: React.MouseEvent) => {
+        const tempState = {...this.state};
+        tempState.mouseDownOnGrid = false;
+        this.setState(tempState);
         e.stopPropagation()
         e.preventDefault()
     };
 
-    onMouseUp = (e: React.MouseEvent) => {
+    onMouseDownHandlerBlock = (e: React.MouseEvent, blockID: string): void => {
         const tempState = {...this.state};
-        tempState.isMouseDown = false;
-        tempState.isDraggingCanvas;
-        if (tempState.selectedFlag) {
-            tempState.selectedID = undefined
-            tempState.selectedFlag = false;
-        }
+        tempState.mouseWorldCoordinates =
+            this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
+        tempState.mouseDownOnBlock = true;
+        tempState.selectedID = blockID;
         this.setState(tempState);
+    };
+
+    onMouseUpHandlerBlock = (e: React.MouseEvent): void => {
+        const tempState = {...this.state};
+        tempState.mouseDownOnBlock = false;
+        this.setState(tempState);
+    };
+
+    onMouseMove = (e: React.MouseEvent) => {
+        if (this.state.mouseDownOnGrid) {
+            const tempProps = {...this.props};
+            tempProps.canvasTranslation = {x: tempProps.canvasTranslation.x + e.movementX,
+                y: tempProps.canvasTranslation.y + e.movementY}
+            this.props.onTranslate(tempProps.canvasTranslation)
+        } else if ( this.state.mouseDownOnBlock) {
+            const tempProps = {...this.props};
+            const tempState = {...this.state};
+            tempState.mouseWorldCoordinates =
+                this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
+            this.setState(tempState);
+            const tempBlockIndex = tempProps.graph.blocks.indexOf(tempProps.graph.blocks
+                .find(block => block.id === this.state.selectedID));
+            tempProps.graph.blocks[tempBlockIndex].position =
+                {x: tempProps.graph.blocks[tempBlockIndex].position.x + e.movementX,
+                    y: tempProps.graph.blocks[tempBlockIndex].position.y + e.movementY};
+            this.props.onUpdatedGraph(tempProps.graph);
+        }
+
         e.stopPropagation()
         e.preventDefault()
     };
@@ -153,11 +168,17 @@ class Canvas extends React.Component<Props, State> {
         // mouse up
     }
 
-    onBlockSelected = (block: BlockVisualType): void => {
+    onGridClickHandler = (e: React.MouseEvent): void => {
         const tempState = {...this.state};
-        console.log("clicked", tempState.selectedID, block.id);
-        if (block.id === tempState.selectedID) { tempState.selectedID = undefined; }
-        else { tempState.selectedID = block.id; }
+        tempState.selectedID = undefined;
+        this.setState(tempState);
+    }
+
+    onBlockClickHandler = (e: React.MouseEvent, blockID: string): void => {
+        // TODO: Get blocks to stay selected
+        const tempState = {...this.state};
+        if (blockID === tempState.selectedID) { tempState.selectedID = undefined; }
+        else { tempState.selectedID = blockID; }
         this.setState(tempState);
     }
 
@@ -184,7 +205,7 @@ class Canvas extends React.Component<Props, State> {
     }
 
     render() {
-        const cursor = (this.state.isMouseDown && this.state.isDraggingCanvas) ? "grabbing" : "grab";
+        const cursor = (this.state.mouseDownOnGrid) ? "grabbing" : "grab";
 
         return (
             <div style={{display: "flex", flexDirection: "column", width: "100%", height: "100%"}}>
@@ -204,20 +225,22 @@ class Canvas extends React.Component<Props, State> {
                         <Ruler id={1} ref={ref(this, "rulerLeft")} minorTickSpacing={8} majorTickSpacing={80}
                                type="vertical" zoom={this.props.canvasZoom} translate={this.props.canvasTranslation}/>
                     </div>
-                    <div style={{height: "100%", cursor: cursor, flex: 1,
+                    <div style={{height: "100%", width: "100%", cursor: cursor, position: "relative", zIndex: 0,
                         borderLeft: "calc(var(--border-width)/2) solid var(--custom-accent-color)",
-                        borderTop: "calc(var(--border-width)/2) solid var(--custom-accent-color)"}}
+                        borderTop: "calc(var(--border-width)/2) solid var(--custom-accent-color)", pointerEvents: "none"}}
                          onWheel={this.handleScroll}
-                         onMouseDown={this.onMouseDown}
-                         onMouseMove={this.onMouseMove} onMouseUp={this.onMouseUp} ref={this.gridRef}
+                         onMouseMove={this.onMouseMove} ref={this.gridRef}
                          onDragEnter={this.onDragEnterHandler} onDragOver={this.onDragOverHandler}
                          onDragLeave={this.onDragLeaveHandler} onDrop={this.onDropHandler}>
                         <Grid minorTickSpacing={8} majorTickSpacing={80} zoom={this.props.canvasZoom}
-                              translate={this.props.canvasTranslation}/>
+                              translate={this.props.canvasTranslation} onMouseDown={this.onMouseDownHandlerGrid}
+                              onMouseUp={this.onMouseUpHandlerGrid} onClick={this.onGridClickHandler}/>
                         <BlockLayer graph={this.props.graph} translate={this.props.canvasTranslation}
                                     zoom={this.props.canvasZoom} selectedID={this.state.selectedID}
-                                    onBlockSelected={this.onBlockSelected}/>
-                        <MouseCoordinatePosition isDragging={this.state.isMouseDown}
+                                    onBlockClickHandler={this.onBlockClickHandler}
+                                    onMouseDownHandlerBlock={this.onMouseDownHandlerBlock}
+                                    onMouseUpHandlerBlock={this.onMouseUpHandlerBlock}/>
+                        <MouseCoordinatePosition isDragging={this.state.mouseDownOnGrid || this.state.mouseDownOnBlock}
                                                  mousePosition={this.state.mouseWorldCoordinates}
                                                  zoomLevel={this.state.zoomLevel}/>
                     </div>

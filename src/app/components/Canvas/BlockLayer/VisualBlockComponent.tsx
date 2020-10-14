@@ -8,7 +8,9 @@ type Props = {
     zoom: number,
     selected: boolean,
     block: BlockVisualType,
-    onBlockSelected: (block: BlockVisualType)=>void
+    onClick: (e: React.MouseEvent, blockID: string)=>void,
+    onMouseDown: (e: React.MouseEvent, blockID: string)=>void
+    onMouseUp: (e: React.MouseEvent)=>void
 };
 
 type State = never;
@@ -28,13 +30,16 @@ export class VisualBlockComponent extends React.Component<Props, State> {
         });
 
         return (
-            <g transform={`translate(${this.props.translate.x} ${this.props.translate.y})
-                                scale(${this.props.zoom.toString()} ${this.props.zoom.toString()})`}>
+            <g style={{pointerEvents: "auto"}}
+               transform={`translate(${this.props.translate.x} ${this.props.translate.y})
+                                scale(${this.props.zoom.toString()} ${this.props.zoom.toString()})`}
+               onMouseDown={(e)=>this.props.onMouseDown(e, this.props.block.id)}
+               onMouseUp={this.props.onMouseUp}>
                 <rect x={this.props.block.position.x} y={this.props.block.position.y}
                       width={this.props.block.size.x} height={this.props.block.size.y}
                       style={{cursor: "pointer", stroke: this.props.selected?"pink":"",
                           strokeWidth: this.props.selected?"1":"0", strokeOpacity: this.props.selected?0.9:0.0}}
-                      onClick={() => this.props.onBlockSelected(this.props.block)}/>
+                      onClick={(e) => this.props.onClick(e, this.props.block.id)}/>
                 {inputPortComponents}
                 {outputPortComponents}
             </g>

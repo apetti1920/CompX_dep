@@ -2,23 +2,29 @@
 import * as React from 'react';
 import {linearInterp} from "../../../helpers/utils";
 import {PointType} from "../types";
+import {BlockVisualType} from "../../../types";
 
 type Props = {
     majorTickSpacing: number
     minorTickSpacing: number
     translate: PointType
     zoom: number
+
+    onMouseDown: (e: React.MouseEvent)=>void,
+    onMouseUp: (e: React.MouseEvent)=>void,
+    onClick: (e: React.MouseEvent)=>void
 };
 
 export class Grid extends React.Component<Props, never> {
     render(): React.ReactElement {
         const opacity = linearInterp(this.props.zoom, 0, 100, 0.3, 0.75);
 
-        const smallGrid = `M ${this.props.minorTickSpacing} 0 L 0 0 0 ${this.props.minorTickSpacing}`
-        const grid = `M ${this.props.majorTickSpacing} 0 L 0 0 0 ${this.props.majorTickSpacing}`
+        const smallGrid = `M ${this.props.minorTickSpacing} 0 L 0 0 0 ${this.props.minorTickSpacing}`;
+        const grid = `M ${this.props.majorTickSpacing} 0 L 0 0 0 ${this.props.majorTickSpacing}`;
 
         return (
-            <div style={{width: "100%", height: "100%", position: "absolute", zIndex: 1}}>
+            <div style={{width: "100%", height: "100%", position: "absolute", zIndex: 1, pointerEvents: "auto"}}
+                 onMouseDown={this.props.onMouseDown} onMouseUp={this.props.onMouseUp} onClick={this.props.onClick}>
                 <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <pattern id="smallGrid" width={this.props.minorTickSpacing} height={this.props.minorTickSpacing}

@@ -1,4 +1,4 @@
-import {app, BrowserWindow, IpcMainEvent, ipcMain as ipc} from 'electron';
+import {app, BrowserWindow, IpcMainEvent, ipcMain as ipc, session} from 'electron';
 import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer';
 import isDev from 'electron-is-dev';
 const path = require('path')
@@ -29,6 +29,9 @@ const createWindow = (): void => {
 
     if (isDev) {
         app.whenReady().then(() => {
+            import('react-devtools-electron');
+            console.log("dirname", path.join(__dirname, 'react-devtools'));
+            //await session.defaultSession.loadExtension(path.join(__dirname, 'react-devtools'))
             mainWindow.webContents.openDevTools({mode: 'undocked'});
         });
     }
