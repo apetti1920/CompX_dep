@@ -127,6 +127,22 @@ class Canvas extends React.Component<Props, State> {
         this.setState(tempState);
     };
 
+    onBlockClickHandler = (e: React.MouseEvent, blockID: string): void => {
+        // TODO: Get blocks to stay selected
+        const tempState = {...this.state};
+        if (blockID === tempState.selectedID) { tempState.selectedID = undefined; }
+        else { tempState.selectedID = blockID; }
+        this.setState(tempState);
+    };
+
+    onMouseDownHandlerPort = (e: React.MouseEvent, blockID: string, portID: string) => {
+        // pass
+    }
+
+    onMouseUpHandlerPort = (e: React.MouseEvent, blockID: string, portID: string) => {
+        // pass
+    }
+
     onMouseMove = (e: React.MouseEvent) => {
         if (this.state.mouseDownOnGrid) {
             const tempProps = {...this.props};
@@ -136,15 +152,18 @@ class Canvas extends React.Component<Props, State> {
         } else if ( this.state.mouseDownOnBlock) {
             const tempProps = {...this.props};
             const tempState = {...this.state};
+
             tempState.mouseWorldCoordinates =
                 this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
-            this.setState(tempState);
+
             const tempBlockIndex = tempProps.graph.blocks.indexOf(tempProps.graph.blocks
                 .find(block => block.id === this.state.selectedID));
-            tempProps.graph.blocks[tempBlockIndex].position =
-                {x: tempProps.graph.blocks[tempBlockIndex].position.x + e.movementX,
-                    y: tempProps.graph.blocks[tempBlockIndex].position.y + e.movementY};
+            tempProps.graph.blocks[tempBlockIndex].position = {
+                x: tempState.mouseWorldCoordinates.x - tempProps.graph.blocks[tempBlockIndex].size.x / 2,
+                y: tempState.mouseWorldCoordinates.y - tempProps.graph.blocks[tempBlockIndex].size.y / 2
+            };
             this.props.onUpdatedGraph(tempProps.graph);
+            this.setState(tempState);
         }
 
         e.stopPropagation()
@@ -171,14 +190,6 @@ class Canvas extends React.Component<Props, State> {
     onGridClickHandler = (e: React.MouseEvent): void => {
         const tempState = {...this.state};
         tempState.selectedID = undefined;
-        this.setState(tempState);
-    }
-
-    onBlockClickHandler = (e: React.MouseEvent, blockID: string): void => {
-        // TODO: Get blocks to stay selected
-        const tempState = {...this.state};
-        if (blockID === tempState.selectedID) { tempState.selectedID = undefined; }
-        else { tempState.selectedID = blockID; }
         this.setState(tempState);
     }
 

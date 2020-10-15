@@ -29,9 +29,9 @@ export class BlockLayer extends React.Component<Props, State> {
                         return (
                             <VisualBlockComponent key={block.id} translate={this.props.translate} zoom={this.props.zoom}
                                                   selected={selected} block={block}
-                                                  onClick={this.props.onBlockClickHandler}
-                                                  onMouseDown={this.props.onMouseDownHandlerBlock}
-                                                  onMouseUp={this.props.onMouseUpHandlerBlock}/>
+                                                  onClickBlock={this.props.onBlockClickHandler}
+                                                  onMouseDownBlock={this.props.onMouseDownHandlerBlock}
+                                                  onMouseUpBlock={this.props.onMouseUpHandlerBlock}/>
                         )
                     })}
                 </svg>
