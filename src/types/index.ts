@@ -12,6 +12,8 @@ export type BlockVisualType = {
 export type EdgeVisualType = {
     id: string,
     outputBlockID: string,
+    outputPortID: string,
     inputBlockID: string,
+    inputPortID: string,
     type: "number"
 }

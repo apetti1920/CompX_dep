@@ -1,7 +1,6 @@
 import {Version} from './generic'
 
 export type PortType = {
-    id: string,
     name: string,
     type: string
 }

@@ -12,7 +12,9 @@ type Props = {
     selectedID?: string,
     onBlockClickHandler: (e: React.MouseEvent, blockID: string)=>void
     onMouseDownHandlerBlock: (e: React.MouseEvent, blockID: string)=>void
-    onMouseUpHandlerBlock: (e: React.MouseEvent)=>void
+    onMouseUpHandlerBlock: (e: React.MouseEvent)=>void,
+    onMouseDownHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void
+    onMouseUpHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void
 };
 
 type State = never;
@@ -31,7 +33,9 @@ export class BlockLayer extends React.Component<Props, State> {
                                                   selected={selected} block={block}
                                                   onClickBlock={this.props.onBlockClickHandler}
                                                   onMouseDownBlock={this.props.onMouseDownHandlerBlock}
-                                                  onMouseUpBlock={this.props.onMouseUpHandlerBlock}/>
+                                                  onMouseUpBlock={this.props.onMouseUpHandlerBlock}
+                                                  onMouseDownHandlerPort={this.props.onMouseDownHandlerPort}
+                                                  onMouseUpHandlerPort={this.props.onMouseUpHandlerPort}/>
                         )
                     })}
                 </svg>

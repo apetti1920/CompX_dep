@@ -35,6 +35,7 @@ type Props = StateProps & DispatchProps
 type State = {
     mouseDownOnGrid: boolean,
     mouseDownOnBlock: boolean,
+    mouseDownOnPort: boolean,
     isDraggingBlockFromBrowser: boolean,
     mouseWorldCoordinates: PointType,
     zoomLevel: number,
@@ -55,6 +56,7 @@ class Canvas extends React.Component<Props, State> {
         this.state = {
             mouseDownOnGrid: false,
             mouseDownOnBlock: false,
+            mouseDownOnPort: false,
             isDraggingBlockFromBrowser: false,
             mouseWorldCoordinates: {x: null, y: null},
             zoomLevel: 1,
@@ -135,12 +137,24 @@ class Canvas extends React.Component<Props, State> {
         this.setState(tempState);
     };
 
-    onMouseDownHandlerPort = (e: React.MouseEvent, blockID: string, portID: string) => {
-        // pass
+    onMouseDownHandlerPort = (e: React.MouseEvent, output: boolean, blockID: string, ioName: string) => {
+        const tempState = {...this.state};
+        tempState.mouseDownOnPort = true;
+        this.setState(tempState);
+        console.log("Mouse Down on Block", blockID, "Port", ioName);
+
+        e.stopPropagation();
+        e.preventDefault();
     }
 
-    onMouseUpHandlerPort = (e: React.MouseEvent, blockID: string, portID: string) => {
-        // pass
+    onMouseUpHandlerPort = (e: React.MouseEvent, output: boolean, blockID: string, ioName: string) => {
+        const tempState = {...this.state};
+        tempState.mouseDownOnPort = false;
+        this.setState(tempState);
+        console.log("Mouse Up on Block", blockID, "Port", ioName);
+
+        e.stopPropagation();
+        e.preventDefault();
     }
 
     onMouseMove = (e: React.MouseEvent) => {
@@ -164,6 +178,8 @@ class Canvas extends React.Component<Props, State> {
             };
             this.props.onUpdatedGraph(tempProps.graph);
             this.setState(tempState);
+        } else if (this.state.mouseDownOnPort) {
+            console.log("Dragging Port");
         }
 
         e.stopPropagation()
@@ -250,7 +266,9 @@ class Canvas extends React.Component<Props, State> {
                                     zoom={this.props.canvasZoom} selectedID={this.state.selectedID}
                                     onBlockClickHandler={this.onBlockClickHandler}
                                     onMouseDownHandlerBlock={this.onMouseDownHandlerBlock}
-                                    onMouseUpHandlerBlock={this.onMouseUpHandlerBlock}/>
+                                    onMouseUpHandlerBlock={this.onMouseUpHandlerBlock}
+                                    onMouseDownHandlerPort={this.onMouseDownHandlerPort}
+                                    onMouseUpHandlerPort={this.onMouseUpHandlerPort}/>
                         <MouseCoordinatePosition isDragging={this.state.mouseDownOnGrid || this.state.mouseDownOnBlock}
                                                  mousePosition={this.state.mouseWorldCoordinates}
                                                  zoomLevel={this.state.zoomLevel}/>

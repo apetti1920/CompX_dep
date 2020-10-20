@@ -3,6 +3,11 @@ import * as React from 'react';
 import {BlockVisualType} from "../../../../types";
 import {PointType} from "../../types";
 
+type NamedIO = {
+    output: boolean,
+    portName: string
+}
+
 type Props = {
     translate: PointType,
     zoom: number,
@@ -11,24 +16,46 @@ type Props = {
     onClickBlock: (e: React.MouseEvent, blockID: string)=>void,
     onMouseDownBlock: (e: React.MouseEvent, blockID: string)=>void
     onMouseUpBlock: (e: React.MouseEvent)=>void
+    onMouseDownHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void
+    onMouseUpHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void
 };
 
-type State = never;
+type State = {
+    hovering?: NamedIO
+};
 
 export class VisualBlockComponent extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+
+        this.state = {
+            hovering: undefined
+        }
+    }
+
+    onMouseEnterHandler = (e: React.MouseEvent, output: boolean, portName: string) => {
+        const tempState = {...this.state};
+        tempState.hovering = {output: output, portName: portName};
+        this.setState(tempState);
+    }
+
+    onMouseLeaveHandler = (e: React.MouseEvent) => {
+        const tempState = {...this.state};
+        tempState.hovering = undefined;
+        this.setState(tempState);
+    }
+
     render(): React.ReactNode {
         const deltaYi = this.props.block.size.y / (this.props.block.blockData.inputPorts.length + 1);
         const inputPortComponents = this.props.block.blockData.inputPorts.map((port, index) => {
             const keyId = "b_" + this.props.block.id + "_pi_" + index;
-            return <circle key={keyId} cx={this.props.block.position.x} cy={this.props.block.position.y +
-            (deltaYi * (index + 1))} r="4" fill="red"/>
+            return this.getCircle(keyId, false, deltaYi, index, port.name);
         });
 
         const deltaYo = this.props.block.size.y / (this.props.block.blockData.outputPorts.length + 1);
         const outputPortComponents = this.props.block.blockData.outputPorts.map((port, index) => {
             const keyId = "b_" + this.props.block.id + "_po_" + index;
-            return <circle key={keyId} cx={this.props.block.position.x + this.props.block.size.x}
-                           cy={this.props.block.position.y + (deltaYo * (index + 1))} r="4" fill="red"/>
+            return this.getCircle(keyId, true, deltaYo, index, port.name);
         });
 
         return (
@@ -46,5 +73,21 @@ export class VisualBlockComponent extends React.Component<Props, State> {
                 {outputPortComponents}
             </g>
         );
+    }
+
+    private getCircle(keyId: string, output: boolean, deltaYo: number, index: number, portName: string) {
+        const isHovering = this.state.hovering==undefined?
+            false:((this.state.hovering.portName==portName&&this.state.hovering.output==output));
+        let cx = this.props.block.position.x;
+        if (output) { cx += this.props.block.size.x; }
+        return <circle key={keyId} cx={cx} cy={this.props.block.position.y + (deltaYo * (index + 1))} r="2"
+                       stroke={isHovering?"none":"red"} strokeWidth={1} fill={isHovering?"red":"none"}
+                       pointerEvents="auto" cursor={isHovering?"crosshair":"auto"}
+                       onMouseDown={(e) =>
+                           this.props.onMouseDownHandlerPort(e, output, this.props.block.blockData.id, portName)}
+                       onMouseUp={(e) =>
+                           this.props.onMouseUpHandlerPort(e, output, this.props.block.blockData.id, portName)}
+                       onMouseEnter={(e)=>this.onMouseEnterHandler(e, output, portName)}
+                       onMouseLeave={this.onMouseLeaveHandler}/>;
     }
 }
