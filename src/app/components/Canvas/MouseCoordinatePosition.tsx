@@ -9,8 +9,6 @@ type Props = {
 };
 
 export class MouseCoordinatePosition extends React.Component<Props, never> {
-    // TODO: Coordinate box is appearing over terminal view as well
-
     render(): React.ReactNode {
         if (this.props.isDragging && this.props.mousePosition.x !== null && this.props.mousePosition.y !== null) {
             return (

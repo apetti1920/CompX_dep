@@ -21,6 +21,10 @@ type State = never;
 
 export class BlockLayer extends React.Component<Props, State> {
     // TODO: only render blocks and edges 2 screens out
+    // TODO: Add curves from redux
+    // TODO: Add curve while dragging
+    // TODO: reject curves for not connecting same type
+    // TODO: Color curves depending on type
 
     render(): React.ReactNode {
         return (

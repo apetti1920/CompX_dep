@@ -23,7 +23,6 @@ type State = {
 };
 
 export class Accordion extends React.Component<Props, State> {
-    //TODO: Save to redux store current clicked tab
     //TODO: Might change over to keeping other tabs visible while separate block chooser drops down
     constructor(props: Props) {
         super(props);

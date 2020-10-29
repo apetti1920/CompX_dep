@@ -11,12 +11,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7953432-bfcc-4650-a923-43f7ea8791ce" name="Default Changelist" comment="Initial Commit">
+      <change afterPath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/EdgeLayer.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/VisualEdgeComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/Block Layer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/Block Layer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/VisualBlockComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/VisualBlockComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/Accordion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/Accordion.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/Block Layer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/BlockLayer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/Canvas.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/Canvas.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/types/BlockStorage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/GraphLibrary/types/BlockStorage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/MouseCoordinatePosition.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/MouseCoordinatePosition.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/Port.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/GraphLibrary/Port.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,13 +73,6 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser" />
-      <recent name="$PROJECT_DIR$/src/lib" />
-      <recent name="$PROJECT_DIR$/src/lib/GraphLibrary" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/app" />
@@ -85,8 +80,18 @@
       <recent name="$PROJECT_DIR$/src/helpers" />
       <recent name="$PROJECT_DIR$/src/types" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer" />
+      <recent name="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser" />
+      <recent name="$PROJECT_DIR$/src/lib" />
+    </key>
   </component>
   <component name="RunManager" selected="npm.start">
+    <configuration name="Debug" type="ChromiumRemoteDebugType" factoryName="Chromium Remote" port="9229">
+      <method v="2" />
+    </configuration>
     <configuration name="Block From File" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -110,6 +115,11 @@
       <envs />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Attach to Node.js/Chrome.Debug" />
+      <item itemvalue="Jest.Block From File" />
+      <item itemvalue="npm.start" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Jest.Block From File" />
@@ -155,6 +165,9 @@
       <workItem from="1602551287183" duration="9109000" />
       <workItem from="1602723022785" duration="3188000" />
       <workItem from="1603159416345" duration="5144000" />
+      <workItem from="1603246485725" duration="217000" />
+      <workItem from="1603334813870" duration="2450000" />
+      <workItem from="1603670224921" duration="19489000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1599160068442</created>
@@ -195,10 +208,10 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="553" y="367" key="#Notifications/0.23.1680.1027@0.23.1680.1027" timestamp="1602121734266" />
-    <state x="304" y="198" width="1071" height="724" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601931707941">
+    <state x="304" y="198" width="1071" height="724" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603847336444">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="304" y="198" width="1071" height="724" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1601931707941" />
+    <state x="304" y="198" width="1071" height="724" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1603847336444" />
     <state x="551" y="345" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1601697246607">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -215,33 +228,89 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="586" y="398" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1680.1027@0.23.1680.1027" timestamp="1600129062940" />
-    <state width="1638" height="201" key="GridCell.Tab.0.bottom" timestamp="1603164600574">
+    <state width="1071" height="346" key="GridCell.Tab.0.bottom" timestamp="1603937704529">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="201" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1603164600574" />
+    <state width="1071" height="346" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1603937704529" />
     <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
-    <state width="1638" height="201" key="GridCell.Tab.0.center" timestamp="1603164600573">
+    <state width="1071" height="346" key="GridCell.Tab.0.center" timestamp="1603937704528">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="201" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1603164600573" />
+    <state width="1071" height="346" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1603937704528" />
     <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750077" />
-    <state width="1638" height="201" key="GridCell.Tab.0.left" timestamp="1603164600573">
+    <state width="1071" height="346" key="GridCell.Tab.0.left" timestamp="1603937704528">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="201" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1603164600573" />
+    <state width="1071" height="346" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1603937704528" />
     <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750076" />
-    <state width="1638" height="201" key="GridCell.Tab.0.right" timestamp="1603164600574">
+    <state width="1071" height="346" key="GridCell.Tab.0.right" timestamp="1603937704528">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="201" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1603164600574" />
+    <state width="1071" height="346" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1603937704528" />
     <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
-    <state x="341" y="175" key="SettingsEditor" timestamp="1601697408994">
+    <state width="1071" height="346" key="GridCell.Tab.1.bottom" timestamp="1603937704530">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="341" y="175" key="SettingsEditor/0.23.1680.1027@0.23.1680.1027" timestamp="1601697408994" />
-    <state x="538" y="291" width="604" height="490" key="find.popup" timestamp="1599587813586">
+    <state width="1071" height="346" key="GridCell.Tab.1.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1603937704530" />
+    <state width="1071" height="346" key="GridCell.Tab.1.center" timestamp="1603937704529">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="538" y="291" width="604" height="490" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1599587813586" />
+    <state width="1071" height="346" key="GridCell.Tab.1.center/0.23.1680.1027@0.23.1680.1027" timestamp="1603937704529" />
+    <state width="1071" height="346" key="GridCell.Tab.1.left" timestamp="1603937704529">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1071" height="346" key="GridCell.Tab.1.left/0.23.1680.1027@0.23.1680.1027" timestamp="1603937704529" />
+    <state width="1071" height="346" key="GridCell.Tab.1.right" timestamp="1603937704529">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1071" height="346" key="GridCell.Tab.1.right/0.23.1680.1027@0.23.1680.1027" timestamp="1603937704529" />
+    <state width="1071" height="346" key="GridCell.Tab.2.bottom" timestamp="1603937704530">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1071" height="346" key="GridCell.Tab.2.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1603937704530" />
+    <state width="1071" height="346" key="GridCell.Tab.2.center" timestamp="1603937704530">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1071" height="346" key="GridCell.Tab.2.center/0.23.1680.1027@0.23.1680.1027" timestamp="1603937704530" />
+    <state width="1071" height="346" key="GridCell.Tab.2.left" timestamp="1603937704530">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1071" height="346" key="GridCell.Tab.2.left/0.23.1680.1027@0.23.1680.1027" timestamp="1603937704530" />
+    <state width="1071" height="346" key="GridCell.Tab.2.right" timestamp="1603937704530">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1071" height="346" key="GridCell.Tab.2.right/0.23.1680.1027@0.23.1680.1027" timestamp="1603937704530" />
+    <state width="1071" height="346" key="GridCell.Tab.3.bottom" timestamp="1603937704531">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1071" height="346" key="GridCell.Tab.3.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1603937704531" />
+    <state width="1071" height="346" key="GridCell.Tab.3.center" timestamp="1603937704530">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1071" height="346" key="GridCell.Tab.3.center/0.23.1680.1027@0.23.1680.1027" timestamp="1603937704530" />
+    <state width="1071" height="346" key="GridCell.Tab.3.left" timestamp="1603937704530">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1071" height="346" key="GridCell.Tab.3.left/0.23.1680.1027@0.23.1680.1027" timestamp="1603937704530" />
+    <state width="1071" height="346" key="GridCell.Tab.3.right" timestamp="1603937704531">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1071" height="346" key="GridCell.Tab.3.right/0.23.1680.1027@0.23.1680.1027" timestamp="1603937704531" />
+    <state x="94" y="311" width="937" height="633" key="Registry" timestamp="1603847302255">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="94" y="311" width="937" height="633" key="Registry/0.23.1680.1027@0.23.1680.1027" timestamp="1603847302255" />
+    <state x="341" y="175" key="SettingsEditor" timestamp="1603847164170">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="341" y="175" key="SettingsEditor/0.23.1680.1027@0.23.1680.1027" timestamp="1603847164170" />
+    <state x="538" y="291" width="604" height="548" key="find.popup" timestamp="1603936126194">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="538" y="291" width="604" height="548" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1603936126194" />
+    <state x="221" y="250" width="670" height="676" key="search.everywhere.popup" timestamp="1603847173995">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="221" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1603847173995" />
   </component>
 </project>
