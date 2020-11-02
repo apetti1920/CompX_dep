@@ -84,9 +84,9 @@ export class VisualBlockComponent extends React.Component<Props, State> {
                        stroke={isHovering?"none":"red"} strokeWidth={1} fill={isHovering?"red":"none"}
                        pointerEvents="auto" cursor={isHovering?"crosshair":"auto"}
                        onMouseDown={(e) =>
-                           this.props.onMouseDownHandlerPort(e, output, this.props.block.blockData.id, portName)}
+                           this.props.onMouseDownHandlerPort(e, output, this.props.block.id, portName)}
                        onMouseUp={(e) =>
-                           this.props.onMouseUpHandlerPort(e, output, this.props.block.blockData.id, portName)}
+                           this.props.onMouseUpHandlerPort(e, output, this.props.block.id, portName)}
                        onMouseEnter={(e)=>this.onMouseEnterHandler(e, output, portName)}
                        onMouseLeave={this.onMouseLeaveHandler}/>;
     }

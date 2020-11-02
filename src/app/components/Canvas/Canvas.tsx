@@ -161,27 +161,27 @@ class Canvas extends React.Component<Props, State> {
         const tempGraph = {...this.props.graph};
         // Find a block with the same id and an output port that matches the name
         let outputBlock = tempGraph.blocks
-            .find(block => block.blockData.id === blockID &&
+            .find(block => block.id === blockID &&
                 block.blockData.outputPorts.map(port => port.name).includes(ioName));
 
         // If a block is not found search as if the other port was the output block
         let outputBlockID: string, outputPortID: string, inputBlockID: string, inputPortID: string;
         if (outputBlock === undefined) {
             outputBlock = tempGraph.blocks
-                .find(block => block.blockData.id === this.state.selectedPort.blockID &&
+                .find(block => block.id === this.state.selectedPort.blockID &&
                     block.blockData.outputPorts.map(port => port.name).includes(this.state.selectedPort.portId));
-            outputBlockID = outputBlock.blockData.id;
+            outputBlockID = outputBlock.id;
             outputPortID = this.state.selectedPort.portId;
             inputBlockID = tempGraph.blocks
-                .find(block => block.blockData.id === blockID &&
-                    block.blockData.inputPorts.map(port => port.name).includes(ioName)).blockData.id;
+                .find(block => block.id === blockID &&
+                    block.blockData.inputPorts.map(port => port.name).includes(ioName)).id;
             inputPortID = ioName;
         } else {
             outputBlockID = outputBlock.blockData.id;
             outputPortID = ioName;
             inputBlockID = tempGraph.blocks
-                .find(block => block.blockData.id === this.state.selectedPort.blockID &&
-                    block.blockData.inputPorts.map(port => port.name).includes(this.state.selectedPort.portId)).blockData.id;
+                .find(block => block.id === this.state.selectedPort.blockID &&
+                    block.blockData.inputPorts.map(port => port.name).includes(this.state.selectedPort.portId)).id;
             inputPortID = this.state.selectedPort.portId;
         }
 
@@ -193,6 +193,7 @@ class Canvas extends React.Component<Props, State> {
             }
         }
 
+        // TODO: Don't add if not output to input, if there is an other edge to same input, or if different types
         const edge = {id: uuidv4(), outputBlockID: outputBlockID,
             outputPortID: outputPortID, inputBlockID: inputBlockID,
             inputPortID: inputPortID,
