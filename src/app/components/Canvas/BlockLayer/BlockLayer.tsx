@@ -9,8 +9,7 @@ type Props = {
     graph: GraphVisualType,
     translate: PointType,
     zoom: number,
-    selectedID?: string,
-    onBlockClickHandler: (e: React.MouseEvent, blockID: string)=>void
+    selectedID?: string
     onMouseDownHandlerBlock: (e: React.MouseEvent, blockID: string)=>void
     onMouseUpHandlerBlock: (e: React.MouseEvent)=>void,
     onMouseDownHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void
@@ -35,7 +34,6 @@ export class BlockLayer extends React.Component<Props, State> {
                         return (
                             <VisualBlockComponent key={block.id} translate={this.props.translate} zoom={this.props.zoom}
                                                   selected={selected} block={block}
-                                                  onClickBlock={this.props.onBlockClickHandler}
                                                   onMouseDownBlock={this.props.onMouseDownHandlerBlock}
                                                   onMouseUpBlock={this.props.onMouseUpHandlerBlock}
                                                   onMouseDownHandlerPort={this.props.onMouseDownHandlerPort}

@@ -12,8 +12,7 @@ type Props = {
     translate: PointType,
     zoom: number,
     selected: boolean,
-    block: BlockVisualType,
-    onClickBlock: (e: React.MouseEvent, blockID: string)=>void,
+    block: BlockVisualType
     onMouseDownBlock: (e: React.MouseEvent, blockID: string)=>void
     onMouseUpBlock: (e: React.MouseEvent)=>void
     onMouseDownHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void
@@ -66,7 +65,6 @@ export class VisualBlockComponent extends React.Component<Props, State> {
                       width={this.props.block.size.x} height={this.props.block.size.y}
                       style={{cursor: "pointer", stroke: this.props.selected?"pink":"", pointerEvents: "auto",
                           strokeWidth: this.props.selected?"1":"0", strokeOpacity: this.props.selected?0.9:0.0}}
-                      onClick={(e) => this.props.onClickBlock(e, this.props.block.id)}
                       onMouseDown={(e)=>this.props.onMouseDownBlock(e, this.props.block.id)}
                       onMouseUp={this.props.onMouseUpBlock}/>
                 {inputPortComponents}

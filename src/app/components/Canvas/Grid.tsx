@@ -2,17 +2,14 @@
 import * as React from 'react';
 import {linearInterp} from "../../../helpers/utils";
 import {PointType} from "../types";
-import {BlockVisualType} from "../../../types";
 
 type Props = {
-    majorTickSpacing: number
-    minorTickSpacing: number
-    translate: PointType
-    zoom: number
-
+    majorTickSpacing: number,
+    minorTickSpacing: number,
+    translate: PointType,
+    zoom: number,
     onMouseDown: (e: React.MouseEvent)=>void,
-    onMouseUp: (e: React.MouseEvent)=>void,
-    onClick: (e: React.MouseEvent)=>void
+    onMouseUp: (e: React.MouseEvent)=>void
 };
 
 export class Grid extends React.Component<Props, never> {
@@ -24,7 +21,7 @@ export class Grid extends React.Component<Props, never> {
 
         return (
             <div style={{width: "100%", height: "100%", position: "absolute", zIndex: 1, pointerEvents: "auto"}}
-                 onMouseDown={this.props.onMouseDown} onMouseUp={this.props.onMouseUp} onClick={this.props.onClick}>
+                 onMouseDown={this.props.onMouseDown} onMouseUp={this.props.onMouseUp}>
                 <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <pattern id="smallGrid" width={this.props.minorTickSpacing} height={this.props.minorTickSpacing}

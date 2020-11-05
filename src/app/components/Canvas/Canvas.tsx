@@ -18,7 +18,6 @@ import { v4 as uuidv4 } from 'uuid';
 import {GraphVisualType} from "../../store/types/graphTypes";
 import {BlockLayer} from "./BlockLayer/BlockLayer";
 import {EdgeLayer} from "./EdgeLayer/EdgeLayer";
-import {VisualBlockComponent} from "./BlockLayer/VisualBlockComponent";
 
 interface StateProps {
     canvasZoom: number,
@@ -43,6 +42,7 @@ type State = {
     zoomLevel: number,
     selectedBlockID?: string
     selectedPort?: {blockID: string, portId: string, draggingPortCoords?: {start: PointType, end: PointType}}
+    movedGrid: boolean
 };
 
 //TODO: Fix ruler componet
@@ -63,7 +63,8 @@ class Canvas extends React.Component<Props, State> {
             mouseWorldCoordinates: {x: null, y: null},
             zoomLevel: 1,
             selectedBlockID: undefined,
-            selectedPort: undefined
+            selectedPort: undefined,
+            movedGrid: false
         }
     }
 
@@ -105,6 +106,7 @@ class Canvas extends React.Component<Props, State> {
         tempState.mouseDownOnGrid = true;
         tempState.mouseWorldCoordinates =
             this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
+        tempState.movedGrid = false;
         this.setState(tempState);
         e.stopPropagation();
     };
@@ -114,6 +116,10 @@ class Canvas extends React.Component<Props, State> {
         if (this.state.mouseDownOnGrid) {
             const tempState = {...this.state};
             tempState.mouseDownOnGrid = false;
+            if (!tempState.movedGrid) {
+                tempState.selectedBlockID = undefined;
+            }
+            tempState.movedGrid = false;
             this.setState(tempState);
         } else if (this.state.mouseDownOnPort) {
             const tempState = {...this.state};
@@ -147,15 +153,6 @@ class Canvas extends React.Component<Props, State> {
             tempState.mouseDownOnPort = false;
             this.setState(tempState);
         }
-        e.stopPropagation();
-    };
-
-    onBlockClickHandler = (e: React.MouseEvent, blockID: string): void => {
-        e.preventDefault();
-        const tempState = {...this.state};
-        if (blockID === tempState.selectedBlockID) { tempState.selectedBlockID = undefined; }
-        else { tempState.selectedBlockID = blockID; }
-        this.setState(tempState);
         e.stopPropagation();
     };
 
@@ -267,10 +264,13 @@ class Canvas extends React.Component<Props, State> {
     onMouseMove = (e: React.MouseEvent) => {
         e.preventDefault();
         if (this.state.mouseDownOnGrid) {
+            const tempState = {...this.state};
+            tempState.movedGrid = true;
             const tempProps = {...this.props};
             tempProps.canvasTranslation = {x: tempProps.canvasTranslation.x + e.movementX,
                 y: tempProps.canvasTranslation.y + e.movementY}
             this.props.onTranslate(tempProps.canvasTranslation)
+            this.setState(tempState);
         } else if (this.state.mouseDownOnBlock) {
             // TODO: Get blocks to drag on mouse point rather than snapping to center
             const tempProps = {...this.props};
@@ -345,13 +345,13 @@ class Canvas extends React.Component<Props, State> {
         // mouse up
     }
 
-    onGridClickHandler = (e: React.MouseEvent): void => {
-        e.preventDefault();
-        const tempState = {...this.state};
-        tempState.selectedBlockID = undefined;
-        this.setState(tempState);
-        e.stopPropagation();
-    }
+    // onGridClickHandler = (e: React.MouseEvent): void => {
+    //     e.preventDefault();
+    //     const tempState = {...this.state};
+    //     tempState.selectedBlockID = undefined;
+    //     this.setState(tempState);
+    //     e.stopPropagation();
+    // }
 
     onDropHandler = (e: React.DragEvent<HTMLDivElement>): void => {
         e.preventDefault();
@@ -404,10 +404,9 @@ class Canvas extends React.Component<Props, State> {
                          onDragLeave={this.onDragLeaveHandler} onDrop={this.onDropHandler}>
                         <Grid minorTickSpacing={8} majorTickSpacing={80} zoom={this.props.canvasZoom}
                               translate={this.props.canvasTranslation} onMouseDown={this.onMouseDownHandlerGrid}
-                              onMouseUp={this.onMouseUpHandlerGrid} onClick={this.onGridClickHandler}/>
+                              onMouseUp={this.onMouseUpHandlerGrid}/>
                         <BlockLayer graph={this.props.graph} translate={this.props.canvasTranslation}
                                     zoom={this.props.canvasZoom} selectedID={this.state.selectedBlockID}
-                                    onBlockClickHandler={this.onBlockClickHandler}
                                     onMouseDownHandlerBlock={this.onMouseDownHandlerBlock}
                                     onMouseUpHandlerBlock={this.onMouseUpHandlerBlock}
                                     onMouseDownHandlerPort={this.onMouseDownHandlerPort}
