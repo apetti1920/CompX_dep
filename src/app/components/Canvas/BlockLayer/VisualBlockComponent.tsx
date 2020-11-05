@@ -79,7 +79,11 @@ export class VisualBlockComponent extends React.Component<Props, State> {
         const isHovering = this.state.hovering==undefined?
             false:((this.state.hovering.portName==portName&&this.state.hovering.output==output));
         let cx = this.props.block.position.x;
-        if (output) { cx += this.props.block.size.x; }
+        if (!this.props.block.mirrored) {
+            if (output) { cx += this.props.block.size.x; }
+        } else {
+            if (!output) { cx += this.props.block.size.x; }
+        }
         return <circle key={keyId} cx={cx} cy={this.props.block.position.y + (deltaYo * (index + 1))} r="2"
                        stroke={isHovering?"none":"red"} strokeWidth={1} fill={isHovering?"red":"none"}
                        pointerEvents="auto" cursor={isHovering?"crosshair":"auto"}

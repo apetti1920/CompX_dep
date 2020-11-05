@@ -5,7 +5,7 @@ export type BlockVisualType = {
     id: string,
     position: PointType,
     size: PointType,
-    rotation: "0"|"90"|"180"|"270",
+    mirrored: boolean,
     blockData: BlockStorageType
 }
 
