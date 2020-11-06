@@ -1,6 +1,8 @@
 // @flow
 import * as React from 'react';
 
+import { Camera } from 'react-feather';
+
 import {Grid} from "./Grid";
 import {PointType} from "../types";
 import {Clamp, linearInterp} from "../../../helpers/utils";
@@ -18,6 +20,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {GraphVisualType} from "../../store/types/graphTypes";
 import {BlockLayer} from "./BlockLayer/BlockLayer";
 import {EdgeLayer} from "./EdgeLayer/EdgeLayer";
+import {ContextMenu} from "../ComponentUtils/ContextMenu";
 
 interface StateProps {
     canvasZoom: number,
@@ -42,7 +45,8 @@ type State = {
     zoomLevel: number,
     selectedBlockID?: string
     selectedPort?: {blockID: string, portId: string, draggingPortCoords?: {start: PointType, end: PointType}}
-    movedGrid: boolean
+    movedGrid: boolean,
+    contextMenu?: React.ReactNode;
 };
 
 //TODO: Fix ruler componet
@@ -68,12 +72,41 @@ class Canvas extends React.Component<Props, State> {
         }
     }
 
+    /* -------------------------------------------------Utility Functions-------------------------------------------- */
+    /* Utility function to convert on screen mouse coordinates to canvas coordinates*/
     screenToWorld(point: PointType): PointType {
         const gX1 = (point.x - this.props.canvasTranslation.x) / this.props.canvasZoom;
         const gY1 = (point.y - this.props.canvasTranslation.y) / this.props.canvasZoom;
         return {x: gX1, y: gY1}
     }
 
+    /* Utility function to convert world coordinates to on screen mouse */
+    worldToScreen(point: PointType): PointType {
+        const sX1 = (point.x * this.props.canvasZoom) + this.props.canvasTranslation.x;
+        const sY1 = (point.y * this.props.canvasZoom) + this.props.canvasTranslation.y;
+        return {x: sX1, y: sY1}
+    }
+
+    /* Utility function to get the canvas coordinates of a specific port of a specific block */
+    getPortCoords(blockID: string, portID: string): PointType {
+        const tempGraph = {...this.props.graph};
+        const chosenBlock = tempGraph.blocks.find(block => block.id === blockID);
+
+        if (chosenBlock.blockData.outputPorts.map(port => port.name).includes(portID)) {
+            const portIndex = chosenBlock.blockData.outputPorts.findIndex(port => port.name === portID);
+            return {x: chosenBlock.position.x + chosenBlock.size.x,
+                y: chosenBlock.position.y + ((chosenBlock.size.y /
+                    (chosenBlock.blockData.outputPorts.length + 1)) * (portIndex + 1))};
+        } else {
+            const portIndex = chosenBlock.blockData.inputPorts.findIndex(port => port.name === portID);
+            return {x: chosenBlock.position.x + chosenBlock.size.x,
+                y: chosenBlock.position.y + ((chosenBlock.size.y /
+                    (chosenBlock.blockData.inputPorts.length + 1)) * (portIndex + 1))};
+        }
+    }
+
+    /* --------------------------------------------Handler Overrides------------------------------------------------- */
+    /* Overrides the onscroll event of the canvas */
     handleScroll = (e: React.WheelEvent) => {
         const mouseWorld = this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
 
@@ -100,10 +133,12 @@ class Canvas extends React.Component<Props, State> {
         e.stopPropagation();
     };
 
+    /* Overrides the mouse down event of the Grid */
     onMouseDownHandlerGrid = (e: React.MouseEvent) => {
         e.preventDefault();
         const tempState = {...this.state};
         tempState.mouseDownOnGrid = true;
+        tempState.contextMenu = undefined;
         tempState.mouseWorldCoordinates =
             this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
         tempState.movedGrid = false;
@@ -111,6 +146,7 @@ class Canvas extends React.Component<Props, State> {
         e.stopPropagation();
     };
 
+    /* Overrides the mouse up event of the Grid */
     onMouseUpHandlerGrid = (e: React.MouseEvent) => {
         e.preventDefault();
         if (this.state.mouseDownOnGrid) {
@@ -130,9 +166,11 @@ class Canvas extends React.Component<Props, State> {
         e.stopPropagation();
     };
 
+    /* Overrides the mouse down event of a block */
     onMouseDownHandlerBlock = (e: React.MouseEvent, blockID: string): void => {
         e.preventDefault();
         const tempState = {...this.state};
+        tempState.contextMenu = undefined;
         tempState.mouseWorldCoordinates =
             this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
         tempState.mouseDownOnBlock = true;
@@ -141,6 +179,7 @@ class Canvas extends React.Component<Props, State> {
         e.stopPropagation();
     };
 
+    /* Overrides the mouse down event of a block */
     onMouseUpHandlerBlock = (e: React.MouseEvent): void => {
         e.preventDefault();
         if (this.state.mouseDownOnBlock) {
@@ -156,26 +195,24 @@ class Canvas extends React.Component<Props, State> {
         e.stopPropagation();
     };
 
-    getPortCoords(blockID: string, portID: string): PointType {
-        const tempGraph = {...this.props.graph};
-        const chosenBlock = tempGraph.blocks.find(block => block.id === blockID);
+    /*  */
+    onContextMenuBlock = (e: React.MouseEvent, blockID: string): void => {
+        e.preventDefault();
+        console.log("Right CLicked on block", blockID);
+        const tmpState = {...this.state};
 
-        if (chosenBlock.blockData.outputPorts.map(port => port.name).includes(portID)) {
-            const portIndex = chosenBlock.blockData.outputPorts.findIndex(port => port.name === portID);
-            return {x: chosenBlock.position.x + chosenBlock.size.x,
-                y: chosenBlock.position.y + ((chosenBlock.size.y /
-                    (chosenBlock.blockData.outputPorts.length + 1)) * (portIndex + 1))};
-        } else {
-            const portIndex = chosenBlock.blockData.inputPorts.findIndex(port => port.name === portID);
-            return {x: chosenBlock.position.x + chosenBlock.size.x,
-                y: chosenBlock.position.y + ((chosenBlock.size.y /
-                    (chosenBlock.blockData.inputPorts.length + 1)) * (portIndex + 1))};
-        }
+        tmpState.contextMenu = <ContextMenu position={{x: e.nativeEvent.offsetX,
+            y: e.nativeEvent.offsetY}} items={[
+                {icon: <Camera height="100%" style={{flexGrow: 1}}/> , name: "test1", action: ()=>{console.log("here1")}}]}/>;
+        this.setState(tmpState);
+        e.stopPropagation();
     }
 
+    /* Overrides the mouse down event of a port */
     onMouseDownHandlerPort = (e: React.MouseEvent, output: boolean, blockID: string, ioName: string) => {
         e.preventDefault();
         const tempState = {...this.state};
+        tempState.contextMenu = undefined;
         tempState.mouseDownOnPort = true;
         tempState.selectedPort = {blockID: blockID, portId: ioName,
             draggingPortCoords: {start: this.getPortCoords(blockID, ioName),
@@ -184,6 +221,7 @@ class Canvas extends React.Component<Props, State> {
         e.stopPropagation();
     }
 
+    /* Overrides the mouse up event of a port */
     onMouseUpHandlerPort = (e: React.MouseEvent, output: boolean, blockID: string, ioName: string) => {
         if (!this.state.mouseDownOnPort) {return;}
 
@@ -261,6 +299,7 @@ class Canvas extends React.Component<Props, State> {
         e.stopPropagation();
     }
 
+    /* Overrides the mouse move event of the canvas */
     onMouseMove = (e: React.MouseEvent) => {
         e.preventDefault();
         if (this.state.mouseDownOnGrid) {
@@ -317,7 +356,6 @@ class Canvas extends React.Component<Props, State> {
 
                 this.setState(tempState);
             } catch (e) {
-                console.log(e);
                 const tempState = {...this.state};
                 tempState.selectedPort = undefined;
                 tempState.mouseDownOnPort = false;
@@ -328,6 +366,7 @@ class Canvas extends React.Component<Props, State> {
         e.stopPropagation();
     };
 
+    /* ---------------------------------------Block Dragging from browser-------------------------------------------- */
     onDragEnterHandler = (e: React.DragEvent<HTMLDivElement>): void => {
         e.preventDefault();
         e.stopPropagation();
@@ -344,14 +383,6 @@ class Canvas extends React.Component<Props, State> {
         e.stopPropagation();
         // mouse up
     }
-
-    // onGridClickHandler = (e: React.MouseEvent): void => {
-    //     e.preventDefault();
-    //     const tempState = {...this.state};
-    //     tempState.selectedBlockID = undefined;
-    //     this.setState(tempState);
-    //     e.stopPropagation();
-    // }
 
     onDropHandler = (e: React.DragEvent<HTMLDivElement>): void => {
         e.preventDefault();
@@ -410,13 +441,15 @@ class Canvas extends React.Component<Props, State> {
                                     onMouseDownHandlerBlock={this.onMouseDownHandlerBlock}
                                     onMouseUpHandlerBlock={this.onMouseUpHandlerBlock}
                                     onMouseDownHandlerPort={this.onMouseDownHandlerPort}
-                                    onMouseUpHandlerPort={this.onMouseUpHandlerPort}/>
+                                    onMouseUpHandlerPort={this.onMouseUpHandlerPort}
+                                    onContextMenuBlock={this.onContextMenuBlock}/>
                         <EdgeLayer graph={this.props.graph} translate={this.props.canvasTranslation}
                                    zoom={this.props.canvasZoom}
                                    draggingPortCoords={this.state.selectedPort?.draggingPortCoords}/>
                         <MouseCoordinatePosition isDragging={this.state.mouseDownOnGrid || this.state.mouseDownOnBlock}
                                                  mousePosition={this.state.mouseWorldCoordinates}
                                                  zoomLevel={this.state.zoomLevel}/>
+                        {this.state.contextMenu??React.Fragment}
                     </div>
                 </div>
             </div>

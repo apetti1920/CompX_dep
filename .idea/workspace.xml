@@ -11,11 +11,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7953432-bfcc-4650-a923-43f7ea8791ce" name="Default Changelist" comment="Initial Commit">
+      <change afterPath="$PROJECT_DIR$/src/app/components/ComponentUtils/MenuItem.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/BlockLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/BlockLayer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/VisualBlockComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/VisualBlockComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/Canvas.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/Canvas.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/Grid.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/Grid.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/ComponentUtils/ContextMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/ComponentUtils/ContextMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/types/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,6 +173,8 @@
       <workItem from="1604325178556" duration="11730000" />
       <workItem from="1604443939527" duration="8784000" />
       <workItem from="1604584298323" duration="1816000" />
+      <workItem from="1604592707363" duration="13882000" />
+      <workItem from="1604627519097" duration="3873000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1599160068442</created>
@@ -229,25 +235,25 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="586" y="398" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1680.1027@0.23.1680.1027" timestamp="1600129062940" />
-    <state width="1638" height="201" key="GridCell.Tab.0.bottom" timestamp="1604591181843">
+    <state width="1638" height="201" key="GridCell.Tab.0.bottom" timestamp="1604632919843">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="201" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1604591181843" />
+    <state width="1638" height="201" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1604632919843" />
     <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
-    <state width="1638" height="201" key="GridCell.Tab.0.center" timestamp="1604591181842">
+    <state width="1638" height="201" key="GridCell.Tab.0.center" timestamp="1604632919842">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="201" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1604591181842" />
+    <state width="1638" height="201" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1604632919842" />
     <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750077" />
-    <state width="1638" height="201" key="GridCell.Tab.0.left" timestamp="1604591181842">
+    <state width="1638" height="201" key="GridCell.Tab.0.left" timestamp="1604632919842">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="201" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1604591181842" />
+    <state width="1638" height="201" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1604632919842" />
     <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750076" />
-    <state width="1638" height="201" key="GridCell.Tab.0.right" timestamp="1604591181843">
+    <state width="1638" height="201" key="GridCell.Tab.0.right" timestamp="1604632919842">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="201" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1604591181843" />
+    <state width="1638" height="201" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1604632919842" />
     <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
     <state width="1638" height="346" key="GridCell.Tab.1.bottom" timestamp="1604435622020">
       <screen x="0" y="23" width="1680" height="1027" />
@@ -309,9 +315,9 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="538" y="291" width="604" height="548" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1603936126194" />
-    <state x="221" y="250" width="670" height="676" key="search.everywhere.popup" timestamp="1604547556616">
+    <state x="221" y="250" width="670" height="676" key="search.everywhere.popup" timestamp="1604624167968">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="221" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1604547556616" />
+    <state x="221" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1604624167968" />
   </component>
 </project>

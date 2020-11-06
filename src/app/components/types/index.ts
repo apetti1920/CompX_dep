@@ -1,3 +1,5 @@
+import React from "react";
+
 export type PointType = {
     x: number,
     y: number
@@ -9,6 +11,14 @@ export type DataType = {
     type: string[],
     pictureFile: string
 }
+
+export type MenuItemType = {
+    icon: React.ReactNode,
+    name: string,
+    action: ()=>void | MenuItemSpacerType[]
+};
+
+export type MenuItemSpacerType = MenuItemType | "Spacer";
 
 export const DnDItemType = {
     LIBRARY_CARD: 'LIBRARY_CARD'

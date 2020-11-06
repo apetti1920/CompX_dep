@@ -9,11 +9,12 @@ type Props = {
     graph: GraphVisualType,
     translate: PointType,
     zoom: number,
-    selectedID?: string
-    onMouseDownHandlerBlock: (e: React.MouseEvent, blockID: string)=>void
+    selectedID?: string,
+    onMouseDownHandlerBlock: (e: React.MouseEvent, blockID: string)=>void,
+    onMouseUpHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void,
+    onContextMenuBlock: (e: React.MouseEvent, blockID: string)=>void,
     onMouseUpHandlerBlock: (e: React.MouseEvent)=>void,
     onMouseDownHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void
-    onMouseUpHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void
 };
 
 type State = never;
@@ -37,7 +38,8 @@ export class BlockLayer extends React.Component<Props, State> {
                                                   onMouseDownBlock={this.props.onMouseDownHandlerBlock}
                                                   onMouseUpBlock={this.props.onMouseUpHandlerBlock}
                                                   onMouseDownHandlerPort={this.props.onMouseDownHandlerPort}
-                                                  onMouseUpHandlerPort={this.props.onMouseUpHandlerPort}/>
+                                                  onMouseUpHandlerPort={this.props.onMouseUpHandlerPort}
+                                                  onContextMenuBlock={this.props.onContextMenuBlock}/>
                         )
                     })}
                 </svg>
