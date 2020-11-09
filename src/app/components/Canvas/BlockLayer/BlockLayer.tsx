@@ -9,7 +9,7 @@ type Props = {
     graph: GraphVisualType,
     translate: PointType,
     zoom: number,
-    selectedID?: string,
+    selectedIDs?: string[],
     onMouseDownHandlerBlock: (e: React.MouseEvent, blockID: string)=>void,
     onMouseUpHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void,
     onContextMenuBlock: (e: React.MouseEvent, blockID: string)=>void,
@@ -31,7 +31,8 @@ export class BlockLayer extends React.Component<Props, State> {
             <div style={{width: "100%", height: "100%", position: "absolute", zIndex: 2, pointerEvents: "none"}}>
                 <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                     {this.props.graph.blocks.map((block) => {
-                        const selected = this.props.selectedID !== undefined && this.props.selectedID === block.id;
+                        const selected = this.props.selectedIDs !== undefined &&
+                            this.props.selectedIDs.includes(block.id);
                         return (
                             <VisualBlockComponent key={block.id} translate={this.props.translate} zoom={this.props.zoom}
                                                   selected={selected} block={block}

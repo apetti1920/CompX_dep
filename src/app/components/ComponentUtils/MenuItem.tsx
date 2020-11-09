@@ -27,13 +27,16 @@ export class MenuItem extends React.Component<Props, State> {
                 switch (typeof this.props.menuItem.action) {
                     case "function": {
                         const bgColor = this.state.hovering?"var(--custom-shadow-color)":"";
+                        const pointer = this.state.hovering?"pointer":""
                         return (
-                            <div style={{display: "flex", flexWrap: "nowrap", height: "20px", backgroundColor: bgColor}}
+                            <div style={{display: "flex", flexWrap: "nowrap", height: "20px", backgroundColor: bgColor,
+                                cursor: pointer}}
                                  onMouseOver={()=>{
                                      const tmpState={...this.state};
                                      tmpState.hovering=!tmpState.hovering;
                                      console.log(tmpState);
-                                     this.setState(tmpState)}}>
+                                     this.setState(tmpState)}}
+                                 onClick={()=>{console.log("clicked")}}>
                                 {this.props.menuItem.icon}
                                 <div style={{height: "100%", display: "flex", justifyContent: "center",
                                     alignItems: "center", textAlign: "center", flexGrow: 3}}
