@@ -31,16 +31,19 @@ export class MenuItem extends React.Component<Props, State> {
                         return (
                             <div style={{display: "flex", flexWrap: "nowrap", height: "20px", backgroundColor: bgColor,
                                 cursor: pointer}}
-                                 onMouseOver={()=>{
+                                 onMouseEnter={()=>{
                                      const tmpState={...this.state};
-                                     tmpState.hovering=!tmpState.hovering;
-                                     console.log(tmpState);
+                                     tmpState.hovering=true;
                                      this.setState(tmpState)}}
-                                 onClick={()=>{console.log("clicked")}}>
+                                 onMouseLeave={()=>{
+                                     const tmpState={...this.state};
+                                     tmpState.hovering=false;
+                                     this.setState(tmpState)}}
+                                 onClick={this.props.menuItem.action}>
                                 {this.props.menuItem.icon}
                                 <div style={{height: "100%", display: "flex", justifyContent: "center",
                                     alignItems: "center", textAlign: "center", flexGrow: 3}}
-                                     onClick={this.props.menuItem.action}>{this.props.menuItem.name}</div>
+                                >{this.props.menuItem.name}</div>
                             </div>
                         )
                     } case "object": {

@@ -12,12 +12,11 @@
   <component name="ChangeListManager">
     <list default="true" id="e7953432-bfcc-4650-a923-43f7ea8791ce" name="Default Changelist" comment="Initial Commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/BlockLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/BlockLayer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/Canvas.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/Canvas.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/EdgeLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/EdgeLayer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/VisualEdgeComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/VisualEdgeComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/ComponentUtils/ContextMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/ComponentUtils/ContextMenu.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/ComponentUtils/MenuItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/ComponentUtils/MenuItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/types/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,6 +176,8 @@
       <workItem from="1604671035232" duration="5232000" />
       <workItem from="1604803730895" duration="2950000" />
       <workItem from="1604865950005" duration="9641000" />
+      <workItem from="1606091328889" duration="3313000" />
+      <workItem from="1606187419594" duration="3643000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1599160068442</created>
@@ -237,26 +238,30 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="586" y="398" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1680.1027@0.23.1680.1027" timestamp="1600129062940" />
-    <state width="1638" height="201" key="GridCell.Tab.0.bottom" timestamp="1604935304621">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state width="1638" height="199" key="GridCell.Tab.0.bottom" timestamp="1606192546734">
+      <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
-    <state width="1638" height="201" key="GridCell.Tab.0.center" timestamp="1604935304621">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state width="1638" height="199" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1606192546734" />
+    <state width="1638" height="199" key="GridCell.Tab.0.center" timestamp="1606192546733">
+      <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750077" />
-    <state width="1638" height="201" key="GridCell.Tab.0.left" timestamp="1604935304620">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state width="1638" height="199" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1606192546733" />
+    <state width="1638" height="199" key="GridCell.Tab.0.left" timestamp="1606192546733">
+      <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304620" />
     <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750076" />
-    <state width="1638" height="201" key="GridCell.Tab.0.right" timestamp="1604935304621">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state width="1638" height="199" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1606192546733" />
+    <state width="1638" height="199" key="GridCell.Tab.0.right" timestamp="1606192546734">
+      <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
+    <state width="1638" height="199" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1606192546734" />
     <state width="1638" height="346" key="GridCell.Tab.1.bottom" timestamp="1604435622020">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>

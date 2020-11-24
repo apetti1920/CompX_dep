@@ -18,7 +18,7 @@ export class ContextMenu extends React.Component<Props, State> {
         return (
             <div style={{position: "absolute", zIndex: 4, left: `${this.props.position.x}px`,
                 top: `${this.props.position.y}px`, width: "125px", backgroundColor: "var(--custom-link-color)",
-                color: "var(--custom-text-color)", paddingTop: "3px", paddingBottom: "3px", pointerEvents: "none"}}>
+                color: "var(--custom-text-color)", paddingTop: "3px", paddingBottom: "3px", pointerEvents: "auto"}}>
                 {this.props.items.map((item, index) => <MenuItem key={index} menuItem={item}/>)}
             </div>
         );

@@ -45,10 +45,14 @@ export class VisualEdgeComponent extends React.Component<Props, State> {
             <g style={{pointerEvents: "auto", cursor: (this.state.hovering)?"pointer":""}}
                transform={`translate(${this.props.translate.x} ${this.props.translate.y})
                                 scale(${this.props.zoom.toString()} ${this.props.zoom.toString()})`}
-               onMouseDown={(e)=>
-                ((this.props.onMouseDown(e, this.props.edge.id)!==undefined&&this.props.edge!=undefined)?
-                    this.props.onMouseDown(e, this.props.edge.id):{})}
-               onMouseUp={()=>((this.props.onMouseUp!==undefined&&this.props.edge!=undefined)?this.props.onMouseUp:{})}
+               onMouseDown={(e)=> {
+                   if (this.props.edge!==undefined && this.props.onMouseDown(e, this.props.edge.id)!==undefined) {
+                       return this.props.onMouseDown(e, this.props.edge.id);
+                   }
+                   return {};
+               }}
+
+               onMouseUp={()=>((this.props.edge!==undefined&&this.props.onMouseUp!==undefined)?this.props.onMouseUp:{})}
                onMouseOver={()=>{
                    const tempState = {...this.state};
                    tempState.hovering=!tempState.hovering;

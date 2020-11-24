@@ -38,7 +38,7 @@ export class EdgeLayer extends React.Component<Props, State> {
     }
 
     private convertEdgeToVisual(edge: EdgeVisualType) {
-        //const selected = this.props.selectedIDs !== undefined && this.props.selectedIDs === edge.id;
+        //const selectedItem = this.props.selectedIDs !== undefined && this.props.selectedIDs === edge.id;
         const outputBlock = this.props.graph.blocks
             .find(block => block.id === edge.outputBlockID);
         const inputBlock = this.props.graph.blocks
