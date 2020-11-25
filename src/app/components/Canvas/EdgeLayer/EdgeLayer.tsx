@@ -45,7 +45,7 @@ export class EdgeLayer extends React.Component<Props, State> {
             .find(block => block.id === edge.inputBlockID);
 
         if (outputBlock === undefined || inputBlock === undefined) {
-            return;
+            return <React.Fragment/>;
         }
         const outputPortIndex = outputBlock.blockData.outputPorts
             .findIndex(port => (port.name === edge.outputPortID));
@@ -53,13 +53,13 @@ export class EdgeLayer extends React.Component<Props, State> {
             .findIndex(port => port.name === edge.inputPortID);
 
         const outputPortPos = {
-            x: outputBlock.position.x + outputBlock.size.x,
+            x: !outputBlock.mirrored?outputBlock.position.x + outputBlock.size.x:outputBlock.position.x,
             y: outputBlock.position.y +
                 ((outputBlock.size.y / (outputBlock.blockData.outputPorts.length + 1)) *
                     (outputPortIndex + 1))
         };
         const inputPortPos = {
-            x: inputBlock.position.x,
+            x: !inputBlock.mirrored?inputBlock.position.x:inputBlock.position.x+inputBlock.size.x,
             y: inputBlock.position.y +
                 ((inputBlock.size.y / (inputBlock.blockData.inputPorts.length + 1)) *
                     (inputPortIndex + 1))
@@ -71,6 +71,7 @@ export class EdgeLayer extends React.Component<Props, State> {
             <VisualEdgeComponent key={edge.id} translate={this.props.translate} zoom={this.props.zoom}
                                  outputPoint={outputPortPos} inputPoint={inputPortPos}
                                  selected={selected} edge={edge}
+                                 mirrored={{outputBlock: outputBlock.mirrored, inputBlock: inputBlock.mirrored}}
                                  onMouseDown={this.props.onMouseDownHandlerEdge}
                                  onMouseUp={this.props.onMouseUpHandlerEdge}/>
         )
@@ -100,6 +101,8 @@ export class EdgeLayer extends React.Component<Props, State> {
                     return <VisualEdgeComponent translate={this.props.translate} zoom={this.props.zoom}
                                                         outputPoint={startCoords}
                                                         inputPoint={this.props.draggingPortCoords.mouseCoords}
+                                                        mirrored={{outputBlock: outputPort?startBlock.mirrored:false,
+                                                            inputBlock:!outputPort?startBlock.mirrored:false}}
                                                         selected={false}/>;
                 } else {
                     const startCoords = {
@@ -108,6 +111,8 @@ export class EdgeLayer extends React.Component<Props, State> {
                             ((startBlock.size.y / (startBlock.blockData.inputPorts.length + 1)) * (startPortInd + 1))
                     };
                     return <VisualEdgeComponent translate={this.props.translate} zoom={this.props.zoom}
+                                                        mirrored={{outputBlock: outputPort?startBlock.mirrored:false,
+                                                            inputBlock:!outputPort?startBlock.mirrored:false}}
                                                         outputPoint={this.props.draggingPortCoords.mouseCoords}
                                                         inputPoint={startCoords}
                                                         selected={false}/>;

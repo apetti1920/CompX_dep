@@ -10,6 +10,7 @@ type Props = {
     edge?: EdgeVisualType,
     outputPoint: PointType,
     inputPoint: PointType,
+    mirrored: {outputBlock: boolean, inputBlock: boolean},
     onMouseDown?: (e: React.MouseEvent, blockID: string)=>void,
     onMouseUp?: (e: React.MouseEvent)=>void,
 };
@@ -28,19 +29,7 @@ export class VisualEdgeComponent extends React.Component<Props, State> {
     }
 
     render(): React.ReactNode {
-        let halfXOut: number; let halfXIn: number;
-        if (this.props.inputPoint.x > this.props.outputPoint.x) {
-            halfXOut = this.props.outputPoint.x + (Math.abs(this.props.inputPoint.x - this.props.outputPoint.x) / 2.0);
-            halfXIn = halfXOut;
-        } else {
-            halfXOut = this.props.outputPoint.x + (Math.abs(this.props.inputPoint.x - this.props.outputPoint.x) / 2.0);
-            halfXIn = this.props.inputPoint.x - (Math.abs(this.props.inputPoint.x - this.props.outputPoint.x) / 2.0);
-        }
-
-        const lineCommand = `M ${this.props.outputPoint.x}, ${this.props.outputPoint.y} 
-                             C ${halfXOut}, ${this.props.outputPoint.y} 
-                             ${halfXIn}, ${this.props.inputPoint.y} 
-                             ${this.props.inputPoint.x}, ${this.props.inputPoint.y}`;
+        const lineCommand = this.getLineCommand();
         return (
             <g style={{pointerEvents: "auto", cursor: (this.state.hovering)?"pointer":""}}
                transform={`translate(${this.props.translate.x} ${this.props.translate.y})
@@ -62,5 +51,33 @@ export class VisualEdgeComponent extends React.Component<Props, State> {
                       strokeWidth={(this.props.selected||this.state.hovering)?"2":"1"}/>
             </g>
         );
+    }
+
+    private getLineCommand() {
+        if (this.props.mirrored.outputBlock === this.props.mirrored.inputBlock) {
+            let halfXOut: number; let halfXIn: number;
+            if (this.props.inputPoint.x > this.props.outputPoint.x) {
+                halfXOut = this.props.outputPoint.x + (Math.abs(this.props.inputPoint.x - this.props.outputPoint.x) / 2.0);
+                halfXIn = halfXOut;
+            } else {
+                halfXOut = this.props.outputPoint.x + (Math.abs(this.props.inputPoint.x - this.props.outputPoint.x) / 2.0);
+                halfXIn = this.props.inputPoint.x - (Math.abs(this.props.inputPoint.x - this.props.outputPoint.x) / 2.0);
+            }
+
+            return `M ${this.props.outputPoint.x}, ${this.props.outputPoint.y} 
+                             C ${halfXOut}, ${this.props.outputPoint.y} 
+                             ${halfXIn}, ${this.props.inputPoint.y} 
+                             ${this.props.inputPoint.x}, ${this.props.inputPoint.y}`;
+        } else if (!this.props.mirrored.outputBlock && this.props.mirrored.inputBlock) {
+            return `M ${this.props.outputPoint.x}, ${this.props.outputPoint.y} 
+                             C ${this.props.outputPoint.x * 1.5}, ${this.props.outputPoint.y} 
+                             ${this.props.inputPoint.x * 1.5}, ${this.props.inputPoint.y} 
+                             ${this.props.inputPoint.x}, ${this.props.inputPoint.y}`;
+        } else if (this.props.mirrored.outputBlock && !this.props.mirrored.inputBlock) {
+            return `M ${this.props.outputPoint.x}, ${this.props.outputPoint.y} 
+                             C ${this.props.outputPoint.x / 1.5}, ${this.props.outputPoint.y} 
+                             ${this.props.inputPoint.x / 1.5}, ${this.props.inputPoint.y} 
+                             ${this.props.inputPoint.x}, ${this.props.inputPoint.y}`;
+        }
     }
 }
