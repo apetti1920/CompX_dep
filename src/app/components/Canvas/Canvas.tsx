@@ -1,11 +1,11 @@
 // @flow
 import * as React from 'react';
 
-import {Camera} from 'react-feather';
+import {Repeat, Delete} from 'react-feather';
 
 import {Grid} from "./Grid";
 import {CanvasSelectionType, MouseDown, PointType} from "../types";
-import {Clamp, linearInterp} from "../../../helpers/utils";
+import {Clamp, linearInterp} from "../../../electron/utils";
 import Ruler from "./Ruler";
 import {ref} from "framework-utils";
 import {connect} from "react-redux";
@@ -15,9 +15,8 @@ import {StateType} from "../../store/types/stateTypes";
 import {CanvasType} from "../../store/types/canvasTypes";
 import {MouseCoordinatePosition} from "./MouseCoordinatePosition";
 import {BlockStorageType} from "../../../lib/GraphLibrary/types/BlockStorage";
-import {BlockVisualType} from "../../../types";
 import {v4 as uuidv4} from 'uuid';
-import {GraphVisualType} from "../../store/types/graphTypes";
+import {GraphVisualType, BlockVisualType} from "../../store/types/graphTypes";
 import {BlockLayer} from "./BlockLayer/BlockLayer";
 import {EdgeLayer} from "./EdgeLayer/EdgeLayer";
 import {ContextMenu} from "../ComponentUtils/ContextMenu";
@@ -236,10 +235,10 @@ class Canvas extends React.Component<Props, State> {
         e.preventDefault();
         console.log("Right CLicked on block", blockID);
         const tmpState = {...this.state};
-
+        const mir = this.props.graph.blocks.find(block => block.id === blockID).mirrored;
         tmpState.contextMenu = <ContextMenu position={{x: e.nativeEvent.offsetX,
             y: e.nativeEvent.offsetY}} items={[
-                    {icon: <Camera height="100%" style={{flexGrow: 1}}/>, name: "Mirror", action: ()=>{
+                    {icon: <Repeat height="100%" style={{flexGrow: 1}}/>, name: !mir?"Mirror":"Un-Mirror", action: ()=>{
                             const tmpState = {...this.state};
                             const tmpProps = {...this.props};
                             const graph = tmpProps.graph;
@@ -249,7 +248,27 @@ class Canvas extends React.Component<Props, State> {
                             tmpProps.onUpdatedGraph(graph);
                             tmpState.contextMenu = undefined;
                             this.setState(tmpState);
-                        }}
+                        }},
+                        {icon: <Delete height="100%" style={{flexGrow: 1}}/>, name: "Delete", action: ()=>{
+                                const tmpState = {...this.state};
+                                const tmpProps = {...this.props};
+                                const graph = tmpProps.graph;
+
+                                const delBlockInd = graph.blocks.findIndex(block => block.id === blockID);
+                                const delBlock = graph.blocks[delBlockInd];
+                                delBlock.blockData.outputPorts.forEach(port => {
+                                    graph.edges = graph.edges.filter(edge => !(edge.outputBlockID === delBlock.id &&
+                                        edge.outputPortID === port.name));
+                                })
+                                delBlock.blockData.inputPorts.forEach(port => {
+                                    graph.edges = graph.edges.filter(edge => !(edge.inputBlockID === delBlock.id &&
+                                        edge.inputPortID === port.name));
+                                })
+                                graph.blocks = graph.blocks.filter(block => block.id !== blockID);
+                                tmpProps.onUpdatedGraph(graph);
+                                tmpState.contextMenu = undefined;
+                                this.setState(tmpState);
+                            }}
                 ]}/>;
         this.setState(tmpState);
         e.stopPropagation();

@@ -49,5 +49,8 @@ export default class electronAPI {
                 event.sender.send('block_update', blocks);
             })
         });
+        ipc.on("run_model", (event: IpcMainEvent, request: any) => {
+            console.log(request)
+        })
     }
 }

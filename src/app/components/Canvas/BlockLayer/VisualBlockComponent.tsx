@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import {BlockVisualType} from "../../../../types";
+import {BlockVisualType} from "../../../store/types/graphTypes";
 import {PointType} from "../../types";
 
 type NamedIO = {

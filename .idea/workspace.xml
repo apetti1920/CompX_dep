@@ -11,9 +11,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7953432-bfcc-4650-a923-43f7ea8791ce" name="Default Changelist" comment="Initial Commit">
+      <change afterPath="$PROJECT_DIR$/src/app/IPC/IpcService.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/electron/IPC/IpcChannelInterface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/electron/IPC/SystemInfoChannel.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/electron/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/types.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/StopItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/StopItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/Toolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/Toolbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/BlockLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/BlockLayer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/VisualBlockComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/VisualBlockComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/Canvas.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/Canvas.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/EdgeLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/EdgeLayer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/VisualEdgeComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/VisualEdgeComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/Grid.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/Grid.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/helpers/backgroundWindow.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/helpers/backgroundWindow.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/helpers/ipcRenderFunctions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/helpers/ipcRenderFunctions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/types/graphTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/types/graphTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/types/stateTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/types/stateTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/fonts/JetBrainsMono/JetBrainsMono-Bold-Italic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/JetBrainsMono/JetBrainsMono-Bold-Italic.woff2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/fonts/JetBrainsMono/JetBrainsMono-Bold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/JetBrainsMono/JetBrainsMono-Bold.woff2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/fonts/JetBrainsMono/JetBrainsMono-ExtraBold-Italic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/JetBrainsMono/JetBrainsMono-ExtraBold-Italic.woff2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/fonts/JetBrainsMono/JetBrainsMono-ExtraBold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/JetBrainsMono/JetBrainsMono-ExtraBold.woff2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/fonts/JetBrainsMono/JetBrainsMono-Italic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/JetBrainsMono/JetBrainsMono-Italic.woff2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/fonts/JetBrainsMono/JetBrainsMono-Medium-Italic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/JetBrainsMono/JetBrainsMono-Medium-Italic.woff2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/fonts/JetBrainsMono/JetBrainsMono-Medium.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/JetBrainsMono/JetBrainsMono-Medium.woff2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/fonts/JetBrainsMono/JetBrainsMono-Regular.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/JetBrainsMono/JetBrainsMono-Regular.woff2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/constants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers/electronAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/electronAPI.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/renderer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/types/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.main.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.main.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +57,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -68,19 +101,19 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app" />
+      <recent name="$PROJECT_DIR$/src/electron" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/app/types" />
+      <recent name="$PROJECT_DIR$/src/helpers/IPCMain" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/app" />
       <recent name="$PROJECT_DIR$/src/app/components/ComponentUtils" />
       <recent name="$PROJECT_DIR$/src/helpers" />
       <recent name="$PROJECT_DIR$/src/types" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer" />
-      <recent name="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser" />
-      <recent name="$PROJECT_DIR$/src/lib" />
     </key>
   </component>
   <component name="RunManager" selected="npm.start">
@@ -176,6 +209,9 @@
       <workItem from="1606091328889" duration="3313000" />
       <workItem from="1606187419594" duration="3643000" />
       <workItem from="1606274387594" duration="2945000" />
+      <workItem from="1606278052930" duration="1011000" />
+      <workItem from="1606450302040" duration="1247000" />
+      <workItem from="1606501809110" duration="8765000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1599160068442</created>
@@ -228,38 +264,39 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="528" y="279" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1604670917966" />
-    <state x="578" y="290" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1599158485771">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state x="578" y="291" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1606513872293">
+      <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="578" y="290" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1599158485771" />
+    <state x="578" y="291" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.25.1680.1025@0.25.1680.1025" timestamp="1606513872293" />
     <state x="586" y="398" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1600129062940">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="586" y="398" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1680.1027@0.23.1680.1027" timestamp="1600129062940" />
-    <state width="1638" height="199" key="GridCell.Tab.0.bottom" timestamp="1606277832301">
+    <state width="1638" height="199" key="GridCell.Tab.0.bottom" timestamp="1606515901472">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
-    <state width="1638" height="199" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1606277832301" />
-    <state width="1638" height="199" key="GridCell.Tab.0.center" timestamp="1606277832301">
+    <state width="1638" height="199" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1606515901472" />
+    <state width="1638" height="199" key="GridCell.Tab.0.center" timestamp="1606515901471">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750077" />
-    <state width="1638" height="199" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1606277832301" />
-    <state width="1638" height="199" key="GridCell.Tab.0.left" timestamp="1606277832300">
+    <state width="1638" height="199" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1606515901471" />
+    <state width="1638" height="199" key="GridCell.Tab.0.left" timestamp="1606515901471">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304620" />
     <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750076" />
-    <state width="1638" height="199" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1606277832300" />
-    <state width="1638" height="199" key="GridCell.Tab.0.right" timestamp="1606277832301">
+    <state width="1638" height="199" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1606515901471" />
+    <state width="1638" height="199" key="GridCell.Tab.0.right" timestamp="1606515901472">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
-    <state width="1638" height="199" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1606277832301" />
+    <state width="1638" height="199" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1606515901472" />
     <state width="1638" height="346" key="GridCell.Tab.1.bottom" timestamp="1604435622020">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -320,9 +357,10 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="538" y="291" width="604" height="548" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1603936126194" />
-    <state x="221" y="250" width="670" height="676" key="search.everywhere.popup" timestamp="1604624167968">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state x="221" y="252" width="670" height="675" key="search.everywhere.popup" timestamp="1606505447928">
+      <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="221" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1604624167968" />
+    <state x="221" y="252" width="670" height="675" key="search.everywhere.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1606505447928" />
   </component>
 </project>

@@ -2,7 +2,6 @@ import {ActiveSidebarDictionary, SidebarButtonType} from "./sidebarTypes";
 import {SplitSizeDictionaryType} from "./otherTypes";
 import {CanvasType} from "./canvasTypes";
 import {BlockStorageType} from "../../../lib/GraphLibrary/types/BlockStorage";
-import {BlockVisualType, EdgeVisualType} from "../../../types";
 import {GraphVisualType} from "./graphTypes";
 
 export type StateType = {

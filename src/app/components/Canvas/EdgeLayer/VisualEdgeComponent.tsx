@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import {PointType} from "../../types";
-import {EdgeVisualType} from "../../../../types";
+import {EdgeVisualType} from "../../../store/types/graphTypes";
 
 type Props = {
     translate: PointType,
@@ -68,15 +68,17 @@ export class VisualEdgeComponent extends React.Component<Props, State> {
                              C ${halfXOut}, ${this.props.outputPoint.y} 
                              ${halfXIn}, ${this.props.inputPoint.y} 
                              ${this.props.inputPoint.x}, ${this.props.inputPoint.y}`;
-        } else if (!this.props.mirrored.outputBlock && this.props.mirrored.inputBlock) {
+        } else if (this.props.mirrored.inputBlock) {
+            const dist = Math.sqrt(((this.props.outputPoint.x - this.props.inputPoint.x) ** 2) + ((this.props.outputPoint.y - this.props.inputPoint.y) ** 2));
             return `M ${this.props.outputPoint.x}, ${this.props.outputPoint.y} 
-                             C ${this.props.outputPoint.x * 1.5}, ${this.props.outputPoint.y} 
-                             ${this.props.inputPoint.x * 1.5}, ${this.props.inputPoint.y} 
+                             C ${this.props.outputPoint.x + dist}, ${this.props.outputPoint.y} 
+                             ${this.props.inputPoint.x + dist}, ${this.props.inputPoint.y} 
                              ${this.props.inputPoint.x}, ${this.props.inputPoint.y}`;
-        } else if (this.props.mirrored.outputBlock && !this.props.mirrored.inputBlock) {
+        } else {
+            const dist = -Math.sqrt(((this.props.outputPoint.x - this.props.inputPoint.x) ** 2) + ((this.props.outputPoint.y - this.props.inputPoint.y) ** 2));
             return `M ${this.props.outputPoint.x}, ${this.props.outputPoint.y} 
-                             C ${this.props.outputPoint.x / 1.5}, ${this.props.outputPoint.y} 
-                             ${this.props.inputPoint.x / 1.5}, ${this.props.inputPoint.y} 
+                             C ${this.props.outputPoint.x + dist}, ${this.props.outputPoint.y} 
+                             ${this.props.inputPoint.x + dist}, ${this.props.inputPoint.y} 
                              ${this.props.inputPoint.x}, ${this.props.inputPoint.y}`;
         }
     }
