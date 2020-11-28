@@ -9,9 +9,12 @@ import {connect} from "react-redux";
 import {ActiveSidebarDictionary, SplitSizeDictionaryType} from "./store/types";
 import Canvas from "./components/Canvas/Canvas";
 import BrowserWindow from "./components/BrowserWindow/BrowserWindow";
-import {setupIPCListeners, removeIPCListeners, getBlockUpdate} from "./helpers/ipcRenderFunctions";
 import {Terminal} from "./components/Terminal/Terminal";
 import {IpcService} from "./IPC/IpcService";
+import {BlockStorageType} from "../lib/GraphLibrary/types/BlockStorage";
+import {BLOCK_LIBRARY_CHANNEL} from "../shared/Channels";
+import store from "./store"
+import {UpdatedBlockLibraryActionType} from "./store/actions/actionTypes";
 
 const pageWrapStyle: React.CSSProperties = {
   width: "calc(100vw - 2 * var(--border-width)",
@@ -64,18 +67,9 @@ type Props = {
 
 class App extends Component<Props, never> {
   componentDidMount() {
-    setupIPCListeners();
-    getBlockUpdate();
-
-    console.log("here");
-
     const ipc = new IpcService();
-    const t = ipc.send<{ kernel: string }>('system-info');
-    t.then(res => console.log(res));
-  }
-
-  componentWillUnmount() {
-    removeIPCListeners();
+    ipc.send<BlockStorageType[]>(BLOCK_LIBRARY_CHANNEL)
+        .then(res => store.dispatch({type: UpdatedBlockLibraryActionType, payload: res}));
   }
 
   render() {

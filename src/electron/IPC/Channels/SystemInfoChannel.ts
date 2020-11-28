@@ -1,11 +1,12 @@
 import {IpcChannelInterface} from "./IpcChannelInterface";
 import {IpcMainEvent} from 'electron';
-import {IpcRequest} from "../../shared/types";
+import {IpcRequest} from "../../../shared/types";
 import {execSync} from "child_process";
+import {SYSTEM_INFO_CHANNEL} from "../../../shared/Channels";
 
 export class SystemInfoChannel implements IpcChannelInterface {
     getName(): string {
-        return 'system-info';
+        return SYSTEM_INFO_CHANNEL;
     }
 
     handle(event: IpcMainEvent, request: IpcRequest): void {

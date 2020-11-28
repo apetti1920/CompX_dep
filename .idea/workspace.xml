@@ -11,42 +11,69 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7953432-bfcc-4650-a923-43f7ea8791ce" name="Default Changelist" comment="Initial Commit">
-      <change afterPath="$PROJECT_DIR$/src/app/IPC/IpcService.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/electron/IPC/IpcChannelInterface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/electron/IPC/SystemInfoChannel.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/electron/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/shared/types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/main.24343be4db0103151ecd.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/main.24343be4db0103151ecd.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/build/background.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/build/contentScript.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/build/injectGlobalHook.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/build/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/build/panel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/build/react_devtools_backend.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/build/renderer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/128-deadcode.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/128-development.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/128-disabled.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/128-outdated.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/128-production.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/128-unminified.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/16-deadcode.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/16-development.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/16-disabled.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/16-outdated.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/16-production.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/16-unminified.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/32-deadcode.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/32-development.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/32-disabled.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/32-outdated.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/32-production.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/32-unminified.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/48-deadcode.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/48-development.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/48-disabled.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/48-outdated.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/48-production.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/48-unminified.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/deadcode.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/development.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/disabled.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/outdated.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/production.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/main.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/panel.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/popups/deadcode.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/popups/development.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/popups/disabled.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/popups/outdated.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/popups/production.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/popups/shared.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/popups/unminified.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/electron/IPC/Channels/BlockLibraryChannel.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/electron/IPC/GetBlockLibraryFiles.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/Channels.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/StopItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/StopItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/Toolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/Toolbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/BlockLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/BlockLayer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/VisualBlockComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/VisualBlockComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/Canvas.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/Canvas.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/EdgeLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/EdgeLayer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/VisualEdgeComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/VisualEdgeComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/Grid.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/Grid.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/helpers/backgroundWindow.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/helpers/backgroundWindow.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/helpers/ipcRenderFunctions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/helpers/ipcRenderFunctions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/store/types/graphTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/types/graphTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/store/types/stateTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/types/stateTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/fonts/JetBrainsMono/JetBrainsMono-Bold-Italic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/JetBrainsMono/JetBrainsMono-Bold-Italic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/fonts/JetBrainsMono/JetBrainsMono-Bold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/JetBrainsMono/JetBrainsMono-Bold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/fonts/JetBrainsMono/JetBrainsMono-ExtraBold-Italic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/JetBrainsMono/JetBrainsMono-ExtraBold-Italic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/fonts/JetBrainsMono/JetBrainsMono-ExtraBold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/JetBrainsMono/JetBrainsMono-ExtraBold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/fonts/JetBrainsMono/JetBrainsMono-Italic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/JetBrainsMono/JetBrainsMono-Italic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/fonts/JetBrainsMono/JetBrainsMono-Medium-Italic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/JetBrainsMono/JetBrainsMono-Medium-Italic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/fonts/JetBrainsMono/JetBrainsMono-Medium.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/JetBrainsMono/JetBrainsMono-Medium.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/fonts/JetBrainsMono/JetBrainsMono-Regular.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/JetBrainsMono/JetBrainsMono-Regular.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helpers/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/constants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helpers/electronAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/electronAPI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helpers/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/renderer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/types/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/helpers/ipcRenderFunctions.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/electron/IPC/IpcChannelInterface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/IPC/Channels/IpcChannelInterface.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/electron/IPC/SystemInfoChannel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/IPC/Channels/SystemInfoChannel.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/electron/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/constants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/electron/electronAPI.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/electron/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webpack.main.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.main.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.plugins.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.plugins.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +109,7 @@
     <property name="javascript.nodejs.core.library.configured.version" value="12.16.3" />
     <property name="javascript.nodejs.core.library.typings.version" value="12.12.55" />
     <property name="js.linters.configure.manually.selectedeslint" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.webpack" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -101,19 +128,19 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/app" />
-      <recent name="$PROJECT_DIR$/src/electron" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src/app/types" />
-      <recent name="$PROJECT_DIR$/src/helpers/IPCMain" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/.webpack" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/app" />
       <recent name="$PROJECT_DIR$/src/app/components/ComponentUtils" />
       <recent name="$PROJECT_DIR$/src/helpers" />
-      <recent name="$PROJECT_DIR$/src/types" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/electron/IPC/Channels" />
+      <recent name="$PROJECT_DIR$/src/app" />
+      <recent name="$PROJECT_DIR$/src/electron" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/app/types" />
     </key>
   </component>
   <component name="RunManager" selected="npm.start">
@@ -212,6 +239,7 @@
       <workItem from="1606278052930" duration="1011000" />
       <workItem from="1606450302040" duration="1247000" />
       <workItem from="1606501809110" duration="8765000" />
+      <workItem from="1606521957842" duration="11188000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1599160068442</created>
@@ -273,30 +301,30 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="586" y="398" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1680.1027@0.23.1680.1027" timestamp="1600129062940" />
-    <state width="1638" height="199" key="GridCell.Tab.0.bottom" timestamp="1606515901472">
+    <state width="798" height="199" key="GridCell.Tab.0.bottom" timestamp="1606545737909">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
-    <state width="1638" height="199" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1606515901472" />
-    <state width="1638" height="199" key="GridCell.Tab.0.center" timestamp="1606515901471">
+    <state width="798" height="199" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1606545737909" />
+    <state width="798" height="199" key="GridCell.Tab.0.center" timestamp="1606545737908">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750077" />
-    <state width="1638" height="199" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1606515901471" />
-    <state width="1638" height="199" key="GridCell.Tab.0.left" timestamp="1606515901471">
+    <state width="798" height="199" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1606545737908" />
+    <state width="798" height="199" key="GridCell.Tab.0.left" timestamp="1606545737908">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304620" />
     <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750076" />
-    <state width="1638" height="199" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1606515901471" />
-    <state width="1638" height="199" key="GridCell.Tab.0.right" timestamp="1606515901472">
+    <state width="798" height="199" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1606545737908" />
+    <state width="798" height="199" key="GridCell.Tab.0.right" timestamp="1606545737909">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
-    <state width="1638" height="199" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1606515901472" />
+    <state width="798" height="199" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1606545737909" />
     <state width="1638" height="346" key="GridCell.Tab.1.bottom" timestamp="1604435622020">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -353,10 +381,11 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="341" y="175" key="SettingsEditor/0.23.1680.1027@0.23.1680.1027" timestamp="1603847164170" />
-    <state x="538" y="291" width="604" height="548" key="find.popup" timestamp="1603936126194">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state x="538" y="292" width="604" height="547" key="find.popup" timestamp="1606524072016">
+      <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="538" y="291" width="604" height="548" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1603936126194" />
+    <state x="538" y="292" width="604" height="547" key="find.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1606524072016" />
     <state x="221" y="252" width="670" height="675" key="search.everywhere.popup" timestamp="1606505447928">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>

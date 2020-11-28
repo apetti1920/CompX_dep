@@ -1,6 +1,20 @@
-import electronAPI from "./electronAPI";
+import {app, remote} from "electron";
 
-export const api = new electronAPI();
-export const blocksDir = api.getFileDataPath("blocks");
-export const getBlockDir = (id: string): string => api.getFileDataPath(`blocks/${id}.json`);
+const path = require('path');
+
+const getFileDataPath = (objPath?: string): string => {
+    let userDataPath: string;
+
+    try {
+        userDataPath = (app || remote.app).getPath('userData');
+    } catch (e) {
+        throw "can not get app or remote";
+    }
+
+    objPath = objPath ?? "";
+    return path.join(userDataPath, ...objPath.split('/'));
+}
+
+export const blocksDir = getFileDataPath("blocks");
+export const getBlockDir = (id: string): string => getFileDataPath(`blocks/${id}`);
 

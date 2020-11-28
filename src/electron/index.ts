@@ -1,11 +1,11 @@
 import {app, BrowserWindow, ipcMain, session} from 'electron';
-import {SystemInfoChannel} from "./IPC/SystemInfoChannel";
+import {SystemInfoChannel} from "./IPC/Channels/SystemInfoChannel";
 import isDev from 'electron-is-dev';
 const path = require('path')
 const os = require('os')
 
-import {api} from "./constants";
-import {IpcChannelInterface} from "./IPC/IpcChannelInterface";
+import {IpcChannelInterface} from "./IPC/Channels/IpcChannelInterface";
+import {BlockLibraryChannel} from "./IPC/Channels/BlockLibraryChannel";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: never;
 
@@ -49,8 +49,6 @@ class Main {
                 this.mainWindow.webContents.openDevTools({mode: 'undocked'});
             });
         }
-
-        api.setupIPC();
     }
     private static onCloseWindow() {
         if (process.platform !== 'darwin') {
@@ -68,5 +66,6 @@ class Main {
 }
 
 (new Main()).init([
-    new SystemInfoChannel()
+    new SystemInfoChannel(),
+    new BlockLibraryChannel()
 ]);

@@ -1,5 +1,5 @@
 import {IpcMainEvent} from 'electron';
-import {IpcRequest} from "../../shared/types";
+import {IpcRequest} from "../../../shared/types";
 
 export interface IpcChannelInterface {
     getName(): string;
