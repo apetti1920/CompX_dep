@@ -39,28 +39,28 @@ export class EdgeLayer extends React.Component<Props, State> {
     private convertEdgeToVisual(edge: EdgeVisualType) {
         //const selectedItem = this.props.selectedIDs !== undefined && this.props.selectedIDs === edge.id;
         const outputBlock = this.props.graph.blocks
-            .find(block => block.id === edge.outputBlockID);
+            .find(block => block.id === edge.outputBlockVisualID);
         const inputBlock = this.props.graph.blocks
-            .find(block => block.id === edge.inputBlockID);
+            .find(block => block.id === edge.inputBlockVisualID);
 
         if (outputBlock === undefined || inputBlock === undefined) {
             return <React.Fragment/>;
         }
-        const outputPortIndex = outputBlock.blockData.outputPorts
+        const outputPortIndex = outputBlock.getBlock().outputPorts
             .findIndex(port => (port.name === edge.outputPortID));
-        const inputPortIndex = inputBlock.blockData.inputPorts
+        const inputPortIndex = inputBlock.getBlock().inputPorts
             .findIndex(port => port.name === edge.inputPortID);
 
         const outputPortPos = {
             x: !outputBlock.mirrored?outputBlock.position.x + outputBlock.size.x:outputBlock.position.x,
             y: outputBlock.position.y +
-                ((outputBlock.size.y / (outputBlock.blockData.outputPorts.length + 1)) *
+                ((outputBlock.size.y / (outputBlock.getBlock().outputPorts.length + 1)) *
                     (outputPortIndex + 1))
         };
         const inputPortPos = {
             x: !inputBlock.mirrored?inputBlock.position.x:inputBlock.position.x+inputBlock.size.x,
             y: inputBlock.position.y +
-                ((inputBlock.size.y / (inputBlock.blockData.inputPorts.length + 1)) *
+                ((inputBlock.size.y / (inputBlock.getBlock().inputPorts.length + 1)) *
                     (inputPortIndex + 1))
         };
 
@@ -82,11 +82,11 @@ export class EdgeLayer extends React.Component<Props, State> {
             const startBlock = this.props.graph.blocks
                 .find(block => block.id === this.props.draggingPortCoords.beginningPort.blockID);
             if (startBlock !== undefined) {
-                let startPortInd = startBlock.blockData.outputPorts
+                let startPortInd = startBlock.getBlock().outputPorts
                     .findIndex(port => port.name === this.props.draggingPortCoords.beginningPort.portID);
                 let outputPort = true;
                 if (startPortInd === -1) {
-                    startPortInd = startBlock.blockData.inputPorts
+                    startPortInd = startBlock.getBlock().inputPorts
                         .findIndex(port => port.name === this.props.draggingPortCoords.beginningPort.portID);
                     outputPort = false;
                 }
@@ -95,7 +95,7 @@ export class EdgeLayer extends React.Component<Props, State> {
                     const startCoords = {
                         x: startBlock.position.x + (startBlock.mirrored ? 0 : startBlock.size.x),
                         y: startBlock.position.y +
-                            ((startBlock.size.y / (startBlock.blockData.outputPorts.length + 1)) * (startPortInd + 1))
+                            ((startBlock.size.y / (startBlock.getBlock().outputPorts.length + 1)) * (startPortInd + 1))
                     };
                     return <VisualEdgeComponent translate={this.props.translate} zoom={this.props.zoom}
                                                         outputPoint={startCoords}
@@ -107,7 +107,7 @@ export class EdgeLayer extends React.Component<Props, State> {
                     const startCoords = {
                         x: startBlock.position.x + (startBlock.mirrored ? startBlock.size.x : 0),
                         y: startBlock.position.y +
-                            ((startBlock.size.y / (startBlock.blockData.inputPorts.length + 1)) * (startPortInd + 1))
+                            ((startBlock.size.y / (startBlock.getBlock().inputPorts.length + 1)) * (startPortInd + 1))
                     };
                     return <VisualEdgeComponent translate={this.props.translate} zoom={this.props.zoom}
                                                         mirrored={{outputBlock: outputPort?startBlock.mirrored:false,

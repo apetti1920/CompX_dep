@@ -1,5 +1,5 @@
 import {ActionType} from "../types";
-import {BlockStorageType} from "../../../lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
 import {defaultState} from "../types/stateTypes";
 import {UpdatedBlockLibraryActionType} from "../actions/actionTypes";
 

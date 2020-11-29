@@ -9,7 +9,7 @@ import {
 
 } from "./actionTypes";
 import {PointType} from "../../components/types";
-import {BlockStorageType} from "../../../lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
 import {GraphVisualType} from "../types/graphTypes";
 
 export const ClickedSidebarButtonAction = (button: SidebarButtonType): ActionType => {

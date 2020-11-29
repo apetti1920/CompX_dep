@@ -14,7 +14,7 @@ import {MovedCanvasAction, UpdatedGraphAction, ZoomedCanvasAction} from "../../s
 import {StateType} from "../../store/types/stateTypes";
 import {CanvasType} from "../../store/types/canvasTypes";
 import {MouseCoordinatePosition} from "./MouseCoordinatePosition";
-import {BlockStorageType} from "../../../lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
 import {v4 as uuidv4} from 'uuid';
 import {GraphVisualType, BlockVisualType} from "../../store/types/graphTypes";
 import {BlockLayer} from "./BlockLayer/BlockLayer";
@@ -80,16 +80,16 @@ class Canvas extends React.Component<Props, State> {
         const tempGraph = {...this.props.graph};
         const chosenBlock = tempGraph.blocks.find(block => block.id === blockID);
 
-        if (chosenBlock.blockData.outputPorts.map(port => port.name).includes(portID)) {
-            const portIndex = chosenBlock.blockData.outputPorts.findIndex(port => port.name === portID);
+        if (chosenBlock.getBlock().outputPorts.map(port => port.name).includes(portID)) {
+            const portIndex = chosenBlock.getBlock().outputPorts.findIndex(port => port.name === portID);
             return {x: chosenBlock.position.x + chosenBlock.size.x,
                 y: chosenBlock.position.y + ((chosenBlock.size.y /
-                    (chosenBlock.blockData.outputPorts.length + 1)) * (portIndex + 1))};
+                    (chosenBlock.getBlock().outputPorts.length + 1)) * (portIndex + 1))};
         } else {
-            const portIndex = chosenBlock.blockData.inputPorts.findIndex(port => port.name === portID);
+            const portIndex = chosenBlock.getBlock().inputPorts.findIndex(port => port.name === portID);
             return {x: chosenBlock.position.x + chosenBlock.size.x,
                 y: chosenBlock.position.y + ((chosenBlock.size.y /
-                    (chosenBlock.blockData.inputPorts.length + 1)) * (portIndex + 1))};
+                    (chosenBlock.getBlock().inputPorts.length + 1)) * (portIndex + 1))};
         }
     }
 
@@ -256,12 +256,12 @@ class Canvas extends React.Component<Props, State> {
 
                                 const delBlockInd = graph.blocks.findIndex(block => block.id === blockID);
                                 const delBlock = graph.blocks[delBlockInd];
-                                delBlock.blockData.outputPorts.forEach(port => {
-                                    graph.edges = graph.edges.filter(edge => !(edge.outputBlockID === delBlock.id &&
+                                delBlock.getBlock().outputPorts.forEach(port => {
+                                    graph.edges = graph.edges.filter(edge => !(edge.outputBlockVisualID === delBlock.id &&
                                         edge.outputPortID === port.name));
                                 })
-                                delBlock.blockData.inputPorts.forEach(port => {
-                                    graph.edges = graph.edges.filter(edge => !(edge.inputBlockID === delBlock.id &&
+                                delBlock.getBlock().inputPorts.forEach(port => {
+                                    graph.edges = graph.edges.filter(edge => !(edge.inputBlockVisualID === delBlock.id &&
                                         edge.inputPortID === port.name));
                                 })
                                 graph.blocks = graph.blocks.filter(block => block.id !== blockID);
@@ -303,7 +303,7 @@ class Canvas extends React.Component<Props, State> {
             const tempGraph = {...this.props.graph};
             let outputBlock = tempGraph.blocks
                 .find(block => block.id === blockID &&
-                    block.blockData.outputPorts.map(port => port.name).includes(ioName));
+                    block.getBlock().outputPorts.map(port => port.name).includes(ioName));
 
             // Check if the mouse up port was input (undefined) or not
             let outputBlockID: string, outputPortID: string, inputBlockID: string, inputPortID: string;
@@ -311,7 +311,7 @@ class Canvas extends React.Component<Props, State> {
                 // mouse down on output mouse up on input
                 outputBlock = tempGraph.blocks
                     .find(block => block.id === this.state.selectedPort.blockID &&
-                        block.blockData.outputPorts.map(port => port.name).includes(this.state.selectedPort.portID));
+                        block.getBlock().outputPorts.map(port => port.name).includes(this.state.selectedPort.portID));
                 if (outputBlock === undefined) {
                     this.setState(tempState);
                     return;
@@ -320,7 +320,7 @@ class Canvas extends React.Component<Props, State> {
                 outputPortID = this.state.selectedPort.portID;
                 const inputBlock = tempGraph.blocks
                     .find(block => block.id === blockID &&
-                        block.blockData.inputPorts.map(port => port.name).includes(ioName));
+                        block.getBlock().inputPorts.map(port => port.name).includes(ioName));
                 if (inputBlock === undefined) {
                     this.setState(tempState);
                     return;
@@ -333,7 +333,7 @@ class Canvas extends React.Component<Props, State> {
                 outputPortID = ioName;
                 const inputBlock = tempGraph.blocks
                     .find(block => block.id === this.state.selectedPort.blockID &&
-                        block.blockData.inputPorts.map(port => port.name).includes(this.state.selectedPort.portID));
+                        block.getBlock().inputPorts.map(port => port.name).includes(this.state.selectedPort.portID));
                 if (inputBlock === undefined) {
                     this.setState(tempState);
                     return;
@@ -344,7 +344,7 @@ class Canvas extends React.Component<Props, State> {
 
             // used for later
             let type: "number";
-            switch (outputBlock.blockData.outputPorts
+            switch (outputBlock.getBlock().outputPorts
                 .find(port => port.name === outputPortID).type) {
                 case "number": {
                     type = "number"
@@ -352,12 +352,12 @@ class Canvas extends React.Component<Props, State> {
             }
 
             // TODO: Don't add if not output to input, if there is an other edge to same input, or if different types
-            if (tempGraph.edges.find(edge => edge.outputBlockID === outputBlockID &&
-                edge.outputPortID === outputPortID && edge.inputBlockID === inputBlockID &&
+            if (tempGraph.edges.find(edge => edge.outputBlockVisualID === outputBlockID &&
+                edge.outputPortID === outputPortID && edge.inputBlockVisualID === inputBlockID &&
                 edge.inputPortID === inputPortID) === undefined)
             {
-                const edge = {id: uuidv4(), outputBlockID: outputBlockID,
-                    outputPortID: outputPortID, inputBlockID: inputBlockID,
+                const edge = {id: uuidv4(), outputBlockVisualID: outputBlockID,
+                    outputPortID: outputPortID, inputBlockVisualID: inputBlockID,
                     inputPortID: inputPortID,
                     type: type};
                 tempGraph.edges.push(edge);
@@ -430,11 +430,10 @@ class Canvas extends React.Component<Props, State> {
 
     onDropHandler = (e: React.DragEvent<HTMLDivElement>): void => {
         e.preventDefault();
-        const cardID = e.dataTransfer.getData("cardData");
-        const card: BlockStorageType = JSON.parse(cardID);
+        const cardID = e.dataTransfer.getData("cardID");
         const worldPos = this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
-        const block: BlockVisualType = {id: uuidv4(), position: {x: worldPos.x, y: worldPos.y}, mirrored: false,
-            size: {x: 40, y: 30}, blockData: card};
+        const block: BlockVisualType = new BlockVisualType({id: uuidv4(), position: {x: worldPos.x, y: worldPos.y}, mirrored: false,
+            size: {x: 40, y: 30}, blockStorageID: cardID});
         block.position.x -= block.size.x / 2;
         block.position.y -= block.size.y / 2;
         const tempGraph = {...this.props.graph};

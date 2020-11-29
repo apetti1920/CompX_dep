@@ -1,13 +1,12 @@
-import {BlockStorageType} from "../../lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType} from "../../shared/lib/GraphLibrary/types/BlockStorage";
 
 const path = require('path');
 const fs = require('fs');
 
 process.on("message", (message: any) => {
-    const jsonResp = GetBlockLibraryFiles(message.blocksDir);
-    process.send(JSON.stringify(jsonResp));
+    process.send(GetBlockLibraryFiles(message.blocksDir));
     process.exit()
-})
+});
 
 function GetBlockLibraryFiles(blocksDir: string): BlockStorageType[] {
     const blocks: BlockStorageType[] = [];

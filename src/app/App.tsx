@@ -11,7 +11,7 @@ import Canvas from "./components/Canvas/Canvas";
 import BrowserWindow from "./components/BrowserWindow/BrowserWindow";
 import {Terminal} from "./components/Terminal/Terminal";
 import {IpcService} from "./IPC/IpcService";
-import {BlockStorageType} from "../lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType} from "../shared/lib/GraphLibrary/types/BlockStorage";
 import {BLOCK_LIBRARY_CHANNEL} from "../shared/Channels";
 import store from "./store"
 import {UpdatedBlockLibraryActionType} from "./store/actions/actionTypes";

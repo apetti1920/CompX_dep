@@ -6,6 +6,7 @@ const os = require('os')
 
 import {IpcChannelInterface} from "./IPC/Channels/IpcChannelInterface";
 import {BlockLibraryChannel} from "./IPC/Channels/BlockLibraryChannel";
+import {RunModelChannel} from "./IPC/Channels/RunModelChannel";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: never;
 
@@ -67,5 +68,6 @@ class Main {
 
 (new Main()).init([
     new SystemInfoChannel(),
-    new BlockLibraryChannel()
+    new BlockLibraryChannel(),
+    new RunModelChannel()
 ]);

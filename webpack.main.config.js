@@ -1,5 +1,3 @@
-var CopyWebpackPlugin = require('copy-webpack-plugin')
-
 module.exports = {
   /**
    * This is the main entry point for your application, it's the first file
@@ -7,7 +5,8 @@ module.exports = {
    */
   entry: {
     index: './src/electron/index.ts',
-    GetBlockLibraryFiles: './src/electron/IPC/GetBlockLibraryFiles.ts'
+    GetBlockLibraryFiles: './src/electron/IPC/GetBlockLibraryFiles.ts',
+    ModelLib: './src/shared/lib/GraphLibrary/ModelChildProcess.ts'
   },
   output: {
     path: __dirname + '/.webpack/main',

@@ -4,6 +4,9 @@ import path from "path";
 import Block from "./Block";
 import Edge from "./Edge";
 import {findNextOrMissing, Zeros} from "./helpers/utils";
+import {BlockStorageType} from "./types/BlockStorage";
+
+const fs = require('fs')
 
 
 export enum EdgeType {
@@ -60,7 +63,7 @@ export default class Graph {
         return this.blocks.find(b => b.name === name)?.id ?? "";
     }
 
-    public addBlock(name: string, internalValues?: Map<string, unknown>): string {
+    public addBlockByName(name: string, internalValues?: Map<string, unknown>): string {
         let p: string;
         if (this.isTest) {
             p = path.resolve(__dirname, '__tests__', 'test_blocks', `${name}.json`);
@@ -68,7 +71,18 @@ export default class Graph {
             // p = api.getFileDataPath(`blocks/${name}.json`);
             p = path.join(this.filePath, `blocks/${name}.json`);
         }
-        const b = new Block(p);
+        const b: Block = new Block(JSON.parse(fs.readFile(p)) as BlockStorageType);
+        const tempBlocks = this.blocks.filter(temp => temp.name.split("_")[0] === b.name)
+            .map(b => Number(b.name.split("_")[1]));
+        const tempIndex = findNextOrMissing(tempBlocks);
+        b.name += "_" + tempIndex;
+        internalValues?.forEach((value, key) => b.internalData.set(key, value));
+        this.blocks.push(b);
+        return b.id;
+    }
+
+    public addBlock(block: BlockStorageType, internalValues?: Map<string, unknown>): string {
+        const b = new Block(block);
         const tempBlocks = this.blocks.filter(temp => temp.name.split("_")[0] === b.name)
             .map(b => Number(b.name.split("_")[1]));
         const tempIndex = findNextOrMissing(tempBlocks);

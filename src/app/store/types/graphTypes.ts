@@ -1,24 +1,33 @@
 import {PointType} from "../../components/types";
-import {BlockStorageType} from "../../../lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
+import store from "../index"
 
-export type BlockVisualType = {
-    id: string,
-    position: PointType,
-    size: PointType,
-    mirrored: boolean,
-    blockData: BlockStorageType
+export class BlockVisualType {
+    id: string;
+    position: PointType;
+    size: PointType;
+    mirrored: boolean;
+    blockStorageID: string;
+
+    public constructor(init?:Partial<BlockVisualType>) {
+        Object.assign(this, init);
+    }
+
+    getBlock(): BlockStorageType {
+        return store.getState().blockLibrary.find(storageBlock => storageBlock.id === this.blockStorageID);
+    }
 }
 
 export type EdgeVisualType = {
     id: string,
-    outputBlockID: string,
+    outputBlockVisualID: string,
     outputPortID: string,
-    inputBlockID: string,
+    inputBlockVisualID: string,
     inputPortID: string,
     type: "number"
 }
 
 export type GraphVisualType = {
-    blocks: BlockVisualType[],
-    edges: EdgeVisualType[]
+    blocks: BlockVisualType[];
+    edges: EdgeVisualType[];
 }

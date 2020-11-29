@@ -46,14 +46,14 @@ export class VisualBlockComponent extends React.Component<Props, State> {
     }
 
     render(): React.ReactNode {
-        const deltaYi = this.props.block.size.y / (this.props.block.blockData.inputPorts.length + 1);
-        const inputPortComponents = this.props.block.blockData.inputPorts.map((port, index) => {
+        const deltaYi = this.props.block.size.y / (this.props.block.getBlock().inputPorts.length + 1);
+        const inputPortComponents = this.props.block.getBlock().inputPorts.map((port, index) => {
             const keyId = "b_" + this.props.block.id + "_pi_" + index;
             return this.getCircle(keyId, false, deltaYi, index, port.name);
         });
 
-        const deltaYo = this.props.block.size.y / (this.props.block.blockData.outputPorts.length + 1);
-        const outputPortComponents = this.props.block.blockData.outputPorts.map((port, index) => {
+        const deltaYo = this.props.block.size.y / (this.props.block.getBlock().outputPorts.length + 1);
+        const outputPortComponents = this.props.block.getBlock().outputPorts.map((port, index) => {
             const keyId = "b_" + this.props.block.id + "_po_" + index;
             return this.getCircle(keyId, true, deltaYo, index, port.name);
         });

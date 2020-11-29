@@ -11,69 +11,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7953432-bfcc-4650-a923-43f7ea8791ce" name="Default Changelist" comment="Initial Commit">
-      <change afterPath="$PROJECT_DIR$/dist/main.24343be4db0103151ecd.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/main.24343be4db0103151ecd.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/build/background.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/build/contentScript.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/build/injectGlobalHook.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/build/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/build/panel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/build/react_devtools_backend.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/build/renderer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/128-deadcode.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/128-development.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/128-disabled.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/128-outdated.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/128-production.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/128-unminified.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/16-deadcode.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/16-development.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/16-disabled.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/16-outdated.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/16-production.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/16-unminified.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/32-deadcode.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/32-development.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/32-disabled.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/32-outdated.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/32-production.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/32-unminified.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/48-deadcode.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/48-development.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/48-disabled.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/48-outdated.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/48-production.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/48-unminified.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/deadcode.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/development.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/disabled.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/outdated.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/icons/production.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/main.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/manifest.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/panel.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/popups/deadcode.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/popups/development.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/popups/disabled.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/popups/outdated.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/popups/production.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/popups/shared.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/native_modules/extension/popups/unminified.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/electron/IPC/Channels/BlockLibraryChannel.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/electron/IPC/GetBlockLibraryFiles.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/shared/Channels.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/electron/IPC/Channels/RunModelChannel.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/ModelChildProcess.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/helpers/ipcRenderFunctions.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/electron/IPC/IpcChannelInterface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/IPC/Channels/IpcChannelInterface.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/electron/IPC/SystemInfoChannel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/IPC/Channels/SystemInfoChannel.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/electron/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/constants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/electron/electronAPI.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/StopItem.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/Accordion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/Accordion.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/FunctionBrowser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/FunctionBrowser.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/FunctionBrowserCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/FunctionBrowserCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/VisualBlockComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/VisualBlockComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/Canvas.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/Canvas.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/EdgeLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/EdgeLayer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/helpers/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/helpers/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/actions/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/actions/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/reducers/blockLibraryReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/reducers/blockLibraryReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/types/graphTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/types/graphTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/types/stateTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/types/stateTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/types/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/electron/IPC/Channels/BlockLibraryChannel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/IPC/Channels/BlockLibraryChannel.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/electron/IPC/GetBlockLibraryFiles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/IPC/GetBlockLibraryFiles.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/electron/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/Block.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Block.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/Edge.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Edge.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/Graph.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Graph.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/Port.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Port.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/__tests__/BlockTests.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/BlockTests.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/__tests__/GraphTest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/GraphTest.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/__tests__/PortTests.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/PortTests.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/helpers/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/helpers/utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/types/BlockStorage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/types/BlockStorage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/types/generic.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/types/generic.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/Channels.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/Channels.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/types.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webpack.main.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.main.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.plugins.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.plugins.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,19 +102,19 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/shared" />
+      <recent name="$PROJECT_DIR$/src/electron/IPC/Channels" />
+      <recent name="$PROJECT_DIR$/src/app" />
+      <recent name="$PROJECT_DIR$/src/electron" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/.webpack" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/app" />
       <recent name="$PROJECT_DIR$/src/app/components/ComponentUtils" />
       <recent name="$PROJECT_DIR$/src/helpers" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/electron/IPC/Channels" />
-      <recent name="$PROJECT_DIR$/src/app" />
-      <recent name="$PROJECT_DIR$/src/electron" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src/app/types" />
     </key>
   </component>
   <component name="RunManager" selected="npm.start">
@@ -240,6 +214,9 @@
       <workItem from="1606450302040" duration="1247000" />
       <workItem from="1606501809110" duration="8765000" />
       <workItem from="1606521957842" duration="11188000" />
+      <workItem from="1606545958516" duration="173000" />
+      <workItem from="1606580315017" duration="12504000" />
+      <workItem from="1606629819414" duration="5683000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1599160068442</created>
@@ -301,30 +278,30 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="586" y="398" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1680.1027@0.23.1680.1027" timestamp="1600129062940" />
-    <state width="798" height="199" key="GridCell.Tab.0.bottom" timestamp="1606545737909">
+    <state width="1638" height="199" key="GridCell.Tab.0.bottom" timestamp="1606677000234">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
-    <state width="798" height="199" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1606545737909" />
-    <state width="798" height="199" key="GridCell.Tab.0.center" timestamp="1606545737908">
+    <state width="1638" height="199" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1606677000234" />
+    <state width="1638" height="199" key="GridCell.Tab.0.center" timestamp="1606677000233">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750077" />
-    <state width="798" height="199" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1606545737908" />
-    <state width="798" height="199" key="GridCell.Tab.0.left" timestamp="1606545737908">
+    <state width="1638" height="199" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1606677000233" />
+    <state width="1638" height="199" key="GridCell.Tab.0.left" timestamp="1606677000232">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304620" />
     <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750076" />
-    <state width="798" height="199" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1606545737908" />
-    <state width="798" height="199" key="GridCell.Tab.0.right" timestamp="1606545737909">
+    <state width="1638" height="199" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1606677000232" />
+    <state width="1638" height="199" key="GridCell.Tab.0.right" timestamp="1606677000233">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
-    <state width="798" height="199" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1606545737909" />
+    <state width="1638" height="199" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1606677000233" />
     <state width="1638" height="346" key="GridCell.Tab.1.bottom" timestamp="1604435622020">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -381,15 +358,15 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="341" y="175" key="SettingsEditor/0.23.1680.1027@0.23.1680.1027" timestamp="1603847164170" />
-    <state x="538" y="292" width="604" height="547" key="find.popup" timestamp="1606524072016">
+    <state x="538" y="292" width="604" height="547" key="find.popup" timestamp="1606595290249">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="538" y="291" width="604" height="548" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1603936126194" />
-    <state x="538" y="292" width="604" height="547" key="find.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1606524072016" />
-    <state x="221" y="252" width="670" height="675" key="search.everywhere.popup" timestamp="1606505447928">
+    <state x="538" y="292" width="604" height="547" key="find.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1606595290249" />
+    <state x="221" y="252" width="670" height="675" key="search.everywhere.popup" timestamp="1606597092345">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="221" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1604624167968" />
-    <state x="221" y="252" width="670" height="675" key="search.everywhere.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1606505447928" />
+    <state x="221" y="252" width="670" height="675" key="search.everywhere.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1606597092345" />
   </component>
 </project>

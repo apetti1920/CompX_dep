@@ -17,20 +17,18 @@ export default class Block {
     public readonly pseudoSource: boolean;
     public readonly callback: Callback;
 
-    constructor(filePath: string) {
-        const data = fs.readFileSync(filePath, 'utf8');
-        const jsonData: BlockStorageType = JSON.parse(data);
-        this.id = uuidv4();
-        this.name = jsonData.name;
-        this.description = jsonData.description;
-        this.tags = jsonData.tags;
+    constructor(block: BlockStorageType) {
+        this.id = block.id;
+        this.name = block.name;
+        this.description = block.description;
+        this.tags = block.tags;
         this.internalData = new Map<string, unknown>();
-        const iData = new Map(Object.entries(jsonData.internalData));
+        const iData = new Map(Object.entries(block.internalData));
         iData.forEach((value, key) => this.internalData.set(key, value));
-        this.inputPorts = jsonData.inputPorts.map((port: PortType) => new Port(port, this));
-        this.outputPorts = jsonData.outputPorts.map((port: PortType) => new Port(port, this));
-        this.pseudoSource = jsonData.pseudoSource === "true";
-        this.callback = this.convertCallback(jsonData.callback);
+        this.inputPorts = block.inputPorts.map((port: PortType) => new Port(port, this));
+        this.outputPorts = block.outputPorts.map((port: PortType) => new Port(port, this));
+        this.pseudoSource = block.pseudoSource === "true";
+        this.callback = this.convertCallback(block.callback);
     }
 
     private convertCallback(callbackData: string): Callback {

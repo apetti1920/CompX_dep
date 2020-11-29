@@ -1,11 +1,26 @@
 import React, {Component} from 'react';
+import {IpcService} from "../../../IPC/IpcService";
+import {Graph} from "../../../../shared/lib/GraphLibrary";
+import {RUN_MODEL_CHANNEL} from "../../../../shared/Channels";
+import {RunModelChannel} from "../../../../electron/IPC/Channels/RunModelChannel";
+import {IpcRequest} from "../../../../shared/types";
+import {StateType} from "../../../store/types/stateTypes";
+import {connect} from "react-redux";
+import {PointType} from "../../types";
+import {GraphVisualType} from "../../../store/types/graphTypes";
+import Edge from "../../../../shared/lib/GraphLibrary/Edge";
+import {BlockStorageType} from "../../../../shared/lib/GraphLibrary/types/BlockStorage";
+
+interface StateProps {
+    graph: GraphVisualType
+}
 
 interface State {
     clicked: boolean
 }
 
-class PlayItem extends Component<unknown, State> {
-    constructor(props: unknown) {
+class PlayItem extends Component<StateProps, State> {
+    constructor(props: StateProps) {
         super(props);
 
         this.state = {
@@ -25,12 +40,38 @@ class PlayItem extends Component<unknown, State> {
 
         return (
             <svg className="bi bi-play-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-                 color={ !this.state.clicked?"#006a4e":"#960018" }
+                 color={!this.state.clicked ? "#006a4e" : "#960018"}
                  xmlns="http://www.w3.org/2000/svg" onClick={() => {
-                     const tempState = { ...this.state }
-                     tempState.clicked = !tempState.clicked;
+                const tempState = {...this.state};
+                tempState.clicked = !tempState.clicked;
 
-                     this.setState(tempState);
+                if (tempState.clicked) {
+                    console.log("clicked")
+
+                    const ipc = new IpcService();
+
+                    const edges: Edge[] = this.props.graph.edges.map(edge => {
+                        return {
+                            id: edge.id, outputBlock: edge.outputBlockVisualID,
+                            outputPort: edge.outputPortID, inputBlock: edge.inputBlockVisualID,
+                            inputPort: edge.inputPortID
+                        }
+                    });
+
+                    ipc.send<void>(RUN_MODEL_CHANNEL, {
+                        params:
+                            {
+                                blocks: this.props.graph.blocks.map(block => {
+                                    const storageBlock = block.getBlock();
+                                    storageBlock.id = block.id;
+                                    return storageBlock;
+                                }),
+                                edges: edges
+                            }
+                    });
+
+                    this.setState(tempState);
+                }
             }}>
                 {pathButton}
             </svg>
@@ -38,4 +79,10 @@ class PlayItem extends Component<unknown, State> {
     }
 }
 
-export default PlayItem;
+function mapStateToProps(state: StateType): StateProps {
+    return {
+        graph: state.graph,
+    };
+}
+
+export default connect(mapStateToProps)(PlayItem);

@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 
-import {BlockStorageType} from "../../../../lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType} from "../../../../shared/lib/GraphLibrary/types/BlockStorage";
 
 type Props = {
     data: BlockStorageType
@@ -20,8 +20,7 @@ class FunctionBrowserCard extends React.Component<Props, State> {
     }
     onDragStartHandler = (e: React.DragEvent<HTMLDivElement>): void => {
         // Should handle the transfer of the data
-        const target = e.target;
-        e.dataTransfer.setData('cardData', JSON.stringify(this.props.data));
+        e.dataTransfer.setData('cardID', this.props.data.id);
     }
 
     render(): React.ReactNode {
