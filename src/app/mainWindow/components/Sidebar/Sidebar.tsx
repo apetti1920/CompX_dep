@@ -3,8 +3,8 @@ import * as React from 'react';
 import _ from 'lodash';
 import {connect} from "react-redux";
 
-import {StateType} from "../../store/types/stateTypes";
-import {SidebarButtonType} from "../../store/types";
+import {StateType} from "../../../store/types/stateTypes";
+import {SidebarButtonType} from "../../../store/types";
 import SidebarButtonGroup from "./SidebarButtonGroup";
 // eslint-disable-next-line import/no-unresolved
 import CSS from "csstype";

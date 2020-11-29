@@ -1,25 +1,27 @@
 // @flow
 import * as React from 'react';
 
-import {Repeat, Delete} from 'react-feather';
+import {Repeat, Delete, Settings} from 'react-feather';
 
 import {Grid} from "./Grid";
 import {CanvasSelectionType, MouseDown, PointType} from "../types";
-import {Clamp, linearInterp} from "../../../electron/utils";
+import {Clamp, linearInterp} from "../../../../electron/utils";
 import Ruler from "./Ruler";
 import {ref} from "framework-utils";
 import {connect} from "react-redux";
 import {bindActionCreators, Dispatch} from 'redux';
-import {MovedCanvasAction, UpdatedGraphAction, ZoomedCanvasAction} from "../../store/actions";
-import {StateType} from "../../store/types/stateTypes";
-import {CanvasType} from "../../store/types/canvasTypes";
+import {MovedCanvasAction, UpdatedGraphAction, ZoomedCanvasAction} from "../../../store/actions";
+import {StateType} from "../../../store/types/stateTypes";
+import {CanvasType} from "../../../store/types/canvasTypes";
 import {MouseCoordinatePosition} from "./MouseCoordinatePosition";
-import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType} from "../../../../shared/lib/GraphLibrary/types/BlockStorage";
 import {v4 as uuidv4} from 'uuid';
-import {GraphVisualType, BlockVisualType} from "../../store/types/graphTypes";
+import {GraphVisualType, BlockVisualType} from "../../../store/types/graphTypes";
 import {BlockLayer} from "./BlockLayer/BlockLayer";
 import {EdgeLayer} from "./EdgeLayer/EdgeLayer";
 import {ContextMenu} from "../ComponentUtils/ContextMenu";
+import {IpcService} from "../../../IPC/IpcService";
+import {EDIT_BLOCK_CHANNEL} from "../../../../shared/Channels";
 
 interface StateProps {
     canvasZoom: number,
@@ -238,6 +240,14 @@ class Canvas extends React.Component<Props, State> {
         const mir = this.props.graph.blocks.find(block => block.id === blockID).mirrored;
         tmpState.contextMenu = <ContextMenu position={{x: e.nativeEvent.offsetX,
             y: e.nativeEvent.offsetY}} items={[
+                    {icon: <Settings height="100%" style={{flexGrow: 1}}/>, name: "Edit", action: ()=>{
+                        // Open Edit Window
+                            const tmpState = {...this.state};
+                            const ipc = new IpcService();
+                            ipc.send<void>(EDIT_BLOCK_CHANNEL, {params: {blockID: blockID}}).then(res => console.log(res));
+                            tmpState.contextMenu = undefined;
+                            this.setState(tmpState);
+                    }},
                     {icon: <Repeat height="100%" style={{flexGrow: 1}}/>, name: !mir?"Mirror":"Un-Mirror", action: ()=>{
                             const tmpState = {...this.state};
                             const tmpProps = {...this.props};

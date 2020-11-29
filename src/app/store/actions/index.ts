@@ -8,7 +8,7 @@ import {
     UpdatedGraphActionType
 
 } from "./actionTypes";
-import {PointType} from "../../components/types";
+import {PointType} from "../../mainWindow/components/types";
 import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
 import {GraphVisualType} from "../types/graphTypes";
 

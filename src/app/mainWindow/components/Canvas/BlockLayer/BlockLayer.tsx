@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import {GraphVisualType, BlockVisualType} from "../../../store/types/graphTypes";
+import {GraphVisualType, BlockVisualType} from "../../../../store/types/graphTypes";
 import {PointType} from "../../types";
 import {VisualBlockComponent} from "./VisualBlockComponent";
 

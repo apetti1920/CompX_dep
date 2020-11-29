@@ -7,6 +7,7 @@ const os = require('os')
 import {IpcChannelInterface} from "./IPC/Channels/IpcChannelInterface";
 import {BlockLibraryChannel} from "./IPC/Channels/BlockLibraryChannel";
 import {RunModelChannel} from "./IPC/Channels/RunModelChannel";
+import {EditBlockChannel} from "./IPC/Channels/EditBlockChannel";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: never;
 
@@ -36,7 +37,7 @@ class Main {
             }
         });
 
-        this.mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY).then(() => {
+        this.mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY).then(() => { // MAIN_WINDOW_WEBPACK_ENTRY
             // disableZoom(mainWindow);
         });
 
@@ -69,5 +70,6 @@ class Main {
 (new Main()).init([
     new SystemInfoChannel(),
     new BlockLibraryChannel(),
-    new RunModelChannel()
+    new RunModelChannel(),
+    new EditBlockChannel()
 ]);

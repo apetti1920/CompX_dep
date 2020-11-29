@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
-import {IpcService} from "../../../IPC/IpcService";
-import {Graph} from "../../../../shared/lib/GraphLibrary";
-import {RUN_MODEL_CHANNEL} from "../../../../shared/Channels";
-import {RunModelChannel} from "../../../../electron/IPC/Channels/RunModelChannel";
-import {IpcRequest} from "../../../../shared/types";
-import {StateType} from "../../../store/types/stateTypes";
+import {IpcService} from "../../../../IPC/IpcService";
+import {Graph} from "../../../../../shared/lib/GraphLibrary";
+import {RUN_MODEL_CHANNEL} from "../../../../../shared/Channels";
+import {RunModelChannel} from "../../../../../electron/IPC/Channels/RunModelChannel";
+import {IpcRequest} from "../../../../../shared/types";
+import {StateType} from "../../../../store/types/stateTypes";
 import {connect} from "react-redux";
 import {PointType} from "../../types";
-import {GraphVisualType} from "../../../store/types/graphTypes";
-import Edge from "../../../../shared/lib/GraphLibrary/Edge";
-import {BlockStorageType} from "../../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {GraphVisualType} from "../../../../store/types/graphTypes";
+import Edge from "../../../../../shared/lib/GraphLibrary/Edge";
+import {BlockStorageType} from "../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 
 interface StateProps {
     graph: GraphVisualType

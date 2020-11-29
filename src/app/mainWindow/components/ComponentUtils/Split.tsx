@@ -3,9 +3,9 @@ import "./Split.css"
 // eslint-disable-next-line import/no-unresolved
 import CSS from "csstype";
 import {bindActionCreators, Dispatch} from "redux";
-import {MovedSplitPaneAction} from "../../store/actions";
+import {MovedSplitPaneAction} from "../../../store/actions";
 import {connect} from "react-redux";
-import {SplitPaneName} from "../../store/types";
+import {SplitPaneName} from "../../../store/types";
 
 
 type Direction = "column" | "row";

@@ -52,8 +52,13 @@
               "entryPoints": [
                 {
                   "html": "./src/index.html",
-                  "js": "./src/app/renderer.tsx",
+                  "js": "./src/app/mainWindow/renderer.tsx",
                   "name": "main_window"
+                },
+                {
+                  "html": "./src/index.html",
+                  "js": "./src/app/editBlockWindow/renderer.tsx",
+                  "name": "edit_block_window"
                 }
               ]
             }

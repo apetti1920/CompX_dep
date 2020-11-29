@@ -1,5 +1,5 @@
 import * as React from "react";
-import {StateType} from "../../store/types/stateTypes";
+import {StateType} from "../../../store/types/stateTypes";
 import {connect} from "react-redux";
 import FunctionBrowser from "./FunctionBrowser/FunctionBrowser";
 

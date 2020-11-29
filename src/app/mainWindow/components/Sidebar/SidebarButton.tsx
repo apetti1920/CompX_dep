@@ -2,10 +2,10 @@
 import * as React from 'react';
 import {bindActionCreators, Dispatch} from "redux";
 
-import {ActiveSidebarDictionary, SidebarButtonType} from "../../store/types";
+import {ActiveSidebarDictionary, SidebarButtonType} from "../../../store/types";
 import {connect} from "react-redux";
-import {ClickedSidebarButtonAction} from "../../store/actions";
-import {StateType} from "../../store/types/stateTypes";
+import {ClickedSidebarButtonAction} from "../../../store/actions";
+import {StateType} from "../../../store/types/stateTypes";
 
 import "./SidebarButtonStylesheet.css";
 

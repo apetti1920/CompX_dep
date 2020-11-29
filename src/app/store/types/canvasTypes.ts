@@ -1,4 +1,4 @@
-import {PointType} from "../../components/types";
+import {PointType} from "../../mainWindow/components/types";
 
 export type CanvasType = {
     zoom: number,

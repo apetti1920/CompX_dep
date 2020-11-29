@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import {GraphVisualType, EdgeVisualType} from "../../../store/types/graphTypes";
+import {GraphVisualType, EdgeVisualType} from "../../../../store/types/graphTypes";
 import {VisualEdgeComponent} from "./VisualEdgeComponent";
 import {PointType} from "../../types";
 

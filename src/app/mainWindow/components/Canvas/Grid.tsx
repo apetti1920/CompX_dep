@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import {linearInterp} from "../../../electron/utils";
+import {linearInterp} from "../../../../electron/utils";
 import {PointType} from "../types";
 
 type Props = {

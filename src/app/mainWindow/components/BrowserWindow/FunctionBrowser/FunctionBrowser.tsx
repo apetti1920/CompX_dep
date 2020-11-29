@@ -3,8 +3,8 @@ import * as React from 'react';
 import {connect} from "react-redux";
 
 import {Accordion} from "./Accordion";
-import {StateType} from "../../../store/types/stateTypes";
-import {BlockStorageType} from "../../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {StateType} from "../../../../store/types/stateTypes";
+import {BlockStorageType} from "../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 
 interface StateProps {
     blockLibrary: BlockStorageType[]

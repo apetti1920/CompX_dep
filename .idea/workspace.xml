@@ -11,42 +11,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7953432-bfcc-4650-a923-43f7ea8791ce" name="Default Changelist" comment="Initial Commit">
-      <change afterPath="$PROJECT_DIR$/src/electron/IPC/Channels/RunModelChannel.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/ModelChildProcess.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/editBlockWindow/App.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/editBlockWindow/renderer.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/mainWindow/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/electron/IPC/Channels/EditBlockChannel.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/StopItem.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/Accordion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/Accordion.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/FunctionBrowser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/FunctionBrowser.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/FunctionBrowserCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/FunctionBrowserCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/VisualBlockComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/VisualBlockComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/Canvas.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/Canvas.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/EdgeLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/EdgeLayer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/helpers/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/helpers/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/editBlockWindow/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/BreadCrumb.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/BreadCrumbToolBar/BreadCrumb.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/BreadCrumbToolBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/BreadCrumbToolBar/BreadCrumbToolBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BreadCrumbToolBar/Toolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/BreadCrumbToolBar/Toolbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BrowserWindow/BrowserWindow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/BrowserWindow/BrowserWindow.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/Accordion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/BrowserWindow/FunctionBrowser/Accordion.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/FunctionBrowser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/BrowserWindow/FunctionBrowser/FunctionBrowser.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/BrowserWindow/FunctionBrowser/FunctionBrowserCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/BrowserWindow/FunctionBrowser/FunctionBrowserCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/BlockLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/Canvas/BlockLayer/BlockLayer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/BlockLayer/VisualBlockComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/Canvas/BlockLayer/VisualBlockComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/Canvas.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/Canvas/Canvas.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/EdgeLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/Canvas/EdgeLayer/EdgeLayer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/EdgeLayer/VisualEdgeComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/Canvas/EdgeLayer/VisualEdgeComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/Grid.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/Canvas/Grid.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/MouseCoordinatePosition.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/Canvas/MouseCoordinatePosition.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Canvas/Ruler.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/Canvas/Ruler.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/ComponentUtils/ContextMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/ComponentUtils/ContextMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/ComponentUtils/MenuItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/ComponentUtils/MenuItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/ComponentUtils/Split.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/ComponentUtils/Split.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/ComponentUtils/Split.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/ComponentUtils/Split.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Sidebar/Sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/Sidebar/Sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Sidebar/SidebarButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/Sidebar/SidebarButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Sidebar/SidebarButtonGroup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/Sidebar/SidebarButtonGroup.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Sidebar/SidebarButtonStylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/Sidebar/SidebarButtonStylesheet.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Terminal/Terminal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/Terminal/Terminal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/components/types/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/helpers/backgroundWindow.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/helpers/backgroundWindow.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/helpers/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/helpers/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/renderer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/mainWindow/renderer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/store/actions/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/actions/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/store/reducers/blockLibraryReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/reducers/blockLibraryReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/types/canvasTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/types/canvasTypes.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/store/types/graphTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/types/graphTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/store/types/stateTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/types/stateTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/types/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/electron/IPC/Channels/BlockLibraryChannel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/IPC/Channels/BlockLibraryChannel.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/electron/IPC/GetBlockLibraryFiles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/IPC/GetBlockLibraryFiles.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/electron/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/Block.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Block.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/Edge.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Edge.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/Graph.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Graph.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/Port.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Port.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/__tests__/BlockTests.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/BlockTests.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/__tests__/GraphTest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/GraphTest.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/__tests__/PortTests.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/PortTests.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/helpers/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/helpers/utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/types/BlockStorage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/types/BlockStorage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/GraphLibrary/types/generic.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/types/generic.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shared/Channels.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/Channels.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/types.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webpack.main.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.main.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,7 +89,7 @@
     <property name="javascript.nodejs.core.library.configured.version" value="12.16.3" />
     <property name="javascript.nodejs.core.library.typings.version" value="12.12.55" />
     <property name="js.linters.configure.manually.selectedeslint" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.webpack" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/app/editBlockWindow" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -102,19 +108,19 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/editBlockWindow" />
+      <recent name="$PROJECT_DIR$/src/electron/IPC/Channels" />
+      <recent name="$PROJECT_DIR$/.webpack" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/app" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/mainWindow" />
       <recent name="$PROJECT_DIR$/src/shared" />
       <recent name="$PROJECT_DIR$/src/electron/IPC/Channels" />
       <recent name="$PROJECT_DIR$/src/app" />
       <recent name="$PROJECT_DIR$/src/electron" />
-      <recent name="$PROJECT_DIR$" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/.webpack" />
-      <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$/src/app" />
-      <recent name="$PROJECT_DIR$/src/app/components/ComponentUtils" />
-      <recent name="$PROJECT_DIR$/src/helpers" />
     </key>
   </component>
   <component name="RunManager" selected="npm.start">
@@ -217,6 +223,7 @@
       <workItem from="1606545958516" duration="173000" />
       <workItem from="1606580315017" duration="12504000" />
       <workItem from="1606629819414" duration="5683000" />
+      <workItem from="1606677153850" duration="3022000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1599160068442</created>
@@ -278,30 +285,30 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="586" y="398" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1680.1027@0.23.1680.1027" timestamp="1600129062940" />
-    <state width="1638" height="199" key="GridCell.Tab.0.bottom" timestamp="1606677000234">
+    <state width="1638" height="199" key="GridCell.Tab.0.bottom" timestamp="1606680402108">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
-    <state width="1638" height="199" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1606677000234" />
-    <state width="1638" height="199" key="GridCell.Tab.0.center" timestamp="1606677000233">
+    <state width="1638" height="199" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1606680402108" />
+    <state width="1638" height="199" key="GridCell.Tab.0.center" timestamp="1606680402108">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750077" />
-    <state width="1638" height="199" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1606677000233" />
-    <state width="1638" height="199" key="GridCell.Tab.0.left" timestamp="1606677000232">
+    <state width="1638" height="199" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1606680402108" />
+    <state width="1638" height="199" key="GridCell.Tab.0.left" timestamp="1606680402107">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304620" />
     <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750076" />
-    <state width="1638" height="199" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1606677000232" />
-    <state width="1638" height="199" key="GridCell.Tab.0.right" timestamp="1606677000233">
+    <state width="1638" height="199" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1606680402107" />
+    <state width="1638" height="199" key="GridCell.Tab.0.right" timestamp="1606680402108">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
-    <state width="1638" height="199" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1606677000233" />
+    <state width="1638" height="199" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1606680402108" />
     <state width="1638" height="346" key="GridCell.Tab.1.bottom" timestamp="1604435622020">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>

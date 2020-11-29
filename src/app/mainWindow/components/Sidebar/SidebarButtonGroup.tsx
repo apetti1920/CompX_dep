@@ -1,5 +1,5 @@
 import React from 'react';
-import {SidebarButtonType} from "../../store/types";
+import {SidebarButtonType} from "../../../store/types";
 import SidebarButton from "./SidebarButton";
 // eslint-disable-next-line import/no-unresolved
 import CSS from "csstype";

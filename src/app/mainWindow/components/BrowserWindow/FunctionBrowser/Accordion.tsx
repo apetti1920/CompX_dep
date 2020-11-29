@@ -3,7 +3,7 @@ import * as React from 'react';
 // eslint-disable-next-line import/no-unresolved
 import CSS from "csstype";
 import {FunctionBrowserCard} from "./FunctionBrowserCard";
-import {BlockStorageType} from "../../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType} from "../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 
 const headerButtonStyle: CSS.Properties = {
     width: "100%", height: "var(--sidebar-width)", margin: "var(--border-width)",

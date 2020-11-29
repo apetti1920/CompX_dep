@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 
-import {BlockStorageType} from "../../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType} from "../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 
 type Props = {
     data: BlockStorageType
