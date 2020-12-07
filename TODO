@@ -1,0 +1,2 @@
+- Fix splits getting hid by window resizes
+- Fix context menu off screen

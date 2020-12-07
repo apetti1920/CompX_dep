@@ -23,7 +23,8 @@ export const defaultState: StateType = {
     activeSidebarButtons: {},
     splitSizes: {
         "EditorTerminalSplit": 650,
-        "FunctionalWorkSplit": 250
+        "FunctionalWorkSplit": 250,
+        "EditCanvasSplit": 250
     },
     canvas: {
         zoom: 1,

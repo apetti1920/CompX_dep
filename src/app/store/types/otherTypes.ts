@@ -1,6 +1,7 @@
-export type SplitPaneName = "EditorTerminalSplit" | "FunctionalWorkSplit"
+export type SplitPaneName = "EditorTerminalSplit" | "FunctionalWorkSplit" | "EditCanvasSplit"
 
 export type SplitSizeDictionaryType = {
     "EditorTerminalSplit": number,
-    "FunctionalWorkSplit": number
+    "FunctionalWorkSplit": number,
+    "EditCanvasSplit": number
 }

@@ -5,8 +5,7 @@ module.exports = {
    */
   entry: {
     index: './src/electron/index.ts',
-    MainWindow: './src/app/mainWindow/renderer.tsx',
-    EditBlockWindow: './src/app/editBlockWindow/renderer.tsx',
+    MainWindow: './src/app/windows/mainWindow/renderer.tsx',
     GetBlockLibraryFiles: './src/electron/IPC/GetBlockLibraryFiles.ts',
     ModelLib: './src/shared/lib/GraphLibrary/ModelChildProcess.ts'
   },

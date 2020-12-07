@@ -1,6 +1,6 @@
 {
   "name": "compx",
-  "productName": "compx",
+  "productName": "CompX",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": ".webpack/main",
@@ -9,7 +9,8 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint --ext .ts ."
+    "lint": "eslint --ext .ts .",
+    "build-installer": "electron-builder"
   },
   "keywords": [],
   "author": {
@@ -19,7 +20,9 @@
   "license": "MIT",
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "./assets/images/logo.ico"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
@@ -52,18 +55,46 @@
               "entryPoints": [
                 {
                   "html": "./src/index.html",
-                  "js": "./src/app/mainWindow/renderer.tsx",
+                  "js": "./src/app/windows/mainWindow/renderer.tsx",
                   "name": "main_window"
-                },
-                {
-                  "html": "./src/index.html",
-                  "js": "./src/app/editBlockWindow/renderer.tsx",
-                  "name": "edit_block_window"
                 }
               ]
             }
           }
         ]
+      ]
+    }
+  },
+  "build": {
+    "appId": "com.inflow.compx",
+    "productName": "CompX",
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "identity": null,
+      "icon": "./assets/images/logo.ico",
+      "category": "public.app-category.productivity"
+    },
+    "dmg": {
+      "background": "./assets/images/dmg_background.tiff",
+      "icon": "./assets/images/logo.ico",
+      "iconSize": 150,
+      "window": {
+        "width": 600,
+        "height": 600
+      },
+      "contents": [
+        {
+          "x": 425,
+          "y": 75
+        },
+        {
+          "x": 425,
+          "y": 350,
+          "type": "link",
+          "path": "/Application"
+        }
       ]
     }
   },
@@ -81,6 +112,7 @@
     "css-loader": "^4.3.0",
     "electron": "10.1.1",
     "eslint": "^7.8.1",
+    "electron-builder": "^22.9.1",
     "eslint-plugin-import": "^2.22.0",
     "fork-ts-checker-webpack-plugin": "^5.1.0",
     "node-loader": "^1.0.1",
@@ -106,6 +138,7 @@
     "express": "^4.17.1",
     "framework-utils": "^0.3.4",
     "react": "^16.13.1",
+    "react-burger-menu": "^3.0.0",
     "react-dom": "^16.13.1",
     "react-feather": "^2.0.8",
     "react-redux": "^7.2.1",

@@ -24,5 +24,5 @@ module.exports = [
             }
         }
     },
-    {test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'file'}
+    {test: /\.(png|woff|woff2|eot|ttf|svg|ico)$/, loader: 'file'}
 ];

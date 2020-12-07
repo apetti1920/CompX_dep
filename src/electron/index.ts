@@ -1,13 +1,12 @@
 import {app, BrowserWindow, ipcMain, session} from 'electron';
 import {SystemInfoChannel} from "./IPC/Channels/SystemInfoChannel";
 import isDev from 'electron-is-dev';
-const path = require('path')
-const os = require('os')
-
 import {IpcChannelInterface} from "./IPC/Channels/IpcChannelInterface";
 import {BlockLibraryChannel} from "./IPC/Channels/BlockLibraryChannel";
 import {RunModelChannel} from "./IPC/Channels/RunModelChannel";
-import {EditBlockChannel} from "./IPC/Channels/EditBlockChannel";
+
+const path = require('path')
+const os = require('os')
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: never;
 
@@ -30,8 +29,9 @@ class Main {
     private onCreateWindow() {
         // Create the browser window.
         this.mainWindow = new BrowserWindow({
-            height: 600,
-            width: 800,
+            width: 1000,
+            height: 750,
+            icon: __dirname + "/logo.ico",
             webPreferences: {
                 nodeIntegration: true
             }
@@ -70,6 +70,5 @@ class Main {
 (new Main()).init([
     new SystemInfoChannel(),
     new BlockLibraryChannel(),
-    new RunModelChannel(),
-    new EditBlockChannel()
+    new RunModelChannel()
 ]);
