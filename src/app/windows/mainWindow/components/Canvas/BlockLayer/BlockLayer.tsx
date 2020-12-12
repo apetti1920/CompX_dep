@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
-import {GraphVisualType, BlockVisualType} from "../../../../../store/types/graphTypes";
-import {PointType} from "../../types";
+import {GraphVisualType} from "../../../../../store/types";
+import {PointType} from "../../../../../../shared/types";
 import {VisualBlockComponent} from "./VisualBlockComponent";
 
 type Props = {

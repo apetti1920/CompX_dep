@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import {PointType} from "../types";
+import {PointType} from "../../../../../shared/types";
 
 type Props = {
     isDragging: boolean

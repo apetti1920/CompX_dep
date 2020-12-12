@@ -1,29 +1,33 @@
 // @flow
 import * as React from 'react';
 
-import {Repeat, Delete, Settings} from 'react-feather';
+import {Delete, Repeat, Settings} from 'react-feather';
 
 import {Grid} from "./Grid";
-import {CanvasSelectionType, MouseDown, PointType} from "../types";
+import {CanvasSelectionType, MouseDown} from "../types";
+import {PointType} from "../../../../../shared/types";
 import {Clamp, linearInterp} from "../../../../../electron/utils";
 import Ruler from "./Ruler";
 import {ref} from "framework-utils";
 import {connect} from "react-redux";
 import {bindActionCreators, Dispatch} from 'redux';
-import {MovedCanvasAction, UpdatedGraphAction, ZoomedCanvasAction} from "../../../../store/actions";
-import {StateType} from "../../../../store/types/stateTypes";
-import {CanvasType} from "../../../../store/types/canvasTypes";
+import {
+    ClickedSidebarButtonAction, MovedCanvasAction, UpdatedCanvasSelectionAction, UpdatedGraphAction,
+    ZoomedCanvasAction
+} from "../../../../store/actions";
+import {
+    StateType, BlockVisualType, GraphVisualType, CanvasSelectedItemType, CanvasType,
+    ActiveSidebarDictionary
+} from "../../../../store/types";
 import {MouseCoordinatePosition} from "./MouseCoordinatePosition";
 import {v4 as uuidv4} from 'uuid';
-import {GraphVisualType, BlockVisualType} from "../../../../store/types/graphTypes";
 import {BlockLayer} from "./BlockLayer/BlockLayer";
 import {EdgeLayer} from "./EdgeLayer/EdgeLayer";
 import {ContextMenu} from "../ComponentUtils/ContextMenu";
 import {BlockStorageType} from "../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 
 interface StateProps {
-    canvasZoom: number,
-    canvasTranslation: PointType
+    canvas: CanvasType
     graph: GraphVisualType
     blockLibrary: BlockStorageType[]
 }
@@ -32,20 +36,17 @@ interface DispatchProps {
     onZoom: (newZoom: number) => void,
     onTranslate: (newTranslation: PointType) => void
     onUpdatedGraph: (newGraph: GraphVisualType) => void
+    onUpdatedActiveSidebarButton: (activeButtons: ActiveSidebarDictionary) => void
+    onUpdatedCanvasSelectedItems: (newSelections: CanvasSelectedItemType[]) => void
 }
 
-interface componentProps {
-    onOpenEditMenu: (blockID: string) => void
-}
-
-type Props = StateProps & DispatchProps & componentProps
+type Props = StateProps & DispatchProps
 
 type State = {
     mouseDownOn: MouseDown,
     isDraggingBlockFromBrowser: boolean,
     mouseWorldCoordinates: PointType,
     zoomLevel: number,
-    selectedItem: { selectedType: CanvasSelectionType, id: string }[],
     selectedPort?: { blockID: string, portID: string },
     movedGrid: boolean,
     contextMenu?: React.ReactNode;
@@ -66,7 +67,6 @@ class Canvas extends React.Component<Props, State> {
             isDraggingBlockFromBrowser: false,
             mouseWorldCoordinates: {x: null, y: null},
             zoomLevel: 1,
-            selectedItem: [],
             selectedPort: undefined,
             movedGrid: false
         }
@@ -76,8 +76,8 @@ class Canvas extends React.Component<Props, State> {
 
     /* Utility function to convert on screen mouse coordinates to canvas coordinates*/
     screenToWorld(point: PointType): PointType {
-        const gX1 = (point.x - this.props.canvasTranslation.x) / this.props.canvasZoom;
-        const gY1 = (point.y - this.props.canvasTranslation.y) / this.props.canvasZoom;
+        const gX1 = (point.x - this.props.canvas.translation.x) / this.props.canvas.zoom;
+        const gY1 = (point.y - this.props.canvas.translation.y) / this.props.canvas.zoom;
         return {x: gX1, y: gY1}
     }
 
@@ -109,12 +109,12 @@ class Canvas extends React.Component<Props, State> {
         const mouseWorld = this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
 
         // noinspection JSSuspiciousNameCombination
-        let tempScroll = this.props.canvasZoom + linearInterp(e.deltaY, -100, 100, -0.2, 0.2);
+        let tempScroll = this.props.canvas.zoom + linearInterp(e.deltaY, -100, 100, -0.2, 0.2);
         tempScroll = Clamp(tempScroll, 1, 4);
 
-        const scaleChange = tempScroll - this.props.canvasZoom;
+        const scaleChange = tempScroll - this.props.canvas.zoom;
 
-        const tempCanvas: CanvasType = {translation: this.props.canvasTranslation, zoom: this.props.canvasZoom}
+        const tempCanvas: CanvasType = {...this.props.canvas}
         tempCanvas.zoom = tempScroll;
         tempCanvas.translation = {
             x: tempCanvas.translation.x - (mouseWorld.x * scaleChange),
@@ -153,7 +153,7 @@ class Canvas extends React.Component<Props, State> {
                 const tempState = {...this.state};
                 tempState.mouseDownOn = MouseDown.NONE;
                 if (!tempState.movedGrid) {
-                    tempState.selectedItem = [];
+                    this.props.onUpdatedCanvasSelectedItems([]);
                 }
                 tempState.movedGrid = false;
                 tempState.mouseWorldCoordinates =
@@ -181,9 +181,11 @@ class Canvas extends React.Component<Props, State> {
                 this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
             tempState.mouseDownOn = MouseDown.BLOCK;
             if (!e.shiftKey) {
-                tempState.selectedItem = [{selectedType: CanvasSelectionType.BLOCK, id: blockID}]
+                this.props.onUpdatedCanvasSelectedItems([{selectedType: CanvasSelectionType.BLOCK, id: blockID}]);
             } else {
-                tempState.selectedItem.push({selectedType: CanvasSelectionType.BLOCK, id: blockID});
+                const tempSelected = this.props.canvas.canvasSelectedItems;
+                tempSelected.push({selectedType: CanvasSelectionType.BLOCK, id: blockID});
+                this.props.onUpdatedCanvasSelectedItems(tempSelected);
             }
 
             tempState.contextMenu = undefined;
@@ -220,7 +222,7 @@ class Canvas extends React.Component<Props, State> {
         if (e.button === 0) {
             const tempState = {...this.state};
             tempState.mouseDownOn = MouseDown.EDGE;
-            tempState.selectedItem = [{selectedType: CanvasSelectionType.EDGE, id: edgeID}]
+            this.props.onUpdatedCanvasSelectedItems([{selectedType: CanvasSelectionType.EDGE, id: edgeID}])
             tempState.contextMenu = undefined;
             tempState.mouseWorldCoordinates =
                 this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
@@ -243,9 +245,9 @@ class Canvas extends React.Component<Props, State> {
     /*  */
     onContextMenuBlock = (e: React.MouseEvent, blockID: string): void => {
         e.preventDefault();
-        console.log("Right CLicked on block", blockID);
         const tmpState = {...this.state};
         const mir = this.props.graph.blocks.find(block => block.id === blockID).mirrored;
+        this.props.onUpdatedCanvasSelectedItems([{selectedType: CanvasSelectionType.BLOCK, id: blockID}]);
         tmpState.contextMenu = <ContextMenu position={{
             x: e.nativeEvent.offsetX,
             y: e.nativeEvent.offsetY
@@ -254,7 +256,8 @@ class Canvas extends React.Component<Props, State> {
                 icon: <Settings height="100%" style={{flexGrow: 1}}/>, name: "Edit", action: () => {
                     // Open Edit Window
                     const tmpState = {...this.state};
-                    this.props.onOpenEditMenu(blockID);
+                    const button = this.props.canvas.sidebarButtons.find(b => b.groupId === 0 && b.buttonId === 1);
+                    this.props.onUpdatedActiveSidebarButton(button);
                     tmpState.contextMenu = undefined;
                     this.setState(tmpState);
                 }
@@ -323,7 +326,6 @@ class Canvas extends React.Component<Props, State> {
             if (this.state.mouseDownOn !== MouseDown.PORT) {
                 return;
             }
-
 
             const tempState = {...this.state};
             tempState.selectedPort = undefined;
@@ -407,11 +409,11 @@ class Canvas extends React.Component<Props, State> {
             tempState.mouseWorldCoordinates =
                 this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
             const tempProps = {...this.props};
-            tempProps.canvasTranslation = {
-                x: tempProps.canvasTranslation.x + e.movementX,
-                y: tempProps.canvasTranslation.y + e.movementY
+            tempProps.canvas.translation = {
+                x: tempProps.canvas.translation.x + e.movementX,
+                y: tempProps.canvas.translation.y + e.movementY
             }
-            this.props.onTranslate(tempProps.canvasTranslation)
+            this.props.onTranslate(tempProps.canvas.translation)
             this.setState(tempState);
         } else if (this.state.mouseDownOn === MouseDown.BLOCK) {
             const tempProps = {...this.props};
@@ -421,13 +423,13 @@ class Canvas extends React.Component<Props, State> {
                 this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
             tempState.movedGrid = false;
             // Just move all the selectedItem blocks
-            this.state.selectedItem.filter(selected => selected.selectedType === CanvasSelectionType.BLOCK).map(selectedBlock => {
+            this.props.canvas.canvasSelectedItems.filter(selected => selected.selectedType === CanvasSelectionType.BLOCK).map(selectedBlock => {
                 const tempBlockIndex = tempProps.graph.blocks.indexOf(tempProps.graph.blocks
                     .find(block => block.id === selectedBlock.id));
 
                 tempProps.graph.blocks[tempBlockIndex].position = {
-                    x: tempProps.graph.blocks[tempBlockIndex].position.x + (e.movementX / this.props.canvasZoom),
-                    y: tempProps.graph.blocks[tempBlockIndex].position.y + (e.movementY / this.props.canvasZoom)
+                    x: tempProps.graph.blocks[tempBlockIndex].position.x + (e.movementX / this.props.canvas.zoom),
+                    y: tempProps.graph.blocks[tempBlockIndex].position.y + (e.movementY / this.props.canvas.zoom)
                 };
             });
             this.props.onUpdatedGraph(tempProps.graph);
@@ -501,13 +503,14 @@ class Canvas extends React.Component<Props, State> {
                     }}/>
                     <div style={{height: "100%", flex: 1}}>
                         <Ruler id={0} ref={ref(this, "rulerTop")} minorTickSpacing={8} majorTickSpacing={80}
-                               type="horizontal" zoom={this.props.canvasZoom} translate={this.props.canvasTranslation}/>
+                               type="horizontal" zoom={this.props.canvas.zoom}
+                               translate={this.props.canvas.translation}/>
                     </div>
                 </div>
                 <div style={{display: "flex", flexDirection: "row", width: "100%", flex: 1}}>
                     <div style={{height: "100%", width: "var(--sidebar-width)"}}>
                         <Ruler id={1} ref={ref(this, "rulerLeft")} minorTickSpacing={8} majorTickSpacing={80}
-                               type="vertical" zoom={this.props.canvasZoom} translate={this.props.canvasTranslation}/>
+                               type="vertical" zoom={this.props.canvas.zoom} translate={this.props.canvas.translation}/>
                     </div>
                     <div style={{
                         height: "100%", width: "100%", cursor: cursor, position: "relative", zIndex: 0,
@@ -518,12 +521,12 @@ class Canvas extends React.Component<Props, State> {
                          onMouseMove={this.onMouseMove} ref={this.gridRef}
                          onDragEnter={this.onDragEnterHandler} onDragOver={this.onDragOverHandler}
                          onDragLeave={this.onDragLeaveHandler} onDrop={this.onDropHandler}>
-                        <Grid minorTickSpacing={8} majorTickSpacing={80} zoom={this.props.canvasZoom}
-                              translate={this.props.canvasTranslation} onMouseDown={this.onMouseDownHandlerGrid}
+                        <Grid minorTickSpacing={8} majorTickSpacing={80} zoom={this.props.canvas.zoom}
+                              translate={this.props.canvas.translation} onMouseDown={this.onMouseDownHandlerGrid}
                               onMouseUp={this.onMouseUpHandlerGrid}/>
-                        <BlockLayer graph={this.props.graph} translate={this.props.canvasTranslation}
-                                    zoom={this.props.canvasZoom}
-                                    selectedIDs={this.state.selectedItem
+                        <BlockLayer graph={this.props.graph} translate={this.props.canvas.translation}
+                                    zoom={this.props.canvas.zoom}
+                                    selectedIDs={this.props.canvas.canvasSelectedItems
                                         .filter(selected => selected.selectedType === CanvasSelectionType.BLOCK)
                                         .map(selectedBlock => selectedBlock.id)}
                                     onMouseDownHandlerBlock={this.onMouseDownHandlerBlock}
@@ -531,12 +534,12 @@ class Canvas extends React.Component<Props, State> {
                                     onMouseDownHandlerPort={this.onMouseDownHandlerPort}
                                     onMouseUpHandlerPort={this.onMouseUpHandlerPort}
                                     onContextMenuBlock={this.onContextMenuBlock}/>
-                        <EdgeLayer graph={this.props.graph} translate={this.props.canvasTranslation}
-                                   zoom={this.props.canvasZoom}
+                        <EdgeLayer graph={this.props.graph} translate={this.props.canvas.translation}
+                                   zoom={this.props.canvas.zoom}
                                    draggingPortCoords={draggingPort}
                                    onMouseDownHandlerEdge={this.onMouseDownHandlerEdge}
                                    onMouseUpHandlerEdge={this.onMouseUpHandlerEdge}
-                                   selectedIDs={this.state.selectedItem
+                                   selectedIDs={this.props.canvas.canvasSelectedItems
                                        .filter(selected => selected.selectedType === CanvasSelectionType.EDGE)
                                        .map(selectedEdge => selectedEdge.id)}/>
                         <MouseCoordinatePosition isDragging={this.state.mouseDownOn === MouseDown.GRID ||
@@ -552,18 +555,17 @@ class Canvas extends React.Component<Props, State> {
 
     private centerGrid() {
         const tempState = {...this.props};
-        tempState.canvasTranslation = {
+        tempState.canvas.translation = {
             x: this.gridRef.current?.clientWidth / 2,
             y: this.gridRef.current?.clientHeight / 2
         };
-        this.props.onTranslate(tempState.canvasTranslation)
+        this.props.onTranslate(tempState.canvas.translation)
     }
 }
 
 function mapStateToProps(state: StateType): StateProps {
     return {
-        canvasZoom: state.canvas.zoom,
-        canvasTranslation: state.canvas.translation,
+        canvas: state.canvas,
         graph: state.graph,
         blockLibrary: state.blockLibrary
     };
@@ -573,7 +575,9 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
     return bindActionCreators({
         onZoom: ZoomedCanvasAction,
         onTranslate: MovedCanvasAction,
-        onUpdatedGraph: UpdatedGraphAction
+        onUpdatedGraph: UpdatedGraphAction,
+        onUpdatedActiveSidebarButton: ClickedSidebarButtonAction,
+        onUpdatedCanvasSelectedItems: UpdatedCanvasSelectionAction
     }, dispatch)
 }
 

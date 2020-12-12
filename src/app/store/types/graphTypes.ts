@@ -1,6 +1,5 @@
-import {PointType} from "../../windows/mainWindow/components/types";
+import {PointType} from "../../../shared/types";
 import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
-import store from "../index"
 
 export class BlockVisualType {
     id: string;
@@ -12,10 +11,6 @@ export class BlockVisualType {
     public constructor(init?:Partial<BlockVisualType>) {
         Object.assign(this, init);
     }
-
-    // getBlock(): BlockStorageType {
-    //     return store.getState().blockLibrary.find(storageBlock => storageBlock.id === this.blockStorageID);
-    // }
 }
 
 export type EdgeVisualType = {

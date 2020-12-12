@@ -163,7 +163,10 @@ class Split extends Component<Props, State> {
 
         const tempSize0 = (this.state !== null && this.state.element0Size !== null) ?
             this.state.element0Size.toString() + "px" : "50%";
-        const element0Style: CSS.Properties = this.props.direction === "column" ? {height: tempSize0} : {width: tempSize0}
+        const element0Style: CSS.Properties = this.props.direction === "column" ?
+            {height: tempSize0, width: "100%"} : {width: tempSize0, height: "100%"}
+        const element1Style: CSS.Properties = this.props.direction === "column" ?
+            {width: "100%"} : {height: "100%"}
 
         const splitStyle: CSS.Properties = {flexDirection: this.props.direction};
 
@@ -173,7 +176,7 @@ class Split extends Component<Props, State> {
                     {this.props.children.element0}
                 </div>
                 <div className="separator" style={{cursor: cursor}} onMouseDown={this.onMouseDown} />
-                <div className="split-pane-element1">
+                <div className="split-pane-element1" style={element1Style}>
                     {this.props.children.element1}
                 </div>
             </div>

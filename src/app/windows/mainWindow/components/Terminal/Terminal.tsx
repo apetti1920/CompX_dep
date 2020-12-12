@@ -13,5 +13,5 @@ export class Terminal extends React.Component<Props, State> {
         return (
             <div>Terminal</div>
         );
-    };
-};
+    }
+}

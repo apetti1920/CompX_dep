@@ -2,10 +2,9 @@
 import * as React from 'react';
 import {bindActionCreators, Dispatch} from "redux";
 
-import {ActiveSidebarDictionary, SidebarButtonType} from "../../../../store/types";
+import {StateType, ActiveSidebarDictionary, SidebarButtonType} from "../../../../store/types";
 import {connect} from "react-redux";
 import {ClickedSidebarButtonAction} from "../../../../store/actions";
-import {StateType} from "../../../../store/types/stateTypes";
 
 import "./SidebarButtonStylesheet.css";
 
@@ -71,8 +70,8 @@ class SidebarButton extends React.Component<Props, State> {
 
 function mapStateToProps(state: StateType, ownProps: OwnProps): StateProps {
     return {
-        sidebarButtons: state.sidebarButtons,
-        activeSidebarButtons: state.activeSidebarButtons
+        sidebarButtons: state.canvas.sidebarButtons,
+        activeSidebarButtons: state.canvas.activeSidebarButtons
     };
 }
 

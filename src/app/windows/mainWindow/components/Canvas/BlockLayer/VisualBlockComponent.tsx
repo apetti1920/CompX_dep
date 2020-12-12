@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
-import {BlockVisualType} from "../../../../../store/types/graphTypes";
-import {PointType} from "../../types";
+import {BlockVisualType} from "../../../../../store/types";
+import {PointType} from "../../../../../../shared/types";
 
 type NamedIO = {
     output: boolean,

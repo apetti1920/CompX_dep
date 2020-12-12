@@ -1,7 +1,8 @@
 import * as React from "react";
-import {StateType} from "../../../../store/types/stateTypes";
+import {StateType} from "../../../../store/types";
 import {connect} from "react-redux";
 import FunctionBrowser from "./FunctionBrowser/FunctionBrowser";
+import CanvasEdit from "./EditBlock/CanvasEdit";
 
 type StateProps = {
     activeSidebarButton: number
@@ -18,6 +19,8 @@ class BrowserWindow extends React.Component<Props, State> {
         if (this.props.activeSidebarButton !== -1) {
             if (this.props.activeSidebarButton === 0) {
                 return (<FunctionBrowser/>)
+            } else if (this.props.activeSidebarButton === 1) {
+                return (<CanvasEdit/>)
             }
         }
 
@@ -27,7 +30,7 @@ class BrowserWindow extends React.Component<Props, State> {
 
 function mapStateToProps(state: StateType): StateProps {
     return {
-        activeSidebarButton: state.activeSidebarButtons[0] ?? -1
+        activeSidebarButton: state.canvas.activeSidebarButtons[0] ?? -1
     };
 }
 

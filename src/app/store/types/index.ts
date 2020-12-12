@@ -1,11 +1,8 @@
-import { StateType } from "./stateTypes";
-
-export * from "./sidebarTypes";
-export * from "./otherTypes";
+export * from "./stateTypes";
+export * from './graphTypes'
+export * from './canvasTypes'
 
 export type ActionType = {
     type: string,
     payload: any
 }
-
-export default StateType;

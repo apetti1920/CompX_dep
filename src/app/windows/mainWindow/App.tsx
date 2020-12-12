@@ -4,9 +4,8 @@ import './App.css';
 import Split from "./components/ComponentUtils/Split";
 import BreadCrumbToolBar from "./components/BreadCrumbToolBar/BreadCrumbToolBar";
 import Sidebar from "./components/Sidebar/Sidebar";
-import {StateType} from "../../store/types/stateTypes";
 import {connect} from "react-redux";
-import {ActiveSidebarDictionary, SplitSizeDictionaryType} from "../../store/types";
+import {StateType, ActiveSidebarDictionary, SplitSizeDictionaryType} from "../../store/types";
 import Canvas from "./components/Canvas/Canvas";
 import BrowserWindow from "./components/BrowserWindow/BrowserWindow";
 import {Terminal} from "./components/Terminal/Terminal";
@@ -14,8 +13,7 @@ import {IpcService} from "../../IPC/IpcService";
 import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
 import {BLOCK_LIBRARY_CHANNEL} from "../../../shared/Channels";
 import store from "../../store"
-import {UpdatedBlockLibraryActionType} from "../../store/actions/actionTypes";
-import {CanvasEdit} from "./components/Canvas/CanvasEdit";
+import {UpdatedBlockLibraryActionType} from "../../store/types/actionTypes";
 
 const pageWrapStyle: React.CSSProperties = {
     width: "calc(100vw - 2 * var(--border-width)",
@@ -93,7 +91,7 @@ class App extends Component<Props, State> {
 
     render() {
         let functional: React.ReactNode;
-        const canvasComponent = <CanvasEdit/>
+        const canvasComponent = <Canvas/>
         if (Object.keys(this.props.activeSidebarButtons).includes("0")) {
             functional = (
                 <Split name="FunctionalWorkSplit"
@@ -140,8 +138,8 @@ class App extends Component<Props, State> {
 
 function mapStateToProps(state: StateType): Props {
     return {
-        activeSidebarButtons: state.activeSidebarButtons,
-        splitSizes: state.splitSizes
+        activeSidebarButtons: state.canvas.activeSidebarButtons,
+        splitSizes: state.canvas.splitSizes
     };
 }
 

@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import {linearInterp} from "../../../../../electron/utils";
-import {PointType} from "../types";
+import {PointType} from "../../../../../shared/types";
 
 type Props = {
     majorTickSpacing: number,

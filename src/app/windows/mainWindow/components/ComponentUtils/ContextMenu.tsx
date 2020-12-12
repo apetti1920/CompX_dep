@@ -1,7 +1,8 @@
 // @flow
 import * as React from 'react';
-import {MenuItemSpacerType, PointType} from "../types";
+import {MenuItemSpacerType} from "../types";
 import {MenuItem} from "./MenuItem";
+import {PointType} from "../../../../../shared/types";
 
 type Props = {
     position: PointType,

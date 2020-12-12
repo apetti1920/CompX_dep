@@ -1,16 +1,15 @@
-import {ActionType, SidebarButtonType, SplitPaneName} from "../types";
+import {ActionType, SidebarButtonType, SplitPaneName, GraphVisualType, CanvasSelectedItemType} from "../types";
 import {
     ClickedSidebarButtonActionType,
     MovedCanvasActionType,
     MovedSplitPaneActionType,
     UpdatedBlockLibraryActionType,
     ZoomedCanvasActionType,
-    UpdatedGraphActionType
+    UpdatedGraphActionType, UpdatedCanvasSelectionType
 
-} from "./actionTypes";
-import {PointType} from "../../windows/mainWindow/components/types";
+} from "../types/actionTypes";
+import {PointType} from "../../../shared/types";
 import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
-import {GraphVisualType} from "../types/graphTypes";
 
 export const ClickedSidebarButtonAction = (button: SidebarButtonType): ActionType => {
     return {
@@ -51,5 +50,12 @@ export const UpdatedGraphAction = (newGraph: GraphVisualType): ActionType => {
     return {
         type: UpdatedGraphActionType,
         payload: {newGraph: newGraph}
+    }
+}
+
+export const UpdatedCanvasSelectionAction = (newSelections: CanvasSelectedItemType[]): ActionType => {
+    return {
+        type: UpdatedCanvasSelectionType,
+        payload: {newSelections: newSelections}
     }
 }

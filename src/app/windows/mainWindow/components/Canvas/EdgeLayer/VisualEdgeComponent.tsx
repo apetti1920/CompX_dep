@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
-import {PointType} from "../../types";
-import {EdgeVisualType} from "../../../../../store/types/graphTypes";
+import {PointType} from "../../../../../../shared/types";
+import {EdgeVisualType} from "../../../../../store/types";
 
 type Props = {
     translate: PointType,

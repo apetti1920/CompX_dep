@@ -1,9 +1,7 @@
-import {ActionType} from "../types";
+import {ActionType, defaultState} from "../types";
+import {UpdatedBlockLibraryActionType} from "../types/actionTypes";
 import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
-import {defaultState} from "../types/stateTypes";
-import {UpdatedBlockLibraryActionType} from "../actions/actionTypes";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function (blockLibrary: BlockStorageType[] = defaultState.blockLibrary, action: ActionType): BlockStorageType[] {
     switch (action.type) {
         case (UpdatedBlockLibraryActionType): {

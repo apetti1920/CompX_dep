@@ -1,8 +1,8 @@
 // @flow
 import * as React from 'react';
-import {GraphVisualType, EdgeVisualType} from "../../../../../store/types/graphTypes";
+import {GraphVisualType, EdgeVisualType} from "../../../../../store/types";
 import {VisualEdgeComponent} from "./VisualEdgeComponent";
-import {PointType} from "../../types";
+import {PointType} from "../../../../../../shared/types";
 
 type Props = {
     graph: GraphVisualType
