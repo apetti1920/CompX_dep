@@ -18,6 +18,7 @@ class FunctionBrowserCard extends React.Component<Props, State> {
         // TODO: must update image (if from local use ipc otherwise use src)
         this.state = {imgPath: this.props.data.imgFile};
     }
+
     onDragStartHandler = (e: React.DragEvent<HTMLDivElement>): void => {
         // Should handle the transfer of the data
         e.dataTransfer.setData('cardID', this.props.data.id);

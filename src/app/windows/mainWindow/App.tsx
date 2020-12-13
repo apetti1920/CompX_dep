@@ -143,4 +143,6 @@ function mapStateToProps(state: StateType): Props {
     };
 }
 
+// Put a dispatch here
+
 export default connect(mapStateToProps, {})(App)

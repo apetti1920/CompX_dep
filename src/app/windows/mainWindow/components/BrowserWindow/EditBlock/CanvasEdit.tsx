@@ -12,6 +12,7 @@ import {
 import {connect} from "react-redux";
 import {BlockStorageType} from "../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 import {CanvasSelectionType} from "../../types";
+import {ChangeEvent} from "react";
 
 interface StateProps {
     selectedBlockItems: CanvasSelectedItemType[]
@@ -33,10 +34,35 @@ export class CanvasEdit extends React.Component<Props, State> {
     }
 
     render(): React.ReactNode {
+        const tempGraph = {...this.props.graph};
+        const tmp2: Map<string, any> = tempGraph.blocks[0].blockStorage.internalData;
+        console.log(Object.keys(tmp2));
+
         return (
             <div style ={{width: "100%", height: "100%", background: "blue"}}>
                 <ul>
-                    {this.props.selectedBlockItems.map((item, index) => <li key={index}>{item.id}</li>)}
+                    {this.props.selectedBlockItems.map((item, index) => {
+                        const blockIndex = tempGraph.blocks.findIndex(block => block.id === item.id);
+                        return (
+                            <li key={index}>{item.id}
+                                <ul>
+                                    {Object.keys(this.props.graph.blocks[blockIndex].blockStorage.internalData).map((key2, index2) => {
+                                        return (
+                                            <li key={index2}>
+                                                {key2}
+                                                <input type="text"
+                                                       onChange={(e: ChangeEvent<HTMLInputElement>)=> {
+                                                            e.preventDefault();
+                                                            tempGraph.blocks[blockIndex].blockStorage.internalData.set(key2, e.target.value);
+                                                            e.stopPropagation();
+                                                }}/><br/><br/>
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
+                            </li>
+                        )
+                    })}
                 </ul>
             </div>
         );
