@@ -1,2 +1,8 @@
 - Fix splits getting hid by window resizes
 - Fix context menu off screen
+- Add change of name of block (check if name taken)
+- Format edit tab
+- *** Add scope visualizations ***
+- Add numbers to ruler
+- Add block name underneith block
+- Add error handling on play click

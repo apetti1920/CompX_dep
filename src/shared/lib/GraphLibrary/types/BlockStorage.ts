@@ -1,8 +1,14 @@
 import {Version} from './generic'
 
-export type PortType = {
+export type PortStorageType = {
     name: string,
     type: string
+}
+
+export type InternalDataStorageType = {
+    name: string,
+    type: "number",
+    value: any
 }
 
 export type BlockStorageType = {
@@ -12,9 +18,9 @@ export type BlockStorageType = {
     name: string,
     description: string,
     tags: string[],
-    internalData: Map<string, any>,
-    inputPorts: PortType[],
-    outputPorts: PortType[],
+    internalData: InternalDataStorageType[],
+    inputPorts: PortStorageType[],
+    outputPorts: PortStorageType[],
     pseudoSource: string,
     callback: string
 }

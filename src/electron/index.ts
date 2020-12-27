@@ -4,6 +4,7 @@ import isDev from 'electron-is-dev';
 import {IpcChannelInterface} from "./IPC/Channels/IpcChannelInterface";
 import {BlockLibraryChannel} from "./IPC/Channels/BlockLibraryChannel";
 import {RunModelChannel} from "./IPC/Channels/RunModelChannel";
+import {TestScopeChannel} from "./IPC/Channels/TestScopeChannel";
 
 const path = require('path')
 const os = require('os')
@@ -70,5 +71,6 @@ class Main {
 (new Main()).init([
     new SystemInfoChannel(),
     new BlockLibraryChannel(),
-    new RunModelChannel()
+    new RunModelChannel(),
+    new TestScopeChannel()
 ]);

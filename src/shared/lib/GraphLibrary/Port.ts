@@ -1,5 +1,5 @@
 import Block from "./Block";
-import {PortType} from "./types/BlockStorage";
+import {PortStorageType} from "./types/BlockStorage";
 
 export enum PortTypes { string, number}
 export type AcceptedPortTypes = (string | number | null)
@@ -11,7 +11,7 @@ export default class Port {
     public parent: Block;
     private _objectValue: AcceptedPortTypes;
 
-    constructor(portData: PortType, parent: Block) {
+    constructor(portData: PortStorageType, parent: Block) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.id = portData["id"];

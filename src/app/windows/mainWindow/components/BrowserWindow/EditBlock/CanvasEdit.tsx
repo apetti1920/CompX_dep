@@ -37,36 +37,42 @@ export class CanvasEdit extends React.Component<Props, State> {
         const tempGraph = {...this.props.graph};
 
         return (
-            <div style ={{width: "100%", height: "100%", background: "blue"}}>
+            <div style ={{width: "100%", height: "100%", background: "var(--custom-background-color)", color: "var(--custom-text-color)"}}>
                 <ul>
                     {this.props.selectedBlockItems.map((item, index) => {
                         const blockIndex = tempGraph.blocks.findIndex(block => block.id === item.id);
                         return (
-                            <React.Fragment key={index}>
-                                <h1>{this.props.graph.blocks[blockIndex].blockStorage.name}</h1>
-                                <li>{item.id}
-                                    <ul>
-                                        {Object.keys(this.props.graph.blocks[blockIndex].blockStorage.internalData).map((key2, index2) => {
-                                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                            // @ts-ignore
-                                            const defaultValue = tempGraph.blocks[blockIndex].blockStorage.internalData[key2]
-                                            return (
-                                                <li key={index2}>
-                                                    {key2}
-                                                    <input type="text" placeholder={defaultValue}
-                                                           onChange={(e: ChangeEvent<HTMLInputElement>)=> {
-                                                               e.preventDefault();
-                                                               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                                               // @ts-ignore
-                                                               tempGraph.blocks[blockIndex].blockStorage.internalData[key2] = parseFloat(e.target.value);
-                                                               e.stopPropagation();
-                                                           }}/><br/><br/>
-                                                </li>
-                                            )
-                                        })}
-                                    </ul>
-                                </li>
-                            </React.Fragment>
+                            <div key={index} style={{width: "100%", height: "100%"}}>
+                                <h1 style={{fontSize: "150%"}}>{this.props.graph.blocks[blockIndex].blockStorage.name
+                                    .replace(/(^\w)|(\s+\w)/g,
+                                        letter => letter.toUpperCase())}</h1>
+                                {/*<li>{item.id}*/}
+                                {/*    <ul>*/}
+                                {/*        {Object.keys(this.props.graph.blocks[blockIndex].blockStorage.internalData)*/}
+                                {/*            .map((key2, index2) => {*/}
+                                {/*            // eslint-disable-next-line @typescript-eslint/ban-ts-comment*/}
+                                {/*            // @ts-ignore*/}
+                                {/*            const defaultValue = tempGraph.blocks[blockIndex]*/}
+                                {/*                .blockStorage.internalData[key2];*/}
+                                {/*            return (*/}
+                                {/*                <React.Fragment/>*/}
+                                {/*                // <li key={index2}>*/}
+                                {/*                //     {key2}*/}
+                                {/*                //     <input type="text" defaultValue={defaultValue}*/}
+                                {/*                //            onChange={(e: ChangeEvent<HTMLInputElement>)=> {*/}
+                                {/*                //                e.preventDefault();*/}
+                                {/*                //                // eslint-disable-next-line @typescript-eslint/ban-ts-comment*/}
+                                {/*                //                // @ts-ignore*/}
+                                {/*                //                tempGraph.blocks[blockIndex].blockStorage*/}
+                                {/*                //                    .internalData[key2] = parseFloat(e.target.value);*/}
+                                {/*                //                e.stopPropagation();*/}
+                                {/*                //            }}/><br/><br/>*/}
+                                {/*                // </li>*/}
+                                {/*            )*/}
+                                {/*        })}*/}
+                                {/*    </ul>*/}
+                                {/*</li>*/}
+                            </div>
                         )
                     })}
                 </ul>

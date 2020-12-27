@@ -15,7 +15,7 @@ test("Block From File", () => {
 });
 
 test("Test Callback", () => {
-    block.internalData.set("constantValue", 5);
+    block.internalData.push({name: "constantValue", type: "number", value: 5});
     const ans = block.callback(0.0, 0.01, [], [], []);
     expect(ans[0]).toBe(5);
 })

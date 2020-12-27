@@ -216,6 +216,12 @@ class Canvas extends React.Component<Props, State> {
         e.stopPropagation();
     };
 
+    onDoubleClickBlock = (e: React.MouseEvent, blockID: string): void => {
+        e.preventDefault();
+        console.log("Double Clicked");
+        e.stopPropagation();
+    };
+
     /* Overrides the mouse down event of an edge */
     onMouseDownHandlerEdge = (e: React.MouseEvent, edgeID: string): void => {
         e.preventDefault();
@@ -277,6 +283,7 @@ class Canvas extends React.Component<Props, State> {
                     this.setState(tmpState);
                 }
             },
+            "Spacer",
             {
                 icon: <Delete height="100%" style={{flexGrow: 1}}/>, name: "Delete", action: () => {
                     const tmpState = {...this.state};
@@ -533,7 +540,8 @@ class Canvas extends React.Component<Props, State> {
                                     onMouseUpHandlerBlock={this.onMouseUpHandlerBlock}
                                     onMouseDownHandlerPort={this.onMouseDownHandlerPort}
                                     onMouseUpHandlerPort={this.onMouseUpHandlerPort}
-                                    onContextMenuBlock={this.onContextMenuBlock}/>
+                                    onContextMenuBlock={this.onContextMenuBlock}
+                                    onDoubleClickBlock={this.onDoubleClickBlock}/>
                         <EdgeLayer graph={this.props.graph} translate={this.props.canvas.translation}
                                    zoom={this.props.canvas.zoom}
                                    draggingPortCoords={draggingPort}

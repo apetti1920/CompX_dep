@@ -17,7 +17,8 @@ type Props = {
     onMouseUpBlock: (e: React.MouseEvent)=>void,
     onContextMenuBlock: (e: React.MouseEvent, blockID: string)=>void,
     onMouseDownHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void,
-    onMouseUpHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void
+    onMouseUpHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void,
+    onDoubleClickBlock: (e: React.MouseEvent, blockID: string)=>void
 };
 
 type State = {

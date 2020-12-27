@@ -4,7 +4,7 @@ import path from "path";
 import Block from "./Block";
 import Edge from "./Edge";
 import {findNextOrMissing, Zeros} from "./helpers/utils";
-import {BlockStorageType} from "./types/BlockStorage";
+import {BlockStorageType, InternalDataStorageType} from "./types/BlockStorage";
 
 const fs = require('fs')
 
@@ -49,21 +49,21 @@ class CompBlock {
 export default class Graph {
     public blocks: Block[];
     public readonly edges: Edge[];
-    private readonly isTest: boolean;
-    private readonly filePath: string;
+    public isTest: boolean;
+    public filePath: string;
 
-    constructor(isTest?: boolean, filePath?: string) {
+    constructor() {
         this.blocks = [];
         this.edges = [];
-        this.isTest = isTest ?? false;
-        this.filePath = filePath ?? "";
+        this.isTest = false;
+        this.filePath = "";
     }
 
     public getIdFromName(name: string): string {
         return this.blocks.find(b => b.name === name)?.id ?? "";
     }
 
-    public addBlockByName(name: string, internalValues?: Map<string, unknown>): string {
+    public addBlockByName(name: string, internalValues?: InternalDataStorageType[]): string {
         let p: string;
         if (this.isTest) {
             p = path.resolve(__dirname, '__tests__', 'test_blocks', `${name}.json`);
@@ -76,18 +76,18 @@ export default class Graph {
             .map(b => Number(b.name.split("_")[1]));
         const tempIndex = findNextOrMissing(tempBlocks);
         b.name += "_" + tempIndex;
-        internalValues?.forEach((value, key) => b.internalData.set(key, value));
+        b.internalData = internalValues !== undefined ? internalValues : [];
         this.blocks.push(b);
         return b.id;
     }
 
-    public addBlock(block: BlockStorageType, internalValues?: Map<string, unknown>): string {
+    public addBlock(block: BlockStorageType, internalValues?: InternalDataStorageType[]): string {
         const b = new Block(block);
         const tempBlocks = this.blocks.filter(temp => temp.name.split("_")[0] === b.name)
             .map(b => Number(b.name.split("_")[1]));
         const tempIndex = findNextOrMissing(tempBlocks);
         b.name += "_" + tempIndex;
-        internalValues?.forEach((value, key) => b.internalData.set(key, value));
+        b.internalData = internalValues !== undefined ? internalValues : [];
         this.blocks.push(b);
         return b.id;
     }

@@ -2,7 +2,7 @@ import fs from "fs";
 import { v4 as uuidv4 } from 'uuid';
 
 import Port, {AcceptedPortTypes} from "./Port";
-import {BlockStorageType, PortType} from "./types/BlockStorage";
+import {BlockStorageType, InternalDataStorageType, PortStorageType} from "./types/BlockStorage";
 
 type Callback = ((t: number, dt: number, prevInputs: unknown[], prevOutputs: unknown[], newInputs: unknown[]) => unknown[]);
 
@@ -11,7 +11,7 @@ export default class Block {
     public name: string;
     private readonly description: string;
     public readonly tags: string[]
-    public internalData: Map<string, unknown>;
+    public internalData: InternalDataStorageType[];
     public readonly inputPorts: Port[];
     public readonly outputPorts: Port[];
     public readonly pseudoSource: boolean;
@@ -22,22 +22,20 @@ export default class Block {
         this.name = block.name;
         this.description = block.description;
         this.tags = block.tags;
-        this.internalData = new Map<string, unknown>();
-        const iData = new Map(Object.entries(block.internalData));
-        iData.forEach((value, key) => this.internalData.set(key, value));
-        this.inputPorts = block.inputPorts.map((port: PortType) => new Port(port, this));
-        this.outputPorts = block.outputPorts.map((port: PortType) => new Port(port, this));
+        this.internalData = block.internalData;
+        this.inputPorts = block.inputPorts.map(portStorage => new Port(portStorage, this));
+        this.outputPorts = block.outputPorts.map(portStorage => new Port(portStorage, this));
         this.pseudoSource = block.pseudoSource === "true";
         this.callback = this.convertCallback(block.callback);
     }
 
     private convertCallback(callbackData: string): Callback {
         let callbackString = callbackData.replace(new RegExp("prevInputs\\[(\\w+)\\]","gm"), (a, b) => {
-            const index = this.inputPorts.map((port) => port.name).indexOf(b);
+            const index = this.inputPorts.map(port => port.name).indexOf(b);
             return `prevInputs[${index}]`;
         });
         callbackString = callbackString.replace(new RegExp("prevOutputs\\[(\\w+)\\]","gm"), (a, b) => {
-            const index = this.outputPorts.map((port) => port.name).indexOf(b);
+            const index = this.outputPorts.map(port => port.name).indexOf(b);
             return `prevOutputs[${index}]`;
         });
         callbackString = callbackString.replace(new RegExp("inputPort\\[(\\w+)\\]","gm"), (a, b) => {

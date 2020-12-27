@@ -11,9 +11,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7953432-bfcc-4650-a923-43f7ea8791ce" name="Default Changelist" comment="Initial Commit">
+      <change afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/TestScope.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/electron/IPC/Channels/TestScopeChannel.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TODO" beforeDir="false" afterPath="$PROJECT_DIR$/TODO" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BrowserWindow/EditBlock/CanvasEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BrowserWindow/EditBlock/CanvasEdit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BrowserWindow/FunctionBrowser/FunctionBrowser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BrowserWindow/FunctionBrowser/FunctionBrowser.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/BlockLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/BlockLayer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/VisualBlockComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/VisualBlockComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/Canvas.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/Canvas.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/electron/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/Channels.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/Channels.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Block.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Block.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Graph.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Graph.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Port.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Port.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/BlockTests.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/BlockTests.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/GraphTest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/GraphTest.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/PortTests.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/PortTests.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/types/BlockStorage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/types/BlockStorage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.renderer.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.renderer.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,6 +117,32 @@
       </test-names>
       <method v="2" />
     </configuration>
+    <configuration name="Test Compile Order" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/GraphTest.ts" />
+      <test-names>
+        <test-name value="Test Compile Order" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Test Run" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/GraphTest.ts" />
+      <test-names>
+        <test-name value="Test Run" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -114,9 +157,13 @@
       <item itemvalue="Attach to Node.js/Chrome.Debug" />
       <item itemvalue="Jest.Block From File" />
       <item itemvalue="npm.start" />
+      <item itemvalue="Jest.Test Run" />
+      <item itemvalue="Jest.Test Compile Order" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.Test Compile Order" />
+        <item itemvalue="Jest.Test Run" />
         <item itemvalue="Jest.Block From File" />
       </list>
     </recent_temporary>
@@ -190,6 +237,11 @@
       <workItem from="1607397081428" duration="19732000" />
       <workItem from="1607745245838" duration="4747000" />
       <workItem from="1607997370780" duration="2537000" />
+      <workItem from="1608176728704" duration="101000" />
+      <workItem from="1608293023492" duration="1662000" />
+      <workItem from="1608668108415" duration="2446000" />
+      <workItem from="1608770488462" duration="3371000" />
+      <workItem from="1608929164321" duration="15348000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1599160068442</created>
@@ -226,10 +278,11 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="553" y="367" key="#Notifications/0.23.1680.1027@0.23.1680.1027" timestamp="1602121734266" />
-    <state x="304" y="198" width="1071" height="724" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603847336444">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state x="170" y="148" width="1071" height="730" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1608940108479">
+      <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="304" y="198" width="1071" height="724" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1603847336444" />
+    <state x="170" y="148" width="1071" height="730" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1680.1025@0.25.1680.1025" timestamp="1608940108479" />
     <state x="551" y="346" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1607178669006">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
@@ -243,35 +296,34 @@
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="578" y="291" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.25.1680.1025@0.25.1680.1025" timestamp="1607574038907" />
-    <state x="586" y="399" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1607657773714">
+    <state x="586" y="399" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1608940635160">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state x="586" y="398" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1680.1027@0.23.1680.1027" timestamp="1600129062940" />
-    <state x="586" y="399" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.25.1680.1025@0.25.1680.1025" timestamp="1607657773714" />
-    <state width="1638" height="199" key="GridCell.Tab.0.bottom" timestamp="1608002202739">
+    <state x="586" y="399" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.25.1680.1025@0.25.1680.1025" timestamp="1608940635160" />
+    <state width="1638" height="199" key="GridCell.Tab.0.bottom" timestamp="1609047932493">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
-    <state width="1638" height="199" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1608002202739" />
-    <state width="1638" height="199" key="GridCell.Tab.0.center" timestamp="1608002202738">
+    <state width="1638" height="199" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1609047932493" />
+    <state width="1638" height="199" key="GridCell.Tab.0.center" timestamp="1609047932491">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750077" />
-    <state width="1638" height="199" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1608002202738" />
-    <state width="1638" height="199" key="GridCell.Tab.0.left" timestamp="1608002202738">
+    <state width="1638" height="199" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1609047932491" />
+    <state width="1638" height="199" key="GridCell.Tab.0.left" timestamp="1609047932487">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304620" />
     <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750076" />
-    <state width="1638" height="199" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1608002202738" />
-    <state width="1638" height="199" key="GridCell.Tab.0.right" timestamp="1608002202739">
+    <state width="1638" height="199" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1609047932487" />
+    <state width="1638" height="199" key="GridCell.Tab.0.right" timestamp="1609047932492">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
-    <state width="1638" height="199" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1608002202739" />
+    <state width="1638" height="199" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1609047932492" />
     <state width="1638" height="346" key="GridCell.Tab.1.bottom" timestamp="1604435622020">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -333,10 +385,10 @@
     </state>
     <state x="538" y="291" width="604" height="548" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1603936126194" />
     <state x="538" y="292" width="604" height="547" key="find.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1607318753775" />
-    <state x="221" y="252" width="670" height="675" key="search.everywhere.popup" timestamp="1606597092345">
+    <state x="221" y="252" width="670" height="675" key="search.everywhere.popup" timestamp="1609046914916">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="221" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1604624167968" />
-    <state x="221" y="252" width="670" height="675" key="search.everywhere.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1606597092345" />
+    <state x="221" y="252" width="670" height="675" key="search.everywhere.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1609046914916" />
   </component>
 </project>

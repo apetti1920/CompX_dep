@@ -83,14 +83,14 @@ test("Test Run", () => {
 
 class TestUtils {
     public static getGraph(): Graph {
-        const g1 = new Graph(true);
+        const g1 = new Graph();
 
-        const constant = g1.addBlockByName("constant", new Map<string, unknown>([['constantValue', -9.8]]));
+        const constant = g1.addBlockByName("constant", [{name: 'constantValue', type: "number", value: -9.8}]);
         const sum = g1.addBlockByName("sum");
         const integral1 = g1.addBlockByName("integral");
         const integral2 = g1.addBlockByName("integral");
-        const gain1 = g1.addBlockByName("gain", new Map<string, unknown>([['gainValue', 5]]));
-        const gain2 = g1.addBlockByName("gain", new Map<string, unknown>([['gainValue', 1]]));
+        const gain1 = g1.addBlockByName("gain", [{name: 'gainValue', type: "number", value: 5}]);
+        const gain2 = g1.addBlockByName("gain", [{name: 'gainValue', type: "number", value: 1}]);
         const scope = g1.addBlockByName("scope");
 
         g1.addEdge(constant, "z", sum, "w");
@@ -106,14 +106,14 @@ class TestUtils {
     }
 
     public static getGraphMassSpringDamper(): Graph {
-        const g1 = new Graph(true);
+        const g1 = new Graph();
 
         const sum = g1.addBlockByName("sum");
-        const gain0 = g1.addBlockByName("gain", new Map<string, unknown>([['gainValue', 1]]));
-        const integral1 = g1.addBlockByName("integral", new Map<string, unknown>([['icValue', 0.0]]));
-        const integral2 = g1.addBlockByName("integral", new Map<string, unknown>([['icValue', -0.2]]));
-        const dampning = g1.addBlockByName("gain", new Map<string, unknown>([['gainValue', 0.24]]));
-        const stiffness = g1.addBlockByName("gain", new Map<string, unknown>([['gainValue', -1.6]]));
+        const gain0 = g1.addBlockByName("gain", [{name: 'gainValue', type: "number", value: 1.0}]);
+        const integral1 = g1.addBlockByName("integral", [{name: 'icValue', type: "number", value: 0.0}]);
+        const integral2 = g1.addBlockByName("integral", [{name: 'icValue', type: "number", value: 0.0}]);
+        const dampning = g1.addBlockByName("gain", [{name: 'gainValue', type: "number", value: 0.24}]);
+        const stiffness = g1.addBlockByName("gain", [{name: 'gainValue', type: "number", value: -1.6}]);
         const scope = g1.addBlockByName("scope");
 
         g1.addEdge(sum, "z", gain0, "x");
@@ -129,12 +129,12 @@ class TestUtils {
     }
 
     public static getSimpleGraph(): Graph {
-        const g = new Graph(true);
-        const const1 = g.addBlockByName("constant", new Map<string, unknown>([['constantValue', 1/10]]));
-        const gain = g.addBlockByName("gain", new Map<string, unknown>([['gainValue', 1/10]]));
+        const g = new Graph();
+        const const1 = g.addBlockByName("constant", [{name: 'constantValue', type: "number", value: 1/10}]);
+        const gain = g.addBlockByName("gain", [{name: 'gainValue', type: "number", value: 1/10}]);
         const sum = g.addBlockByName("sum");
-        const integral = g.addBlockByName("integral", new Map<string, unknown>([['icValue', 0]]))
-        const gain2 = g.addBlockByName("gain", new Map<string, unknown>([['gainValue', -1/5]]))
+        const integral = g.addBlockByName("integral", [{name: 'icValue', type: "number", value: 0.0}]);
+        const gain2 = g.addBlockByName("gain", [{name: 'gainValue', type: "number", value: -1/5}]);
         const scope = g.addBlockByName("scope");
 
         g.addEdge(const1, "z", gain, "x");
@@ -147,7 +147,7 @@ class TestUtils {
     }
 
     public static getSinGraph(): Graph {
-        const g = new Graph(true);
+        const g = new Graph();
         const sin = g.addBlockByName("sin");
         const scope = g.addBlockByName("scope");
 

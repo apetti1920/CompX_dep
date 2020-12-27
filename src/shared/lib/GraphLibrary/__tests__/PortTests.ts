@@ -4,9 +4,9 @@ import Block from "../Block";
 
 let block: Block;
 
-beforeEach(() => {
-    block = new Block(path.resolve(__dirname, 'test_blocks', 'sum2.json'));
-})
+// beforeEach(() => {
+//     block = new Block(path.resolve(__dirname, 'test_blocks', 'sum2.json'));
+// })
 
 test('Port Type Test', () => {
     expect(() => {
