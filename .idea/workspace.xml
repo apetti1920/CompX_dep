@@ -11,23 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7953432-bfcc-4650-a923-43f7ea8791ce" name="Default Changelist" comment="Initial Commit">
-      <change afterPath="$PROJECT_DIR$/src/app/utilities/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/helpers/GetBlockLibraryFilesChildProcess.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BrowserWindow/FunctionBrowser/FunctionBrowserCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BrowserWindow/FunctionBrowser/FunctionBrowserCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/BlockLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/BlockLayer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/TestScope.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/TestScope.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/VisualBlockComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/VisualBlockComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/electron/IPC/Channels/TestScopeChannel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/IPC/Channels/TestScopeChannel.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/electron/IPC/GetBlockLibraryFiles.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Block.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Block.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/ModelChildProcess.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/helpers/ModelChildProcess.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/helpers/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/helpers/utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/types/BlockStorage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/types/BlockStorage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/types/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.main.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.main.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -247,6 +232,7 @@
       <workItem from="1608770488462" duration="3371000" />
       <workItem from="1608929164321" duration="15348000" />
       <workItem from="1609209444561" duration="34871000" />
+      <workItem from="1609904605213" duration="1570000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1599160068442</created>
@@ -305,30 +291,30 @@
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="586" y="399" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.25.1680.1025@0.25.1680.1025" timestamp="1608940635160" />
-    <state width="1638" height="199" key="GridCell.Tab.0.bottom" timestamp="1609904254852">
+    <state width="1638" height="199" key="GridCell.Tab.0.bottom" timestamp="1609906371101">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
-    <state width="1638" height="199" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1609904254852" />
-    <state width="1638" height="199" key="GridCell.Tab.0.center" timestamp="1609904254851">
+    <state width="1638" height="199" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1609906371101" />
+    <state width="1638" height="199" key="GridCell.Tab.0.center" timestamp="1609906371100">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750077" />
-    <state width="1638" height="199" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1609904254851" />
-    <state width="1638" height="199" key="GridCell.Tab.0.left" timestamp="1609904254851">
+    <state width="1638" height="199" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1609906371100" />
+    <state width="1638" height="199" key="GridCell.Tab.0.left" timestamp="1609906371100">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304620" />
     <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750076" />
-    <state width="1638" height="199" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1609904254851" />
-    <state width="1638" height="199" key="GridCell.Tab.0.right" timestamp="1609904254852">
+    <state width="1638" height="199" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1609906371100" />
+    <state width="1638" height="199" key="GridCell.Tab.0.right" timestamp="1609906371100">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
-    <state width="1638" height="199" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1609904254852" />
+    <state width="1638" height="199" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1609906371100" />
     <state width="1638" height="346" key="GridCell.Tab.1.bottom" timestamp="1604435622020">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>

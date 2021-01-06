@@ -27,12 +27,11 @@ type State = {
 };
 
 export class VisualBlockComponent extends React.Component<Props, State> {
-    private margin = {top: 10, right: 10, bottom: 10, left: 10};
+    private margin = {top: 2, right: 2, bottom: 2, left: 2};
+    private cornerRadius = 5;
 
     constructor(props: Props) {
         super(props);
-
-        this.getDisplayComponent();
 
         this.state = {
             hovering: undefined
@@ -64,12 +63,32 @@ export class VisualBlockComponent extends React.Component<Props, State> {
             return this.getCircle(keyId, true, deltaYo, index, port.name);
         });
 
+        let dragComponets = <React.Fragment/>
+        if (this.props.selected) {
+            dragComponets = (
+                <g>
+                    <rect x={this.props.block.position.x - 1} y={this.props.block.position.y - 1}
+                          width={this.cornerRadius} height={this.cornerRadius} fill="red"/>
+                    <rect x={this.props.block.position.x + this.props.block.size.x - this.cornerRadius + 1 }
+                          y={this.props.block.position.y - 1}
+                          width={this.cornerRadius} height={this.cornerRadius} fill="red"/>
+                    <rect x={this.props.block.position.x - 1}
+                          y={this.props.block.position.y  + this.props.block.size.y - this.cornerRadius + 1}
+                          width={this.cornerRadius} height={this.cornerRadius} fill="red"/>
+                    <rect x={this.props.block.position.x  + this.props.block.size.x - this.cornerRadius + 1}
+                          y={this.props.block.position.y  + this.props.block.size.y - this.cornerRadius + 1}
+                          width={this.cornerRadius} height={this.cornerRadius} fill="red"/>
+                </g>
+            )
+        }
+
         return (
             <g style={{pointerEvents: "none"}}
                transform={`translate(${this.props.translate.x} ${this.props.translate.y})
                                 scale(${this.props.zoom.toString()} ${this.props.zoom.toString()})`}>
+                {dragComponets}
                 <rect x={this.props.block.position.x} y={this.props.block.position.y}
-                      width={this.props.block.size.x} height={this.props.block.size.y}
+                      width={this.props.block.size.x} height={this.props.block.size.y} rx={this.cornerRadius}
                       style={{cursor: "pointer", stroke: this.props.selected?"pink":"", pointerEvents: "auto",
                           strokeWidth: this.props.selected?"1":"0", strokeOpacity: this.props.selected?0.9:0.0}}
                       onMouseDown={(e)=>this.props.onMouseDownBlock(e, this.props.block.id)}
@@ -77,12 +96,12 @@ export class VisualBlockComponent extends React.Component<Props, State> {
                       onContextMenu={(e)=>
                           this.props.onContextMenuBlock(e, this.props.block.id)}/>
                 <rect x={this.props.block.position.x + this.margin.left}
-                      y={this.props.block.position.y + this.margin.top}
+                      y={this.props.block.position.y + this.margin.top} rx={this.cornerRadius}
                       width={this.props.block.size.x - this.margin.left - this.margin.right}
                       height={this.props.block.size.y - this.margin.top - this.margin.bottom}
                       style={{ fill: "#eeeeee" }}/>
                 <svg x={this.props.block.position.x + this.margin.left}
-                     y={this.props.block.position.y + this.margin.top}
+                     y={this.props.block.position.y + this.margin.top} rx={this.cornerRadius}
                      width={this.props.block.size.x - this.margin.left - this.margin.right}
                      height={this.props.block.size.y - this.margin.top - this.margin.bottom}>
                     <JsxParser jsx={this.props.block.blockStorage.display} renderInWrapper={false}/>
