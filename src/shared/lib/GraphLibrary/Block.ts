@@ -1,8 +1,5 @@
-import fs from "fs";
-import { v4 as uuidv4 } from 'uuid';
-
 import Port, {AcceptedPortTypes} from "./Port";
-import {BlockStorageType, InternalDataStorageType, PortStorageType} from "./types/BlockStorage";
+import {BlockStorageType, InternalDataStorageType} from "./types/BlockStorage";
 
 type Callback = ((t: number, dt: number, prevInputs: unknown[], prevOutputs: unknown[], newInputs: unknown[]) => unknown[]);
 
@@ -29,6 +26,7 @@ export default class Block {
         this.callback = this.convertCallback(block.callback);
     }
 
+    // eslint-disable-next-line @typescript-eslint/ban-types
     private convertCallback(callbackData: string): Callback {
         let callbackString = callbackData.replace(new RegExp("prevInputs\\[(\\w+)\\]","gm"), (a, b) => {
             const index = this.inputPorts.map(port => port.name).indexOf(b);

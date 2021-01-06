@@ -6,8 +6,8 @@ module.exports = {
   entry: {
     index: './src/electron/index.ts',
     MainWindow: './src/app/windows/mainWindow/renderer.tsx',
-    GetBlockLibraryFiles: './src/electron/IPC/GetBlockLibraryFiles.ts',
-    ModelLib: './src/shared/lib/GraphLibrary/ModelChildProcess.ts'
+    GetBlockLibraryFiles: './src/shared/lib/GraphLibrary/helpers/GetBlockLibraryFilesChildProcess.ts',
+    ModelLib: './src/shared/lib/GraphLibrary/helpers/ModelChildProcess.ts'
   },
   output: {
     path: __dirname + '/.webpack/main',

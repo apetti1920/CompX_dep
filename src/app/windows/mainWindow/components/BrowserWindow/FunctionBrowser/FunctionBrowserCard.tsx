@@ -16,7 +16,7 @@ class FunctionBrowserCard extends React.Component<Props, State> {
         super(props);
 
         // TODO: must update image (if from local use ipc otherwise use src)
-        this.state = {imgPath: this.props.data.imgFile};
+        this.state = {imgPath: this.props.data.thumbnail};
     }
 
     onDragStartHandler = (e: React.DragEvent<HTMLDivElement>): void => {
@@ -32,7 +32,7 @@ class FunctionBrowserCard extends React.Component<Props, State> {
                     border: "1px solid #ddd", borderRadius: "4px", backgroundColor: "var(--custom-accent-color)"
                 }}>
                     <img style={{width: "100%", height: "75%", userSelect: "none"}} draggable="false"
-                         src={this.props.data.imgFile} alt={this.props.data.name}/>
+                         src={this.props.data.thumbnail} alt={this.props.data.name}/>
                     <div style={{
                         width: "100%",
                         fontFamily: "var(--custom-font-family)",

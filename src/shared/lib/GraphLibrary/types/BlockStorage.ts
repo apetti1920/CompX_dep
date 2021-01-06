@@ -1,4 +1,5 @@
 import {Version} from './generic'
+import React from "react";
 
 export type PortStorageType = {
     name: string,
@@ -6,6 +7,7 @@ export type PortStorageType = {
 }
 
 export type InternalDataStorageType = {
+    id: string,
     name: string,
     type: "number",
     value: any
@@ -14,11 +16,12 @@ export type InternalDataStorageType = {
 export type BlockStorageType = {
     id: string,
     version: Version,
-    imgFile: string
+    thumbnail: string
     name: string,
     description: string,
     tags: string[],
     internalData: InternalDataStorageType[],
+    display: string,
     inputPorts: PortStorageType[],
     outputPorts: PortStorageType[],
     pseudoSource: string,

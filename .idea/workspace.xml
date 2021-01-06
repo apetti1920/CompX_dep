@@ -11,26 +11,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7953432-bfcc-4650-a923-43f7ea8791ce" name="Default Changelist" comment="Initial Commit">
-      <change afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/TestScope.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/electron/IPC/Channels/TestScopeChannel.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/utilities/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/helpers/GetBlockLibraryFilesChildProcess.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TODO" beforeDir="false" afterPath="$PROJECT_DIR$/TODO" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BrowserWindow/EditBlock/CanvasEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BrowserWindow/EditBlock/CanvasEdit.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BrowserWindow/FunctionBrowser/FunctionBrowserCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BrowserWindow/FunctionBrowser/FunctionBrowserCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/BlockLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/BlockLayer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/TestScope.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/TestScope.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/VisualBlockComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/VisualBlockComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/Canvas.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/Canvas.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/electron/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/Channels.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/Channels.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/electron/IPC/Channels/TestScopeChannel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/IPC/Channels/TestScopeChannel.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/electron/IPC/GetBlockLibraryFiles.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Block.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Block.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Graph.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Graph.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Port.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Port.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/BlockTests.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/BlockTests.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/GraphTest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/GraphTest.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/PortTests.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/__tests__/PortTests.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/ModelChildProcess.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/helpers/ModelChildProcess.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/helpers/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/helpers/utils.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/types/BlockStorage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/types/BlockStorage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.renderer.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.renderer.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/types/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.main.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.main.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,11 +40,18 @@
         <option value="HTML File" />
         <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
   </component>
   <component name="ProjectId" id="1gvFReMkWGrBWPdZjHqs2Od2hdF" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -66,7 +70,7 @@
     <property name="javascript.nodejs.core.library.configured.version" value="12.16.3" />
     <property name="javascript.nodejs.core.library.typings.version" value="12.12.55" />
     <property name="js.linters.configure.manually.selectedeslint" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/app/editBlockWindow" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Library/Application Support/compx/blocks" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -85,19 +89,19 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/app/editBlockWindow" />
-      <recent name="$PROJECT_DIR$/src/electron/IPC/Channels" />
-      <recent name="$PROJECT_DIR$/.webpack" />
-      <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$/src/app" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/shared/lib/GraphLibrary/helpers" />
       <recent name="$PROJECT_DIR$/src/shared" />
       <recent name="$PROJECT_DIR$/src/app/windows/mainWindow/components/BrowserWindow/EditBlock" />
       <recent name="$PROJECT_DIR$/src/app/windows" />
       <recent name="$PROJECT_DIR$/src/app/mainWindow" />
-      <recent name="$PROJECT_DIR$/src/shared" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$USER_HOME$/Library/Application Support/compx/blocks" />
+      <recent name="$PROJECT_DIR$/src/app/editBlockWindow" />
+      <recent name="$PROJECT_DIR$/src/electron/IPC/Channels" />
+      <recent name="$PROJECT_DIR$/.webpack" />
+      <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
   <component name="RunManager" selected="npm.start">
@@ -156,9 +160,9 @@
     <list>
       <item itemvalue="Attach to Node.js/Chrome.Debug" />
       <item itemvalue="Jest.Block From File" />
-      <item itemvalue="npm.start" />
       <item itemvalue="Jest.Test Run" />
       <item itemvalue="Jest.Test Compile Order" />
+      <item itemvalue="npm.start" />
     </list>
     <recent_temporary>
       <list>
@@ -242,6 +246,7 @@
       <workItem from="1608668108415" duration="2446000" />
       <workItem from="1608770488462" duration="3371000" />
       <workItem from="1608929164321" duration="15348000" />
+      <workItem from="1609209444561" duration="34871000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1599160068442</created>
@@ -300,30 +305,30 @@
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="586" y="399" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.25.1680.1025@0.25.1680.1025" timestamp="1608940635160" />
-    <state width="1638" height="199" key="GridCell.Tab.0.bottom" timestamp="1609047932493">
+    <state width="1638" height="199" key="GridCell.Tab.0.bottom" timestamp="1609904254852">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
-    <state width="1638" height="199" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1609047932493" />
-    <state width="1638" height="199" key="GridCell.Tab.0.center" timestamp="1609047932491">
+    <state width="1638" height="199" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1609904254852" />
+    <state width="1638" height="199" key="GridCell.Tab.0.center" timestamp="1609904254851">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750077" />
-    <state width="1638" height="199" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1609047932491" />
-    <state width="1638" height="199" key="GridCell.Tab.0.left" timestamp="1609047932487">
+    <state width="1638" height="199" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1609904254851" />
+    <state width="1638" height="199" key="GridCell.Tab.0.left" timestamp="1609904254851">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304620" />
     <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750076" />
-    <state width="1638" height="199" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1609047932487" />
-    <state width="1638" height="199" key="GridCell.Tab.0.right" timestamp="1609047932492">
+    <state width="1638" height="199" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1609904254851" />
+    <state width="1638" height="199" key="GridCell.Tab.0.right" timestamp="1609904254852">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
     <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.2560.1417/-1680.213.1680.1027@0.23.2560.1417" timestamp="1601668750078" />
-    <state width="1638" height="199" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1609047932492" />
+    <state width="1638" height="199" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1609904254852" />
     <state width="1638" height="346" key="GridCell.Tab.1.bottom" timestamp="1604435622020">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -380,15 +385,15 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="341" y="175" key="SettingsEditor/0.23.1680.1027@0.23.1680.1027" timestamp="1603847164170" />
-    <state x="538" y="292" width="604" height="547" key="find.popup" timestamp="1607318753775">
+    <state x="538" y="292" width="604" height="547" key="find.popup" timestamp="1609292297452">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="538" y="291" width="604" height="548" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1603936126194" />
-    <state x="538" y="292" width="604" height="547" key="find.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1607318753775" />
-    <state x="221" y="252" width="670" height="675" key="search.everywhere.popup" timestamp="1609046914916">
+    <state x="538" y="292" width="604" height="547" key="find.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1609292297452" />
+    <state x="221" y="252" width="670" height="675" key="search.everywhere.popup" timestamp="1609900973438">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="221" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1604624167968" />
-    <state x="221" y="252" width="670" height="675" key="search.everywhere.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1609046914916" />
+    <state x="221" y="252" width="670" height="675" key="search.everywhere.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1609900973438" />
   </component>
 </project>

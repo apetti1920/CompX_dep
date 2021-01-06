@@ -1,5 +1,5 @@
-import {Edge, Graph} from "./index";
-import {BlockStorageType} from "./types/BlockStorage";
+import {Edge, Graph} from "../index";
+import {BlockStorageType} from "../types/BlockStorage";
 
 process.on("message", (message: any) => {
     const visualGraph: {blocks: BlockStorageType[], edges: Edge[]} = message.visualGraph;

@@ -1,5 +1,6 @@
 // @flow
 import * as React from 'react';
+import JsxParser from 'react-jsx-parser'
 import {BlockVisualType} from "../../../../../store/types";
 import {PointType} from "../../../../../../shared/types";
 
@@ -26,8 +27,12 @@ type State = {
 };
 
 export class VisualBlockComponent extends React.Component<Props, State> {
+    private margin = {top: 10, right: 10, bottom: 10, left: 10};
+
     constructor(props: Props) {
         super(props);
+
+        this.getDisplayComponent();
 
         this.state = {
             hovering: undefined
@@ -71,6 +76,17 @@ export class VisualBlockComponent extends React.Component<Props, State> {
                       onMouseUp={this.props.onMouseUpBlock}
                       onContextMenu={(e)=>
                           this.props.onContextMenuBlock(e, this.props.block.id)}/>
+                <rect x={this.props.block.position.x + this.margin.left}
+                      y={this.props.block.position.y + this.margin.top}
+                      width={this.props.block.size.x - this.margin.left - this.margin.right}
+                      height={this.props.block.size.y - this.margin.top - this.margin.bottom}
+                      style={{ fill: "#eeeeee" }}/>
+                <svg x={this.props.block.position.x + this.margin.left}
+                     y={this.props.block.position.y + this.margin.top}
+                     width={this.props.block.size.x - this.margin.left - this.margin.right}
+                     height={this.props.block.size.y - this.margin.top - this.margin.bottom}>
+                    <JsxParser jsx={this.props.block.blockStorage.display} renderInWrapper={false}/>
+                </svg>
                 {inputPortComponents}
                 {outputPortComponents}
             </g>

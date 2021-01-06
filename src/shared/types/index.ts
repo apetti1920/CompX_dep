@@ -7,3 +7,8 @@ export interface IpcRequest {
     responseChannel?: string;
     params?: any;
 }
+
+export type ScopeDataType = {
+    Step: number,
+    Value: number,
+}

@@ -1,12 +1,9 @@
 import {TEST_SCOPE_CHANNEL} from "../../../shared/Channels";
 import csv = require('csv-parser');
 import * as fs from 'fs';
-
-type d = {
-    Date: string,
-    Max: number,
-    Min: number
-}
+import {IpcChannelInterface} from "./IpcChannelInterface";
+import IpcMainEvent = Electron.Main.IpcMainEvent;
+import {IpcRequest} from "../../../shared/types";
 
 export class TestScopeChannel implements IpcChannelInterface {
     getName(): string {
@@ -18,12 +15,11 @@ export class TestScopeChannel implements IpcChannelInterface {
             request.responseChannel = `${this.getName()}_response`;
         }
 
-        const results: d[] = [];
+        const results: number[] = [];
         fs.createReadStream('/Users/aidanpetti/Downloads/testdat.csv').pipe(csv())
-            .on('data', (data) => results.push({Date: data["Date"] as string, Max: parseInt(data["Max"] as string), Min: parseInt(data["Min"] as string)}))
+            .on('data', (data) => results.push(parseInt(data["Max"] as string)))
             .on('end', () => {
                 event.sender.send(request.responseChannel, results);
-
             });
     }
 }

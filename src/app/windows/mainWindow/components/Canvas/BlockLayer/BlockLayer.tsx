@@ -31,21 +31,20 @@ export class BlockLayer extends React.Component<Props, State> {
         return (
             <div style={{width: "100%", height: "100%", position: "absolute", zIndex: 2, pointerEvents: "none"}}>
                 <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                    {/*{this.props.graph.blocks.map((block) => {*/}
-                    {/*    const selected = this.props.selectedIDs !== undefined &&*/}
-                    {/*        this.props.selectedIDs.includes(block.id);*/}
-                    {/*    return (*/}
-                    {/*        <VisualBlockComponent key={block.id} translate={this.props.translate} zoom={this.props.zoom}*/}
-                    {/*                              selected={selected} block={block}*/}
-                    {/*                              onMouseDownBlock={this.props.onMouseDownHandlerBlock}*/}
-                    {/*                              onMouseUpBlock={this.props.onMouseUpHandlerBlock}*/}
-                    {/*                              onMouseDownHandlerPort={this.props.onMouseDownHandlerPort}*/}
-                    {/*                              onMouseUpHandlerPort={this.props.onMouseUpHandlerPort}*/}
-                    {/*                              onContextMenuBlock={this.props.onContextMenuBlock}*/}
-                    {/*                              onDoubleClickBlock={this.props.onDoubleClickBlock}/>*/}
-                    {/*    )*/}
-                    {/*})}*/}
-                    <TestScope translate={this.props.translate} zoom={this.props.zoom} />
+                    {this.props.graph.blocks.map((block) => {
+                        const selected = this.props.selectedIDs !== undefined &&
+                            this.props.selectedIDs.includes(block.id);
+                        return (
+                            <VisualBlockComponent key={block.id} translate={this.props.translate} zoom={this.props.zoom}
+                                                  selected={selected} block={block}
+                                                  onMouseDownBlock={this.props.onMouseDownHandlerBlock}
+                                                  onMouseUpBlock={this.props.onMouseUpHandlerBlock}
+                                                  onMouseDownHandlerPort={this.props.onMouseDownHandlerPort}
+                                                  onMouseUpHandlerPort={this.props.onMouseUpHandlerPort}
+                                                  onContextMenuBlock={this.props.onContextMenuBlock}
+                                                  onDoubleClickBlock={this.props.onDoubleClickBlock}/>
+                        )}
+                    )}
                  </svg>
             </div>
         );
