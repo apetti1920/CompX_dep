@@ -1,19 +1,13 @@
 // @flow
 import * as React from 'react';
 import {GraphVisualType} from "../../../../../store/types";
-import {PointType} from "../../../../../../shared/types";
-import {VisualBlockComponent} from "./VisualBlockComponent";
-import {TestScope} from "./TestScope";
+import VisualBlockComponent from "./VisualBlockComponent";
 
 type Props = {
     graph: GraphVisualType,
-    translate: PointType,
-    zoom: number,
     selectedIDs?: string[],
-    onMouseDownHandlerBlock: (e: React.MouseEvent, blockID: string)=>void,
     onMouseUpHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void,
     onContextMenuBlock: (e: React.MouseEvent, blockID: string)=>void,
-    onMouseUpHandlerBlock: (e: React.MouseEvent)=>void,
     onMouseDownHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void,
     onDoubleClickBlock: (e: React.MouseEvent, blockID: string)=>void
 };
@@ -35,10 +29,8 @@ export class BlockLayer extends React.Component<Props, State> {
                         const selected = this.props.selectedIDs !== undefined &&
                             this.props.selectedIDs.includes(block.id);
                         return (
-                            <VisualBlockComponent key={block.id} translate={this.props.translate} zoom={this.props.zoom}
+                            <VisualBlockComponent key={block.id}
                                                   selected={selected} block={block}
-                                                  onMouseDownBlock={this.props.onMouseDownHandlerBlock}
-                                                  onMouseUpBlock={this.props.onMouseUpHandlerBlock}
                                                   onMouseDownHandlerPort={this.props.onMouseDownHandlerPort}
                                                   onMouseUpHandlerPort={this.props.onMouseUpHandlerPort}
                                                   onContextMenuBlock={this.props.onContextMenuBlock}

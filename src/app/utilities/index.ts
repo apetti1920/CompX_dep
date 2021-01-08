@@ -1,5 +1,12 @@
-import {PointType, ScopeDataType} from "../../shared/types";
+import {PointType} from "../../shared/types";
 import * as d3 from "d3";
+
+/* Utility function to convert on screen mouse coordinates to canvas coordinates*/
+export function ScreenToWorld(point: PointType, translation: PointType, zoom: number): PointType {
+    const gX1 = (point.x - translation.x) / zoom;
+    const gY1 = (point.y - translation.y) / zoom;
+    return {x: gX1, y: gY1}
+}
 
 export function dataToLine(position: PointType, dimensions: PointType, steps: number, data: number[]): string {
     const xScale = d3.scaleLinear()

@@ -1,32 +1,61 @@
 // @flow
 import * as React from 'react';
 import JsxParser from 'react-jsx-parser'
-import {BlockVisualType} from "../../../../../store/types";
+import {
+    ActiveSidebarDictionary,
+    BlockVisualType, CanvasSelectedItemType,
+    CanvasType,
+    GraphVisualType,
+    StateType
+} from "../../../../../store/types";
 import {PointType} from "../../../../../../shared/types";
+import {bindActionCreators, Dispatch} from "redux";
+import {
+    ClickedSidebarButtonAction,
+    MovedCanvasAction, UpdatedCanvasSelectionAction,
+    UpdatedGraphAction,
+    ZoomedCanvasAction
+} from "../../../../../store/actions";
+import {connect} from "react-redux";
+import {BlockStorageType} from "../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {CanvasSelectionType, MouseDown} from "../../types";
+import {ScreenToWorld} from "../../../../../utilities";
 
 type NamedIO = {
     output: boolean,
     portName: string
 }
 
-type Props = {
-    translate: PointType,
+interface StateProps {
     zoom: number,
+    translate: PointType,
+    canvasSelectedItems: CanvasSelectedItemType[],
+    graph: GraphVisualType
+}
+
+interface DispatchProps {
+    onUpdatedGraph: (newGraph: GraphVisualType) => void,
+    onUpdatedCanvasSelectedItems: (newSelections: CanvasSelectedItemType[]) => void
+}
+
+type ComponentProps = {
     selected: boolean,
     block: BlockVisualType,
-    onMouseDownBlock: (e: React.MouseEvent, blockID: string)=>void,
-    onMouseUpBlock: (e: React.MouseEvent)=>void,
     onContextMenuBlock: (e: React.MouseEvent, blockID: string)=>void,
     onMouseDownHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void,
     onMouseUpHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void,
     onDoubleClickBlock: (e: React.MouseEvent, blockID: string)=>void
 };
 
+type Props = StateProps & DispatchProps &ComponentProps
+
 type State = {
-    hovering?: NamedIO
+    hovering?: NamedIO,
+    mouseWorldCoordinates?: PointType
+    mouseDownOnBlock: boolean
 };
 
-export class VisualBlockComponent extends React.Component<Props, State> {
+class VisualBlockComponent extends React.Component<Props, State> {
     private margin = {top: 2, right: 2, bottom: 2, left: 2};
     private cornerRadius = 5;
 
@@ -34,17 +63,88 @@ export class VisualBlockComponent extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            hovering: undefined
+            hovering: undefined,
+            mouseWorldCoordinates: undefined,
+            mouseDownOnBlock: false
         }
     }
 
-    onMouseEnterHandler = (e: React.MouseEvent, output: boolean, portName: string) => {
+    /* Overrides the mouse down event of a block */
+    onMouseDownHandlerBlock = (e: React.MouseEvent): void => {
+        e.preventDefault();
+        if (e.button === 0) {
+            const tempState = {...this.state};
+
+            tempState.mouseDownOnBlock = true;
+            //tempState.contextMenu = undefined;
+
+            tempState.mouseWorldCoordinates =
+                ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY},
+                    this.props.translate, this.props.zoom);
+            let tempSelected = this.props.canvasSelectedItems;
+            if (!e.shiftKey) {
+                tempSelected = [{selectedType: CanvasSelectionType.BLOCK, id: this.props.block.id}];
+            } else {
+                tempSelected.push({selectedType: CanvasSelectionType.BLOCK, id: this.props.block.id});
+            }
+
+            this.props.onUpdatedCanvasSelectedItems(tempSelected);
+            this.setState(tempState);
+        }
+        e.stopPropagation();
+    };
+
+    onMouseDragBlockHandler = (e: React.MouseEvent): void => {
+        if (this.state.mouseDownOnBlock) {
+            const tempProps = {...this.props};
+            const tempState = {...this.state};
+
+            tempState.mouseWorldCoordinates =
+                ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY},
+                    this.props.translate, this.props.zoom);
+
+            // Just move all the selectedItem blocks
+            this.props.canvasSelectedItems
+                .filter(selected => selected.selectedType === CanvasSelectionType.BLOCK).map(selectedBlock =>
+            {
+                const tempBlockIndex = tempProps.graph.blocks.indexOf(tempProps.graph.blocks
+                    .find(block => block.id === selectedBlock.id));
+
+                tempProps.graph.blocks[tempBlockIndex].position = {
+                    x: tempProps.graph.blocks[tempBlockIndex].position.x + (e.movementX / this.props.zoom),
+                    y: tempProps.graph.blocks[tempBlockIndex].position.y + (e.movementY / this.props.zoom)
+                };
+            });
+
+            this.props.onUpdatedGraph(tempProps.graph);
+            this.setState(tempState);
+        }
+    }
+
+    /* Overrides the mouse down event of a block */
+    onMouseUpHandlerBlock = (e: React.MouseEvent): void => {
+        e.preventDefault();
+        if (e.button === 0) {
+            const tempState = {...this.state};
+            tempState.mouseDownOnBlock = false;
+            this.setState(tempState);
+        }
+        e.stopPropagation();
+    };
+
+    onMouseLeaveBlockHandler = (e: React.MouseEvent): void => {
+        const tempState = {...this.state};
+        tempState.mouseDownOnBlock = false;
+        this.setState(tempState);
+    }
+
+    onMouseEnterPortHandler = (e: React.MouseEvent, output: boolean, portName: string) => {
         const tempState = {...this.state};
         tempState.hovering = {output: output, portName: portName};
         this.setState(tempState);
     }
 
-    onMouseLeaveHandler = (e: React.MouseEvent) => {
+    onMouseLeavePortHandler = (e: React.MouseEvent) => {
         const tempState = {...this.state};
         tempState.hovering = undefined;
         this.setState(tempState);
@@ -91,8 +191,8 @@ export class VisualBlockComponent extends React.Component<Props, State> {
                       width={this.props.block.size.x} height={this.props.block.size.y} rx={this.cornerRadius}
                       style={{cursor: "pointer", stroke: this.props.selected?"pink":"", pointerEvents: "auto",
                           strokeWidth: this.props.selected?"1":"0", strokeOpacity: this.props.selected?0.9:0.0}}
-                      onMouseDown={(e)=>this.props.onMouseDownBlock(e, this.props.block.id)}
-                      onMouseUp={this.props.onMouseUpBlock}
+                      onMouseDown={this.onMouseDownHandlerBlock} onMouseMove={this.onMouseDragBlockHandler}
+                      onMouseUp={this.onMouseUpHandlerBlock} onMouseLeave={this.onMouseLeaveBlockHandler}
                       onContextMenu={(e)=>
                           this.props.onContextMenuBlock(e, this.props.block.id)}/>
                 <rect x={this.props.block.position.x + this.margin.left}
@@ -128,7 +228,36 @@ export class VisualBlockComponent extends React.Component<Props, State> {
                            this.props.onMouseDownHandlerPort(e, output, this.props.block.id, portName)}
                        onMouseUp={(e) =>
                            this.props.onMouseUpHandlerPort(e, output, this.props.block.id, portName)}
-                       onMouseEnter={(e)=>this.onMouseEnterHandler(e, output, portName)}
-                       onMouseLeave={this.onMouseLeaveHandler}/>;
+                       onMouseEnter={(e)=>this.onMouseEnterPortHandler(e, output, portName)}
+                       onMouseLeave={this.onMouseLeavePortHandler}/>;
     }
 }
+
+function mapStateToProps(state: StateType): StateProps {
+    return {
+        zoom: state.canvas.zoom,
+        translate: state.canvas.translation,
+        canvasSelectedItems: state.canvas.canvasSelectedItems,
+        graph: state.graph
+    };
+}
+
+function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
+    return bindActionCreators({
+        onUpdatedGraph: UpdatedGraphAction,
+        onUpdatedCanvasSelectedItems: UpdatedCanvasSelectionAction
+    }, dispatch)
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(VisualBlockComponent)
+
+
+// else if (this.state.mouseDownOn === MouseDown.PORT) {
+//     const tempState = {...this.state};
+//     tempState.selectedPort = undefined;
+//     tempState.mouseDownOn = MouseDown.NONE;
+//     tempState.mouseWorldCoordinates =
+//         this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
+//     this.setState(tempState);
+// }
