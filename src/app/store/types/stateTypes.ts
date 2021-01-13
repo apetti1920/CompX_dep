@@ -17,14 +17,12 @@ export const defaultState: StateType = {
             "FunctionalWorkSplit": 250,
             "EditCanvasSplit": 250
         },
-        activeSidebarButtons: {},
         sidebarButtons: [
-            {groupId: 0, buttonId: 0, text: "Block Library"},
-            {groupId: 0, buttonId: 1, text: "Block Editor"},
-            {groupId: 0, buttonId: 2, text: "button2"},
-            {groupId: 1, buttonId: 0, text: "button3"}
-        ],
-        canvasSelectedItems: []
+            {groupId: 0, buttonId: 0, text: "Block Library", selected: false},
+            {groupId: 0, buttonId: 1, text: "Block Editor", selected: false},
+            {groupId: 0, buttonId: 2, text: "button2", selected: false},
+            {groupId: 1, buttonId: 0, text: "button3", selected: false}
+        ]
     },
     blockLibrary: [],
     graph: {blocks: [], edges: []},

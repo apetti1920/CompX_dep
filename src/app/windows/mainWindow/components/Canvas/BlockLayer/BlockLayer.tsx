@@ -8,8 +8,7 @@ type Props = {
     selectedIDs?: string[],
     onMouseUpHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void,
     onContextMenuBlock: (e: React.MouseEvent, blockID: string)=>void,
-    onMouseDownHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void,
-    onDoubleClickBlock: (e: React.MouseEvent, blockID: string)=>void
+    onMouseDownHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void
 };
 
 type State = never;
@@ -29,12 +28,10 @@ export class BlockLayer extends React.Component<Props, State> {
                         const selected = this.props.selectedIDs !== undefined &&
                             this.props.selectedIDs.includes(block.id);
                         return (
-                            <VisualBlockComponent key={block.id}
-                                                  selected={selected} block={block}
+                            <VisualBlockComponent key={block.id} block={block}
                                                   onMouseDownHandlerPort={this.props.onMouseDownHandlerPort}
                                                   onMouseUpHandlerPort={this.props.onMouseUpHandlerPort}
-                                                  onContextMenuBlock={this.props.onContextMenuBlock}
-                                                  onDoubleClickBlock={this.props.onDoubleClickBlock}/>
+                                                  onContextMenuBlock={this.props.onContextMenuBlock} />
                         )}
                     )}
                  </svg>

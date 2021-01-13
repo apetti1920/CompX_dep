@@ -1,85 +1,120 @@
 // @flow
 import * as React from 'react';
 import {PointType} from "../../../../../../shared/types";
-import {EdgeVisualType} from "../../../../../store/types";
+import {BlockVisualType, EdgeVisualType, StateType} from "../../../../../store/types";
+import {connect} from "react-redux";
 
-type Props = {
-    translate: PointType,
+interface StateProps {
     zoom: number,
-    selected: boolean,
-    edge?: EdgeVisualType,
-    outputPoint: PointType,
-    inputPoint: PointType,
-    mirrored: {outputBlock: boolean, inputBlock: boolean},
-    onMouseDown?: (e: React.MouseEvent, blockID: string)=>void,
-    onMouseUp?: (e: React.MouseEvent)=>void,
+    translate: PointType,
+    blocks: BlockVisualType[]
+}
+
+type ComponentProps = {
+    edge: EdgeVisualType
 };
+
+type Props = StateProps & ComponentProps
 
 type State = {
-    hovering: boolean
+    inputBlock?: BlockVisualType,
+    outputBlock?: BlockVisualType
 };
 
-export class VisualEdgeComponent extends React.Component<Props, State> {
+class VisualEdgeComponent extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
         this.state = {
-            hovering: false
+            inputBlock: this.props.blocks.find(b => this.props.edge.inputBlockVisualID === b.id),
+            outputBlock: this.props.blocks.find(b => this.props.edge.outputBlockVisualID === b.id)
+        }
+    }
+
+    // eslint-disable-next-line react/no-deprecated
+    componentWillReceiveProps(nextProps: Readonly<Props>, nextContext: any) {
+        if (nextProps.blocks != this.props.blocks) {
+            console.log("diferent props");
+            const tempState = {...this.state};
+            tempState.inputBlock = nextProps.blocks.find(b => this.props.edge.inputBlockVisualID === b.id);
+            tempState.outputBlock = nextProps.blocks.find(b => this.props.edge.outputBlockVisualID === b.id);
+            this.setState(tempState);
+        } else {
+            console.log("same props");
+        }
+    }
+
+    private getLineCommand() {
+        if (this.state.outputBlock === undefined || this.state.inputBlock === undefined) {
+            return "";
+        }
+
+        const outputPortIndex = this.state.outputBlock.blockStorage.outputPorts
+            .findIndex(port => (port.name === this.props.edge.outputPortID));
+        const inputPortIndex = this.state.inputBlock.blockStorage.inputPorts
+            .findIndex(port => port.name === this.props.edge.inputPortID);
+
+        const outputPoint = {
+            x: !this.state.outputBlock.mirrored?this.state.outputBlock.position.x + this.state.outputBlock.size.x:this.state.outputBlock.position.x,
+            y: this.state.outputBlock.position.y +
+                ((this.state.outputBlock.size.y / (this.state.outputBlock.blockStorage.outputPorts.length + 1)) *
+                    (outputPortIndex + 1))
+        };
+        const inputPoint = {
+            x: !this.state.inputBlock.mirrored?this.state.inputBlock.position.x:this.state.inputBlock.position.x+this.state.inputBlock.size.x,
+            y: this.state.inputBlock.position.y +
+                ((this.state.inputBlock.size.y / (this.state.inputBlock.blockStorage.inputPorts.length + 1)) *
+                    (inputPortIndex + 1))
+        };
+
+
+        if (this.state.outputBlock.mirrored === this.state.inputBlock.mirrored) {
+            let halfXOut: number; let halfXIn: number;
+            if (inputPoint.x > outputPoint.x) {
+                halfXOut = outputPoint.x + (Math.abs(inputPoint.x - outputPoint.x) / 2.0);
+                halfXIn = halfXOut;
+            } else {
+                halfXOut = outputPoint.x + (Math.abs(inputPoint.x - outputPoint.x) / 2.0);
+                halfXIn = inputPoint.x - (Math.abs(inputPoint.x - outputPoint.x) / 2.0);
+            }
+
+            return `M ${outputPoint.x}, ${outputPoint.y} 
+                             C ${halfXOut}, ${outputPoint.y} 
+                             ${halfXIn}, ${inputPoint.y} 
+                             ${inputPoint.x}, ${inputPoint.y}`;
+        } else if (this.state.inputBlock.mirrored) {
+            const dist = Math.sqrt(((outputPoint.x - inputPoint.x) ** 2) + ((outputPoint.y - inputPoint.y) ** 2));
+            return `M ${outputPoint.x}, ${outputPoint.y} 
+                             C ${outputPoint.x + dist}, ${outputPoint.y} 
+                             ${inputPoint.x + dist}, ${inputPoint.y} 
+                             ${inputPoint.x}, ${inputPoint.y}`;
+        } else {
+            const dist = -Math.sqrt(((outputPoint.x - inputPoint.x) ** 2) + ((outputPoint.y - inputPoint.y) ** 2));
+            return `M ${outputPoint.x}, ${outputPoint.y} 
+                             C ${outputPoint.x + dist}, ${outputPoint.y} 
+                             ${inputPoint.x + dist}, ${inputPoint.y} 
+                             ${inputPoint.x}, ${inputPoint.y}`;
         }
     }
 
     render(): React.ReactNode {
-        const lineCommand = this.getLineCommand();
         return (
-            <g style={{pointerEvents: "auto", cursor: (this.state.hovering)?"pointer":""}}
+            <g style={{pointerEvents: "auto"}}
                transform={`translate(${this.props.translate.x} ${this.props.translate.y})
-                                scale(${this.props.zoom.toString()} ${this.props.zoom.toString()})`}
-               onMouseDown={(e)=> {
-                   if (this.props.edge!==undefined && this.props.onMouseDown(e, this.props.edge.id)!==undefined) {
-                       return this.props.onMouseDown(e, this.props.edge.id);
-                   }
-                   return {};
-               }}
-
-               onMouseUp={()=>((this.props.edge!==undefined&&this.props.onMouseUp!==undefined)?this.props.onMouseUp:{})}
-               onMouseOver={()=>{
-                   const tempState = {...this.state};
-                   tempState.hovering=!tempState.hovering;
-                   this.setState(tempState);
-               }}>
-                <path d={lineCommand} stroke="red" fill="none"
-                      strokeWidth={(this.props.selected||this.state.hovering)?"2":"1"}/>
+                                scale(${this.props.zoom.toString()} ${this.props.zoom.toString()})`}>
+                <path d={this.getLineCommand()} stroke="red" fill="none" strokeWidth="1"/>
             </g>
         );
     }
-
-    private getLineCommand() {
-        if (this.props.mirrored.outputBlock === this.props.mirrored.inputBlock) {
-            let halfXOut: number; let halfXIn: number;
-            if (this.props.inputPoint.x > this.props.outputPoint.x) {
-                halfXOut = this.props.outputPoint.x + (Math.abs(this.props.inputPoint.x - this.props.outputPoint.x) / 2.0);
-                halfXIn = halfXOut;
-            } else {
-                halfXOut = this.props.outputPoint.x + (Math.abs(this.props.inputPoint.x - this.props.outputPoint.x) / 2.0);
-                halfXIn = this.props.inputPoint.x - (Math.abs(this.props.inputPoint.x - this.props.outputPoint.x) / 2.0);
-            }
-
-            return `M ${this.props.outputPoint.x}, ${this.props.outputPoint.y} 
-                             C ${halfXOut}, ${this.props.outputPoint.y} 
-                             ${halfXIn}, ${this.props.inputPoint.y} 
-                             ${this.props.inputPoint.x}, ${this.props.inputPoint.y}`;
-        } else if (this.props.mirrored.inputBlock) {
-            const dist = Math.sqrt(((this.props.outputPoint.x - this.props.inputPoint.x) ** 2) + ((this.props.outputPoint.y - this.props.inputPoint.y) ** 2));
-            return `M ${this.props.outputPoint.x}, ${this.props.outputPoint.y} 
-                             C ${this.props.outputPoint.x + dist}, ${this.props.outputPoint.y} 
-                             ${this.props.inputPoint.x + dist}, ${this.props.inputPoint.y} 
-                             ${this.props.inputPoint.x}, ${this.props.inputPoint.y}`;
-        } else {
-            const dist = -Math.sqrt(((this.props.outputPoint.x - this.props.inputPoint.x) ** 2) + ((this.props.outputPoint.y - this.props.inputPoint.y) ** 2));
-            return `M ${this.props.outputPoint.x}, ${this.props.outputPoint.y} 
-                             C ${this.props.outputPoint.x + dist}, ${this.props.outputPoint.y} 
-                             ${this.props.inputPoint.x + dist}, ${this.props.inputPoint.y} 
-                             ${this.props.inputPoint.x}, ${this.props.inputPoint.y}`;
-        }
-    }
 }
+
+function mapStateToProps(state: StateType): StateProps {
+    return {
+        zoom: state.canvas.zoom,
+        translate: state.canvas.translation,
+        blocks: state.graph.blocks
+    };
+}
+
+
+export default connect(mapStateToProps, {})(VisualEdgeComponent)

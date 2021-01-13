@@ -1,21 +1,17 @@
 // @flow
 import * as React from 'react';
-import {CanvasSelectedItemType, GraphVisualType, StateType} from "../../../../../store/types";
+import {GraphVisualType, StateType} from "../../../../../store/types";
 import {bindActionCreators, Dispatch} from "redux";
 import {
     ClickedSidebarButtonAction,
     MovedCanvasAction,
-    UpdatedCanvasSelectionAction,
     UpdatedGraphAction,
     ZoomedCanvasAction
 } from "../../../../../store/actions";
 import {connect} from "react-redux";
 import {BlockStorageType} from "../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
-import {CanvasSelectionType} from "../../types";
-import {ChangeEvent} from "react";
 
 interface StateProps {
-    selectedBlockItems: CanvasSelectedItemType[]
     graph: GraphVisualType
     blockLibrary: BlockStorageType[]
 }
@@ -39,7 +35,7 @@ export class CanvasEdit extends React.Component<Props, State> {
         return (
             <div style ={{width: "100%", height: "100%", background: "var(--custom-background-color)", color: "var(--custom-text-color)"}}>
                 <ul>
-                    {this.props.selectedBlockItems.map((item, index) => {
+                    {this.props.graph.blocks.filter(b => b.selected).map((item, index) => {
                         const blockIndex = tempGraph.blocks.findIndex(block => block.id === item.id);
                         return (
                             <div key={index} style={{width: "100%", height: "100%"}}>
@@ -83,8 +79,6 @@ export class CanvasEdit extends React.Component<Props, State> {
 
 function mapStateToProps(state: StateType): StateProps {
     return {
-        selectedBlockItems: state.canvas.canvasSelectedItems
-            .filter(selected => selected.selectedType === CanvasSelectionType.BLOCK),
         graph: state.graph,
         blockLibrary: state.blockLibrary
     };
@@ -95,8 +89,7 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
         onZoom: ZoomedCanvasAction,
         onTranslate: MovedCanvasAction,
         onUpdatedGraph: UpdatedGraphAction,
-        onUpdatedActiveSidebarButton: ClickedSidebarButtonAction,
-        onUpdatedCanvasSelectedItems: UpdatedCanvasSelectionAction
+        onUpdatedActiveSidebarButton: ClickedSidebarButtonAction
     }, dispatch)
 }
 

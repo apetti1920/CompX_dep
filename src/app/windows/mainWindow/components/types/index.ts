@@ -20,7 +20,7 @@ export const DnDItemType = {
 }
 
 export enum CanvasSelectionType {
-    BLOCK, EDGE, MULTIPLE
+    BLOCK, EDGE //, MULTIPLE
 }
 
 export enum MouseDown {

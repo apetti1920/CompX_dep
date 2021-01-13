@@ -6,6 +6,7 @@ export class BlockVisualType {
     position: PointType;
     size: PointType;
     mirrored: boolean;
+    selected: boolean;
     blockStorage: BlockStorageType
 
     public constructor(init?:Partial<BlockVisualType>) {

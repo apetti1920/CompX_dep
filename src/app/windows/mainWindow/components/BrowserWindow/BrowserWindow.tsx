@@ -1,11 +1,11 @@
 import * as React from "react";
-import {StateType} from "../../../../store/types";
+import {SidebarButtonType, StateType} from "../../../../store/types";
 import {connect} from "react-redux";
 import FunctionBrowser from "./FunctionBrowser/FunctionBrowser";
 import CanvasEdit from "./EditBlock/CanvasEdit";
 
 type StateProps = {
-    activeSidebarButton: number
+    SidebarButtons: SidebarButtonType[]
 }
 
 type State = {
@@ -16,12 +16,10 @@ type Props = StateProps;
 
 class BrowserWindow extends React.Component<Props, State> {
     render() {
-        if (this.props.activeSidebarButton !== -1) {
-            if (this.props.activeSidebarButton === 0) {
-                return (<FunctionBrowser/>)
-            } else if (this.props.activeSidebarButton === 1) {
-                return (<CanvasEdit/>)
-            }
+        if (this.props.SidebarButtons[0].selected) {
+            return (<FunctionBrowser/>)
+        } else if (this.props.SidebarButtons[1].selected) {
+            return (<CanvasEdit/>)
         }
 
         return <React.Fragment/>
@@ -30,7 +28,7 @@ class BrowserWindow extends React.Component<Props, State> {
 
 function mapStateToProps(state: StateType): StateProps {
     return {
-        activeSidebarButton: state.canvas.activeSidebarButtons[0] ?? -1
+        SidebarButtons: state.canvas.sidebarButtons.filter(b => b.groupId === 0)
     };
 }
 

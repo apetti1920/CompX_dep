@@ -1,11 +1,16 @@
-import {ActionType, SidebarButtonType, SplitPaneName, GraphVisualType, CanvasSelectedItemType} from "../types";
+import {
+    ActionType,
+    SidebarButtonType,
+    SplitPaneName,
+    GraphVisualType,
+} from "../types";
 import {
     ClickedSidebarButtonActionType,
     MovedCanvasActionType,
     MovedSplitPaneActionType,
     UpdatedBlockLibraryActionType,
     ZoomedCanvasActionType,
-    UpdatedGraphActionType, UpdatedCanvasSelectionType
+    UpdatedGraphActionType, MovedBlockActionType
 
 } from "../types/actionTypes";
 import {PointType} from "../../../shared/types";
@@ -14,7 +19,7 @@ import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStor
 export const ClickedSidebarButtonAction = (button: SidebarButtonType): ActionType => {
     return {
         type: ClickedSidebarButtonActionType,
-        payload: button
+        payload: {button: button}
     }
 };
 
@@ -42,7 +47,7 @@ export const ZoomedCanvasAction = (newZoom: number): ActionType => {
 export const UpdatedBlockLibraryAction = (newBlocks: BlockStorageType[]): ActionType => {
     return {
         type: UpdatedBlockLibraryActionType,
-        payload: {newBlocks: newBlocks}
+        payload: {b: newBlocks}
     }
 }
 
@@ -53,9 +58,9 @@ export const UpdatedGraphAction = (newGraph: GraphVisualType): ActionType => {
     }
 }
 
-export const UpdatedCanvasSelectionAction = (newSelections: CanvasSelectedItemType[]): ActionType => {
+export const MovedBlockAction = (delta: PointType): ActionType => {
     return {
-        type: UpdatedCanvasSelectionType,
-        payload: {newSelections: newSelections}
+        type: MovedBlockActionType,
+        payload: {delta: delta}
     }
 }

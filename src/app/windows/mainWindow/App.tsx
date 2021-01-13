@@ -5,7 +5,7 @@ import Split from "./components/ComponentUtils/Split";
 import BreadCrumbToolBar from "./components/BreadCrumbToolBar/BreadCrumbToolBar";
 import Sidebar from "./components/Sidebar/Sidebar";
 import {connect} from "react-redux";
-import {StateType, ActiveSidebarDictionary, SplitSizeDictionaryType} from "../../store/types";
+import {StateType, SplitSizeDictionaryType, SidebarButtonType} from "../../store/types";
 import Canvas from "./components/Canvas/Canvas";
 import BrowserWindow from "./components/BrowserWindow/BrowserWindow";
 import {Terminal} from "./components/Terminal/Terminal";
@@ -60,8 +60,8 @@ const canvasWrapStyle: React.CSSProperties = {
 };
 
 type Props = {
-    activeSidebarButtons: ActiveSidebarDictionary
-    splitSizes: SplitSizeDictionaryType
+    SidebarButtons: SidebarButtonType[],
+    SplitSizes: SplitSizeDictionaryType
 }
 
 type State = {
@@ -78,26 +78,29 @@ class App extends Component<Props, State> {
     }
 
   toggleEditWindow = (editWindowOpen: boolean): void => {
-      const tmpState = {...this.state};
-      tmpState.editBlockWindowOpen = editWindowOpen;
-      this.setState(tmpState);
+      this.setState({...this.state, editBlockWindowOpen: editWindowOpen});
   }
 
     componentDidMount() {
         const ipc = new IpcService();
         ipc.send<BlockStorageType[]>(BLOCK_LIBRARY_CHANNEL)
-            .then(res => store.dispatch({type: UpdatedBlockLibraryActionType, payload: res}));
+            .then(res => {
+                store.dispatch({type: UpdatedBlockLibraryActionType, payload: res});
+            }).catch((err) => {
+                console.log(err);
+        });
     }
 
     render() {
         let functional: React.ReactNode;
         const canvasComponent = <Canvas/>
-        if (Object.keys(this.props.activeSidebarButtons).includes("0")) {
+        console.log(this.props.SidebarButtons.filter(b => b.groupId == 0));
+        if (this.props.SidebarButtons.filter(b => b.groupId == 0).map(b => b.selected).some(s => s === true)) {
             functional = (
                 <Split name="FunctionalWorkSplit"
                        direction="row"
-                       firstElementDefault={this.props.splitSizes === undefined ?
-                           "250px" : this.props.splitSizes.FunctionalWorkSplit.toString() + "px"}
+                       firstElementDefault={this.props.SplitSizes === undefined ?
+                           "250px" : this.props.SplitSizes.FunctionalWorkSplit.toString() + "px"}
                        firstElementMax="250px" firstElementMin="103px">
                     {{
                         element0: (<BrowserWindow/>),
@@ -121,8 +124,8 @@ class App extends Component<Props, State> {
                     <div className="workWindowWrap" style={workWindowWrapStyle}>
                         <Split name="EditorTerminalSplit"
                                direction="column"
-                               firstElementDefault={this.props.splitSizes === undefined ?
-                                   "650px" : this.props.splitSizes.EditorTerminalSplit.toString() + "px"}
+                               firstElementDefault={this.props.SplitSizes === undefined ?
+                                   "650px" : this.props.SplitSizes.EditorTerminalSplit.toString() + "px"}
                                firstElementMin="350px">
                             {{
                                 element0: (functional),
@@ -138,11 +141,9 @@ class App extends Component<Props, State> {
 
 function mapStateToProps(state: StateType): Props {
     return {
-        activeSidebarButtons: state.canvas.activeSidebarButtons,
-        splitSizes: state.canvas.splitSizes
+        SidebarButtons: state.canvas.sidebarButtons,
+        SplitSizes: state.canvas.splitSizes
     };
 }
-
-// Put a dispatch here
 
 export default connect(mapStateToProps, {})(App)

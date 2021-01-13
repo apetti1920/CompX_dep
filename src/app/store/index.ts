@@ -1,5 +1,5 @@
 import {compose, createStore} from 'redux';
-import allReducers from './reducers'
+import allReducers from './reducers/reducer'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

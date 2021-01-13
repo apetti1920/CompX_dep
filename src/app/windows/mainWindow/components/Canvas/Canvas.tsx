@@ -12,17 +12,15 @@ import {ref} from "framework-utils";
 import {connect} from "react-redux";
 import {bindActionCreators, Dispatch} from 'redux';
 import {
-    ClickedSidebarButtonAction, MovedCanvasAction, UpdatedCanvasSelectionAction, UpdatedGraphAction,
+    ClickedSidebarButtonAction, MovedCanvasAction, UpdatedGraphAction,
     ZoomedCanvasAction
 } from "../../../../store/actions";
 import {
-    StateType, BlockVisualType, GraphVisualType, CanvasSelectedItemType, CanvasType,
-    ActiveSidebarDictionary
+    StateType, BlockVisualType, GraphVisualType, CanvasType
 } from "../../../../store/types";
 import {MouseCoordinatePosition} from "./MouseCoordinatePosition";
 import {v4 as uuidv4} from 'uuid';
 import {BlockLayer} from "./BlockLayer/BlockLayer";
-import {EdgeLayer} from "./EdgeLayer/EdgeLayer";
 import {ContextMenu} from "../ComponentUtils/ContextMenu";
 import {BlockStorageType} from "../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 import {ScreenToWorld} from "../../../../utilities";
@@ -37,8 +35,6 @@ interface DispatchProps {
     onZoom: (newZoom: number) => void,
     onTranslate: (newTranslation: PointType) => void
     onUpdatedGraph: (newGraph: GraphVisualType) => void
-    onUpdatedActiveSidebarButton: (activeButtons: ActiveSidebarDictionary) => void
-    onUpdatedCanvasSelectedItems: (newSelections: CanvasSelectedItemType[]) => void
 }
 
 type Props = StateProps & DispatchProps
@@ -61,7 +57,7 @@ class Canvas extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        this.gridRef = React.createRef()
+        this.gridRef = React.createRef();
 
         this.state = {
             mouseDownOn: MouseDown.NONE,
@@ -149,7 +145,7 @@ class Canvas extends React.Component<Props, State> {
                 const tempState = {...this.state};
                 tempState.mouseDownOn = MouseDown.NONE;
                 if (!tempState.movedGrid) {
-                    this.props.onUpdatedCanvasSelectedItems([]);
+                    // Deselect all Blocks
                 }
                 tempState.movedGrid = false;
                 tempState.mouseWorldCoordinates =
@@ -168,44 +164,12 @@ class Canvas extends React.Component<Props, State> {
         e.stopPropagation();
     };
 
-    onDoubleClickBlock = (e: React.MouseEvent, blockID: string): void => {
-        e.preventDefault();
-        console.log("Double Clicked");
-        e.stopPropagation();
-    };
-
-    /* Overrides the mouse down event of an edge */
-    onMouseDownHandlerEdge = (e: React.MouseEvent, edgeID: string): void => {
-        e.preventDefault();
-        if (e.button === 0) {
-            const tempState = {...this.state};
-            tempState.mouseDownOn = MouseDown.EDGE;
-            this.props.onUpdatedCanvasSelectedItems([{selectedType: CanvasSelectionType.EDGE, id: edgeID}])
-            tempState.contextMenu = undefined;
-            tempState.mouseWorldCoordinates =
-                ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY}, this.props.canvas.translation, this.props.canvas.zoom);
-            this.setState(tempState);
-        }
-        e.stopPropagation();
-    };
-
-    /* Overrides the mouse down event of an edge */
-    onMouseUpHandlerEdge = (e: React.MouseEvent): void => {
-        e.preventDefault();
-        if (e.button === 0) {
-            const tempState = {...this.state};
-            tempState.mouseDownOn = MouseDown.NONE;
-            this.setState(tempState);
-        }
-        e.stopPropagation();
-    };
-
     /*  */
     onContextMenuBlock = (e: React.MouseEvent, blockID: string): void => {
         e.preventDefault();
         const tmpState = {...this.state};
         const mir = this.props.graph.blocks.find(block => block.id === blockID).mirrored;
-        this.props.onUpdatedCanvasSelectedItems([{selectedType: CanvasSelectionType.BLOCK, id: blockID}]);
+        // Select this block
         tmpState.contextMenu = <ContextMenu position={{
             x: e.nativeEvent.offsetX,
             y: e.nativeEvent.offsetY
@@ -215,7 +179,7 @@ class Canvas extends React.Component<Props, State> {
                     // Open Edit Window
                     const tmpState = {...this.state};
                     const button = this.props.canvas.sidebarButtons.find(b => b.groupId === 0 && b.buttonId === 1);
-                    this.props.onUpdatedActiveSidebarButton(button);
+                    // Update Button Click
                     tmpState.contextMenu = undefined;
                     this.setState(tmpState);
                 }
@@ -464,22 +428,16 @@ class Canvas extends React.Component<Props, State> {
                         <Grid minorTickSpacing={8} majorTickSpacing={80} zoom={this.props.canvas.zoom}
                               translate={this.props.canvas.translation} onMouseDown={this.onMouseDownHandlerGrid}
                               onMouseUp={this.onMouseUpHandlerGrid}/>
-                        <BlockLayer selectedIDs={this.props.canvas.canvasSelectedItems
-                                        .filter(selected => selected.selectedType === CanvasSelectionType.BLOCK)
-                                        .map(selectedBlock => selectedBlock.id)}
-                                    graph={this.props.graph}
+                        <BlockLayer graph={this.props.graph}
                                     onMouseDownHandlerPort={this.onMouseDownHandlerPort}
                                     onMouseUpHandlerPort={this.onMouseUpHandlerPort}
-                                    onContextMenuBlock={this.onContextMenuBlock}
-                                    onDoubleClickBlock={this.onDoubleClickBlock}/>
-                        <EdgeLayer graph={this.props.graph} translate={this.props.canvas.translation}
-                                   zoom={this.props.canvas.zoom}
-                                   draggingPortCoords={draggingPort}
-                                   onMouseDownHandlerEdge={this.onMouseDownHandlerEdge}
-                                   onMouseUpHandlerEdge={this.onMouseUpHandlerEdge}
-                                   selectedIDs={this.props.canvas.canvasSelectedItems
-                                       .filter(selected => selected.selectedType === CanvasSelectionType.EDGE)
-                                       .map(selectedEdge => selectedEdge.id)}/>
+                                    onContextMenuBlock={this.onContextMenuBlock} />
+                        {/*<EdgeLayer graph={this.props.graph} translate={this.props.canvas.translation}*/}
+                        {/*           zoom={this.props.canvas.zoom}*/}
+                        {/*           draggingPortCoords={draggingPort}*/}
+                        {/*           selectedIDs={this.props.canvas.canvasSelectedItems*/}
+                        {/*               .filter(selected => selected.selectedType === CanvasSelectionType.EDGE)*/}
+                        {/*               .map(selectedEdge => selectedEdge.id)}/>*/}
                         <MouseCoordinatePosition isDragging={this.state.mouseDownOn === MouseDown.GRID ||
                         this.state.mouseDownOn === MouseDown.BLOCK}
                                                  mousePosition={this.state.mouseWorldCoordinates}
@@ -514,8 +472,7 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
         onZoom: ZoomedCanvasAction,
         onTranslate: MovedCanvasAction,
         onUpdatedGraph: UpdatedGraphAction,
-        onUpdatedActiveSidebarButton: ClickedSidebarButtonAction,
-        onUpdatedCanvasSelectedItems: UpdatedCanvasSelectionAction
+        onUpdatedActiveSidebarButton: ClickedSidebarButtonAction
     }, dispatch)
 }
 
