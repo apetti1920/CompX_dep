@@ -1,10 +1,14 @@
 import {PointType} from "../../../shared/types";
+import {MouseDownType} from "../../windows/mainWindow/components/types";
+
+export type MouseType = {mouseDownOn: MouseDownType, currentMouseLocation?: PointType}
 
 export type CanvasType = {
     zoom: number,
     translation: PointType,
     splitSizes: SplitSizeDictionaryType,
     sidebarButtons: SidebarButtonType[]
+    mouse: MouseType
 }
 
 export type SidebarButtonType = {

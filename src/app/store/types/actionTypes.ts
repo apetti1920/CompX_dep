@@ -10,6 +10,7 @@ export const UpdatedBlockLibraryActionType = `@@${BlockLibraryReducerName}/UPDAT
 export const ClickedSidebarButtonActionType = `@@${CanvasReducerName}/CLICKED_SIDEBAR_BUTTON`;
 export const MovedSplitPaneActionType = `@@${CanvasReducerName}/Moved_Split_Pane`;
 export const MovedCanvasActionType = `@@${CanvasReducerName}/MOVED_CANVAS`;
+export const MouseActionType = `@@${CanvasReducerName}/MOUSE_ACTION`;
 export const ZoomedCanvasActionType = `@@${CanvasReducerName}/ZOOMED_CANVAS`;
 
 // Graph Reducer Types

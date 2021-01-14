@@ -1,12 +1,25 @@
 // @flow
 import * as React from 'react';
-import {PointType} from "../../../../../shared/types";
+import {CanvasType, StateType} from "../../../../store/types";
+import {connect} from "react-redux";
 
-type NumberListType = {
-    number: number,
-    x: number,
-    y: number
+type ComponentProps = {
+    id: number
+    type: "vertical" | "horizontal",
+    minorTickSpacing: number,
+    majorTickSpacing: number
+};
+
+interface StateProps {
+    canvas: CanvasType
 }
+
+type Props = ComponentProps & StateProps
+
+type State = {
+    componentSizeMain: number
+    componentSizeSecondary: number
+};
 
 type PropsContainer = Props & {
     componentSizeMain: number
@@ -16,25 +29,6 @@ type PropsContainer = Props & {
 class RulerContainer extends React.Component<PropsContainer, never> {
     constructor(props: PropsContainer) {
         super(props);
-    }
-
-    createNumbers(): NumberListType[] {
-        const retValue: NumberListType[] = [];
-        let numTicks = Math.ceil((this.props.componentSizeSecondary / this.props.majorTickSpacing) * this.props.zoom);
-        if (numTicks > 0) {
-            numTicks += 4;
-            const tempTrans = this.props.type === "horizontal" ? this.props.translate.x : this.props.translate.y;
-            const min = -(Math.floor((tempTrans / this.props.majorTickSpacing))+2) * this.props.majorTickSpacing;
-            for (let i=0; i<numTicks; i++) {
-                const num = min + i*this.props.majorTickSpacing;
-                const widthNum = (num.toString().length-1) * 8;
-                const tempYVal = 20;
-                const xval = this.props.type === "horizontal" ? num-widthNum : tempYVal;
-                const yval = this.props.type === "horizontal" ? tempYVal : num-widthNum;
-                retValue.push({number: num, x: xval, y: yval})
-            }
-        }
-        return retValue;
     }
 
     render() {
@@ -51,13 +45,13 @@ class RulerContainer extends React.Component<PropsContainer, never> {
         if (this.props.type === 'horizontal') {
             patternSmall = `M 0 ${this.props.componentSizeMain.toString()} L 0 ${(3 * this.props.componentSizeMain / 4).toString()}`;
             patternLarge = `M 0 ${this.props.componentSizeMain.toString()} L 0 ${(this.props.componentSizeMain / 2).toString()}`;
-            translate = `translate(${this.props.translate.x} 0)`;
-            scale = `scale(${this.props.zoom.toString()} 1)`;
+            translate = `translate(${this.props.canvas.translation.x} 0)`;
+            scale = `scale(${this.props.canvas.zoom.toString()} 1)`;
         } else {
             patternSmall = `M ${this.props.componentSizeMain.toString()} 0 L ${(3 * this.props.componentSizeMain / 4).toString()} 0`;
             patternLarge = `M ${this.props.componentSizeMain.toString()} 0 L ${(this.props.componentSizeMain / 2).toString()} 0`;
-            translate = `translate(0 ${this.props.translate.y})`;
-            scale = `scale(1 ${this.props.zoom.toString()})`;
+            translate = `translate(0 ${this.props.canvas.translation.y})`;
+            scale = `scale(1 ${this.props.canvas.zoom.toString()})`;
         }
 
         return (
@@ -73,37 +67,22 @@ class RulerContainer extends React.Component<PropsContainer, never> {
                     </pattern>
                 </defs>
                 <rect width="100%" height="100%" fill={`url(#largeTicks${this.props.id.toString()})`} />
-                {/*{this.createNumbers().map(num => {*/}
-                {/*    //TODO: Rotate numbers on vertical ruler*/}
-                {/*    //TODO: Move numbers over by how large they are (eg number of charaters)*/}
-                {/*    return <text key={num.number} x={num.x} y={num.y}*/}
-                {/*                 transform={`${translate} */}
-                {/*                 scale(${this.props.zoom.toString()} ${this.props.zoom.toString()}) */}
-                {/*                 rotate(${this.props.type === "vertical" ? "-90, " + num.x + ", " + num.y : "0"})`}*/}
-                {/*                 fontFamily="var(--custom-font-family)"*/}
-                {/*                 fontSize={(8 / this.props.zoom).toString() + "px"}*/}
-                {/*                 fill="var(--custom-text-color)" textAnchor="middle"*/}
-                {/*    >{num.number}</text>*/}
-                {/*})}*/}
             </svg>
         );
     }
 }
 
-type Props = {
-    id: number
-    type: "vertical" | "horizontal",
-    minorTickSpacing: number,
-    majorTickSpacing: number
-    translate: PointType
-    zoom: number
-};
-type State = {
-    componentSizeMain: number
-    componentSizeSecondary: number
-};
+function mapStateToProps(state: StateType): StateProps {
+    return {
+        canvas: state.canvas
+    };
+}
 
-export default class Ruler extends React.Component<Props, State> {
+const ConnectedRulerContainer = connect(mapStateToProps, null)(RulerContainer);
+
+
+
+export default class Ruler extends React.Component<ComponentProps, State> {
     private readonly currentRef: React.RefObject<HTMLDivElement>;
 
     constructor(props: Props) {
@@ -118,26 +97,23 @@ export default class Ruler extends React.Component<Props, State> {
 
     componentDidMount(): void {
         const componentSizeMain = this.props.type === 'vertical' ?
-            this.currentRef.current?.clientWidth : this.currentRef.current!.clientHeight
+            this.currentRef.current?.clientWidth : this.currentRef.current?.clientHeight
         const componentSizeSecondary = this.props.type === 'vertical' ?
-            this.currentRef.current?.clientHeight : this.currentRef.current!.clientWidth
+            this.currentRef.current?.clientHeight : this.currentRef.current?.clientWidth
         const tempState = {...this.state};
         tempState.componentSizeMain = componentSizeMain;
         tempState.componentSizeSecondary = componentSizeSecondary
         this.setState(tempState);
     }
 
-
     render(): React.ReactElement {
         return (
             <div style={{width: "100%", height: "100%"}} ref={this.currentRef}>
-                <RulerContainer id={this.props.id} type={this.props.type} minorTickSpacing={this.props.minorTickSpacing}
+                <ConnectedRulerContainer id={this.props.id} type={this.props.type} minorTickSpacing={this.props.minorTickSpacing}
                                 majorTickSpacing={this.props.majorTickSpacing}
                                 componentSizeMain={this.state.componentSizeMain}
-                                componentSizeSecondary={this.state.componentSizeSecondary}
-                                translate={this.props.translate} zoom={this.props.zoom}/>
+                                componentSizeSecondary={this.state.componentSizeSecondary} />
             </div>
         );
     }
-
 }

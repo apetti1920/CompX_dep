@@ -2,7 +2,7 @@ import {
     ActionType,
     SidebarButtonType,
     SplitPaneName,
-    GraphVisualType,
+    GraphVisualType, MouseType,
 } from "../types";
 import {
     ClickedSidebarButtonActionType,
@@ -10,12 +10,21 @@ import {
     MovedSplitPaneActionType,
     UpdatedBlockLibraryActionType,
     ZoomedCanvasActionType,
-    UpdatedGraphActionType, MovedBlockActionType
+    UpdatedGraphActionType, MovedBlockActionType, MouseActionType
 
 } from "../types/actionTypes";
 import {PointType} from "../../../shared/types";
 import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
 
+// Block Library Actions
+export const UpdatedBlockLibraryAction = (newBlocks: BlockStorageType[]): ActionType => {
+    return {
+        type: UpdatedBlockLibraryActionType,
+        payload: {newBlocks: newBlocks}
+    }
+}
+
+// Canvas Actions
 export const ClickedSidebarButtonAction = (button: SidebarButtonType): ActionType => {
     return {
         type: ClickedSidebarButtonActionType,
@@ -44,13 +53,15 @@ export const ZoomedCanvasAction = (newZoom: number): ActionType => {
     }
 };
 
-export const UpdatedBlockLibraryAction = (newBlocks: BlockStorageType[]): ActionType => {
+export const MouseAction = (newMouse: MouseType): ActionType => {
     return {
-        type: UpdatedBlockLibraryActionType,
-        payload: {b: newBlocks}
+        type: MouseActionType,
+        payload: {newMouse: newMouse}
     }
-}
+};
 
+
+// Graph Actions
 export const UpdatedGraphAction = (newGraph: GraphVisualType): ActionType => {
     return {
         type: UpdatedGraphActionType,

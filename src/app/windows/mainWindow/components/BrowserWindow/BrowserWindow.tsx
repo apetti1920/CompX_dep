@@ -1,10 +1,9 @@
 import * as React from "react";
-import {SidebarButtonType, StateType} from "../../../../store/types";
-import {connect} from "react-redux";
+import {SidebarButtonType} from "../../../../store/types";
 import FunctionBrowser from "./FunctionBrowser/FunctionBrowser";
 import CanvasEdit from "./EditBlock/CanvasEdit";
 
-type StateProps = {
+type Props = {
     SidebarButtons: SidebarButtonType[]
 }
 
@@ -12,10 +11,8 @@ type State = {
     width: number
 }
 
-type Props = StateProps;
-
-class BrowserWindow extends React.Component<Props, State> {
-    render() {
+export class BrowserWindow extends React.Component<Props, State> {
+    render(): React.ReactNode {
         if (this.props.SidebarButtons[0].selected) {
             return (<FunctionBrowser/>)
         } else if (this.props.SidebarButtons[1].selected) {
@@ -26,10 +23,4 @@ class BrowserWindow extends React.Component<Props, State> {
     }
 }
 
-function mapStateToProps(state: StateType): StateProps {
-    return {
-        SidebarButtons: state.canvas.sidebarButtons.filter(b => b.groupId === 0)
-    };
-}
-
-export default connect(mapStateToProps)(BrowserWindow);
+export default BrowserWindow;

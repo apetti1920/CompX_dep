@@ -94,8 +94,8 @@ class App extends Component<Props, State> {
     render() {
         let functional: React.ReactNode;
         const canvasComponent = <Canvas/>
-        console.log(this.props.SidebarButtons.filter(b => b.groupId == 0));
-        if (this.props.SidebarButtons.filter(b => b.groupId == 0).map(b => b.selected).some(s => s === true)) {
+        const buttonsGroup0 = this.props.SidebarButtons.filter(b => b.groupId == 0);
+        if (buttonsGroup0.map(b => b.selected).some(s => s === true)) {
             functional = (
                 <Split name="FunctionalWorkSplit"
                        direction="row"
@@ -103,7 +103,7 @@ class App extends Component<Props, State> {
                            "250px" : this.props.SplitSizes.FunctionalWorkSplit.toString() + "px"}
                        firstElementMax="250px" firstElementMin="103px">
                     {{
-                        element0: (<BrowserWindow/>),
+                        element0: (<BrowserWindow SidebarButtons={buttonsGroup0}/>),
                         element1: canvasComponent
                     }}
                 </Split>

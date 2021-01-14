@@ -216,10 +216,10 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
 export default connect(mapStateToProps, mapDispatchToProps)(VisualBlockComponent)
 
 
-// else if (this.state.mouseDownOn === MouseDown.PORT) {
+// else if (this.state.mouseDownOn === MouseDownType.PORT) {
 //     const tempState = {...this.state};
 //     tempState.selectedPort = undefined;
-//     tempState.mouseDownOn = MouseDown.NONE;
+//     tempState.mouseDownOn = MouseDownType.NONE;
 //     tempState.mouseWorldCoordinates =
 //         this.screenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY});
 //     this.setState(tempState);

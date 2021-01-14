@@ -3,10 +3,7 @@ import * as React from 'react';
 import {GraphVisualType, StateType} from "../../../../../store/types";
 import {bindActionCreators, Dispatch} from "redux";
 import {
-    ClickedSidebarButtonAction,
-    MovedCanvasAction,
-    UpdatedGraphAction,
-    ZoomedCanvasAction
+    UpdatedGraphAction
 } from "../../../../../store/actions";
 import {connect} from "react-redux";
 import {BlockStorageType} from "../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
@@ -86,10 +83,7 @@ function mapStateToProps(state: StateType): StateProps {
 
 function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
     return bindActionCreators({
-        onZoom: ZoomedCanvasAction,
-        onTranslate: MovedCanvasAction,
-        onUpdatedGraph: UpdatedGraphAction,
-        onUpdatedActiveSidebarButton: ClickedSidebarButtonAction
+        onUpdatedGraph: UpdatedGraphAction
     }, dispatch)
 }
 

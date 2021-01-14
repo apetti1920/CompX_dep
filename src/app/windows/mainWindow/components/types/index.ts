@@ -23,6 +23,6 @@ export enum CanvasSelectionType {
     BLOCK, EDGE //, MULTIPLE
 }
 
-export enum MouseDown {
-    NONE, GRID, BLOCK, EDGE, PORT
+export enum MouseDownType {
+    NONE, GRID, BLOCK, EDGE, PORT, SCROLL
 }

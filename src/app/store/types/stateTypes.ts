@@ -1,6 +1,7 @@
 import {CanvasType} from "./canvasTypes";
 import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
 import {GraphVisualType} from "./graphTypes";
+import {MouseDownType} from "../../windows/mainWindow/components/types";
 
 export type StateType = {
     canvas: CanvasType,
@@ -22,7 +23,8 @@ export const defaultState: StateType = {
             {groupId: 0, buttonId: 1, text: "Block Editor", selected: false},
             {groupId: 0, buttonId: 2, text: "button2", selected: false},
             {groupId: 1, buttonId: 0, text: "button3", selected: false}
-        ]
+        ],
+        mouse: {mouseDownOn: MouseDownType.NONE, currentMouseLocation: undefined}
     },
     blockLibrary: [],
     graph: {blocks: [], edges: []},
