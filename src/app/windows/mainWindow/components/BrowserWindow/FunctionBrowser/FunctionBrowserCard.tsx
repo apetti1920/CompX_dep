@@ -2,10 +2,28 @@
 import * as React from 'react';
 
 import {BlockStorageType} from "../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {CanvasType, MouseType, StateType} from "../../../../../store/types";
+import {bindActionCreators, Dispatch} from "redux";
+import {
+    DraggingLibraryBlockAction,
+    MouseAction,
+    MovedCanvasAction,
+    ZoomedCanvasAction
+} from "../../../../../store/actions";
+import {connect} from "react-redux";
+import {PointType} from "../../../../../../shared/types";
 
-type Props = {
+const _ = require('lodash');
+
+type ComponentProps = {
     data: BlockStorageType
 };
+
+interface DispatchProps {
+    onIsDragging: (isDragging: boolean) => void
+}
+
+type Props = ComponentProps & DispatchProps
 
 type State = {
     imgPath: string
@@ -20,13 +38,18 @@ class FunctionBrowserCard extends React.Component<Props, State> {
     }
 
     onDragStartHandler = (e: React.DragEvent<HTMLDivElement>): void => {
-        // Should handle the transfer of the data
+        this.props.onIsDragging(true);
         e.dataTransfer.setData('cardID', this.props.data.id);
+    }
+
+    onDragEndHandler = (e: React.DragEvent<HTMLDivElement>): void => {
+        this.props.onIsDragging(false);
+        e.dataTransfer.clearData()
     }
 
     render(): React.ReactNode {
         return (
-        <div className="card" draggable="true" onDragStart={this.onDragStartHandler}>
+        <div className="card" draggable="true" onDragStart={this.onDragStartHandler} onDragEnd={this.onDragEndHandler}>
                 <div style={{
                     width: "40px", height: "50px", display: "flex", flexFlow: "column nowrap", margin: "10px",
                     border: "1px solid #ddd", borderRadius: "4px", backgroundColor: "var(--custom-accent-color)"
@@ -50,4 +73,11 @@ class FunctionBrowserCard extends React.Component<Props, State> {
     }
 }
 
-export {FunctionBrowserCard}
+function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
+    return bindActionCreators({
+        onIsDragging: DraggingLibraryBlockAction
+    }, dispatch)
+}
+
+
+export default connect(null, mapDispatchToProps)(FunctionBrowserCard)

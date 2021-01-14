@@ -7,7 +7,8 @@ export type CanvasType = {
     zoom: number,
     translation: PointType,
     splitSizes: SplitSizeDictionaryType,
-    sidebarButtons: SidebarButtonType[]
+    sidebarButtons: SidebarButtonType[],
+    isDraggingFromBlockLibrary: boolean
     mouse: MouseType
 }
 

@@ -3,7 +3,7 @@ import {
     MovedCanvasActionType,
     ZoomedCanvasActionType,
     ClickedSidebarButtonActionType,
-    MovedSplitPaneActionType, MouseActionType
+    MovedSplitPaneActionType, MouseActionType, DraggingLibraryBlockActionType
 } from "../types/actionTypes";
 
 const _ = require('lodash');
@@ -45,6 +45,10 @@ export default function(state: StateType, action: ActionType): StateType {
         } case (MouseActionType): {
             const tempState = _.cloneDeep(state);
             tempState.canvas.mouse = action.payload["newMouse"];
+            return tempState;
+        } case (DraggingLibraryBlockActionType): {
+            const tempState = _.cloneDeep(state);
+            tempState.canvas.isDraggingFromBlockLibrary = action.payload["draggingState"];
             return tempState;
         } default: {
             return _.cloneDeep(state);

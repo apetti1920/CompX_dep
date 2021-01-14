@@ -13,6 +13,7 @@ export const defaultState: StateType = {
     canvas: {
         zoom: 1,
         translation: {x: 0, y: 0},
+        isDraggingFromBlockLibrary: false,
         splitSizes: {
             "EditorTerminalSplit": 650,
             "FunctionalWorkSplit": 250,

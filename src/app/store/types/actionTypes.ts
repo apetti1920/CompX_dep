@@ -12,7 +12,10 @@ export const MovedSplitPaneActionType = `@@${CanvasReducerName}/Moved_Split_Pane
 export const MovedCanvasActionType = `@@${CanvasReducerName}/MOVED_CANVAS`;
 export const MouseActionType = `@@${CanvasReducerName}/MOUSE_ACTION`;
 export const ZoomedCanvasActionType = `@@${CanvasReducerName}/ZOOMED_CANVAS`;
+export const DraggingLibraryBlockActionType = `@@${CanvasReducerName}/DRAGGING_LIBRARY_BLOCK`;
 
 // Graph Reducer Types
-export const UpdatedGraphActionType = `@@${GraphReducerName}/UPDATED_GRAPH`;
 export const MovedBlockActionType = `@@${GraphReducerName}/MOVED_BLOCK`;
+export const AddedBlockActionType = `@@${GraphReducerName}/ADDED_BLOCK`;
+export const UpdatedBlockActionType = `@@${GraphReducerName}/UPDATED_BLOCK`;
+export const DeselectAllBlocksType = `@@${GraphReducerName}/DESELECT_ALL_BLOCKS`;

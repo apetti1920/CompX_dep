@@ -11,11 +11,11 @@ import Ruler from "./Ruler";
 import {ref} from "framework-utils";
 import {connect} from "react-redux";
 import {bindActionCreators, Dispatch} from 'redux';
-import {MouseAction, MovedCanvasAction, UpdatedGraphAction, ZoomedCanvasAction} from "../../../../store/actions";
+import {MouseAction, MovedCanvasAction, ZoomedCanvasAction} from "../../../../store/actions";
 import {BlockVisualType, CanvasType, GraphVisualType, MouseType, StateType} from "../../../../store/types";
 import {MouseCoordinatePosition} from "./MouseCoordinatePosition";
 import {v4 as uuidv4} from 'uuid';
-import {BlockLayer} from "./BlockLayer/BlockLayer";
+import BlockLayer from "./BlockLayer/BlockLayer";
 import {ContextMenu} from "../ComponentUtils/ContextMenu";
 import {BlockStorageType} from "../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 import {ScreenToWorld} from "../../../../utilities";
@@ -31,32 +31,20 @@ interface StateProps {
 interface DispatchProps {
     onZoom: (newZoom: number) => void,
     onTranslate: (newTranslation: PointType) => void,
-    onUpdatedGraph: (newGraph: GraphVisualType) => void,
     onMouseAction: (newMouse: MouseType) => void
 }
 
 type Props = StateProps & DispatchProps
 
-type State = {
-    isDraggingBlockFromBrowser: boolean,
-    selectedPort?: { blockID: string, portID: string }
-    contextMenu?: React.ReactNode;
-};
-
 //TODO: Fix ruler componet
 
-class Canvas extends React.Component<Props, State> {
+class Canvas extends React.Component<Props, never> {
     private readonly gridRef: React.RefObject<HTMLDivElement>;
 
     constructor(props: Props) {
         super(props);
 
         this.gridRef = React.createRef();
-
-        this.state = {
-            isDraggingBlockFromBrowser: false,
-            selectedPort: undefined
-        }
     }
 
     /* -------------------------------------------------Utility Functions-------------------------------------------- */
@@ -293,39 +281,6 @@ class Canvas extends React.Component<Props, State> {
     // };
 
     /* ---------------------------------------Block Dragging from browser-------------------------------------------- */
-    onDragEnterHandler = (e: React.DragEvent<HTMLDivElement>): void => {
-        e.preventDefault();
-        e.stopPropagation();
-        // mouse down
-    }
-
-    onDragOverHandler = (e: React.DragEvent<HTMLDivElement>): void => {
-        e.preventDefault();
-        e.stopPropagation();
-    }
-
-    onDragLeaveHandler = (e: React.DragEvent<HTMLDivElement>): void => {
-        e.preventDefault();
-        e.stopPropagation();
-        // mouse up
-    }
-
-    onDropHandler = (e: React.DragEvent<HTMLDivElement>): void => {
-        e.preventDefault();
-        const cardID = e.dataTransfer.getData("cardID");
-        const worldPos = ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY}, this.props.canvas.translation, this.props.canvas.zoom);
-        const block: BlockVisualType = new BlockVisualType({
-            id: uuidv4(), position: {x: worldPos.x, y: worldPos.y}, mirrored: false,
-            size: {x: 40, y: 30}, blockStorage: this.props.blockLibrary.find(block => block.id === cardID)
-        });
-        block.position.x -= block.size.x / 2;
-        block.position.y -= block.size.y / 2;
-        const tempGraph = {...this.props.graph};
-        tempGraph.blocks.push(block);
-        this.props.onUpdatedGraph(tempGraph);
-        this.forceUpdate();
-        e.stopPropagation();
-    }
 
     componentDidMount() {
         // Todo: Get it to be more center
@@ -339,20 +294,18 @@ class Canvas extends React.Component<Props, State> {
         // }
 
         return (
-            <div style={{display: "flex", flexDirection: "column", width: "100%", height: "100%"}}>
-                <div style={{display: "flex", flexDirection: "row", width: "100%", height: "var(--sidebar-width)"}}>
+            <div style={{display: "flex", flexDirection: "column", width: "100%", height: "100%", pointerEvents: "none"}}>
+                <div style={{display: "flex", flexDirection: "row", width: "100%", height: "var(--sidebar-width)", pointerEvents: "none"}}>
                     <div style={{
                         width: "var(--sidebar-width)", height: "var(--sidebar-width)",
                         borderRight: "calc(var(--border-width)/2) solid var(--custom-accent-color)",
-                        borderBottom: "calc(var(--border-width)/2) solid var(--custom-accent-color)"
-                    }} onClick={() => {
-                        this.centerGrid();
-                    }}/>
+                        borderBottom: "calc(var(--border-width)/2) solid var(--custom-accent-color)", pointerEvents: "auto"
+                    }} onClick={() => { this.centerGrid(); }}/>
                     <div style={{height: "100%", flex: 1}}>
                         <Ruler id={0} type="horizontal" minorTickSpacing={8} majorTickSpacing={80} />
                     </div>
                 </div>
-                <div style={{display: "flex", flexDirection: "row", width: "100%", flex: 1}}>
+                <div style={{display: "flex", flexDirection: "row", width: "100%", flex: 1, pointerEvents: "none"}}>
                     <div style={{height: "100%", width: "var(--sidebar-width)"}}>
                         <Ruler id={1} type="vertical" minorTickSpacing={8} majorTickSpacing={80} />
                     </div>
@@ -360,15 +313,9 @@ class Canvas extends React.Component<Props, State> {
                         height: "100%", width: "100%", position: "relative", zIndex: 0,
                         borderLeft: "calc(var(--border-width)/2) solid var(--custom-accent-color)",
                         borderTop: "calc(var(--border-width)/2) solid var(--custom-accent-color)", pointerEvents: "none"
-                    }}
-                         onWheel={this.handleScroll} ref={this.gridRef}
-                         onDragEnter={this.onDragEnterHandler} onDragOver={this.onDragOverHandler}
-                         onDragLeave={this.onDragLeaveHandler} onDrop={this.onDropHandler}>
+                    }} onWheel={this.handleScroll} ref={this.gridRef} >
                         <Grid minorTickSpacing={8} majorTickSpacing={80} />
-                        {/*<BlockLayer graph={this.props.graph}*/}
-                        {/*            onMouseDownHandlerPort={this.onMouseDownHandlerPort}*/}
-                        {/*            onMouseUpHandlerPort={this.onMouseUpHandlerPort}*/}
-                        {/*            onContextMenuBlock={this.onContextMenuBlock} />*/}
+                        <BlockLayer />
                         {/*<EdgeLayer graph={this.props.graph} translate={this.props.canvas.translation}*/}
                         {/*           zoom={this.props.canvas.zoom}*/}
                         {/*           draggingPortCoords={draggingPort}*/}
@@ -408,7 +355,6 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
     return bindActionCreators({
         onZoom: ZoomedCanvasAction,
         onTranslate: MovedCanvasAction,
-        onUpdatedGraph: UpdatedGraphAction,
         onMouseAction: MouseAction
     }, dispatch)
 }

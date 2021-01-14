@@ -2,7 +2,7 @@ import {
     ActionType,
     SidebarButtonType,
     SplitPaneName,
-    GraphVisualType, MouseType,
+    GraphVisualType, MouseType, BlockVisualType,
 } from "../types";
 import {
     ClickedSidebarButtonActionType,
@@ -10,11 +10,17 @@ import {
     MovedSplitPaneActionType,
     UpdatedBlockLibraryActionType,
     ZoomedCanvasActionType,
-    UpdatedGraphActionType, MovedBlockActionType, MouseActionType
+    MovedBlockActionType,
+    MouseActionType,
+    AddedBlockActionType,
+    UpdatedBlockActionType,
+    DraggingLibraryBlockActionType, DeselectAllBlocksType
 
 } from "../types/actionTypes";
 import {PointType} from "../../../shared/types";
 import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {Simulate} from "react-dom/test-utils";
+import drag = Simulate.drag;
 
 // Block Library Actions
 export const UpdatedBlockLibraryAction = (newBlocks: BlockStorageType[]): ActionType => {
@@ -60,18 +66,45 @@ export const MouseAction = (newMouse: MouseType): ActionType => {
     }
 };
 
+export const DraggingLibraryBlockAction = (draggingState: boolean): ActionType => {
+    return {
+        type: DraggingLibraryBlockActionType,
+        payload: {draggingState: draggingState}
+    }
+};
+
 
 // Graph Actions
-export const UpdatedGraphAction = (newGraph: GraphVisualType): ActionType => {
-    return {
-        type: UpdatedGraphActionType,
-        payload: {newGraph: newGraph}
-    }
-}
-
 export const MovedBlockAction = (delta: PointType): ActionType => {
     return {
         type: MovedBlockActionType,
         payload: {delta: delta}
+    }
+}
+
+export const AddedBlockAction = (blockStorageId: string, position: PointType, size: PointType): ActionType => {
+    return {
+        type: AddedBlockActionType,
+        payload: {
+            blockStorageId: blockStorageId,
+            position: position,
+            size: size
+        }
+    }
+}
+
+export const UpdatedBlockAction = (block: BlockVisualType): ActionType => {
+    return {
+        type: UpdatedBlockActionType,
+        payload: {
+            block: block
+        }
+    }
+}
+
+export const DeselectAllBlocksAction = (): ActionType => {
+    return {
+        type: DeselectAllBlocksType,
+        payload: null
     }
 }

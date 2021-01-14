@@ -6,7 +6,7 @@ import {MouseDownType} from "../types";
 import {ScreenToWorld} from "../../../../utilities";
 import {CanvasType, MouseType, StateType} from "../../../../store/types";
 import {bindActionCreators, Dispatch} from "redux";
-import {MouseAction, MovedCanvasAction, UpdatedGraphAction, ZoomedCanvasAction} from "../../../../store/actions";
+import {DeselectAllBlocksAction, MouseAction, MovedCanvasAction, ZoomedCanvasAction} from "../../../../store/actions";
 import {connect} from "react-redux";
 
 const _ = require('lodash');
@@ -22,7 +22,8 @@ interface StateProps {
 
 interface DispatchProps {
     onTranslateGrid: (newTranslation: PointType) => void,
-    onMouseAction: (newMouse: MouseType) => void
+    onMouseAction: (newMouse: MouseType) => void,
+    onDeselectAllBlocks: () => void
 }
 
 type Props = ComponentProps & StateProps & DispatchProps
@@ -34,8 +35,6 @@ type State = {
 class Grid extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
-
-        console.log(this.props.canvas);
 
         this.state = {
             movedGrid: false
@@ -52,27 +51,10 @@ class Grid extends React.Component<Props, State> {
                     this.props.canvas.translation, this.props.canvas.zoom)
             });
         }
-        e.stopPropagation();
-    };
 
-    /* Overrides the mouse up event of the Grid */
-    onMouseUpHandlerGrid = (e: React.MouseEvent) => {
-        e.preventDefault();
-        if (e.button === 0 && this.props.canvas.mouse.mouseDownOn === MouseDownType.GRID) {
-            const tempState: State = _.cloneDeep(this.state);
-            this.props.onMouseAction({
-                mouseDownOn: MouseDownType.NONE,
-                currentMouseLocation: ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY},
-                    this.props.canvas.translation, this.props.canvas.zoom)
-            });
-
-            if (!tempState.movedGrid) {
-                // Deselect all Blocks
-            }
-
-            tempState.movedGrid = false;
-            this.setState(tempState);
-        }
+        const tempState: State = _.cloneDeep(this.state);
+        tempState.movedGrid = false;
+        this.setState(tempState);
         e.stopPropagation();
     };
 
@@ -97,6 +79,27 @@ class Grid extends React.Component<Props, State> {
         e.stopPropagation();
     }
 
+    /* Overrides the mouse up event of the Grid */
+    onMouseUpHandlerGrid = (e: React.MouseEvent) => {
+        e.preventDefault();
+        if (e.button === 0 && this.props.canvas.mouse.mouseDownOn === MouseDownType.GRID) {
+            const tempState: State = _.cloneDeep(this.state);
+            this.props.onMouseAction({
+                mouseDownOn: MouseDownType.NONE,
+                currentMouseLocation: ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY},
+                    this.props.canvas.translation, this.props.canvas.zoom)
+            });
+
+            if (!tempState.movedGrid) {
+                this.props.onDeselectAllBlocks();
+            }
+
+            tempState.movedGrid = false;
+            this.setState(tempState);
+        }
+        e.stopPropagation();
+    };
+
     render(): React.ReactElement {
         const opacity = linearInterp(this.props.canvas.zoom, 0, 100, 0.3, 0.75);
         const cursor = (this.props.canvas.mouse.mouseDownOn === MouseDownType.GRID) ? "grabbing" : "grab";
@@ -105,7 +108,7 @@ class Grid extends React.Component<Props, State> {
         const grid = `M ${this.props.majorTickSpacing} 0 L 0 0 0 ${this.props.majorTickSpacing}`;
 
         return (
-            <div style={{width: "100%", height: "100%", cursor: cursor, position: "absolute", zIndex: 1, pointerEvents: "auto"}}
+            <div style={{width: "100%", height: "100%", cursor: cursor, position: "absolute", zIndex: 1, pointerEvents: this.props.canvas.isDraggingFromBlockLibrary?"none":"auto"}}
                  onMouseDown={this.onMouseDownHandlerGrid} onMouseUp={this.onMouseUpHandlerGrid} onMouseMove={this.onMouseMoveOverGrid}>
                 <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                     <defs>
@@ -146,8 +149,8 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
     return bindActionCreators({
         onZoom: ZoomedCanvasAction,
         onTranslateGrid: MovedCanvasAction,
-        onUpdatedGraph: UpdatedGraphAction,
-        onMouseAction: MouseAction
+        onMouseAction: MouseAction,
+        onDeselectAllBlocks: DeselectAllBlocksAction
     }, dispatch)
 }
 

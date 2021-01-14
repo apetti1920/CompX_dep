@@ -2,7 +2,7 @@
 import * as React from 'react';
 // eslint-disable-next-line import/no-unresolved
 import CSS from "csstype";
-import {FunctionBrowserCard} from "./FunctionBrowserCard";
+import FunctionBrowserCard from "./FunctionBrowserCard";
 import {BlockStorageType} from "../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 
 const headerButtonStyle: CSS.Properties = {

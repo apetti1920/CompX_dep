@@ -2,9 +2,6 @@
 import * as React from 'react';
 import {GraphVisualType, StateType} from "../../../../../store/types";
 import {bindActionCreators, Dispatch} from "redux";
-import {
-    UpdatedGraphAction
-} from "../../../../../store/actions";
 import {connect} from "react-redux";
 import {BlockStorageType} from "../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 
@@ -13,11 +10,7 @@ interface StateProps {
     blockLibrary: BlockStorageType[]
 }
 
-interface DispatchProps {
-    onUpdatedGraph: (newGraph: GraphVisualType) => void
-}
-
-type Props = StateProps & DispatchProps
+type Props = StateProps
 
 type State = undefined
 
@@ -81,11 +74,5 @@ function mapStateToProps(state: StateType): StateProps {
     };
 }
 
-function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
-    return bindActionCreators({
-        onUpdatedGraph: UpdatedGraphAction
-    }, dispatch)
-}
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(CanvasEdit)
+export default connect(mapStateToProps, null)(CanvasEdit)
