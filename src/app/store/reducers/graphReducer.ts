@@ -1,9 +1,7 @@
 import {ActionType, StateType} from "../types";
 import {
     AddedBlockActionType,
-    DeselectAllBlocksType,
-    MovedBlockActionType,
-    UpdatedBlockActionType
+    DeselectAllBlocksActionType, MovedBlockActionType, ToggleSelectedBlockActionType
 } from "../types/actionTypes";
 import {PointType} from "../../../shared/types";
 import { v4 as uuidv4 } from 'uuid';
@@ -37,12 +35,12 @@ export default function (state: StateType, action: ActionType): StateType {
                 blockStorage: _.cloneDeep(tempState.blockLibrary.find(b => b.id === action.payload['blockStorageId']))
             });
             return tempState;
-        } case (UpdatedBlockActionType): {
+        } case (ToggleSelectedBlockActionType): {
             const tempState: StateType  = _.cloneDeep(state);
-            const blockIndex = tempState.graph.blocks.findIndex(b => b.id === action.payload['block'].id);
-            tempState.graph.blocks[blockIndex] = action.payload['block'];
+            const blockIndex = tempState.graph.blocks.findIndex(b => b.id === action.payload['visualBlockId']);
+            tempState.graph.blocks[blockIndex].selected = action.payload['selected'];
             return tempState;
-        } case (DeselectAllBlocksType): {
+        } case (DeselectAllBlocksActionType): {
             const tempState: StateType  = _.cloneDeep(state);
             if (tempState.graph.blocks.map(b => b.selected).some(s => s === true)) {
                 for (let i=0; i<tempState.graph.blocks.length; i++) {

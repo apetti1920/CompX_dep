@@ -1,8 +1,7 @@
 import {
     ActionType,
     SidebarButtonType,
-    SplitPaneName,
-    GraphVisualType, MouseType, BlockVisualType,
+    SplitPaneName, MouseType
 } from "../types";
 import {
     ClickedSidebarButtonActionType,
@@ -13,14 +12,11 @@ import {
     MovedBlockActionType,
     MouseActionType,
     AddedBlockActionType,
-    UpdatedBlockActionType,
-    DraggingLibraryBlockActionType, DeselectAllBlocksType
+    DraggingLibraryBlockActionType, DeselectAllBlocksActionType, ToggleSelectedBlockActionType
 
 } from "../types/actionTypes";
 import {PointType} from "../../../shared/types";
 import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
-import {Simulate} from "react-dom/test-utils";
-import drag = Simulate.drag;
 
 // Block Library Actions
 export const UpdatedBlockLibraryAction = (newBlocks: BlockStorageType[]): ActionType => {
@@ -93,18 +89,16 @@ export const AddedBlockAction = (blockStorageId: string, position: PointType, si
     }
 }
 
-export const UpdatedBlockAction = (block: BlockVisualType): ActionType => {
+export const ToggleSelectedBlockAction = (visualBlockId: string, selected: boolean): ActionType => {
     return {
-        type: UpdatedBlockActionType,
-        payload: {
-            block: block
-        }
+        type: ToggleSelectedBlockActionType,
+        payload: {visualBlockId: visualBlockId, selected: selected}
     }
 }
 
 export const DeselectAllBlocksAction = (): ActionType => {
     return {
-        type: DeselectAllBlocksType,
+        type: DeselectAllBlocksActionType,
         payload: null
     }
 }

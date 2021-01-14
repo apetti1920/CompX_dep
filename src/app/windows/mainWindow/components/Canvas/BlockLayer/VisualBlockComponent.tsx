@@ -4,7 +4,12 @@ import JsxParser from 'react-jsx-parser'
 import {BlockVisualType, CanvasType, MouseType, StateType} from "../../../../../store/types";
 import {PointType} from "../../../../../../shared/types";
 import {bindActionCreators, Dispatch} from "redux";
-import {MouseAction, MovedBlockAction, UpdatedBlockAction} from "../../../../../store/actions";
+import {
+    DeselectAllBlocksAction,
+    MouseAction,
+    MovedBlockAction,
+    ToggleSelectedBlockAction
+} from "../../../../../store/actions";
 import {connect} from "react-redux";
 import {ScreenToWorld} from "../../../../../utilities";
 import {MouseDownType} from "../../types";
@@ -22,8 +27,9 @@ interface StateProps {
 
 interface DispatchProps {
     onMovedBlock: (delta: PointType) => void,
-    onUpdatedBlock: (block: BlockVisualType) => void,
     onMouseAction: (newMouse: MouseType) => void,
+    onToggleBlockSelection: (visualBlockId: string, selected: boolean) => void,
+    onDeselectAllBlocks: () => void
 }
 
 type ComponentProps = {
@@ -46,9 +52,15 @@ class VisualBlockComponent extends React.Component<Props, never> {
                     this.props.canvas.translation, this.props.canvas.zoom)
             });
 
-            const tempBlock = _.cloneDeep(this.props.block);
-            tempBlock.selected = !tempBlock.selected;
-            this.props.onUpdatedBlock(tempBlock);
+            if (!this.props.block.selected) {
+                if (!e.shiftKey) {
+                    this.props.onDeselectAllBlocks();
+                }
+                this.props.onToggleBlockSelection(this.props.block.id, true);
+            } else {
+                this.props.onToggleBlockSelection(this.props.block.id, false);
+            }
+
             // if (this.props.block.selected) {
             //     if (!e.shiftKey) {
             //         const tempBlock = _.cloneDeep(this.props.block);
@@ -198,8 +210,9 @@ function mapStateToProps(state: StateType, ownProps: ComponentProps): StateProps
 function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
     return bindActionCreators({
         onMovedBlock: MovedBlockAction,
-        onUpdatedBlock: UpdatedBlockAction,
-        onMouseAction: MouseAction
+        onMouseAction: MouseAction,
+        onToggleBlockSelection: ToggleSelectedBlockAction,
+        onDeselectAllBlocks: DeselectAllBlocksAction
     }, dispatch)
 }
 
