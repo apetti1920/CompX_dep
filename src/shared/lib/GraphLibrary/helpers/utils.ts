@@ -69,6 +69,7 @@ export function XmlToBlockStorageType(xml: any): BlockStorageType {
         if (typeof xml['block']['inputPorts']['port'].map === 'function') {
             inputPorts = xml['block']['inputPorts']['port'].map((b: any): PortStorageType => {
                 return {
+                    id: b['id'],
                     name: b['name'],
                     type: b['type']
                 }
@@ -76,6 +77,7 @@ export function XmlToBlockStorageType(xml: any): BlockStorageType {
         } else {
             if (typeof xml['block']['inputPorts']['port'] !== "undefined") {
                 inputPorts.push({
+                    id: xml['block']['inputPorts']['port']['id'],
                     name: xml['block']['inputPorts']['port']['name'],
                     type: xml['block']['inputPorts']['port']['type']
                 });
@@ -88,6 +90,7 @@ export function XmlToBlockStorageType(xml: any): BlockStorageType {
         if (typeof xml['block']['outputPorts']['port'].map === 'function') {
             outputPorts = xml['block']['outputPorts']['port'].map((b: any): PortStorageType => {
                 return {
+                    id: b['id'],
                     name: b['name'],
                     type: b['type']
                 }
@@ -95,6 +98,7 @@ export function XmlToBlockStorageType(xml: any): BlockStorageType {
         } else {
             if (typeof xml['block']['outputPorts']['port'] !== "undefined") {
                 outputPorts.push({
+                    id: xml['block']['outputPorts']['port']['id'],
                     name: xml['block']['outputPorts']['port']['name'],
                     type: xml['block']['outputPorts']['port']['type']
                 });

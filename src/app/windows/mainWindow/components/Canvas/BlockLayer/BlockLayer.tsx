@@ -8,8 +8,6 @@ import {connect} from "react-redux";
 import {PointType} from "../../../../../../shared/types";
 import {BlockStorageType} from "../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 import VisualBlockComponent from "./VisualBlockComponent";
-import flatten from "fork-ts-checker-webpack-plugin/lib/utils/array/flatten";
-import _ from "lodash";
 
 interface StateProps {
     canvas: CanvasType,
@@ -62,7 +60,8 @@ class BlockLayer extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         return (
-            <div style={{width: "100%", height: "100%", position: "absolute", zIndex: 2, pointerEvents: this.props.canvas.isDraggingFromBlockLibrary?"auto":"none"}}
+            <div style={{width: "100%", height: "100%", position: "absolute", zIndex: 2,
+                pointerEvents: this.props.canvas.isDraggingFromBlockLibrary?"auto":"none"}}
                  onDragEnter={this.onDragEnterHandler} onDragOver={this.onDragOverHandler}
                  onDragLeave={this.onDragLeaveHandler} onDrop={this.onDropHandler}>
                 <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style={{pointerEvents: "none"}}>

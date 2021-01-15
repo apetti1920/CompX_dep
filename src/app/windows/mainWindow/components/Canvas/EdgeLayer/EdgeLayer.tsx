@@ -1,34 +1,43 @@
 // @flow
 import * as React from 'react';
-import {GraphVisualType} from "../../../../../store/types";
 import VisualEdgeComponent from "./VisualEdgeComponent";
+import {CanvasType, GraphVisualType, StateType} from "../../../../../store/types";
+import {bindActionCreators, Dispatch} from "redux";
+import {connect} from "react-redux";
 import {PointType} from "../../../../../../shared/types";
+import VisualBlockComponent from "../BlockLayer/VisualBlockComponent";
+import {VisualPortComponent} from "./VisualPortComponent";
 
-type ComponentProps = {
+
+interface StateProps {
+    canvas: CanvasType,
     graph: GraphVisualType
-    translate: PointType,
-    zoom: number,
-    selectedIDs?: string[],
-    draggingPortCoords?: {beginningPort: {blockID: string, portID: string}, mouseCoords: PointType}
-};
+}
 
-type State = {
-};
+// interface DispatchProps {
+//     onAddedEdge: (inputBlockVisualId: string, position: PointType, size: PointType) => void
+// }
 
-export class EdgeLayer extends React.Component<ComponentProps, State> {
+type Props = StateProps //& DispatchProps
+
+type State = never;
+
+class EdgeLayer extends React.Component<Props, State> {
     // TODO: Implement Selecting Edges
 
     render(): React.ReactNode {
-         //const draggingEdge = this.getDraggingEdge();
-
         return (
-            <div style={{width: "100%", height: "100%", position: "absolute", zIndex: 3, pointerEvents: "none"}}>
-                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                    {this.props.graph.edges.map((edge) => {
-                        return (
-                            <VisualEdgeComponent key={edge.id} edge={edge} />
-                        )
-                    })}
+            <div style={{width: "100%", height: "100%", position: "absolute", zIndex: 3,
+                pointerEvents: "none"}}>
+                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style={{pointerEvents: "none"}}>
+                    {
+                        this.props.graph.blocks.map(b => {
+                            return (
+                                <VisualPortComponent key={b.id} block={b} zoom={this.props.canvas.zoom}
+                                                     translation={this.props.canvas.translation}/>
+                            )
+                        })
+                    }
                 </svg>
             </div>
         );
@@ -82,3 +91,18 @@ export class EdgeLayer extends React.Component<ComponentProps, State> {
     //     }
     // }
 }
+
+function mapStateToProps(state: StateType): StateProps {
+    return {
+        canvas: state.canvas,
+        graph: state.graph
+    };
+}
+
+// function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
+//     return bindActionCreators({
+//     }, dispatch)
+// }
+
+
+export default connect(mapStateToProps, null)(EdgeLayer)

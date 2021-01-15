@@ -19,6 +19,7 @@ import BlockLayer from "./BlockLayer/BlockLayer";
 import {ContextMenu} from "../ComponentUtils/ContextMenu";
 import {BlockStorageType} from "../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 import {ScreenToWorld} from "../../../../utilities";
+import EdgeLayer from "./EdgeLayer/EdgeLayer";
 
 const _ = require('lodash');
 
@@ -316,6 +317,7 @@ class Canvas extends React.Component<Props, never> {
                     }} onWheel={this.handleScroll} ref={this.gridRef} >
                         <Grid minorTickSpacing={8} majorTickSpacing={80} />
                         <BlockLayer />
+                        <EdgeLayer />
                         {/*<EdgeLayer graph={this.props.graph} translate={this.props.canvas.translation}*/}
                         {/*           zoom={this.props.canvas.zoom}*/}
                         {/*           draggingPortCoords={draggingPort}*/}
