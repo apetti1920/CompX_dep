@@ -2,7 +2,7 @@
 import * as React from 'react';
 import {bindActionCreators, Dispatch} from "redux";
 
-import {StateType, ActiveSidebarDictionary, SidebarButtonType} from "../../../../store/types";
+import {StateType, SidebarButtonType} from "../../../../store/types";
 import {connect} from "react-redux";
 import {ClickedSidebarButtonAction} from "../../../../store/actions";
 
@@ -12,27 +12,20 @@ export interface OwnProps {
     button: SidebarButtonType
 }
 
-interface StateProps {
-    sidebarButtons: SidebarButtonType[]
-    activeSidebarButtons: ActiveSidebarDictionary
-}
-
 interface DispatchProps {
-    clickButton: (sidebarButton: SidebarButtonType) => void
+    clickedButton: (sidebarButton: SidebarButtonType) => void
 }
 
-type Props = StateProps & DispatchProps & OwnProps
+type Props = DispatchProps & OwnProps
 
 interface State {
     highlighted: boolean
 }
 
 class SidebarButton extends React.Component<Props, State> {
-    private active: boolean;
     constructor(props: Props) {
         super(props);
 
-        this.active = this.props.activeSidebarButtons[this.props.button.groupId] === this.props.button.buttonId;
         this.state = { highlighted: false }
     }
 
@@ -42,17 +35,12 @@ class SidebarButton extends React.Component<Props, State> {
         })
     }
 
-    // eslint-disable-next-line react/no-deprecated
-    componentWillReceiveProps(nextProps: Readonly<Props>, nextContext: any) {
-        this.active = nextProps.activeSidebarButtons[nextProps.button.groupId] === nextProps.button.buttonId;
-    }
-
     render() {
         let clsNme = "";
-        if (this.state.highlighted || this.active) {
+        if (this.state.highlighted || this.props.button.selected) {
             clsNme += " Highlighted"
 
-            if (this.active) {
+            if (this.props.button.selected) {
                 clsNme += " Active"
             }
         }
@@ -61,24 +49,17 @@ class SidebarButton extends React.Component<Props, State> {
             <div className={"Button" + clsNme}
                  onMouseEnter={() => this.toggleHover()}
                  onMouseLeave={() => this.toggleHover()}
-                 onClick={() => this.props.clickButton(this.props.button)}>
+                 onClick={() => this.props.clickedButton(this.props.button)}>
                 <div className={"ButtonText" + clsNme} style={{userSelect: "none"}}>{this.props.button.text}</div>
             </ div>
         );
     }
 }
 
-function mapStateToProps(state: StateType, ownProps: OwnProps): StateProps {
-    return {
-        sidebarButtons: state.canvas.sidebarButtons,
-        activeSidebarButtons: state.canvas.activeSidebarButtons
-    };
-}
-
 function matchDispatchToProps(dispatch: Dispatch) {
     return bindActionCreators({
-        clickButton: ClickedSidebarButtonAction
+        clickedButton: ClickedSidebarButtonAction
     }, dispatch)
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(SidebarButton);
+export default connect(null, matchDispatchToProps)(SidebarButton);

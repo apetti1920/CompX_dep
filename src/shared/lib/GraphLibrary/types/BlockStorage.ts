@@ -2,6 +2,7 @@ import {Version} from './generic'
 import React from "react";
 
 export type PortStorageType = {
+    id: string,
     name: string,
     type: string
 }

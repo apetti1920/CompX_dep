@@ -1,126 +1,162 @@
 // @flow
 import * as React from 'react';
-import {GraphVisualType, EdgeVisualType} from "../../../../../store/types";
-import {VisualEdgeComponent} from "./VisualEdgeComponent";
-import {PointType} from "../../../../../../shared/types";
+import {CanvasType, GraphVisualType, MouseType, StateType} from "../../../../../store/types";
+import {bindActionCreators, Dispatch} from "redux";
+import {connect} from "react-redux";
+import {VisualPortComponent} from "./VisualPortComponent";
+import {AddedEdgeAction, MouseAction} from "../../../../../store/actions";
+import {MouseDownType} from "../../types";
+import {getPortLineCommand, PortToPoint, ScreenToWorld} from "../../../../../utilities";
 
-type Props = {
+
+interface StateProps {
+    canvas: CanvasType,
     graph: GraphVisualType
-    translate: PointType,
-    zoom: number,
-    selectedIDs?: string[],
-    onMouseDownHandlerEdge: (e: React.MouseEvent, blockID: string)=>void,
-    onMouseUpHandlerEdge: (e: React.MouseEvent)=>void,
-    draggingPortCoords?: {beginningPort: {blockID: string, portID: string}, mouseCoords: PointType}
-};
+}
+
+interface DispatchProps {
+    onMouseAction: (newMouse: MouseType) => void,
+    onAddedEdgeAction: (block1VisualId: string, port1VisualId: string,
+                        block2VisualId: string, port2VisualId: string) => void
+}
+
+type Props = StateProps & DispatchProps
 
 type State = {
-
+    draggingFromPort?: {blockId: string, portId: string}
 };
 
-export class EdgeLayer extends React.Component<Props, State> {
-    // TODO: Implement Selecting Edges
+class EdgeLayer extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+
+        this.state = {
+            draggingFromPort: undefined
+        }
+    }
+
+    mouseDownOnPort = (e: React.MouseEvent, blockId: string, portId: string) => {
+        if (e.button === 0 && this.props.canvas.mouse.mouseDownOn == MouseDownType.NONE) {
+            console.log("Mouse down on", blockId, portId);
+            const mouseLoc = ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY},
+                this.props.canvas.translation, this.props.canvas.zoom);
+            this.props.onMouseAction({
+                mouseDownOn: MouseDownType.PORT,
+                currentMouseLocation: mouseLoc
+            });
+            this.setState({...this.state, draggingFromPort: {blockId: blockId, portId: portId}});
+        }
+    }
+
+    mouseDragBetweenPorts = (e: React.MouseEvent) => {
+        if (e.button === 0 && this.props.canvas.mouse.mouseDownOn === MouseDownType.PORT ) {
+            console.log("dragging");
+            this.props.onMouseAction({
+                mouseDownOn: MouseDownType.PORT,
+                currentMouseLocation: ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY},
+                    this.props.canvas.translation, this.props.canvas.zoom)
+            });
+        }
+    }
+
+    mouseUpOnPort = (e: React.MouseEvent, blockId: string, portId: string) => {
+        if (e.button === 0 && this.props.canvas.mouse.mouseDownOn == MouseDownType.PORT) {
+            console.log("Mouse up on", blockId, portId);
+            this.props.onAddedEdgeAction(this.state.draggingFromPort.blockId, this.state.draggingFromPort.portId,
+                blockId, portId);
+            this.props.onMouseAction({
+                mouseDownOn: MouseDownType.NONE,
+                currentMouseLocation: ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY},
+                    this.props.canvas.translation, this.props.canvas.zoom)
+            });
+            this.setState({...this.state, draggingFromPort: undefined});
+        }
+    }
+
+    mouseUpOnLayer = (e: React.MouseEvent) => {
+        if (e.button === 0 && this.props.canvas.mouse.mouseDownOn == MouseDownType.PORT) {
+            console.log("Mouse up on grid");
+            this.props.onMouseAction({
+                mouseDownOn: MouseDownType.NONE,
+                currentMouseLocation: ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY},
+                    this.props.canvas.translation, this.props.canvas.zoom)
+            });
+            this.setState({...this.state, draggingFromPort: undefined});
+        }
+    }
 
     render(): React.ReactNode {
-         const draggingEdge = this.getDraggingEdge();
+        let draggingEdge = <React.Fragment/>
+        if (this.state.draggingFromPort !== undefined && this.props.canvas.mouse.mouseDownOn === MouseDownType.PORT) {
+            draggingEdge = (
+                <g style={{pointerEvents: "none"}}
+                   transform={`translate(${this.props.canvas.translation.x} ${this.props.canvas.translation.y})
+                                scale(${this.props.canvas.zoom.toString()} ${this.props.canvas.zoom.toString()})`}>
+                    <path d={getPortLineCommand(PortToPoint(this.state.draggingFromPort.blockId,
+                        this.state.draggingFromPort.portId), this.props.canvas.mouse.currentMouseLocation)}
+                          stroke="red" fill="none" strokeWidth="1"/>
+                </g>
+            );
+        }
 
         return (
-            <div style={{width: "100%", height: "100%", position: "absolute", zIndex: 3, pointerEvents: "none"}}>
-                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                    {this.props.graph.edges.map((edge) => {
-                        return this.convertEdgeToVisual(edge);
-                    })}
-                    {draggingEdge}
+            <div style={{width: "100%", height: "100%", position: "absolute", zIndex: 3,
+                pointerEvents: "none"}}>
+                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
+                     style={{pointerEvents: this.state.draggingFromPort!==undefined?'auto':'none'}}
+                     onMouseMove={this.mouseDragBetweenPorts} onMouseUp={this.mouseUpOnLayer}>
+                    {
+                        // Draw all ports
+                        this.props.graph.blocks.map(b => {
+                            return (
+                                <VisualPortComponent key={b.id} block={b} zoom={this.props.canvas.zoom}
+                                                     translation={this.props.canvas.translation}
+                                                     mouseDownPort={this.mouseDownOnPort}
+                                                     mouseUpPort={this.mouseUpOnPort}/>
+                            )
+                        })
+                    }
+
+                    {
+                        // Draw Dragging Edge
+                        draggingEdge
+                    }
+
+                    {
+                        // Draw all edges
+                        this.props.graph.edges.map(e => {
+                            return (
+                                <g key={e.id} style={{pointerEvents: "none"}}
+                                   transform={`translate(${this.props.canvas.translation.x} 
+                                   ${this.props.canvas.translation.y}) 
+                                   scale(${this.props.canvas.zoom.toString()} 
+                                   ${this.props.canvas.zoom.toString()})`}>
+                                    <path d={getPortLineCommand(PortToPoint(e.outputBlockVisualID, e.outputPortID),
+                                        PortToPoint(e.inputBlockVisualID, e.inputPortID))}
+                                          stroke="red" fill="none" strokeWidth="1"/>
+                                </g>
+                            )
+                        })
+                    }
                 </svg>
             </div>
         );
     }
-
-    private convertEdgeToVisual(edge: EdgeVisualType) {
-        //const selectedItem = this.props.selectedIDs !== undefined && this.props.selectedIDs === edge.id;
-        const outputBlock = this.props.graph.blocks
-            .find(block => block.id === edge.outputBlockVisualID);
-        const inputBlock = this.props.graph.blocks
-            .find(block => block.id === edge.inputBlockVisualID);
-
-        if (outputBlock === undefined || inputBlock === undefined) {
-            return <React.Fragment/>;
-        }
-        const outputPortIndex = outputBlock.blockStorage.outputPorts
-            .findIndex(port => (port.name === edge.outputPortID));
-        const inputPortIndex = inputBlock.blockStorage.inputPorts
-            .findIndex(port => port.name === edge.inputPortID);
-
-        const outputPortPos = {
-            x: !outputBlock.mirrored?outputBlock.position.x + outputBlock.size.x:outputBlock.position.x,
-            y: outputBlock.position.y +
-                ((outputBlock.size.y / (outputBlock.blockStorage.outputPorts.length + 1)) *
-                    (outputPortIndex + 1))
-        };
-        const inputPortPos = {
-            x: !inputBlock.mirrored?inputBlock.position.x:inputBlock.position.x+inputBlock.size.x,
-            y: inputBlock.position.y +
-                ((inputBlock.size.y / (inputBlock.blockStorage.inputPorts.length + 1)) *
-                    (inputPortIndex + 1))
-        };
-
-        const selected = this.props.selectedIDs !== undefined && this.props.selectedIDs
-            .includes(edge.id);
-        return (
-            <VisualEdgeComponent key={edge.id} translate={this.props.translate} zoom={this.props.zoom}
-                                 outputPoint={outputPortPos} inputPoint={inputPortPos}
-                                 selected={selected} edge={edge}
-                                 mirrored={{outputBlock: outputBlock.mirrored, inputBlock: inputBlock.mirrored}}
-                                 onMouseDown={this.props.onMouseDownHandlerEdge}
-                                 onMouseUp={this.props.onMouseUpHandlerEdge}/>
-        )
-    }
-
-    private getDraggingEdge() {
-        if (this.props.draggingPortCoords !== undefined) {
-            // find the coordinates of start node
-            const startBlock = this.props.graph.blocks
-                .find(block => block.id === this.props.draggingPortCoords.beginningPort.blockID);
-            if (startBlock !== undefined) {
-                let startPortInd = startBlock.blockStorage.outputPorts
-                    .findIndex(port => port.name === this.props.draggingPortCoords.beginningPort.portID);
-                let outputPort = true;
-                if (startPortInd === -1) {
-                    startPortInd = startBlock.blockStorage.inputPorts
-                        .findIndex(port => port.name === this.props.draggingPortCoords.beginningPort.portID);
-                    outputPort = false;
-                }
-
-                if (outputPort) {
-                    const startCoords = {
-                        x: startBlock.position.x + (startBlock.mirrored ? 0 : startBlock.size.x),
-                        y: startBlock.position.y +
-                            ((startBlock.size.y / (startBlock.blockStorage.outputPorts.length + 1)) * (startPortInd + 1))
-                    };
-                    return <VisualEdgeComponent translate={this.props.translate} zoom={this.props.zoom}
-                                                        outputPoint={startCoords}
-                                                        inputPoint={this.props.draggingPortCoords.mouseCoords}
-                                                        mirrored={{outputBlock: outputPort?startBlock.mirrored:false,
-                                                            inputBlock:!outputPort?startBlock.mirrored:false}}
-                                                        selected={false}/>;
-                } else {
-                    const startCoords = {
-                        x: startBlock.position.x + (startBlock.mirrored ? startBlock.size.x : 0),
-                        y: startBlock.position.y +
-                            ((startBlock.size.y / (startBlock.blockStorage.inputPorts.length + 1)) * (startPortInd + 1))
-                    };
-                    return <VisualEdgeComponent translate={this.props.translate} zoom={this.props.zoom}
-                                                        mirrored={{outputBlock: outputPort?startBlock.mirrored:false,
-                                                            inputBlock:!outputPort?startBlock.mirrored:false}}
-                                                        outputPoint={this.props.draggingPortCoords.mouseCoords}
-                                                        inputPoint={startCoords}
-                                                        selected={false}/>;
-                }
-            } else {
-                return React.Fragment;
-            }
-        } else {
-            return React.Fragment;
-        }
-    }
 }
+
+function mapStateToProps(state: StateType): StateProps {
+    return {
+        canvas: state.canvas,
+        graph: state.graph
+    };
+}
+
+function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
+    return bindActionCreators({
+        onMouseAction: MouseAction,
+        onAddedEdgeAction: AddedEdgeAction
+    }, dispatch)
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(EdgeLayer)

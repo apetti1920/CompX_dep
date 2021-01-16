@@ -1,48 +1,73 @@
 // @flow
 import * as React from 'react';
-import {GraphVisualType} from "../../../../../store/types";
+import {CanvasType, GraphVisualType, StateType} from "../../../../../store/types";
+import {ScreenToWorld} from "../../../../../utilities";
+import {bindActionCreators, Dispatch} from "redux";
+import { AddedBlockAction } from "../../../../../store/actions";
+import {connect} from "react-redux";
 import {PointType} from "../../../../../../shared/types";
-import {VisualBlockComponent} from "./VisualBlockComponent";
-import {TestScope} from "./TestScope";
+import {BlockStorageType} from "../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
+import VisualBlockComponent from "./VisualBlockComponent";
 
-type Props = {
+interface StateProps {
+    canvas: CanvasType,
     graph: GraphVisualType,
-    translate: PointType,
-    zoom: number,
-    selectedIDs?: string[],
-    onMouseDownHandlerBlock: (e: React.MouseEvent, blockID: string)=>void,
-    onMouseUpHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void,
-    onContextMenuBlock: (e: React.MouseEvent, blockID: string)=>void,
-    onMouseUpHandlerBlock: (e: React.MouseEvent)=>void,
-    onMouseDownHandlerPort: (e: React.MouseEvent, output: boolean, blockID: string, ioName: string)=>void,
-    onDoubleClickBlock: (e: React.MouseEvent, blockID: string)=>void
-};
+    blockLibrary: BlockStorageType[]
+}
 
-type State = never;
+interface DispatchProps {
+    onAddedBlock: (blockStorageId: string, position: PointType, size: PointType) => void
+}
 
-export class BlockLayer extends React.Component<Props, State> {
+type Props = StateProps & DispatchProps
+
+type State = never
+
+class BlockLayer extends React.Component<Props, State> {
     // TODO: only render blocks and edges 2 screens out
     // TODO: Add curves from redux
-    // TODO: Add curve while dragging
+    // TODO: Add curve while draggingFromPoint
     // TODO: reject curves for not connecting same type
     // TODO: Color curves depending on type
 
+    onDragEnterHandler = (e: React.DragEvent<HTMLDivElement>): void => {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    onDragOverHandler = (e: React.DragEvent<HTMLDivElement>): void => {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    onDragLeaveHandler = (e: React.DragEvent<HTMLDivElement>): void => {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    onDropHandler = (e: React.DragEvent<HTMLDivElement>): void => {
+        e.preventDefault();
+        const cardID = e.dataTransfer.getData("cardID");
+        const defaultBlockSize: PointType = {x: 40, y: 40};
+        const worldPos = ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY}, this.props.canvas.translation, this.props.canvas.zoom);
+        const position: PointType = {
+            x: worldPos.x - defaultBlockSize.x / 2.0,
+            y: worldPos.y - defaultBlockSize.y / 2.0,
+        }
+        this.props.onAddedBlock(cardID, position, defaultBlockSize);
+        e.stopPropagation();
+    }
+
     render(): React.ReactNode {
         return (
-            <div style={{width: "100%", height: "100%", position: "absolute", zIndex: 2, pointerEvents: "none"}}>
-                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <div style={{width: "100%", height: "100%", position: "absolute", zIndex: 2,
+                pointerEvents: this.props.canvas.isDraggingFromBlockLibrary?"auto":"none"}}
+                 onDragEnter={this.onDragEnterHandler} onDragOver={this.onDragOverHandler}
+                 onDragLeave={this.onDragLeaveHandler} onDrop={this.onDropHandler}>
+                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style={{pointerEvents: "none"}}>
                     {this.props.graph.blocks.map((block) => {
-                        const selected = this.props.selectedIDs !== undefined &&
-                            this.props.selectedIDs.includes(block.id);
                         return (
-                            <VisualBlockComponent key={block.id} translate={this.props.translate} zoom={this.props.zoom}
-                                                  selected={selected} block={block}
-                                                  onMouseDownBlock={this.props.onMouseDownHandlerBlock}
-                                                  onMouseUpBlock={this.props.onMouseUpHandlerBlock}
-                                                  onMouseDownHandlerPort={this.props.onMouseDownHandlerPort}
-                                                  onMouseUpHandlerPort={this.props.onMouseUpHandlerPort}
-                                                  onContextMenuBlock={this.props.onContextMenuBlock}
-                                                  onDoubleClickBlock={this.props.onDoubleClickBlock}/>
+                            <VisualBlockComponent key={block.id} id={block.id}/>
                         )}
                     )}
                  </svg>
@@ -50,3 +75,20 @@ export class BlockLayer extends React.Component<Props, State> {
         );
     }
 }
+
+function mapStateToProps(state: StateType): StateProps {
+    return {
+        canvas: state.canvas,
+        graph: state.graph,
+        blockLibrary: state.blockLibrary
+    };
+}
+
+function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
+    return bindActionCreators({
+        onAddedBlock: AddedBlockAction
+    }, dispatch)
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(BlockLayer)

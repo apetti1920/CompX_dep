@@ -1,13 +1,16 @@
-import {ActionType, defaultState} from "../types";
+import {ActionType, StateType} from "../types";
 import {UpdatedBlockLibraryActionType} from "../types/actionTypes";
-import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
 
-export default function (blockLibrary: BlockStorageType[] = defaultState.blockLibrary, action: ActionType): BlockStorageType[] {
+const _ = require('lodash');
+
+export default function (state: StateType, action: ActionType): StateType {
     switch (action.type) {
         case (UpdatedBlockLibraryActionType): {
-            return action.payload;
+            const tempState = _.cloneDeep(state);
+            tempState.blockLibrary = action.payload;
+            return tempState;
         } default: {
-            return blockLibrary;
+            return _.cloneDeep(state);
         }
     }
 }

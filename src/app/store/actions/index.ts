@@ -1,20 +1,36 @@
-import {ActionType, SidebarButtonType, SplitPaneName, GraphVisualType, CanvasSelectedItemType} from "../types";
+import {
+    ActionType,
+    SidebarButtonType,
+    SplitPaneName, MouseType
+} from "../types";
 import {
     ClickedSidebarButtonActionType,
     MovedCanvasActionType,
     MovedSplitPaneActionType,
     UpdatedBlockLibraryActionType,
     ZoomedCanvasActionType,
-    UpdatedGraphActionType, UpdatedCanvasSelectionType
+    MovedBlockActionType,
+    MouseActionType,
+    AddedBlockActionType,
+    DraggingLibraryBlockActionType, DeselectAllBlocksActionType, ToggleSelectedBlockActionType, AddedEdgeActionType
 
 } from "../types/actionTypes";
 import {PointType} from "../../../shared/types";
 import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
 
+// Block Library Actions
+export const UpdatedBlockLibraryAction = (newBlocks: BlockStorageType[]): ActionType => {
+    return {
+        type: UpdatedBlockLibraryActionType,
+        payload: {newBlocks: newBlocks}
+    }
+}
+
+// Canvas Actions
 export const ClickedSidebarButtonAction = (button: SidebarButtonType): ActionType => {
     return {
         type: ClickedSidebarButtonActionType,
-        payload: button
+        payload: {button: button}
     }
 };
 
@@ -39,23 +55,61 @@ export const ZoomedCanvasAction = (newZoom: number): ActionType => {
     }
 };
 
-export const UpdatedBlockLibraryAction = (newBlocks: BlockStorageType[]): ActionType => {
+export const MouseAction = (newMouse: MouseType): ActionType => {
     return {
-        type: UpdatedBlockLibraryActionType,
-        payload: {newBlocks: newBlocks}
+        type: MouseActionType,
+        payload: {newMouse: newMouse}
+    }
+};
+
+export const DraggingLibraryBlockAction = (draggingState: boolean): ActionType => {
+    return {
+        type: DraggingLibraryBlockActionType,
+        payload: {draggingState: draggingState}
+    }
+};
+
+
+// Graph Actions
+export const MovedBlockAction = (delta: PointType): ActionType => {
+    return {
+        type: MovedBlockActionType,
+        payload: {delta: delta}
     }
 }
 
-export const UpdatedGraphAction = (newGraph: GraphVisualType): ActionType => {
+export const AddedBlockAction = (blockStorageId: string, position: PointType, size: PointType): ActionType => {
     return {
-        type: UpdatedGraphActionType,
-        payload: {newGraph: newGraph}
+        type: AddedBlockActionType,
+        payload: {
+            blockStorageId: blockStorageId,
+            position: position,
+            size: size
+        }
     }
 }
 
-export const UpdatedCanvasSelectionAction = (newSelections: CanvasSelectedItemType[]): ActionType => {
+export const AddedEdgeAction = (block1VisualId: string, port1VisualId: string,
+                                block2VisualId: string, port2VisualId: string): ActionType => {
     return {
-        type: UpdatedCanvasSelectionType,
-        payload: {newSelections: newSelections}
+        type: AddedEdgeActionType,
+        payload: {
+            block1VisualId: block1VisualId, port1VisualId: port1VisualId,
+            block2VisualId: block2VisualId, port2VisualId: port2VisualId
+        }
+    }
+}
+
+export const ToggleSelectedBlockAction = (visualBlockId: string, selected: boolean): ActionType => {
+    return {
+        type: ToggleSelectedBlockActionType,
+        payload: {visualBlockId: visualBlockId, selected: selected}
+    }
+}
+
+export const DeselectAllBlocksAction = (): ActionType => {
+    return {
+        type: DeselectAllBlocksActionType,
+        payload: null
     }
 }
