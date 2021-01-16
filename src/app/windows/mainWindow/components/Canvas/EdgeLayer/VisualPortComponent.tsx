@@ -2,42 +2,41 @@
 import * as React from 'react';
 import {BlockVisualType} from "../../../../../store/types";
 import {PointType} from "../../../../../../shared/types";
+import {PortToPoint} from "../../../../../utilities";
 
 type Props = {
     block: BlockVisualType,
-    translation: PointType
-    zoom: number
+    translation: PointType,
+    zoom: number,
+    mouseDownPort: (e: React.MouseEvent, blockId: string, portId: string) => void
+    mouseUpPort: (e: React.MouseEvent, blockId: string, portId: string) => void
 };
 
 type State = never;
 
 export class VisualPortComponent extends React.Component<Props, State> {
-    private getCircle(keyId: string, output: boolean, deltaYo: number, index: number, portName: string) {
-        // const isHovering = this.state.hovering==undefined?
-        //     false:((this.state.hovering.portName==portName&&this.state.hovering.output==output));
+    private getCircle(portId: string) {
         const isHovering = false;
-        let cx = this.props.block.position.x;
-        if (!this.props.block.mirrored) {
-            if (output) { cx += this.props.block.size.x; }
-        } else {
-            if (!output) { cx += this.props.block.size.x; }
-        }
-        return <circle key={keyId} cx={cx} cy={this.props.block.position.y + (deltaYo * (index + 1))} r="2"
+
+        const portPoint = PortToPoint(this.props.block.id, portId);
+
+        const keyId = "b_" + this.props.block.id + "_" + portId;
+        return <circle key={keyId} cx={portPoint.x} cy={portPoint.y} r="2"
                        stroke="red" strokeWidth={1} fill={isHovering?"red":"black"}
-                       pointerEvents="auto" cursor={isHovering?"crosshair":"auto"} onClick={()=>{console.log("clicked")}}/>
+                       pointerEvents="auto" cursor={isHovering?"crosshair":"auto"}
+                       onMouseDown={(event) =>
+                           this.props.mouseDownPort(event, this.props.block.id, portId)}
+                       onMouseUp={(event) =>
+                           this.props.mouseUpPort(event, this.props.block.id, portId)}/>
     }
 
     render(): React.ReactNode {
-        const deltaYi = this.props.block.size.y / (this.props.block.blockStorage.inputPorts.length + 1);
-        const InputPortComponents = this.props.block.blockStorage.inputPorts.map((port, index) => {
-            const keyId = "b_" + this.props.block.id + "_pi_" + index;
-            return this.getCircle(keyId, false, deltaYi, index, port.name);
+        const InputPortComponents = this.props.block.blockStorage.inputPorts.map((port) => {
+            return this.getCircle(port.id);
         });
 
-        const deltaYo = this.props.block.size.y / (this.props.block.blockStorage.outputPorts.length + 1);
-        const OutputPortComponents = this.props.block.blockStorage.outputPorts.map((port, index) => {
-            const keyId = "b_" + this.props.block.id + "_po_" + index;
-            return this.getCircle(keyId, true, deltaYo, index, port.name);
+        const OutputPortComponents = this.props.block.blockStorage.outputPorts.map((port) => {
+            return this.getCircle(port.id);
         });
 
         return (

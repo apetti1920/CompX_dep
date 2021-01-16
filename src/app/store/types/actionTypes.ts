@@ -18,4 +18,5 @@ export const DraggingLibraryBlockActionType = `@@${CanvasReducerName}/DRAGGING_L
 export const MovedBlockActionType = `@@${GraphReducerName}/MOVED_BLOCK`;
 export const ToggleSelectedBlockActionType = `@@${GraphReducerName}/TOGGLE_SELECTED_BLOCK`;
 export const AddedBlockActionType = `@@${GraphReducerName}/ADDED_BLOCK`;
+export const AddedEdgeActionType = `@@${GraphReducerName}/ADDED_EDGE`;
 export const DeselectAllBlocksActionType = `@@${GraphReducerName}/DESELECT_ALL_BLOCKS`;

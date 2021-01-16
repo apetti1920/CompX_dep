@@ -12,7 +12,7 @@ import {
     MovedBlockActionType,
     MouseActionType,
     AddedBlockActionType,
-    DraggingLibraryBlockActionType, DeselectAllBlocksActionType, ToggleSelectedBlockActionType
+    DraggingLibraryBlockActionType, DeselectAllBlocksActionType, ToggleSelectedBlockActionType, AddedEdgeActionType
 
 } from "../types/actionTypes";
 import {PointType} from "../../../shared/types";
@@ -85,6 +85,17 @@ export const AddedBlockAction = (blockStorageId: string, position: PointType, si
             blockStorageId: blockStorageId,
             position: position,
             size: size
+        }
+    }
+}
+
+export const AddedEdgeAction = (block1VisualId: string, port1VisualId: string,
+                                block2VisualId: string, port2VisualId: string): ActionType => {
+    return {
+        type: AddedEdgeActionType,
+        payload: {
+            block1VisualId: block1VisualId, port1VisualId: port1VisualId,
+            block2VisualId: block2VisualId, port2VisualId: port2VisualId
         }
     }
 }

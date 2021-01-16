@@ -26,7 +26,7 @@ type State = never
 class BlockLayer extends React.Component<Props, State> {
     // TODO: only render blocks and edges 2 screens out
     // TODO: Add curves from redux
-    // TODO: Add curve while dragging
+    // TODO: Add curve while draggingFromPoint
     // TODO: reject curves for not connecting same type
     // TODO: Color curves depending on type
 

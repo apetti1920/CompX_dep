@@ -1,6 +1,6 @@
 import {ActionType, StateType} from "../types";
 import {
-    AddedBlockActionType,
+    AddedBlockActionType, AddedEdgeActionType,
     DeselectAllBlocksActionType, MovedBlockActionType, ToggleSelectedBlockActionType
 } from "../types/actionTypes";
 import {PointType} from "../../../shared/types";
@@ -34,6 +34,19 @@ export default function (state: StateType, action: ActionType): StateType {
                 selected: false,
                 blockStorage: _.cloneDeep(tempState.blockLibrary.find(b => b.id === action.payload['blockStorageId']))
             });
+            return tempState;
+        } case (AddedEdgeActionType): {
+            const tempState: StateType  = _.cloneDeep(state);
+            const is1Output = tempState.graph.blocks.find(b => b.id === action.payload['block1VisualId'])
+                .blockStorage.outputPorts.find(p => p.id === action.payload['port1VisualId']) !== undefined;
+            tempState.graph.edges.push({
+                id: uuidv4(),
+                outputBlockVisualID: is1Output?action.payload['block1VisualId']:action.payload['block2VisualId'],
+                outputPortID: is1Output?action.payload['port1VisualId']:action.payload['port2VisualId'],
+                inputBlockVisualID: is1Output?action.payload['block2VisualId']:action.payload['block1VisualId'],
+                inputPortID: is1Output?action.payload['port2VisualId']:action.payload['port1VisualId'],
+                type: "number"
+            })
             return tempState;
         } case (ToggleSelectedBlockActionType): {
             const tempState: StateType  = _.cloneDeep(state);
