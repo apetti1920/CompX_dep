@@ -1,7 +1,7 @@
 import {ActionType, StateType} from "../types";
 import {
     AddedBlockActionType, AddedEdgeActionType,
-    DeselectAllBlocksActionType, MovedBlockActionType, ToggleSelectedBlockActionType
+    DeselectAllBlocksActionType, MirrorBlockActionType, MovedBlockActionType, ToggleSelectedBlockActionType
 } from "../types/actionTypes";
 import {PointType} from "../../../shared/types";
 import { v4 as uuidv4 } from 'uuid';
@@ -39,6 +39,20 @@ export default function (state: StateType, action: ActionType): StateType {
             const tempState: StateType  = _.cloneDeep(state);
             const is1Output = tempState.graph.blocks.find(b => b.id === action.payload['block1VisualId'])
                 .blockStorage.outputPorts.find(p => p.id === action.payload['port1VisualId']) !== undefined;
+            if (is1Output) {
+                const is2Input = tempState.graph.blocks.find(b => b.id === action.payload['block2VisualId'])
+                    .blockStorage.inputPorts.find(p => p.id === action.payload['port2VisualId']) !== undefined;
+                if (!is2Input) {
+                    return tempState;
+                }
+            } else {
+                const is2Output = tempState.graph.blocks.find(b => b.id === action.payload['block2VisualId'])
+                    .blockStorage.outputPorts.find(p => p.id === action.payload['port2VisualId']) !== undefined;
+                if (!is2Output) {
+                    return tempState;
+                }
+            }
+
             tempState.graph.edges.push({
                 id: uuidv4(),
                 outputBlockVisualID: is1Output?action.payload['block1VisualId']:action.payload['block2VisualId'],
@@ -62,6 +76,11 @@ export default function (state: StateType, action: ActionType): StateType {
                     }
                 }
             }
+            return tempState;
+        } case (MirrorBlockActionType): {
+            const tempState: StateType  = _.cloneDeep(state);
+            const blockId = tempState.graph.blocks.findIndex(b => b.id === action.payload['blockId']);
+            tempState.graph.blocks[blockId].mirrored = !tempState.graph.blocks[blockId].mirrored;
             return tempState;
         } default: {
             return _.cloneDeep(state);

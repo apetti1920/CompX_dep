@@ -1,8 +1,6 @@
 // @flow
 import * as React from 'react';
 
-import {Delete, Repeat, Settings} from 'react-feather';
-
 import Grid from "./Grid";
 import {MouseDownType} from "../types";
 import {PointType} from "../../../../../shared/types";
@@ -48,32 +46,6 @@ class Canvas extends React.Component<Props, never> {
         this.gridRef = React.createRef();
     }
 
-    /* -------------------------------------------------Utility Functions-------------------------------------------- */
-
-
-
-    // /* Utility function to get the canvas coordinates of a specific port of a specific block */
-    // getPortCoords(blockID: string, portID: string): PointType {
-    //     const tempGraph: GraphVisualType = _.cloneDeep(this.props.graph);
-    //     const chosenBlock = tempGraph.blocks.find(block => block.id === blockID);
-    //
-    //     if (chosenBlock.blockStorage.outputPorts.map(port => port.name).includes(portID)) {
-    //         const portIndex = chosenBlock.blockStorage.outputPorts.findIndex(port => port.name === portID);
-    //         return {
-    //             x: chosenBlock.position.x + chosenBlock.size.x,
-    //             y: chosenBlock.position.y + ((chosenBlock.size.y /
-    //                 (chosenBlock.blockStorage.outputPorts.length + 1)) * (portIndex + 1))
-    //         };
-    //     } else {
-    //         const portIndex = chosenBlock.blockStorage.inputPorts.findIndex(port => port.name === portID);
-    //         return {
-    //             x: chosenBlock.position.x + chosenBlock.size.x,
-    //             y: chosenBlock.position.y + ((chosenBlock.size.y /
-    //                 (chosenBlock.blockStorage.inputPorts.length + 1)) * (portIndex + 1))
-    //         };
-    //     }
-    // }
-
     /* --------------------------------------------Handler Overrides------------------------------------------------- */
     /* Overrides the onscroll event of the canvas */
     handleScroll = (e: React.WheelEvent) => {
@@ -101,199 +73,12 @@ class Canvas extends React.Component<Props, never> {
         e.stopPropagation();
     };
 
-    /*  */
-    // onContextMenuBlock = (e: React.MouseEvent, blockID: string): void => {
-    //     e.preventDefault();
-    //     const tmpState = {...this.state};
-    //     const mir = this.props.graph.blocks.find(block => block.id === blockID).mirrored;
-    //     // Select this block
-    //     tmpState.contextMenu = <ContextMenu position={{
-    //         x: e.nativeEvent.offsetX,
-    //         y: e.nativeEvent.offsetY
-    //     }} items={[
-    //         {
-    //             icon: <Settings height="100%" style={{flexGrow: 1}}/>, name: "Edit", action: () => {
-    //                 // Open Edit Window
-    //                 const tmpState = {...this.state};
-    //                 const button = this.props.canvas.sidebarButtons.find(b => b.groupId === 0 && b.buttonId === 1);
-    //                 // Update Button Click
-    //                 tmpState.contextMenu = undefined;
-    //                 this.setState(tmpState);
-    //             }
-    //         },
-    //         {
-    //             icon: <Repeat height="100%" style={{flexGrow: 1}}/>,
-    //             name: !mir ? "Mirror" : "Un-Mirror",
-    //             action: () => {
-    //                 const tmpState = {...this.state};
-    //                 const tmpProps = {...this.props};
-    //                 const graph = tmpProps.graph;
-    //                 const b = graph.blocks[graph.blocks.findIndex(block => block.id === blockID)];
-    //                 graph.blocks[graph.blocks
-    //                     .findIndex(block => block.id === blockID)].mirrored = !b.mirrored;
-    //                 tmpProps.onUpdatedGraph(graph);
-    //                 tmpState.contextMenu = undefined;
-    //                 this.setState(tmpState);
-    //             }
-    //         },
-    //         "Spacer",
-    //         {
-    //             icon: <Delete height="100%" style={{flexGrow: 1}}/>, name: "Delete", action: () => {
-    //                 const tmpState = {...this.state};
-    //                 const tmpProps = {...this.props};
-    //                 const graph = tmpProps.graph;
-    //
-    //                 const delBlockInd = graph.blocks.findIndex(block => block.id === blockID);
-    //                 const delBlock = graph.blocks[delBlockInd];
-    //                 delBlock.blockStorage.outputPorts.forEach(port => {
-    //                     graph.edges = graph.edges.filter(edge => !(edge.outputBlockVisualID === delBlock.id &&
-    //                         edge.outputPortID === port.name));
-    //                 })
-    //                 delBlock.blockStorage.inputPorts.forEach(port => {
-    //                     graph.edges = graph.edges.filter(edge => !(edge.inputBlockVisualID === delBlock.id &&
-    //                         edge.inputPortID === port.name));
-    //                 })
-    //                 graph.blocks = graph.blocks.filter(block => block.id !== blockID);
-    //                 tmpProps.onUpdatedGraph(graph);
-    //                 tmpState.contextMenu = undefined;
-    //                 this.setState(tmpState);
-    //             }
-    //         }
-    //     ]}/>;
-    //     this.setState(tmpState);
-    //     e.stopPropagation();
-    // }
-
-    // /* Overrides the mouse down event of a port */
-    // onMouseDownHandlerPort = (e: React.MouseEvent, output: boolean, blockID: string, ioName: string) => {
-    //     e.preventDefault();
-    //     if (e.button === 0) {
-    //         const tempState: State = _.cloneDeep(this.state);
-    //         tempState.contextMenu = undefined;
-    //         tempState.selectedPort = {blockID: blockID, portID: ioName};
-    //         this.props.onMouseAction({
-    //             mouseDownOn: MouseDownType.NONE,
-    //             currentMouseLocation: ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY},
-    //                 this.props.canvas.translation, this.props.canvas.zoom)
-    //         });
-    //         this.setState(tempState);
-    //     }
-    //     e.stopPropagation();
-    // }
-    //
-    // /* Overrides the mouse up event of a port */
-    // onMouseUpHandlerPort = (e: React.MouseEvent, output: boolean, blockID: string, ioName: string) => {
-    //     e.preventDefault();
-    //     if (e.button === 0) {
-    //         if (this.props.canvas.mouse.mouseDownOn !== MouseDownType.PORT) {
-    //             return;
-    //         }
-    //
-    //         const tempState: State = _.cloneDeep(this.state);
-    //         tempState.selectedPort = undefined;
-    //         this.props.onMouseAction({
-    //             mouseDownOn: MouseDownType.NONE,
-    //             currentMouseLocation: ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY},
-    //                 this.props.canvas.translation, this.props.canvas.zoom)
-    //         });
-    //
-    //         const tempGraph: GraphVisualType = _.cloneDeep(this.state);
-    //         let outputBlock = tempGraph.blocks
-    //             .find(block => block.id === blockID &&
-    //                 block.blockStorage.outputPorts.map(port => port.name).includes(ioName));
-    //
-    //         // Check if the mouse up port was input (undefined) or not
-    //         let outputBlockID: string, outputPortID: string, inputBlockID: string, inputPortID: string;
-    //         if (outputBlock === undefined) {
-    //             // mouse down on output mouse up on input
-    //             outputBlock = tempGraph.blocks
-    //                 .find(block => block.id === this.state.selectedPort.blockID &&
-    //                     block.blockStorage.outputPorts.map(port => port.name).includes(this.state.selectedPort.portID));
-    //             if (outputBlock === undefined) {
-    //                 this.setState(tempState);
-    //                 return;
-    //             }
-    //             outputBlockID = outputBlock.id;
-    //             outputPortID = this.state.selectedPort.portID;
-    //             const inputBlock = tempGraph.blocks
-    //                 .find(block => block.id === blockID &&
-    //                     block.blockStorage.inputPorts.map(port => port.name).includes(ioName));
-    //             if (inputBlock === undefined) {
-    //                 this.setState(tempState);
-    //                 return;
-    //             }
-    //             inputBlockID = inputBlock.id;
-    //             inputPortID = ioName;
-    //         } else {
-    //             // mouse down on input mouse up on output
-    //             outputBlockID = outputBlock.id;
-    //             outputPortID = ioName;
-    //             const inputBlock = tempGraph.blocks
-    //                 .find(block => block.id === this.state.selectedPort.blockID &&
-    //                     block.blockStorage.inputPorts.map(port => port.name).includes(this.state.selectedPort.portID));
-    //             if (inputBlock === undefined) {
-    //                 this.setState(tempState);
-    //                 return;
-    //             }
-    //             inputBlockID = inputBlock.id;
-    //             inputPortID = this.state.selectedPort.portID;
-    //         }
-    //
-    //         // used for later
-    //         let type: "number";
-    //         switch (outputBlock.blockStorage.outputPorts
-    //             .find(port => port.name === outputPortID).type) {
-    //             case "number": {
-    //                 type = "number"
-    //             }
-    //         }
-    //
-    //         // TODO: Don't add if not output to input, if there is an other edge to same input, or if different types
-    //         if (tempGraph.edges.find(edge => edge.outputBlockVisualID === outputBlockID &&
-    //             edge.outputPortID === outputPortID && edge.inputBlockVisualID === inputBlockID &&
-    //             edge.inputPortID === inputPortID) === undefined) {
-    //             const edge = {
-    //                 id: uuidv4(), outputBlockVisualID: outputBlockID,
-    //                 outputPortID: outputPortID, inputBlockVisualID: inputBlockID,
-    //                 inputPortID: inputPortID,
-    //                 type: type
-    //             };
-    //             tempGraph.edges.push(edge);
-    //             this.props.onUpdatedGraph(tempGraph);
-    //         }
-    //         this.setState(tempState);
-    //     }
-    //     e.stopPropagation();
-    // }
-
-    // /* Overrides the mouse move event of the canvas */
-    // onMouseMove = (e: React.MouseEvent) => {
-    //     e.preventDefault();
-    //     if (this.props.canvas.mouse.mouseDownOn === MouseDownType.PORT) {
-    //         const tempState: State = _.cloneDeep(this.state);
-    //         const tempProps: Props = _.cloneDeep(this.props);
-    //         tempProps.canvas.mouse.currentMouseLocation =
-    //             ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY}, this.props.canvas.translation, this.props.canvas.zoom)
-    //         this.props.onMouseAction(tempProps.canvas.mouse);
-    //         tempState.movedGrid = false;
-    //         this.setState(tempState);
-    //     }
-    //     e.stopPropagation();
-    // };
-
-    /* ---------------------------------------Block Dragging from browser-------------------------------------------- */
-
     componentDidMount() {
         // Todo: Get it to be more center
         this.centerGrid();
     }
 
     render() {
-        // let draggingPort: any | undefined;
-        // if (this.state.selectedPort !== undefined) {
-        //     draggingPort = {beginningPort: this.state.selectedPort, mouseCoords: this.props.canvas.mouse.currentMouseLocation};
-        // }
-
         return (
             <div style={{display: "flex", flexDirection: "column", width: "100%", height: "100%", pointerEvents: "none"}}>
                 <div style={{display: "flex", flexDirection: "row", width: "100%", height: "var(--sidebar-width)", pointerEvents: "none"}}>
@@ -318,17 +103,6 @@ class Canvas extends React.Component<Props, never> {
                         <Grid minorTickSpacing={8} majorTickSpacing={80} />
                         <BlockLayer />
                         <EdgeLayer />
-                        {/*<EdgeLayer graph={this.props.graph} translate={this.props.canvas.translation}*/}
-                        {/*           zoom={this.props.canvas.zoom}*/}
-                        {/*           draggingPortCoords={draggingPort}*/}
-                        {/*           selectedIDs={this.props.canvas.canvasSelectedItems*/}
-                        {/*               .filter(selected => selected.selectedType === CanvasSelectionType.EDGE)*/}
-                        {/*               .map(selectedEdge => selectedEdge.id)}/>*/}
-                        {/*<MouseCoordinatePosition isDragging={this.props.canvas.mouse.mouseDownOn === MouseDownType.GRID ||*/}
-                        {/*this.props.canvas.mouse.mouseDownOn === MouseDownType.BLOCK}*/}
-                        {/*                         mousePosition={this.props.canvas.mouse.currentMouseLocation}*/}
-                        {/*                         zoomLevel={this.props.canvas.zoom}/>*/}
-                        {/*{this.state.contextMenu ?? React.Fragment}*/}
                     </div>
                 </div>
             </div>

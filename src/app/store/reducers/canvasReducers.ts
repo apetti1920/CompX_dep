@@ -22,11 +22,9 @@ export default function(state: StateType, action: ActionType): StateType {
             return tempState;
         } case ClickedSidebarButtonActionType: {
             const tempState = _.cloneDeep(state);
-            const button: SidebarButtonType = action.payload['button'];
-
             for (let i=0; i<tempState.canvas.sidebarButtons.length; i++) {
-                if (tempState.canvas.sidebarButtons[i].groupId === button.groupId) {
-                    if (tempState.canvas.sidebarButtons[i].buttonId === button.buttonId) {
+                if (tempState.canvas.sidebarButtons[i].groupId === action.payload['group']) {
+                    if (tempState.canvas.sidebarButtons[i].buttonId === action.payload['id']) {
                         tempState.canvas.sidebarButtons[i].selected = !tempState.canvas.sidebarButtons[i].selected
                     } else {
                         tempState.canvas.sidebarButtons[i].selected = false;

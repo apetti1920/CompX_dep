@@ -12,7 +12,11 @@ import {
     MovedBlockActionType,
     MouseActionType,
     AddedBlockActionType,
-    DraggingLibraryBlockActionType, DeselectAllBlocksActionType, ToggleSelectedBlockActionType, AddedEdgeActionType
+    DraggingLibraryBlockActionType,
+    DeselectAllBlocksActionType,
+    ToggleSelectedBlockActionType,
+    AddedEdgeActionType,
+    MirrorBlockActionType
 
 } from "../types/actionTypes";
 import {PointType} from "../../../shared/types";
@@ -27,10 +31,10 @@ export const UpdatedBlockLibraryAction = (newBlocks: BlockStorageType[]): Action
 }
 
 // Canvas Actions
-export const ClickedSidebarButtonAction = (button: SidebarButtonType): ActionType => {
+export const ClickedSidebarButtonAction = (buttonGroup: number, buttonId: number): ActionType => {
     return {
         type: ClickedSidebarButtonActionType,
-        payload: {button: button}
+        payload: {group: buttonGroup, id: buttonId}
     }
 };
 
@@ -111,5 +115,12 @@ export const DeselectAllBlocksAction = (): ActionType => {
     return {
         type: DeselectAllBlocksActionType,
         payload: null
+    }
+}
+
+export const MirrorBlockAction = (visualBlockId: string): ActionType => {
+    return {
+        type: MirrorBlockActionType,
+        payload: {blockId: visualBlockId}
     }
 }

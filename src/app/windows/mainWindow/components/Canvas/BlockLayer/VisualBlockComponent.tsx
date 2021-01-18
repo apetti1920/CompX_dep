@@ -13,6 +13,7 @@ import {
 import {connect} from "react-redux";
 import {ScreenToWorld} from "../../../../../utilities";
 import {MouseDownType} from "../../types";
+import {ContextMenu} from "../../ComponentUtils/ContextMenu";
 
 interface StateProps {
     canvas: CanvasType,
@@ -27,7 +28,8 @@ interface DispatchProps {
 }
 
 type ComponentProps = {
-    id: string
+    id: string,
+    onContextMenu: (e: React.MouseEvent, blockID: string) => void
 };
 
 type Props = StateProps & DispatchProps & ComponentProps
@@ -128,7 +130,7 @@ class VisualBlockComponent extends React.Component<Props, State> {
                       style={{cursor: "pointer", stroke: this.props.block.selected?"pink":"", pointerEvents: "auto",
                           strokeWidth: this.props.block.selected?"1":"0", strokeOpacity: this.props.block.selected?0.9:0.0}}
                       onMouseDown={this.onMouseDownHandlerBlock} onMouseMove={this.onMouseDragBlockHandler}
-                      onMouseUp={this.onMouseUpHandlerBlock} />
+                      onMouseUp={this.onMouseUpHandlerBlock} onContextMenu={(e) => this.props.onContextMenu(e, this.props.block.id)}/>
                 <rect x={this.props.block.position.x + this.margin.left}
                       y={this.props.block.position.y + this.margin.top} rx={this.cornerRadius}
                       width={this.props.block.size.x - this.margin.left - this.margin.right}

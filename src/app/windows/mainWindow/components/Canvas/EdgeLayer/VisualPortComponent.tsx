@@ -15,34 +15,43 @@ type Props = {
 type State = never;
 
 export class VisualPortComponent extends React.Component<Props, State> {
-    private getCircle(portId: string) {
+    private drawPort(portId: string) {
         const isHovering = false;
-
         const portPoint = PortToPoint(this.props.block.id, portId);
-
         const keyId = "b_" + this.props.block.id + "_" + portId;
-        return <circle key={keyId} cx={portPoint.x} cy={portPoint.y} r="2"
-                       stroke="red" strokeWidth={1} fill={isHovering?"red":"black"}
-                       pointerEvents="auto" cursor={isHovering?"crosshair":"auto"}
-                       onMouseDown={(event) =>
-                           this.props.mouseDownPort(event, this.props.block.id, portId)}
-                       onMouseUp={(event) =>
-                           this.props.mouseUpPort(event, this.props.block.id, portId)}/>
+
+        const r = 3.0;
+        const xdelt = Math.cos(Math.PI/3) * r;
+        const ydelt = Math.sin(Math.PI/3) * r;
+
+        let path: string;
+        if (!this.props.block.mirrored) {
+            path = `M ${portPoint.x - xdelt} ${portPoint.y - ydelt} L ${portPoint.x + r} ${portPoint.y} L ${portPoint.x - xdelt} ${portPoint.y + ydelt}`;
+        } else {
+            path = `M ${portPoint.x + xdelt} ${portPoint.y - ydelt} L ${portPoint.x - r} ${portPoint.y} L ${portPoint.x + xdelt} ${portPoint.y + ydelt}`;
+        }
+
+        return <path key={keyId} d={path} stroke="red" strokeWidth={1} fill={isHovering?"red":"black"}
+                     pointerEvents="auto" cursor={isHovering?"crosshair":"auto"}
+                     onMouseDown={(event) =>
+                         this.props.mouseDownPort(event, this.props.block.id, portId)}
+                     onMouseUp={(event) =>
+                         this.props.mouseUpPort(event, this.props.block.id, portId)}/>
     }
+
+
 
     render(): React.ReactNode {
         const InputPortComponents = this.props.block.blockStorage.inputPorts.map((port) => {
-            return this.getCircle(port.id);
+            return this.drawPort(port.id);
         });
 
         const OutputPortComponents = this.props.block.blockStorage.outputPorts.map((port) => {
-            return this.getCircle(port.id);
+            return this.drawPort(port.id);
         });
 
         return (
-            <g style={{pointerEvents: "none"}}
-               transform={`translate(${this.props.translation.x} ${this.props.translation.y})
-                                scale(${this.props.zoom.toString()} ${this.props.zoom.toString()})`}>
+            <g>
                 {InputPortComponents}
                 {OutputPortComponents}
             </g>

@@ -13,7 +13,7 @@ export interface OwnProps {
 }
 
 interface DispatchProps {
-    clickedButton: (sidebarButton: SidebarButtonType) => void
+    clickedButton: (buttonGroup: number, buttonId: number) => void
 }
 
 type Props = DispatchProps & OwnProps
@@ -49,7 +49,7 @@ class SidebarButton extends React.Component<Props, State> {
             <div className={"Button" + clsNme}
                  onMouseEnter={() => this.toggleHover()}
                  onMouseLeave={() => this.toggleHover()}
-                 onClick={() => this.props.clickedButton(this.props.button)}>
+                 onClick={() => this.props.clickedButton(this.props.button.groupId, this.props.button.buttonId)}>
                 <div className={"ButtonText" + clsNme} style={{userSelect: "none"}}>{this.props.button.text}</div>
             </ div>
         );

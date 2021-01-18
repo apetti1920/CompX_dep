@@ -31,19 +31,6 @@ class VisualEdgeComponent extends React.Component<Props, State> {
         }
     }
 
-    // eslint-disable-next-line react/no-deprecated
-    componentWillReceiveProps(nextProps: Readonly<Props>, nextContext: any) {
-        if (nextProps.blocks != this.props.blocks) {
-            console.log("diferent props");
-            const tempState = {...this.state};
-            tempState.inputBlock = nextProps.blocks.find(b => this.props.edge.inputBlockVisualID === b.id);
-            tempState.outputBlock = nextProps.blocks.find(b => this.props.edge.outputBlockVisualID === b.id);
-            this.setState(tempState);
-        } else {
-            console.log("same props");
-        }
-    }
-
     private getLineCommand() {
         if (this.state.outputBlock === undefined || this.state.inputBlock === undefined) {
             return "";
@@ -67,7 +54,7 @@ class VisualEdgeComponent extends React.Component<Props, State> {
                     (inputPortIndex + 1))
         };
 
-
+        console.log("here1")
         if (this.state.outputBlock.mirrored === this.state.inputBlock.mirrored) {
             let halfXOut: number; let halfXIn: number;
             if (inputPoint.x > outputPoint.x) {
@@ -83,10 +70,10 @@ class VisualEdgeComponent extends React.Component<Props, State> {
                              ${halfXIn}, ${inputPoint.y} 
                              ${inputPoint.x}, ${inputPoint.y}`;
         } else if (this.state.inputBlock.mirrored) {
+            console.log("here");
             const dist = Math.sqrt(((outputPoint.x - inputPoint.x) ** 2) + ((outputPoint.y - inputPoint.y) ** 2));
             return `M ${outputPoint.x}, ${outputPoint.y} 
-                             C ${outputPoint.x + dist}, ${outputPoint.y} 
-                             ${inputPoint.x + dist}, ${inputPoint.y} 
+                             Q ${outputPoint.x + dist} ${0.5 * (outputPoint.y + inputPoint.y)},
                              ${inputPoint.x}, ${inputPoint.y}`;
         } else {
             const dist = -Math.sqrt(((outputPoint.x - inputPoint.x) ** 2) + ((outputPoint.y - inputPoint.y) ** 2));

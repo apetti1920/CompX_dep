@@ -37,7 +37,6 @@ class EdgeLayer extends React.Component<Props, State> {
 
     mouseDownOnPort = (e: React.MouseEvent, blockId: string, portId: string) => {
         if (e.button === 0 && this.props.canvas.mouse.mouseDownOn == MouseDownType.NONE) {
-            console.log("Mouse down on", blockId, portId);
             const mouseLoc = ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY},
                 this.props.canvas.translation, this.props.canvas.zoom);
             this.props.onMouseAction({
@@ -50,7 +49,6 @@ class EdgeLayer extends React.Component<Props, State> {
 
     mouseDragBetweenPorts = (e: React.MouseEvent) => {
         if (e.button === 0 && this.props.canvas.mouse.mouseDownOn === MouseDownType.PORT ) {
-            console.log("dragging");
             this.props.onMouseAction({
                 mouseDownOn: MouseDownType.PORT,
                 currentMouseLocation: ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY},
@@ -61,7 +59,6 @@ class EdgeLayer extends React.Component<Props, State> {
 
     mouseUpOnPort = (e: React.MouseEvent, blockId: string, portId: string) => {
         if (e.button === 0 && this.props.canvas.mouse.mouseDownOn == MouseDownType.PORT) {
-            console.log("Mouse up on", blockId, portId);
             this.props.onAddedEdgeAction(this.state.draggingFromPort.blockId, this.state.draggingFromPort.portId,
                 blockId, portId);
             this.props.onMouseAction({
@@ -75,7 +72,6 @@ class EdgeLayer extends React.Component<Props, State> {
 
     mouseUpOnLayer = (e: React.MouseEvent) => {
         if (e.button === 0 && this.props.canvas.mouse.mouseDownOn == MouseDownType.PORT) {
-            console.log("Mouse up on grid");
             this.props.onMouseAction({
                 mouseDownOn: MouseDownType.NONE,
                 currentMouseLocation: ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY},
@@ -89,13 +85,9 @@ class EdgeLayer extends React.Component<Props, State> {
         let draggingEdge = <React.Fragment/>
         if (this.state.draggingFromPort !== undefined && this.props.canvas.mouse.mouseDownOn === MouseDownType.PORT) {
             draggingEdge = (
-                <g style={{pointerEvents: "none"}}
-                   transform={`translate(${this.props.canvas.translation.x} ${this.props.canvas.translation.y})
-                                scale(${this.props.canvas.zoom.toString()} ${this.props.canvas.zoom.toString()})`}>
-                    <path d={getPortLineCommand(PortToPoint(this.state.draggingFromPort.blockId,
-                        this.state.draggingFromPort.portId), this.props.canvas.mouse.currentMouseLocation)}
-                          stroke="red" fill="none" strokeWidth="1"/>
-                </g>
+                <path d={getPortLineCommand(PortToPoint(this.state.draggingFromPort.blockId,
+                    this.state.draggingFromPort.portId), this.props.canvas.mouse.currentMouseLocation)}
+                      stroke="red" fill="none" strokeWidth="1"/>
             );
         }
 
@@ -105,39 +97,39 @@ class EdgeLayer extends React.Component<Props, State> {
                 <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
                      style={{pointerEvents: this.state.draggingFromPort!==undefined?'auto':'none'}}
                      onMouseMove={this.mouseDragBetweenPorts} onMouseUp={this.mouseUpOnLayer}>
-                    {
-                        // Draw all ports
-                        this.props.graph.blocks.map(b => {
-                            return (
-                                <VisualPortComponent key={b.id} block={b} zoom={this.props.canvas.zoom}
-                                                     translation={this.props.canvas.translation}
-                                                     mouseDownPort={this.mouseDownOnPort}
-                                                     mouseUpPort={this.mouseUpOnPort}/>
-                            )
-                        })
-                    }
 
-                    {
-                        // Draw Dragging Edge
-                        draggingEdge
-                    }
+                    <g style={{pointerEvents: "none"}}
+                       transform={`translate(${this.props.canvas.translation.x} ${this.props.canvas.translation.y}) 
+                                   scale(${this.props.canvas.zoom.toString()} ${this.props.canvas.zoom.toString()})`}>
+                        {
+                            // Draw all ports
+                            this.props.graph.blocks.map(b => {
+                                return (
+                                    <VisualPortComponent key={b.id} block={b} zoom={this.props.canvas.zoom}
+                                                         translation={this.props.canvas.translation}
+                                                         mouseDownPort={this.mouseDownOnPort}
+                                                         mouseUpPort={this.mouseUpOnPort}/>
+                                )
+                            })
+                        }
 
-                    {
-                        // Draw all edges
-                        this.props.graph.edges.map(e => {
-                            return (
-                                <g key={e.id} style={{pointerEvents: "none"}}
-                                   transform={`translate(${this.props.canvas.translation.x} 
-                                   ${this.props.canvas.translation.y}) 
-                                   scale(${this.props.canvas.zoom.toString()} 
-                                   ${this.props.canvas.zoom.toString()})`}>
-                                    <path d={getPortLineCommand(PortToPoint(e.outputBlockVisualID, e.outputPortID),
+                        {
+                            // Draw Dragging Edge
+                            draggingEdge
+                        }
+
+
+                        {
+                            // Draw all edges
+                            this.props.graph.edges.map(e => {
+                                return (
+                                    <path key={e.id} d={getPortLineCommand(PortToPoint(e.outputBlockVisualID, e.outputPortID),
                                         PortToPoint(e.inputBlockVisualID, e.inputPortID))}
                                           stroke="red" fill="none" strokeWidth="1"/>
-                                </g>
-                            )
-                        })
-                    }
+                                )
+                            })
+                        }
+                    </g>
                 </svg>
             </div>
         );
