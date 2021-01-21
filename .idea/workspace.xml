@@ -12,18 +12,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e7953432-bfcc-4650-a923-43f7ea8791ce" name="Default Changelist" comment="Initial Commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/store/actions/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/actions/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/store/reducers/graphReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/reducers/graphReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/store/types/actionTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/types/actionTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/utilities/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/utilities/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/BlockLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/BlockLayer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/VisualBlockComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/VisualBlockComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/EdgeLayer/EdgeLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/EdgeLayer/EdgeLayer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/EdgeLayer/VisualEdgeComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/EdgeLayer/VisualEdgeComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/EdgeLayer/VisualPortComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/EdgeLayer/VisualPortComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Block.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Block.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Port.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Port.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/helpers/ModelChildProcess.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/helpers/ModelChildProcess.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -262,6 +252,7 @@
       <workItem from="1610991985542" duration="47000" />
       <workItem from="1611021284025" duration="6852000" />
       <workItem from="1611169589891" duration="8140000" />
+      <workItem from="1611240730066" duration="2261000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1599160068442</created>
