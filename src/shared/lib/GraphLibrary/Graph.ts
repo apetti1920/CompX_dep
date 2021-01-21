@@ -5,6 +5,7 @@ import Block from "./Block";
 import Edge from "./Edge";
 import {findNextOrMissing, Zeros} from "./helpers/utils";
 import {BlockStorageType, InternalDataStorageType} from "./types/BlockStorage";
+import {EdgeVisualType} from "../../../app/store/types";
 
 const fs = require('fs')
 
@@ -49,13 +50,11 @@ class CompBlock {
 export default class Graph {
     public blocks: Block[];
     public readonly edges: Edge[];
-    public isTest: boolean;
     public filePath: string;
 
     constructor() {
         this.blocks = [];
         this.edges = [];
-        this.isTest = false;
         this.filePath = "";
     }
 
@@ -63,43 +62,15 @@ export default class Graph {
         return this.blocks.find(b => b.name === name)?.id ?? "";
     }
 
-    public addBlockByName(name: string, internalValues?: InternalDataStorageType[]): string {
-        let p: string;
-        if (this.isTest) {
-            p = path.resolve(__dirname, '__tests__', 'test_blocks', `${name}.json`);
-        } else {
-            // p = api.getFileDataPath(`blocks/${name}.json`);
-            p = path.join(this.filePath, `blocks/${name}.json`);
-        }
-        const b: Block = new Block(JSON.parse(fs.readFile(p)) as BlockStorageType);
-        const tempBlocks = this.blocks.filter(temp => temp.name.split("_")[0] === b.name)
-            .map(b => Number(b.name.split("_")[1]));
-        const tempIndex = findNextOrMissing(tempBlocks);
-        b.name += "_" + tempIndex;
-        b.internalData = internalValues !== undefined ? internalValues : [];
-        this.blocks.push(b);
-        return b.id;
-    }
-
-    public addBlock(block: BlockStorageType, internalValues?: InternalDataStorageType[]): string {
+    public addBlock(block: BlockStorageType): string {
         const b = new Block(block);
-        const tempBlocks = this.blocks.filter(temp => temp.name.split("_")[0] === b.name)
-            .map(b => Number(b.name.split("_")[1]));
-        const tempIndex = findNextOrMissing(tempBlocks);
-        b.name += "_" + tempIndex;
-        b.internalData = internalValues !== undefined ? internalValues : [];
         this.blocks.push(b);
         return b.id;
     }
 
-    public addEdge(outputBlock: string, outputPort: string, inputBlock: string, inputPort: string): void {
-        this.edges.push(new class implements Edge {
-            id = uuidv4();
-            inputBlock = inputBlock;
-            inputPort = inputPort;
-            outputBlock = outputBlock;
-            outputPort = outputPort;
-        })
+    public addEdge(edge: Edge): string {
+        this.edges.push(edge);
+        return edge.id;
     }
 
     public Transpose(): Graph {
@@ -135,8 +106,8 @@ export default class Graph {
 
         for (let o = 0; o < outputs.length; o++) {
             for (let i = 0; i < inputs.length; i++) {
-                const edgeOrDefault = this.edges.filter(e => e.outputBlock === outputs[o].parent.id &&
-                    e.inputBlock === inputs[i].parent.id)[0] || null;
+                const edgeOrDefault = this.edges.filter(e => e.outputBlock === outputs[o].parentId &&
+                    e.inputBlock === inputs[i].parentId)[0] || null;
                 retMatrix[i][o] = edgeOrDefault !== null ? 1 : 0;
             }
         }
@@ -315,24 +286,35 @@ export default class Graph {
         let t = 0.0;
         const compOrder = this.getCompileOrder().map(b => b.id);
         while (t <= T) {
-            compOrder.map(blockId => {
-                const block = this.blocks.find(b => b.id === blockId)!;
+            compOrder.forEach(blockId => {
+                const block = this.blocks.find(b => b.id === blockId);
 
-                const prevInputs = block.inputPorts.map(p => p.objectValue)!;
-                const prevOutputs = block.outputPorts.map(p => p.objectValue)!;
-                const inputs = block.inputPorts.map(p => {
-                    const edge = this.edges.find(e => e.inputBlock == block.id && e.inputPort == p.name)!;
-                    const outputBlock = this.blocks.find(b => b.id === edge.outputBlock)!;
-                    return outputBlock.outputPorts.find(p => p.name === edge.outputPort)!.objectValue;
-                });
+                if (block != undefined) {
+                    const prevInputs = block.inputPorts.map(p => p.objectValue);
+                    const prevOutputs = block.outputPorts.map(p => p.objectValue);
+                    const inputs = block.inputPorts.map(p => {
+                        const edge = this.edges.find(e => e.inputBlock == p.parentId && e.inputPort == p.id);
 
-                for (let i = 0; i < block.inputPorts.length; i++) {
-                    block.inputPorts[i].objectValue = inputs[i];
+                        if (edge !== undefined) {
+                            const outputBlock = this.blocks.find(b => b.id === edge.outputBlock);
+
+                            if (outputBlock != undefined) {
+                                const outputPort = outputBlock.outputPorts.find(p => p.id === edge.outputPort);
+                                if (outputPort !== undefined) {
+                                    return outputPort.objectValue;
+                                }
+                            }
+                        }
+                        return null;
+                    });
+
+                    for (let i = 0; i < block.inputPorts.length; i++) {
+                        block.inputPorts[i].objectValue = inputs[i];
+                    }
+
+                    block.compile(t, dT, prevInputs, prevOutputs, inputs);
                 }
-
-                //console.log("compiled:", block.name)
-                block.compile(t, dT, prevInputs, prevOutputs, inputs);
-            })
+            });
 
             t += dT;
         }

@@ -1,7 +1,7 @@
 import Port, {AcceptedPortTypes} from "./Port";
 import {BlockStorageType, InternalDataStorageType} from "./types/BlockStorage";
 
-type Callback = ((t: number, dt: number, prevInputs: unknown[], prevOutputs: unknown[], newInputs: unknown[], internalData: InternalDataStorageType[]) => unknown[]);
+type Callback = ((t: number, dt: number, prevInputs: unknown[], prevOutputs: unknown[], newInputs: unknown[]) => unknown[]);
 
 export default class Block {
     readonly id: string;
@@ -20,8 +20,8 @@ export default class Block {
         this.description = block.description;
         this.tags = block.tags;
         this.internalData = block.internalData;
-        this.inputPorts = block.inputPorts.map(portStorage => new Port(portStorage, this));
-        this.outputPorts = block.outputPorts.map(portStorage => new Port(portStorage, this));
+        this.inputPorts = block.inputPorts.map(portStorage => new Port(portStorage, this.id));
+        this.outputPorts = block.outputPorts.map(portStorage => new Port(portStorage, this.id));
         this.pseudoSource = block.pseudoSource === "true";
         this.callback = this.convertCallback(block.callback);
     }
@@ -40,8 +40,8 @@ export default class Block {
             const index = this.inputPorts.map((port) => port.name).indexOf(b);
             return `newInputs[${index}]`;
         });
-        callbackString = callbackString.replace(new RegExp("internalData\\[(\\w+)\\]","gm"), (a, b) => {
-            return `this.internalData.find(i => (i.id === "${b}" || i.name === "${b}"))?.value`;
+        callbackString = callbackString.replace(new RegExp("internalData\\[(\\b[0-9a-f]{8}\\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\\b[0-9a-f]{12}\\b)\\]","gm"), (a, b) => {
+            return `Number(this.internalData.find(i => i.id === "${b}").value)`;
         });
 
         let fn: Callback;
@@ -52,7 +52,7 @@ export default class Block {
     }
 
     compile(t: number, dt: number, prevInputs: unknown[], prevOutputs: unknown[], newInputs: unknown[]):void {
-        const newOutputs = this.callback(t, dt, prevInputs, prevOutputs, newInputs, this.internalData);
+        const newOutputs = this.callback(t, dt, prevInputs, prevOutputs, newInputs);
         for (let i=0; i<this.outputPorts.length; i++) {
             this.outputPorts[i].objectValue = newOutputs[i] as AcceptedPortTypes;
         }

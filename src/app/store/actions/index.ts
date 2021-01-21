@@ -16,7 +16,7 @@ import {
     DeselectAllBlocksActionType,
     ToggleSelectedBlockActionType,
     AddedEdgeActionType,
-    MirrorBlockActionType, DeleteBlockActionType
+    MirrorBlockActionType, DeleteBlockActionType, ChangedInternalDataActionType
 
 } from "../types/actionTypes";
 import {PointType} from "../../../shared/types";
@@ -129,5 +129,12 @@ export const DeleteBlockAction = (visualBlockId: string): ActionType => {
     return {
         type: DeleteBlockActionType,
         payload: {blockId: visualBlockId}
+    }
+}
+
+export const ChangedInternalDataAction = (blockId: string, internalDataId: string, value: any): ActionType => {
+    return {
+        type: ChangedInternalDataActionType,
+        payload: {blockId: blockId, internalDataId: internalDataId, value: value}
     }
 }

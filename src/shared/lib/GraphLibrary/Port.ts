@@ -1,22 +1,21 @@
-import Block from "./Block";
 import {PortStorageType} from "./types/BlockStorage";
 
 export enum PortTypes { string, number}
 export type AcceptedPortTypes = (string | number | null)
 
 export default class Port {
-    private readonly id: string;
+    public readonly id: string;
     public readonly name: string;
+    public readonly parentId: string;
     public readonly type: PortTypes;
-    public parent: Block;
     private _objectValue: AcceptedPortTypes;
 
-    constructor(portData: PortStorageType, parent: Block) {
+    constructor(portData: PortStorageType, parentId: string) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.id = portData["id"];
         this.name = portData["name"];
-        this.parent = parent;
+        this.parentId = parentId;
 
         switch (portData["type"]) {
             case PortTypes.number.toString():

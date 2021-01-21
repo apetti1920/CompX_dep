@@ -1,6 +1,6 @@
 import {ActionType, StateType} from "../types";
 import {
-    AddedBlockActionType, AddedEdgeActionType, DeleteBlockActionType,
+    AddedBlockActionType, AddedEdgeActionType, ChangedInternalDataActionType, DeleteBlockActionType,
     DeselectAllBlocksActionType, MirrorBlockActionType, MovedBlockActionType, ToggleSelectedBlockActionType
 } from "../types/actionTypes";
 import {PointType} from "../../../shared/types";
@@ -91,6 +91,13 @@ export default function (state: StateType, action: ActionType): StateType {
             })
             const index = tempState.graph.blocks.findIndex(b => b.id === action.payload['blockId']);
             tempState.graph.blocks.splice(index, 1);
+            return tempState;
+        }  case (ChangedInternalDataActionType): {
+            const tempState: StateType = _.cloneDeep(state);
+            const blockIndex = tempState.graph.blocks.findIndex(b => b.id === action.payload['blockId']);
+            const dataIndex = tempState.graph.blocks[blockIndex].blockStorage.internalData
+                .findIndex(i => i.id === action.payload['internalDataId']);
+            tempState.graph.blocks[blockIndex].blockStorage.internalData[dataIndex].value = action.payload['value'];
             return tempState;
         } default: {
             return _.cloneDeep(state);

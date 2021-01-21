@@ -10,14 +10,14 @@ process.on("message", (message: any) => {
     });
 
     visualGraph.edges.forEach((edge: Edge) => {
-        g1.addEdge(edge.outputBlock, edge.outputPort, edge.inputBlock, edge.inputPort)
+        g1.addEdge(edge);
     });
 
 
     if (g1.isValidGraph()) {
-        g1.run(10, 0.01);
+        g1.run(50, 0.01);
     } else {
-        console.log("fuck");
+        console.log("Not a Valid Graph");
     }
     process.send("here3");
     process.exit()

@@ -1,22 +1,32 @@
 // @flow
 import * as React from 'react';
-import {GraphVisualType, StateType} from "../../../../../store/types";
+import {GraphVisualType, MouseType, StateType} from "../../../../../store/types";
 import {bindActionCreators, Dispatch} from "redux";
 import {connect} from "react-redux";
-import {BlockStorageType} from "../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {
+    ChangedInternalDataAction
+} from "../../../../../store/actions";
+
+const _ = require('lodash');
 
 interface StateProps {
     graph: GraphVisualType
-    blockLibrary: BlockStorageType[]
 }
 
-type Props = StateProps
+interface DispatchProps {
+    onChangedInternalData: (blockId: string, internalDataId: string, value: any) => void
+}
 
-type State = undefined
+type Props = StateProps & DispatchProps
+
+type State = undefined;
 
 export class CanvasEdit extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
+    onInputChange = (e: React.ChangeEvent<HTMLInputElement>, blockId: string, internalDataId: string): void => {
+        const newValue = !isNaN(Number(e.target.value))?e.target.value:"0";
+        _.debounce(() => {
+            this.props.onChangedInternalData(blockId, internalDataId, newValue || "0");
+        }, 1500)()
     }
 
     render(): React.ReactNode {
@@ -32,32 +42,22 @@ export class CanvasEdit extends React.Component<Props, State> {
                                 <h1 style={{fontSize: "150%"}}>{this.props.graph.blocks[blockIndex].blockStorage.name
                                     .replace(/(^\w)|(\s+\w)/g,
                                         letter => letter.toUpperCase())}</h1>
-                                {/*<li>{item.id}*/}
-                                {/*    <ul>*/}
-                                {/*        {Object.keys(this.props.graph.blocks[blockIndex].blockStorage.internalData)*/}
-                                {/*            .map((key2, index2) => {*/}
-                                {/*            // eslint-disable-next-line @typescript-eslint/ban-ts-comment*/}
-                                {/*            // @ts-ignore*/}
-                                {/*            const defaultValue = tempGraph.blocks[blockIndex]*/}
-                                {/*                .blockStorage.internalData[key2];*/}
-                                {/*            return (*/}
-                                {/*                <React.Fragment/>*/}
-                                {/*                // <li key={index2}>*/}
-                                {/*                //     {key2}*/}
-                                {/*                //     <input type="text" defaultValue={defaultValue}*/}
-                                {/*                //            onChange={(e: ChangeEvent<HTMLInputElement>)=> {*/}
-                                {/*                //                e.preventDefault();*/}
-                                {/*                //                // eslint-disable-next-line @typescript-eslint/ban-ts-comment*/}
-                                {/*                //                // @ts-ignore*/}
-                                {/*                //                tempGraph.blocks[blockIndex].blockStorage*/}
-                                {/*                //                    .internalData[key2] = parseFloat(e.target.value);*/}
-                                {/*                //                e.stopPropagation();*/}
-                                {/*                //            }}/><br/><br/>*/}
-                                {/*                // </li>*/}
-                                {/*            )*/}
-                                {/*        })}*/}
-                                {/*    </ul>*/}
-                                {/*</li>*/}
+                                <form>
+                                    {
+                                        this.props.graph.blocks[blockIndex].blockStorage.internalData.map(intDat => {
+                                            return (
+                                                <label key={intDat.id + "_" + intDat.value}>
+                                                    {intDat.name}:
+                                                    <br/>
+                                                    <input type="text" name={intDat.name} defaultValue={intDat.value || '0'}
+                                                           onChange={(e)=>
+                                                               this.onInputChange(e, this.props.graph.blocks[blockIndex].id, intDat.id)} />
+                                                               <br/><br/>
+                                                </label>
+                                            )
+                                        })
+                                    }
+                                </form>
                             </div>
                         )
                     })}
@@ -69,10 +69,15 @@ export class CanvasEdit extends React.Component<Props, State> {
 
 function mapStateToProps(state: StateType): StateProps {
     return {
-        graph: state.graph,
-        blockLibrary: state.blockLibrary
+        graph: state.graph
     };
 }
 
+function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
+    return bindActionCreators({
+        onChangedInternalData: ChangedInternalDataAction
+    }, dispatch)
+}
 
-export default connect(mapStateToProps, null)(CanvasEdit)
+
+export default connect(mapStateToProps, mapDispatchToProps)(CanvasEdit)

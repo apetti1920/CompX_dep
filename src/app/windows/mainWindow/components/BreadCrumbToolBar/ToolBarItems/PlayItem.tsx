@@ -65,6 +65,8 @@ class PlayItem extends Component<StateProps, State> {
                     });
 
                     this.setState(tempState);
+                } else {
+                    this.setState({...this.state, clicked: false})
                 }
             }}>
                 {pathButton}
