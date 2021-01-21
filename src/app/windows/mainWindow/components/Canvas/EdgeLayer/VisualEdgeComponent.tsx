@@ -11,86 +11,40 @@ interface StateProps {
 }
 
 type ComponentProps = {
-    edge: EdgeVisualType
+    point1: PointType,
+    point2: PointType,
+    point1BlockMirrored?: boolean,
+    point2BlockMirrored?: boolean
 };
 
 type Props = StateProps & ComponentProps
 
-type State = {
-    inputBlock?: BlockVisualType,
-    outputBlock?: BlockVisualType
-};
+type State = never;
 
 class VisualEdgeComponent extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-
-        this.state = {
-            inputBlock: this.props.blocks.find(b => this.props.edge.inputBlockVisualID === b.id),
-            outputBlock: this.props.blocks.find(b => this.props.edge.outputBlockVisualID === b.id)
-        }
-    }
-
-    private getLineCommand() {
-        if (this.state.outputBlock === undefined || this.state.inputBlock === undefined) {
-            return "";
-        }
-
-        const outputPortIndex = this.state.outputBlock.blockStorage.outputPorts
-            .findIndex(port => (port.name === this.props.edge.outputPortID));
-        const inputPortIndex = this.state.inputBlock.blockStorage.inputPorts
-            .findIndex(port => port.name === this.props.edge.inputPortID);
-
-        const outputPoint = {
-            x: !this.state.outputBlock.mirrored?this.state.outputBlock.position.x + this.state.outputBlock.size.x:this.state.outputBlock.position.x,
-            y: this.state.outputBlock.position.y +
-                ((this.state.outputBlock.size.y / (this.state.outputBlock.blockStorage.outputPorts.length + 1)) *
-                    (outputPortIndex + 1))
-        };
-        const inputPoint = {
-            x: !this.state.inputBlock.mirrored?this.state.inputBlock.position.x:this.state.inputBlock.position.x+this.state.inputBlock.size.x,
-            y: this.state.inputBlock.position.y +
-                ((this.state.inputBlock.size.y / (this.state.inputBlock.blockStorage.inputPorts.length + 1)) *
-                    (inputPortIndex + 1))
-        };
-
-        console.log("here1")
-        if (this.state.outputBlock.mirrored === this.state.inputBlock.mirrored) {
-            let halfXOut: number; let halfXIn: number;
-            if (inputPoint.x > outputPoint.x) {
-                halfXOut = outputPoint.x + (Math.abs(inputPoint.x - outputPoint.x) / 2.0);
-                halfXIn = halfXOut;
-            } else {
-                halfXOut = outputPoint.x + (Math.abs(inputPoint.x - outputPoint.x) / 2.0);
-                halfXIn = inputPoint.x - (Math.abs(inputPoint.x - outputPoint.x) / 2.0);
-            }
-
-            return `M ${outputPoint.x}, ${outputPoint.y} 
-                             C ${halfXOut}, ${outputPoint.y} 
-                             ${halfXIn}, ${inputPoint.y} 
-                             ${inputPoint.x}, ${inputPoint.y}`;
-        } else if (this.state.inputBlock.mirrored) {
-            console.log("here");
-            const dist = Math.sqrt(((outputPoint.x - inputPoint.x) ** 2) + ((outputPoint.y - inputPoint.y) ** 2));
-            return `M ${outputPoint.x}, ${outputPoint.y} 
-                             Q ${outputPoint.x + dist} ${0.5 * (outputPoint.y + inputPoint.y)},
-                             ${inputPoint.x}, ${inputPoint.y}`;
+    getPath(): string {
+        //if ((this.props.point1BlockMirrored === undefined && this.props.point2BlockMirrored === undefined)) { //} ||
+            //(!this.props.point1BlockMirrored && !this.props.point2BlockMirrored)) {
+        if (this.props.point1.x < this.props.point2.x) {
+            const halfX = (this.props.point1.x + this.props.point2.x) / 2.0;
+            return `M ${this.props.point1.x} ${this.props.point1.y} H ${halfX} V ${this.props.point2.y} H ${this.props.point2.x}`;
         } else {
-            const dist = -Math.sqrt(((outputPoint.x - inputPoint.x) ** 2) + ((outputPoint.y - inputPoint.y) ** 2));
-            return `M ${outputPoint.x}, ${outputPoint.y} 
-                             C ${outputPoint.x + dist}, ${outputPoint.y} 
-                             ${inputPoint.x + dist}, ${inputPoint.y} 
-                             ${inputPoint.x}, ${inputPoint.y}`;
+            const dist = 8.0;
+            const halfY = (this.props.point2.y - this.props.point1.y) / 2.0;
+            return `M ${this.props.point1.x} ${this.props.point1.y} h ${dist} v ${halfY} h ${(this.props.point2.x - this.props.point1.x) - 2 * dist} v ${halfY} h ${dist}`;
         }
+        // } else if (this.props.point1BlockMirrored !== undefined && this.props.point2BlockMirrored !== undefined) {
+        //
+        // } else {
+        //     console.log("here2");
+        //     return "";
+        // }
     }
 
     render(): React.ReactNode {
+        const path = this.getPath();
         return (
-            <g style={{pointerEvents: "auto"}}
-               transform={`translate(${this.props.translate.x} ${this.props.translate.y})
-                                scale(${this.props.zoom.toString()} ${this.props.zoom.toString()})`}>
-                <path d={this.getLineCommand()} stroke="red" fill="none" strokeWidth="1"/>
-            </g>
+            <path d={path} fill="transparent" stroke="red"/>
         );
     }
 }

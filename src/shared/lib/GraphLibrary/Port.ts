@@ -51,6 +51,7 @@ export default class Port {
                 }
                 break;
         }
+        console.log(this.id);
         throw `Port value (${value}) must be type of type ${PortTypes[this.type]}`
     }
 

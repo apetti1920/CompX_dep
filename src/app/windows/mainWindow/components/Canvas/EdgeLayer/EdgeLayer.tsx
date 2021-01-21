@@ -7,6 +7,8 @@ import {VisualPortComponent} from "./VisualPortComponent";
 import {AddedEdgeAction, MouseAction} from "../../../../../store/actions";
 import {MouseDownType} from "../../types";
 import {getPortLineCommand, PortToPoint, ScreenToWorld} from "../../../../../utilities";
+import {PointType} from "../../../../../../shared/types";
+import VisualEdgeComponent from "./VisualEdgeComponent";
 
 
 interface StateProps {
@@ -82,18 +84,16 @@ class EdgeLayer extends React.Component<Props, State> {
     }
 
     render(): React.ReactNode {
-        let draggingEdge = <React.Fragment/>
+        let draggingEdge: React.ReactNode = <React.Fragment/>
         if (this.state.draggingFromPort !== undefined && this.props.canvas.mouse.mouseDownOn === MouseDownType.PORT) {
-            draggingEdge = (
-                <path d={getPortLineCommand(PortToPoint(this.state.draggingFromPort.blockId,
-                    this.state.draggingFromPort.portId), this.props.canvas.mouse.currentMouseLocation)}
-                      stroke="red" fill="none" strokeWidth="1"/>
-            );
+            draggingEdge = <VisualEdgeComponent
+                point1={PortToPoint(this.state.draggingFromPort.blockId, this.state.draggingFromPort.portId)}
+                point2={this.props.canvas.mouse.currentMouseLocation}/>
         }
 
         return (
             <div style={{width: "100%", height: "100%", position: "absolute", zIndex: 3,
-                pointerEvents: "none"}}>
+                pointerEvents: "none", cursor:this.state.draggingFromPort!==undefined?"crosshair":"grab"}}>
                 <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
                      style={{pointerEvents: this.state.draggingFromPort!==undefined?'auto':'none'}}
                      onMouseMove={this.mouseDragBetweenPorts} onMouseUp={this.mouseUpOnLayer}>
@@ -101,34 +101,59 @@ class EdgeLayer extends React.Component<Props, State> {
                     <g style={{pointerEvents: "none"}}
                        transform={`translate(${this.props.canvas.translation.x} ${this.props.canvas.translation.y}) 
                                    scale(${this.props.canvas.zoom.toString()} ${this.props.canvas.zoom.toString()})`}>
-                        {
-                            // Draw all ports
+                        {   // Draw all ports
                             this.props.graph.blocks.map(b => {
                                 return (
-                                    <VisualPortComponent key={b.id} block={b} zoom={this.props.canvas.zoom}
-                                                         translation={this.props.canvas.translation}
-                                                         mouseDownPort={this.mouseDownOnPort}
-                                                         mouseUpPort={this.mouseUpOnPort}/>
+                                    <g key={b.id}>
+                                        {
+                                            b.blockStorage.inputPorts.map(p => {
+                                                const keyId = "b_" + b.id + "_" + p.id;
+                                                return (
+                                                    <VisualPortComponent key={keyId} block={b} portId={p.id} zoom={this.props.canvas.zoom}
+                                                                         connectedPorts={this.props.graph.edges
+                                                                             .filter(e => e.outputBlockVisualID===b.id ||
+                                                                                 e.inputBlockVisualID===b.id)
+                                                                             .map(e => [e.outputPortID, e.inputPortID]).flat()}
+                                                                         translation={this.props.canvas.translation}
+                                                                         mouseDownPort={this.mouseDownOnPort}
+                                                                         mouseUpPort={this.mouseUpOnPort}/>
+                                                )
+                                            })
+                                        }
+                                        {
+                                            b.blockStorage.outputPorts.map(p => {
+                                                const keyId = "b_" + b.id + "_" + p.id;
+                                                return (
+                                                    <VisualPortComponent key={keyId} block={b} portId={p.id} zoom={this.props.canvas.zoom}
+                                                                         connectedPorts={this.props.graph.edges
+                                                                             .filter(e => e.outputBlockVisualID===b.id ||
+                                                                                 e.inputBlockVisualID===b.id)
+                                                                             .map(e => [e.outputPortID, e.inputPortID]).flat()}
+                                                                         translation={this.props.canvas.translation}
+                                                                         mouseDownPort={this.mouseDownOnPort}
+                                                                         mouseUpPort={this.mouseUpOnPort}/>
+                                                )
+                                            })
+                                        }
+                                    </g>
                                 )
-                            })
-                        }
+                            }) }
 
-                        {
-                            // Draw Dragging Edge
-                            draggingEdge
-                        }
+                        {   // Draw Dragging Edge
+                            draggingEdge }
 
 
-                        {
-                            // Draw all edges
+                        {   // Draw all edges
                             this.props.graph.edges.map(e => {
-                                return (
-                                    <path key={e.id} d={getPortLineCommand(PortToPoint(e.outputBlockVisualID, e.outputPortID),
-                                        PortToPoint(e.inputBlockVisualID, e.inputPortID))}
-                                          stroke="red" fill="none" strokeWidth="1"/>
-                                )
-                            })
-                        }
+                                const outputBlock = this.props.graph.blocks.find(b => b.id === e.outputBlockVisualID);
+                                const outputPort = outputBlock.blockStorage.outputPorts.find(p => p.id === e.outputPortID);
+                                const inputBlock = this.props.graph.blocks.find(b => b.id === e.inputBlockVisualID);
+                                const inputPort = inputBlock.blockStorage.inputPorts.find(p => p.id === e.inputPortID);
+                                return <VisualEdgeComponent key={e.id} point1={PortToPoint(outputBlock.id, outputPort.id)}
+                                                            point2={PortToPoint(inputBlock.id, inputPort.id)}
+                                                            point1BlockMirrored={outputBlock.mirrored}
+                                                            point2BlockMirrored={inputBlock.mirrored} />
+                            }) }
                     </g>
                 </svg>
             </div>

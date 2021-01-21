@@ -21,3 +21,4 @@ export const AddedBlockActionType = `@@${GraphReducerName}/ADDED_BLOCK`;
 export const AddedEdgeActionType = `@@${GraphReducerName}/ADDED_EDGE`;
 export const DeselectAllBlocksActionType = `@@${GraphReducerName}/DESELECT_ALL_BLOCKS`;
 export const MirrorBlockActionType = `@@${GraphReducerName}/MIRROR_BLOCK`;
+export const DeleteBlockActionType = `@@${GraphReducerName}/DELETE_BLOCK`;

@@ -9,13 +9,11 @@ process.on("message", (message: any) => {
         g1.addBlock(block);
     });
 
-
     visualGraph.edges.forEach((edge: Edge) => {
         g1.addEdge(edge.outputBlock, edge.outputPort, edge.inputBlock, edge.inputPort)
     });
 
-    console.log(g1);
-    console.log(g1.isValidGraph())
+
     if (g1.isValidGraph()) {
         g1.run(10, 0.01);
     } else {

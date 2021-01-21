@@ -5,7 +5,7 @@ import {ScreenToWorld} from "../../../../../utilities";
 import {bindActionCreators, Dispatch} from "redux";
 import {
     AddedBlockAction,
-    ClickedSidebarButtonAction,
+    ClickedSidebarButtonAction, DeleteBlockAction,
     MirrorBlockAction,
     ToggleSelectedBlockAction
 } from "../../../../../store/actions";
@@ -24,6 +24,7 @@ interface StateProps {
 
 interface DispatchProps {
     onAddedBlock: (blockStorageId: string, position: PointType, size: PointType) => void,
+    onDeletedBlock: (blockStorageId: string) => void,
     clickedButton: (buttonGroup: number, buttonId: number) => void,
     onToggleBlockSelection: (visualBlockId: string, selected: boolean) => void,
     onMirrorBlock: (visualBlockId: string) => void
@@ -111,23 +112,8 @@ class BlockLayer extends React.Component<Props, State> {
             {
                 icon: <Delete height="100%" style={{flexGrow: 1}}/>, name: "Delete",
                 action: () => {
-                    console.log("Clicked");
                     const tmpState = {...this.state};
-                    // const tmpProps = {...this.props};
-                    // const graph = tmpProps.graph;
-                    //
-                    // const delBlockInd = graph.blocks.findIndex(block => block.id === blockID);
-                    // const delBlock = graph.blocks[delBlockInd];
-                    // delBlock.blockStorage.outputPorts.forEach(port => {
-                    //     graph.edges = graph.edges.filter(edge => !(edge.outputBlockVisualID === delBlock.id &&
-                    //         edge.outputPortID === port.name));
-                    // })
-                    // delBlock.blockStorage.inputPorts.forEach(port => {
-                    //     graph.edges = graph.edges.filter(edge => !(edge.inputBlockVisualID === delBlock.id &&
-                    //         edge.inputPortID === port.name));
-                    // })
-                    // graph.blocks = graph.blocks.filter(block => block.id !== blockID);
-                    // tmpProps.onUpdatedGraph(graph);
+                    this.props.onDeletedBlock(blockID);
                     tmpState.contextMenu = undefined;
                     this.setState(tmpState);
                 }
@@ -167,6 +153,7 @@ function mapStateToProps(state: StateType): StateProps {
 function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
     return bindActionCreators({
         onAddedBlock: AddedBlockAction,
+        onDeletedBlock: DeleteBlockAction,
         clickedButton: ClickedSidebarButtonAction,
         onToggleBlockSelection: ToggleSelectedBlockAction,
         onMirrorBlock: MirrorBlockAction

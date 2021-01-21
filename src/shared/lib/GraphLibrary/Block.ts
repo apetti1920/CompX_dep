@@ -1,7 +1,7 @@
 import Port, {AcceptedPortTypes} from "./Port";
 import {BlockStorageType, InternalDataStorageType} from "./types/BlockStorage";
 
-type Callback = ((t: number, dt: number, prevInputs: unknown[], prevOutputs: unknown[], newInputs: unknown[]) => unknown[]);
+type Callback = ((t: number, dt: number, prevInputs: unknown[], prevOutputs: unknown[], newInputs: unknown[], internalData: InternalDataStorageType[]) => unknown[]);
 
 export default class Block {
     readonly id: string;
@@ -41,18 +41,18 @@ export default class Block {
             return `newInputs[${index}]`;
         });
         callbackString = callbackString.replace(new RegExp("internalData\\[(\\w+)\\]","gm"), (a, b) => {
-            return `this.internalData.get("${b}")`;
+            return `this.internalData.find(i => (i.id === "${b}" || i.name === "${b}"))?.value`;
         });
 
         let fn: Callback;
-        eval(`fn = (t, dt, prevInputs, prevOutputs, newInputs) => {${callbackString}}`)
+        eval(`fn = (function(t, dt, prevInputs, prevOutputs, newInputs){${callbackString}}).bind(this);`);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         return fn;
     }
 
     compile(t: number, dt: number, prevInputs: unknown[], prevOutputs: unknown[], newInputs: unknown[]):void {
-        const newOutputs = this.callback(t, dt, prevInputs, prevOutputs, newInputs);
+        const newOutputs = this.callback(t, dt, prevInputs, prevOutputs, newInputs, this.internalData);
         for (let i=0; i<this.outputPorts.length; i++) {
             this.outputPorts[i].objectValue = newOutputs[i] as AcceptedPortTypes;
         }

@@ -35,7 +35,8 @@ type ComponentProps = {
 type Props = StateProps & DispatchProps & ComponentProps
 
 type State = {
-    didMove: boolean
+    didMove: boolean,
+    isResizeHovering: boolean
 }
 
 class VisualBlockComponent extends React.Component<Props, State> {
@@ -46,7 +47,8 @@ class VisualBlockComponent extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            didMove: false
+            didMove: false,
+            isResizeHovering: false
         }
     }
 
@@ -106,16 +108,29 @@ class VisualBlockComponent extends React.Component<Props, State> {
             dragComponents = (
                 <g>
                     <rect x={this.props.block.position.x - 1} y={this.props.block.position.y - 1}
-                          width={this.cornerRadius} height={this.cornerRadius} fill="red"/>
+                          width={this.cornerRadius} height={this.cornerRadius} fill="red"
+                          style={{cursor:this.state.isResizeHovering?"crosshair":"auto"}}
+                          onMouseEnter={() => {this.setState({...this.state, isResizeHovering: true})}}
+                          onMouseLeave={() => {this.setState({...this.state, isResizeHovering: false})}}
+                          onClick={() => {console.log("clicked")}}/>
                     <rect x={this.props.block.position.x + this.props.block.size.x - this.cornerRadius + 1 }
                           y={this.props.block.position.y - 1}
-                          width={this.cornerRadius} height={this.cornerRadius} fill="red"/>
+                          style={{cursor:this.state.isResizeHovering?"crosshair":"auto"}}
+                          width={this.cornerRadius} height={this.cornerRadius} fill="red"
+                          onMouseEnter={() => {this.setState({...this.state, isResizeHovering: true})}}
+                          onMouseLeave={() => {this.setState({...this.state, isResizeHovering: false})}}/>
                     <rect x={this.props.block.position.x - 1}
                           y={this.props.block.position.y  + this.props.block.size.y - this.cornerRadius + 1}
-                          width={this.cornerRadius} height={this.cornerRadius} fill="red"/>
+                          width={this.cornerRadius} height={this.cornerRadius} fill="red"
+                          style={{cursor:this.state.isResizeHovering?"crosshair":"auto"}}
+                          onMouseEnter={() => {this.setState({...this.state, isResizeHovering: true})}}
+                          onMouseLeave={() => {this.setState({...this.state, isResizeHovering: false})}}/>
                     <rect x={this.props.block.position.x  + this.props.block.size.x - this.cornerRadius + 1}
                           y={this.props.block.position.y  + this.props.block.size.y - this.cornerRadius + 1}
-                          width={this.cornerRadius} height={this.cornerRadius} fill="red"/>
+                          width={this.cornerRadius} height={this.cornerRadius} fill="red"
+                          style={{cursor:this.state.isResizeHovering?"crosshair":"auto"}}
+                          onMouseEnter={() => {this.setState({...this.state, isResizeHovering: true})}}
+                          onMouseLeave={() => {this.setState({...this.state, isResizeHovering: false})}}/>
                 </g>
             )
         }

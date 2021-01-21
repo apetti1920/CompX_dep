@@ -13,16 +13,17 @@
     <list default="true" id="e7953432-bfcc-4650-a923-43f7ea8791ce" name="Default Changelist" comment="Initial Commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/store/actions/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/actions/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/store/reducers/canvasReducers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/reducers/canvasReducers.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/store/reducers/graphReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/reducers/graphReducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/store/types/actionTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/types/actionTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/utilities/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/utilities/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/BlockLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/BlockLayer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/VisualBlockComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/VisualBlockComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/Canvas.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/Canvas.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/EdgeLayer/EdgeLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/EdgeLayer/EdgeLayer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/EdgeLayer/VisualEdgeComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/EdgeLayer/VisualEdgeComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/EdgeLayer/VisualPortComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/EdgeLayer/VisualPortComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Sidebar/SidebarButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Sidebar/SidebarButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Block.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Block.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Port.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Port.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/helpers/ModelChildProcess.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/helpers/ModelChildProcess.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -258,6 +259,9 @@
       <workItem from="1610825682627" duration="7146000" />
       <workItem from="1610834460892" duration="1206000" />
       <workItem from="1610938528962" duration="6219000" />
+      <workItem from="1610991985542" duration="47000" />
+      <workItem from="1611021284025" duration="6852000" />
+      <workItem from="1611169589891" duration="8140000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1599160068442</created>
@@ -312,26 +316,26 @@
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="586" y="399" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.25.1680.1025@0.25.1680.1025" timestamp="1608940635160" />
-    <state width="1659" height="199" key="GridCell.Tab.0.bottom" timestamp="1610952955106">
+    <state width="1659" height="199" key="GridCell.Tab.0.bottom" timestamp="1611207098262">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
-    <state width="1659" height="199" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1610952955106" />
-    <state width="1659" height="199" key="GridCell.Tab.0.center" timestamp="1610952955105">
+    <state width="1659" height="199" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1611207098262" />
+    <state width="1659" height="199" key="GridCell.Tab.0.center" timestamp="1611207098261">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
-    <state width="1659" height="199" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1610952955105" />
-    <state width="1659" height="199" key="GridCell.Tab.0.left" timestamp="1610952955105">
+    <state width="1659" height="199" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1611207098261" />
+    <state width="1659" height="199" key="GridCell.Tab.0.left" timestamp="1611207098260">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304620" />
-    <state width="1659" height="199" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1610952955105" />
-    <state width="1659" height="199" key="GridCell.Tab.0.right" timestamp="1610952955105">
+    <state width="1659" height="199" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1611207098260" />
+    <state width="1659" height="199" key="GridCell.Tab.0.right" timestamp="1611207098261">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1638" height="201" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1604935304621" />
-    <state width="1659" height="199" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1610952955105" />
+    <state width="1659" height="199" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1611207098261" />
     <state width="1638" height="342" key="GridCell.Tab.1.bottom" timestamp="1610552971673">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
@@ -400,11 +404,11 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="341" y="175" key="SettingsEditor/0.23.1680.1027@0.23.1680.1027" timestamp="1603847164170" />
-    <state x="538" y="292" width="604" height="547" key="find.popup" timestamp="1609292297452">
+    <state x="538" y="292" width="604" height="547" key="find.popup" timestamp="1611026617183">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="538" y="291" width="604" height="548" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1603936126194" />
-    <state x="538" y="292" width="604" height="547" key="find.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1609292297452" />
+    <state x="538" y="292" width="604" height="547" key="find.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1611026617183" />
     <state x="221" y="252" width="670" height="675" key="search.everywhere.popup" timestamp="1610389493736">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>

@@ -42,7 +42,9 @@ export function PortToPoint(blockId: string, portId: string): PointType {
     return {x: xPos, y: yPos};
 }
 
-export function getPortLineCommand(outputPoint: PointType, inputPoint: PointType): string {
+export function getPortLineCommand(outputPoint: PointType, inputPoint: PointType,
+                                   outputPointMirrored: boolean, inputPointMirrored: boolean): string
+{
     let halfXOut: number; let halfXIn: number;
     if (inputPoint.x > outputPoint.x) {
         halfXOut = outputPoint.x + (Math.abs(inputPoint.x - outputPoint.x) / 2.0);
@@ -52,8 +54,15 @@ export function getPortLineCommand(outputPoint: PointType, inputPoint: PointType
         halfXIn = inputPoint.x - (Math.abs(inputPoint.x - outputPoint.x) / 2.0);
     }
 
-    return `M ${outputPoint.x}, ${outputPoint.y} 
+    if (outputPointMirrored === inputPointMirrored) {
+        return `M ${outputPoint.x}, ${outputPoint.y} 
                              C ${halfXOut}, ${outputPoint.y} 
                              ${halfXIn}, ${inputPoint.y} 
                              ${inputPoint.x}, ${inputPoint.y}`;
+    } else {
+        return `M ${outputPoint.x}, ${outputPoint.y} 
+                             Q ${-(halfXIn + halfXOut)/ 2.0}, ${inputPoint.y} 
+                             ${inputPoint.x}, ${inputPoint.y}`;
+    }
+
 }
