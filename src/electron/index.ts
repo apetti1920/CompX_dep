@@ -16,13 +16,13 @@ class Main {
 
     public init(ipcChannels: IpcChannelInterface[]) {
         // Handle creating/removing shortcuts on Windows when installing/uninstalling.
-        if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
+        if (require('electron-squirrel-startup')) {
             app.quit();
         }
 
+        app.on('activate', this.onActivateWindow);
         app.on('ready', this.onCreateWindow);
         app.on('window-all-closed', Main.onCloseWindow);
-        app.on('activate', this.onActivateWindow);
 
         this.registerIpcChannels(ipcChannels);
     }
@@ -32,13 +32,13 @@ class Main {
         this.mainWindow = new BrowserWindow({
             width: 1000,
             height: 750,
-            icon: __dirname + "/logo.ico",
             webPreferences: {
                 nodeIntegration: true
             }
         });
 
-        this.mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY).then(() => { // MAIN_WINDOW_WEBPACK_ENTRY
+        console.log(MAIN_WINDOW_WEBPACK_ENTRY);
+        this.mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY).then(() => {
             // disableZoom(mainWindow);
         });
 
@@ -53,17 +53,23 @@ class Main {
             });
         }
     }
+
     private static onCloseWindow() {
+        console.log("here2");
         if (process.platform !== 'darwin') {
             app.quit();
         }
     }
+
     private onActivateWindow() {
+        console.log("here3");
         if (BrowserWindow.getAllWindows().length === 0 || !this.mainWindow) {
             this.onCreateWindow();
         }
     }
+
     private registerIpcChannels(ipcChannels: IpcChannelInterface[]) {
+        console.log("here4");
         ipcChannels.forEach(channel => ipcMain.on(channel.getName(), (event, request) => channel.handle(event, request)));
     }
 }

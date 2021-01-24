@@ -12,14 +12,14 @@
     "resolveJsonModule": true,
     "downlevelIteration": true,
     "target": "es5",
+    "jsx": "react",
     "lib": [
       "es2019",
       "dom"
     ],
     "paths": {
       "*": ["node_modules/*"]
-    },
-    "jsx": "react"
+    }
   },
   "include": [
     "src/**/*"

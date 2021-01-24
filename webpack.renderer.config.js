@@ -1,5 +1,6 @@
 const rules = require('./webpack.rules');
 const plugins = require('./webpack.plugins');
+const path = require('path');
 
 module.exports = {
   module: {
@@ -9,5 +10,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css']
   },
-  watch: true
+  watch: true,
+  devServer: {
+    compress: true,
+    hot: true
+  }
 };

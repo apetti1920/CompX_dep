@@ -1,7 +1,6 @@
 import {PointType} from "../../shared/types";
 import * as d3 from "d3";
 import store from '../store'
-import {PortStorageType} from "../../shared/lib/GraphLibrary/types/BlockStorage";
 
 /* Utility function to convert on screen mouse coordinates to canvas coordinates*/
 export function ScreenToWorld(point: PointType, translation: PointType, zoom: number): PointType {
