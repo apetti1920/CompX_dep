@@ -13,7 +13,6 @@ import {
 import {connect} from "react-redux";
 import {ScreenToWorld} from "../../../../../utilities";
 import {MouseDownType} from "../../types";
-import {ContextMenu} from "../../ComponentUtils/ContextMenu";
 
 interface StateProps {
     canvas: CanvasType,
@@ -102,6 +101,24 @@ class VisualBlockComponent extends React.Component<Props, State> {
         e.stopPropagation();
     };
 
+    updatedDisplayRenderer = (): string => {
+        const ans = this.props.block.blockStorage.display
+            .replace(new RegExp("<g>([\\s\\S]*)</g>","gm"), (a, b) =>
+            {
+            let temp: string = b;
+
+            const yPct = (100 / this.props.block.blockStorage.inputPorts.length).toString() + "%";
+            console.log(yPct);
+            for (let i=0; i<this.props.block.blockStorage.inputPorts.length; i++) {
+                temp += '<text x={!this.props.block.mirrored?"95%":"5%"} y={yPct*(index+1)} ' +
+                    'dominantBaseline="middle" textAnchor="middle" ' +
+                    'style={{font: "italic 3px sans-serif"}}>{this.props.block}</text>';
+            }
+            return temp
+        });
+        return "<g>" + ans + "</g>";
+    }
+
     render(): React.ReactNode {
         let dragComponents = <React.Fragment/>
         if (this.props.block.selected) {
@@ -135,6 +152,8 @@ class VisualBlockComponent extends React.Component<Props, State> {
             )
         }
 
+        this.updatedDisplayRenderer();
+
         return (
             <g style={{pointerEvents: "none"}}
                transform={`translate(${this.props.canvas.translation.x} ${this.props.canvas.translation.y})
@@ -155,7 +174,7 @@ class VisualBlockComponent extends React.Component<Props, State> {
                      y={this.props.block.position.y + this.margin.top} rx={this.cornerRadius}
                      width={this.props.block.size.x - this.margin.left - this.margin.right}
                      height={this.props.block.size.y - this.margin.top - this.margin.bottom}>
-                    <JsxParser jsx={this.props.block.blockStorage.display} renderInWrapper={false}/>
+                    <JsxParser jsx={this.updatedDisplayRenderer()} renderInWrapper={false}/>
                 </svg>
             </g>
         );
