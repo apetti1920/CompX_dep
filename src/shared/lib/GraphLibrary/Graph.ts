@@ -1,13 +1,7 @@
-import { v4 as uuidv4 } from 'uuid';
-import path from "path";
-
 import Block from "./Block";
 import Edge from "./Edge";
-import {findNextOrMissing, Zeros} from "./helpers/utils";
-import {BlockStorageType, InternalDataStorageType} from "./types/BlockStorage";
-import {EdgeVisualType} from "../../../app/store/types";
-
-const fs = require('fs')
+import {Zeros} from "./helpers/utils";
+import {BlockStorageType} from "./types/BlockStorage";
 
 
 export enum EdgeType {
@@ -282,10 +276,13 @@ export default class Graph {
         return compileOrder;
     }
 
-    public run(T: number, dT: number): void {
+    public run(T: number, dT: number, process?: NodeJS.Process): void {
         let t = 0.0;
         const compOrder = this.getCompileOrder().map(b => b.id);
+        let displayData: Map<string, unknown[]>;
+
         while (t <= T) {
+            if (process !== undefined) { displayData = new Map<string, unknown[]>(); }
             compOrder.forEach(blockId => {
                 const block = this.blocks.find(b => b.id === blockId);
 
@@ -312,10 +309,14 @@ export default class Graph {
                         block.inputPorts[i].objectValue = inputs[i];
                     }
 
-                    block.compile(t, dT, prevInputs, prevOutputs, inputs);
+                    block.compile(t, dT, prevInputs, prevOutputs, inputs, displayData);
                 }
             });
 
+            //Update the process
+            if (process !== undefined && displayData !== undefined) {
+                process.send({cmd: "display_data", data: {"time": t, "data": displayData}});
+            }
             t += dT;
         }
     }

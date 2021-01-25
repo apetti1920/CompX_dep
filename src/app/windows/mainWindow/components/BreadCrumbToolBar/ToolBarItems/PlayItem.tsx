@@ -62,6 +62,8 @@ class PlayItem extends Component<StateProps, State> {
                                 }),
                                 edges: edges
                             }
+                    }).then((obj: any) => {
+                        console.log(obj);
                     });
 
                     this.setState(tempState);

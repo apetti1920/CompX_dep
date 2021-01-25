@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<block xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="block.xsd">
+    <id>3dc09f18-0c5d-4684-b3a4-3bbd4fbf3b37</id>
+    <version>
+        <major>0</major>
+        <technical>0</technical>
+        <editorial>1</editorial>
+    </version>
+    <thumbnail>https://picsum.photos/id/1002/75</thumbnail>
+    <name>Integral</name>
+    <description>A discrete time integration</description>
+    <tags>
+        <tag>Math</tag>
+    </tags>
+    <internalData>
+        <data>
+            <id>bae46021-fc04-42c8-9541-57d73427c04a</id>
+            <name>ic</name>
+            <type>number</type>
+            <value>0</value>
+        </data>
+    </internalData>
+    <inputPorts>
+        <port>
+            <id>38ba6c97-3413-43c2-925d-5d9f5b235c68</id>
+            <name>x</name>
+            <type>number</type>
+        </port>
+    </inputPorts>
+    <outputPorts>
+        <port>
+            <id>a2df1900-5f0f-413b-bf1d-7327f3f80382</id>
+            <name>z</name>
+            <type>number</type>
+        </port>
+    </outputPorts>
+    <pseudoSource>true</pseudoSource>
+    <display>
+        <![CDATA[
+            <g>
+                <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" style={{font: "italic 6px sans-serif"}}>Integral</text>
+            </g>
+        ]]>
+    </display>
+    <callback>if (t===0.0){return [internalData[bae46021-fc04-42c8-9541-57d73427c04a]]}else{return [prevOutputs[z]+(dt*0.5*(inputPort[x]+(prevInputs[x]!==null?prevInputs[x]:internalData[bae46021-fc04-42c8-9541-57d73427c04a])))]}</callback>
+</block>

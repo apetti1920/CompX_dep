@@ -1,7 +1,7 @@
 import Port, {AcceptedPortTypes} from "./Port";
 import {BlockStorageType, InternalDataStorageType} from "./types/BlockStorage";
 
-type Callback = ((t: number, dt: number, prevInputs: unknown[], prevOutputs: unknown[], newInputs: unknown[]) => unknown[]);
+type Callback = ((t: number, dt: number, prevInputs: unknown[], prevOutputs: unknown[], newInputs: unknown[], displayData?: Map<string, unknown[]>) => unknown[]);
 
 export default class Block {
     readonly id: string;
@@ -43,16 +43,20 @@ export default class Block {
         callbackString = callbackString.replace(new RegExp("internalData\\[(\\b[0-9a-f]{8}\\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\\b[0-9a-f]{12}\\b)\\]","gm"), (a, b) => {
             return `Number(this.internalData.find(i => i.id === "${b}").value)`;
         });
+        callbackString = callbackString.replace(new RegExp("display\\s*{([\\s\\S]*)}","gm"), (a, b) => {
+            return `if (displayData !== undefined) {displayData["${this.id}"]=${b}}`;
+        });
 
         let fn: Callback;
-        eval(`fn = (function(t, dt, prevInputs, prevOutputs, newInputs){${callbackString}}).bind(this);`);
+        eval(`fn = (function(t, dt, prevInputs, prevOutputs, newInputs, displayData){${callbackString}}).bind(this);`);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         return fn;
     }
 
-    compile(t: number, dt: number, prevInputs: unknown[], prevOutputs: unknown[], newInputs: unknown[]):void {
-        const newOutputs = this.callback(t, dt, prevInputs, prevOutputs, newInputs);
+    compile(t: number, dt: number, prevInputs: unknown[], prevOutputs: unknown[], newInputs: unknown[],
+            displayData?: Map<string, unknown[]>): void {
+        const newOutputs = this.callback(t, dt, prevInputs, prevOutputs, newInputs, displayData);
         for (let i=0; i<this.outputPorts.length; i++) {
             this.outputPorts[i].objectValue = newOutputs[i] as AcceptedPortTypes;
         }

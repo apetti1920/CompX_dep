@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<block xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="block.xsd">
+    <id>38388158-ba6e-4de9-96ce-c286ff377de9</id>
+    <version>
+        <major>0</major>
+        <technical>0</technical>
+        <editorial>1</editorial>
+    </version>
+    <thumbnail>https://picsum.photos/id/1004/75</thumbnail>
+    <name>Sin</name>
+    <description>A sine wave changing with time</description>
+    <tags>
+        <tag>Math</tag>
+    </tags>
+    <internalData>
+        <data>
+            <id>bd1a9549-467c-4f75-84a2-745a75a8bfa3</id>
+            <name>Angular Frequency</name>
+            <type>number</type>
+            <value>1</value>
+        </data>
+        <data>
+            <id>db85fd13-b73b-4471-95a1-f341aadf57e9</id>
+            <name>Phase</name>
+            <type>number</type>
+            <value>0</value>
+        </data>
+    </internalData>
+    <outputPorts>
+        <port>
+            <id>3959212c-d1f2-45dd-b210-c91b46a67445</id>
+            <name>z</name>
+            <type>number</type>
+        </port>
+    </outputPorts>
+    <pseudoSource>false</pseudoSource>
+    <display>
+        <![CDATA[
+            <g>
+                <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" style={{font: "italic 6px sans-serif"}}>Sine</text>
+            </g>
+        ]]>
+    </display>
+    <callback>return [Math.sin(internalData[bd1a9549-467c-4f75-84a2-745a75a8bfa3]*t+internalData[db85fd13-b73b-4471-95a1-f341aadf57e9])];</callback>
+</block>

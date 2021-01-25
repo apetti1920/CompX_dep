@@ -12,6 +12,7 @@ const getFileDataPath = (objPath?: string): string => {
     }
 
     objPath = objPath ?? "";
+    console.log(path.join(userDataPath, ...objPath.split('/')));
     return path.join(userDataPath, ...objPath.split('/'));
 }
 

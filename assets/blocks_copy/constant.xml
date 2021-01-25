@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<block xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="block.xsd">
+    <id>57d376e8-c4a1-4a91-bee2-c2bf2acf138a</id>
+    <version>
+        <major>0</major>
+        <technical>0</technical>
+        <editorial>1</editorial>
+    </version>
+    <thumbnail>https://picsum.photos/id/1000/75</thumbnail>
+    <name>Constant</name>
+    <description>A constant value over time</description>
+    <tags>
+        <tag>Math</tag>
+    </tags>
+    <internalData>
+        <data>
+            <id>886458d2-66f6-4146-9c4c-30fc85976202</id>
+            <name>Constant Value</name>
+            <type>number</type>
+            <value>0</value>
+        </data>
+    </internalData>
+    <outputPorts>
+        <port>
+            <id>0410fd03-484d-4d19-bcd4-8795be220f79</id>
+            <name>z</name>
+            <type>number</type>
+        </port>
+    </outputPorts>
+    <pseudoSource>false</pseudoSource>
+    <display>
+        <![CDATA[
+            <g>
+                <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" style={{font: "italic 6px sans-serif"}}>Constant</text>
+            </g>
+        ]]>
+    </display>
+    <callback>return [internalData[886458d2-66f6-4146-9c4c-30fc85976202]];</callback>
+</block>

@@ -107,13 +107,23 @@ class VisualBlockComponent extends React.Component<Props, State> {
             {
             let temp: string = b;
 
-            const yPct = (100 / this.props.block.blockStorage.inputPorts.length).toString() + "%";
-            console.log(yPct);
-            for (let i=0; i<this.props.block.blockStorage.inputPorts.length; i++) {
-                temp += '<text x={!this.props.block.mirrored?"95%":"5%"} y={yPct*(index+1)} ' +
-                    'dominantBaseline="middle" textAnchor="middle" ' +
-                    'style={{font: "italic 3px sans-serif"}}>{this.props.block}</text>';
+            if (this.props.block.blockStorage.inputPorts.length > 0) {
+                const yPct = 100.0 / (this.props.block.blockStorage.inputPorts.length + 1);
+                for (let i=0; i<this.props.block.blockStorage.inputPorts.length; i++) {
+                    temp += `<text x="${!this.props.block.mirrored?"7%":"93%"}" y="${(yPct*(i+1)).toString() + "%"}" 
+                                dominantBaseline="middle" textAnchor="middle" 
+                                style={{font: "italic 3px sans-serif"}}>${this.props.block.blockStorage.inputPorts[i].name}</text>`;
+                }
             }
+                if (this.props.block.blockStorage.outputPorts.length > 0) {
+                    const yPct = 100.0 / (this.props.block.blockStorage.outputPorts.length + 1);
+                    for (let i=0; i<this.props.block.blockStorage.outputPorts.length; i++) {
+                        temp += `<text x="${!this.props.block.mirrored?"93%":"7%"}" y="${(yPct*(i+1)).toString() + "%"}" 
+                                    dominantBaseline="middle" textAnchor="middle" 
+                                    style={{font: "italic 3px sans-serif"}}>${this.props.block.blockStorage.outputPorts[i].name}</text>`;
+                    }
+                }
+
             return temp
         });
         return "<g>" + ans + "</g>";

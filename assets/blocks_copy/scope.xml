@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<block xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="block.xsd">
+    <id>720fcd99-c7d2-4387-8d23-9e51eabcb4e0</id>
+    <version>
+        <major>0</major>
+        <technical>0</technical>
+        <editorial>1</editorial>
+    </version>
+    <thumbnail>https://picsum.photos/id/1003/75</thumbnail>
+    <name>Scope</name>
+    <description>A data viewer</description>
+    <tags>
+        <tag>Math</tag>
+    </tags>
+    <inputPorts>
+        <port>
+            <id>9ba5f457-9f71-435a-8d0a-be8fe95300e9</id>
+            <name>x</name>
+            <type>number</type>
+        </port>
+    </inputPorts>
+    <pseudoSource>false</pseudoSource>
+    <display>
+        <![CDATA[
+            <g>
+                <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" style={{font: "italic 6px sans-serif"}}>Scope</text>
+            </g>
+        ]]>
+    </display>
+    <callback>console.log(inputPort[x]); return [];</callback>
+</block>

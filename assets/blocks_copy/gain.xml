@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<block xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="block.xsd">
+    <id>42b75e85-805e-4b40-8145-b4f33ef58a30</id>
+    <version>
+        <major>0</major>
+        <technical>0</technical>
+        <editorial>1</editorial>
+    </version>
+    <thumbnail>https://picsum.photos/id/1001/75</thumbnail>
+    <name>Gain</name>
+    <description>A constant multiplier over time</description>
+    <tags>
+        <tag>Math</tag>
+    </tags>
+    <internalData>
+        <data>
+            <id>cfb547e5-533f-48dd-8cc3-ab53b7bbd8cc</id>
+            <name>gain</name>
+            <type>number</type>
+            <value>1</value>
+        </data>
+    </internalData>
+    <inputPorts>
+        <port>
+            <id>efe3a5b9-331b-42c8-baae-49e40b8474b9</id>
+            <name>x</name>
+            <type>number</type>
+        </port>
+    </inputPorts>
+    <outputPorts>
+        <port>
+            <id>606af56f-49d6-4b6c-8206-4e7f35092539</id>
+            <name>z</name>
+            <type>number</type>
+        </port>
+    </outputPorts>
+    <pseudoSource>false</pseudoSource>
+    <display>
+        <![CDATA[
+            <g>
+                <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" style={{font: "italic 6px sans-serif"}}>Gain</text>
+            </g>
+        ]]>
+    </display>
+    <callback>return [internalData[cfb547e5-533f-48dd-8cc3-ab53b7bbd8cc]*inputPort[x]];</callback>
+</block>

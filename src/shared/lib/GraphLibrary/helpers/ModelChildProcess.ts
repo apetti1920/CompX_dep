@@ -13,12 +13,11 @@ process.on("message", (message: any) => {
         g1.addEdge(edge);
     });
 
-
     if (g1.isValidGraph()) {
-        g1.run(50, 0.01);
+        g1.run(50, 0.01, process);
     } else {
         console.log("Not a Valid Graph");
     }
-    process.send("here3");
+
     process.exit()
 });

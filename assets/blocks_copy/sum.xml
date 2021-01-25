@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<block xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="block.xsd">
+    <id>126a376d-13fa-4ce2-81d1-cb364204cfea</id>
+    <version>
+        <major>0</major>
+        <technical>0</technical>
+        <editorial>1</editorial>
+    </version>
+    <thumbnail>https://picsum.photos/id/1005/75</thumbnail>
+    <name>Sum</name>
+    <description>Sum numbers together</description>
+    <tags>
+        <tag>Math</tag>
+    </tags>
+    <internalData>
+        <data>
+            <id>d47693d1-330d-4939-92d0-ac2e8ebbfb40</id>
+            <name>signs</name>
+            <type>string</type>
+            <value>++</value>
+        </data>
+    </internalData>
+    <inputPorts>
+        <port>
+            <id>2b328235-1563-4e58-a741-5c95171390e2</id>
+            <name>a</name>
+            <type>number</type>
+        </port>
+        <port>
+            <id>a52384f4-7216-42bc-866e-f7526e2d3d56</id>
+            <name>b</name>
+            <type>number</type>
+        </port>
+    </inputPorts>
+    <outputPorts>
+        <port>
+            <id>5503341e-becd-4295-b3d3-b036b4113968</id>
+            <name>z</name>
+            <type>number</type>
+        </port>
+    </outputPorts>
+    <pseudoSource>false</pseudoSource>
+    <display>
+        <![CDATA[
+            <g>
+                <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" style={{font: "italic 6px sans-serif"}}>Sum</text>
+            </g>
+        ]]>
+    </display>
+    <callback>return [inputPort[a]+inputPort[b]];</callback>
+</block>

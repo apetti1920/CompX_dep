@@ -55,21 +55,18 @@ class Main {
     }
 
     private static onCloseWindow() {
-        console.log("here2");
         if (process.platform !== 'darwin') {
             app.quit();
         }
     }
 
     private onActivateWindow() {
-        console.log("here3");
         if (BrowserWindow.getAllWindows().length === 0 || !this.mainWindow) {
             this.onCreateWindow();
         }
     }
 
     private registerIpcChannels(ipcChannels: IpcChannelInterface[]) {
-        console.log("here4");
         ipcChannels.forEach(channel => ipcMain.on(channel.getName(), (event, request) => channel.handle(event, request)));
     }
 }

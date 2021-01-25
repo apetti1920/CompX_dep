@@ -22,6 +22,10 @@ export class IpcService {
         }
 
         const ipcRenderer = this.ipcRenderer;
+        // this is wrong ***************************************************************
+        ipcRenderer.on(request.responseChannel, (event, args) => {
+            console.log(args);
+        });
         ipcRenderer.send(channel, request);
 
         // This method returns a promise which will be resolved when the response has arrived.
