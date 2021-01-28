@@ -9,6 +9,8 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
+    "postinstall": "electron-builder install-app-deps",
+    "pack": "electron-builder -mwl",
     "lint": "eslint --ext .ts ."
   },
   "keywords": [],
@@ -17,6 +19,10 @@
     "email": "apetti1920@aol.com"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apetti1920/CompX.git"
+  },
   "config": {
     "forge": {
       "packagerConfig": {},
@@ -60,6 +66,46 @@
           }
         ]
       ]
+    }
+  },
+  "build": {
+    "appId": "com.example.compx",
+    "productName": "CompX",
+    "directories": {
+      "app": ".",
+      "output": "out",
+      "buildResources": "build-res"
+    },
+    "files": [
+      "package.json",
+      "app/**/*",
+      "node_modules"
+    ],
+    "mac": {
+      "target": "dmg",
+      "identity": null,
+      "icon": "assets/images/logo.ico",
+      "category": "public.app-categories.productivity"
+    },
+    "dmg": {
+      "background": "assets/images/dmg_background.tiff",
+      "icon": "assets/images/logo.ico",
+      "iconSize": 75,
+      "window": {
+        "width": 500,
+        "height": 467
+      },
+      "contents": [
+        {"x": 310, "y": 250},
+        {"x": 310, "y": 80, "type": "link", "path": "/Applications"}
+      ]
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage",
+      "category": "Utility"
     }
   },
   "devDependencies": {

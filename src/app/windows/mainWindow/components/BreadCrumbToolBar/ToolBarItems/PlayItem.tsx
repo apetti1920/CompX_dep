@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {IpcService} from "../../../../../IPC/IpcService";
-import {RUN_MODEL_CHANNEL} from "../../../../../../shared/Channels";
+import {GET_DISPLAY_CHANNEL, RUN_MODEL_CHANNEL} from "../../../../../../shared/Channels";
 import {connect} from "react-redux";
 import {StateType, GraphVisualType} from "../../../../../store/types";
 import Edge from "../../../../../../shared/lib/GraphLibrary/Edge";
+import {ipcRenderer, IpcRendererEvent} from "electron";
 
 interface StateProps {
     graph: GraphVisualType
@@ -40,8 +41,6 @@ class PlayItem extends Component<StateProps, State> {
                 tempState.clicked = !tempState.clicked;
 
                 if (tempState.clicked) {
-                    console.log("clicked")
-
                     const ipc = new IpcService();
 
                     const edges: Edge[] = this.props.graph.edges.map(edge => {
@@ -52,6 +51,25 @@ class PlayItem extends Component<StateProps, State> {
                         }
                     });
 
+                    //  Needs to return some kind of stream object
+                    ipcRenderer.on(GET_DISPLAY_CHANNEL, (event, message) => {
+                        if (message["cmd"] === "display_data") {
+                            console.log(message['data']);
+                        } else if (message["cmd"] === "run_progress") {
+                            if (message['data']['progress'] === "starting") {
+                                console.log("registered");
+                            } else {
+                                ipcRenderer.removeAllListeners(GET_DISPLAY_CHANNEL);
+                                console.log("Removed");
+                            }
+                        } else {
+                            ipcRenderer.removeAllListeners(GET_DISPLAY_CHANNEL);
+                            const tempState = {...this.state};
+                            tempState.clicked = false;
+                            this.setState(tempState);
+                            console.log("Removed");
+                        }
+                    });
                     ipc.send<void>(RUN_MODEL_CHANNEL, {
                         params:
                             {
@@ -62,10 +80,7 @@ class PlayItem extends Component<StateProps, State> {
                                 }),
                                 edges: edges
                             }
-                    }).then((obj: any) => {
-                        console.log(obj);
                     });
-
                     this.setState(tempState);
                 } else {
                     this.setState({...this.state, clicked: false})

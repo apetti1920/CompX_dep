@@ -2,6 +2,9 @@ import Block from "./Block";
 import Edge from "./Edge";
 import {Zeros} from "./helpers/utils";
 import {BlockStorageType} from "./types/BlockStorage";
+import Port from "./Port";
+
+const _ = require('lodash');
 
 
 export enum EdgeType {
@@ -281,43 +284,49 @@ export default class Graph {
         const compOrder = this.getCompileOrder().map(b => b.id);
         let displayData: Map<string, unknown[]>;
 
-        while (t <= T) {
-            if (process !== undefined) { displayData = new Map<string, unknown[]>(); }
-            compOrder.forEach(blockId => {
-                const block = this.blocks.find(b => b.id === blockId);
+       const throttled = _.throttle(() => {
+           if (process !== undefined) { displayData = new Map<string, unknown[]>(); }
+           compOrder.forEach(blockId => {
+               const block = this.blocks.find((b: Block) => b.id === blockId);
 
-                if (block != undefined) {
-                    const prevInputs = block.inputPorts.map(p => p.objectValue);
-                    const prevOutputs = block.outputPorts.map(p => p.objectValue);
-                    const inputs = block.inputPorts.map(p => {
-                        const edge = this.edges.find(e => e.inputBlock == p.parentId && e.inputPort == p.id);
+               if (block != undefined) {
+                   const prevInputs = block.inputPorts.map((p: Port) => p.objectValue);
+                   const prevOutputs = block.outputPorts.map((p: Port) => p.objectValue);
+                   const inputs = block.inputPorts.map((p: Port) => {
+                       const edge = this.edges.find((e: Edge) => e.inputBlock == p.parentId && e.inputPort == p.id);
 
-                        if (edge !== undefined) {
-                            const outputBlock = this.blocks.find(b => b.id === edge.outputBlock);
+                       if (edge !== undefined) {
+                           const outputBlock = this.blocks.find((b: Block) => b.id === edge.outputBlock);
 
-                            if (outputBlock != undefined) {
-                                const outputPort = outputBlock.outputPorts.find(p => p.id === edge.outputPort);
-                                if (outputPort !== undefined) {
-                                    return outputPort.objectValue;
-                                }
-                            }
-                        }
-                        return null;
-                    });
+                           if (outputBlock != undefined) {
+                               const outputPort = outputBlock.outputPorts.find((p: Port) => p.id === edge.outputPort);
+                               if (outputPort !== undefined) {
+                                   return outputPort.objectValue;
+                               }
+                           }
+                       }
+                       return null;
+                   });
 
-                    for (let i = 0; i < block.inputPorts.length; i++) {
-                        block.inputPorts[i].objectValue = inputs[i];
-                    }
+                   for (let i = 0; i < block.inputPorts.length; i++) {
+                       block.inputPorts[i].objectValue = inputs[i];
+                   }
 
-                    block.compile(t, dT, prevInputs, prevOutputs, inputs, displayData);
-                }
-            });
+                   block.compile(t, dT, prevInputs, prevOutputs, inputs, displayData);
+               }
+           });
 
-            //Update the process
-            if (process !== undefined && displayData !== undefined) {
-                process.send({cmd: "display_data", data: {"time": t, "data": displayData}});
-            }
-            t += dT;
-        }
+           //Update the process
+           if (process !== undefined && displayData !== undefined) {
+               process.send({cmd: "display_data", data: {"time": t, "data": displayData}});
+           }
+
+           t += dT;
+       }, 1);
+
+       // look into queing and releasing every frame
+       while (t < T+dT) {
+           throttled();
+       }
     }
 }

@@ -1,4 +1,4 @@
-import {app, BrowserWindow, ipcMain, session} from 'electron';
+import {app, BrowserWindow, ipcMain, session, autoUpdater, dialog} from 'electron';
 import {SystemInfoChannel} from "./IPC/Channels/SystemInfoChannel";
 import isDev from 'electron-is-dev';
 import {IpcChannelInterface} from "./IPC/Channels/IpcChannelInterface";
@@ -67,13 +67,25 @@ class Main {
     }
 
     private registerIpcChannels(ipcChannels: IpcChannelInterface[]) {
-        ipcChannels.forEach(channel => ipcMain.on(channel.getName(), (event, request) => channel.handle(event, request)));
+        ipcChannels.forEach(channel => this.registerIpcChannel(channel));
+    }
+
+    public registerIpcChannel(channel: IpcChannelInterface) {
+        ipcMain.on(channel.getName(), (event, request) => channel.handle(event, request));
+    }
+
+    public removeIpcChannel(channel: IpcChannelInterface) {
+        ipcMain.removeListener(channel.getName(), (event, request) => channel.handle(event, request));
     }
 }
 
-(new Main()).init([
+const main = new Main();
+
+main.init([
     new SystemInfoChannel(),
     new BlockLibraryChannel(),
     new RunModelChannel(),
     new TestScopeChannel()
 ]);
+
+export default main;
