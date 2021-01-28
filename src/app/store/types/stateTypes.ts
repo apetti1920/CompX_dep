@@ -3,10 +3,16 @@ import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStor
 import {GraphVisualType} from "./graphTypes";
 import {MouseDownType} from "../../windows/mainWindow/components/types";
 
+export type DisplayDataType = {
+    time: number,
+    data: Map<string, any>
+}
+
 export type StateType = {
     canvas: CanvasType,
-    blockLibrary: BlockStorageType[]
-    graph: GraphVisualType
+    blockLibrary: BlockStorageType[],
+    graph: GraphVisualType,
+    displayData?: DisplayDataType[]
 }
 
 export const defaultState: StateType = {
@@ -29,5 +35,5 @@ export const defaultState: StateType = {
     },
     blockLibrary: [],
     graph: {blocks: [], edges: []},
-
+    displayData: undefined
 }

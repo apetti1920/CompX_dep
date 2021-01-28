@@ -2,20 +2,28 @@ import React, {Component} from 'react';
 import {IpcService} from "../../../../../IPC/IpcService";
 import {GET_DISPLAY_CHANNEL, RUN_MODEL_CHANNEL} from "../../../../../../shared/Channels";
 import {connect} from "react-redux";
-import {StateType, GraphVisualType} from "../../../../../store/types";
+import {StateType, GraphVisualType, DisplayDataType} from "../../../../../store/types";
 import Edge from "../../../../../../shared/lib/GraphLibrary/Edge";
-import {ipcRenderer, IpcRendererEvent} from "electron";
+import {ipcRenderer} from "electron";
+import {bindActionCreators, Dispatch} from "redux";
+import {AddedDisplayDataAction} from "../../../../../store/actions";
 
 interface StateProps {
     graph: GraphVisualType
 }
 
+interface DispatchProps {
+    onAddedDisplayData: (displayData: DisplayDataType) => void
+}
+
+type Props = StateProps & DispatchProps
+
 interface State {
     clicked: boolean
 }
 
-class PlayItem extends Component<StateProps, State> {
-    constructor(props: StateProps) {
+class PlayItem extends Component<Props, State> {
+    constructor(props: Props) {
         super(props);
 
         this.state = {
@@ -54,19 +62,19 @@ class PlayItem extends Component<StateProps, State> {
                     //  Needs to return some kind of stream object
                     ipcRenderer.on(GET_DISPLAY_CHANNEL, (event, message) => {
                         if (message["cmd"] === "display_data") {
-                            console.log(message['data']);
+                            this.props.onAddedDisplayData(message['data']);
                         } else if (message["cmd"] === "run_progress") {
                             if (message['data']['progress'] === "starting") {
                                 console.log("registered");
+                                // clear display data
                             } else {
                                 ipcRenderer.removeAllListeners(GET_DISPLAY_CHANNEL);
+                                this.setState({...this.state, clicked: false});
                                 console.log("Removed");
                             }
                         } else {
                             ipcRenderer.removeAllListeners(GET_DISPLAY_CHANNEL);
-                            const tempState = {...this.state};
-                            tempState.clicked = false;
-                            this.setState(tempState);
+                            this.setState({...this.state, clicked: false});
                             console.log("Removed");
                         }
                     });
@@ -98,4 +106,10 @@ function mapStateToProps(state: StateType): StateProps {
     };
 }
 
-export default connect(mapStateToProps)(PlayItem);
+function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
+    return bindActionCreators({
+        onAddedDisplayData: AddedDisplayDataAction
+    }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlayItem);

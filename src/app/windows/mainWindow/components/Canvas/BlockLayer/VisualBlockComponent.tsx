@@ -16,7 +16,8 @@ import {MouseDownType} from "../../types";
 
 interface StateProps {
     canvas: CanvasType,
-    block: BlockVisualType
+    block: BlockVisualType,
+    displayData?: {time: number, data: any}[]
 }
 
 interface DispatchProps {
@@ -115,15 +116,19 @@ class VisualBlockComponent extends React.Component<Props, State> {
                                 style={{font: "italic 3px sans-serif"}}>${this.props.block.blockStorage.inputPorts[i].name}</text>`;
                 }
             }
-                if (this.props.block.blockStorage.outputPorts.length > 0) {
-                    const yPct = 100.0 / (this.props.block.blockStorage.outputPorts.length + 1);
-                    for (let i=0; i<this.props.block.blockStorage.outputPorts.length; i++) {
-                        temp += `<text x="${!this.props.block.mirrored?"93%":"7%"}" y="${(yPct*(i+1)).toString() + "%"}" 
-                                    dominantBaseline="middle" textAnchor="middle" 
-                                    style={{font: "italic 3px sans-serif"}}>${this.props.block.blockStorage.outputPorts[i].name}</text>`;
-                    }
+            if (this.props.block.blockStorage.outputPorts.length > 0) {
+                const yPct = 100.0 / (this.props.block.blockStorage.outputPorts.length + 1);
+                for (let i=0; i<this.props.block.blockStorage.outputPorts.length; i++) {
+                    temp += `<text x="${!this.props.block.mirrored?"93%":"7%"}" y="${(yPct*(i+1)).toString() + "%"}" 
+                                dominantBaseline="middle" textAnchor="middle" 
+                                style={{font: "italic 3px sans-serif"}}>${this.props.block.blockStorage.outputPorts[i].name}</text>`;
                 }
-
+            }
+            if (this.props.displayData !== undefined && this.props.displayData[this.props.displayData.length - 1].data !== undefined) {
+                temp += `<text x="50%" y="5%" 
+                                dominantBaseline="middle" textAnchor="middle" 
+                                style={{font: "italic 3px sans-serif"}}>${this.props.displayData[this.props.displayData.length - 1].data}</text>`;
+            }
             return temp
         });
         return "<g>" + ans + "</g>";
@@ -194,7 +199,11 @@ class VisualBlockComponent extends React.Component<Props, State> {
 function mapStateToProps(state: StateType, ownProps: ComponentProps): StateProps {
     return {
         canvas: state.canvas,
-        block: state.graph.blocks.find(b => b.id === ownProps.id)
+        block: state.graph.blocks.find(b => b.id === ownProps.id),
+        displayData: state.displayData !== undefined ? state.displayData.map(data =>
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            { // @ts-ignore
+                return {time: data.time, data: data.data[ownProps.id]} }) : undefined
     };
 }
 

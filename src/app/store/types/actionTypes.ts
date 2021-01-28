@@ -2,6 +2,7 @@
 export const BlockLibraryReducerName = "block_library_reducer";
 export const CanvasReducerName = "canvas_reducer";
 export const GraphReducerName = "graph_reducer";
+export const DisplayDataReducerName = "display_data_reducer";
 
 // Block Library Reducer Types
 export const UpdatedBlockLibraryActionType = `@@${BlockLibraryReducerName}/UPDATED_BLOCK_LIBRARY`;
@@ -23,3 +24,6 @@ export const DeselectAllBlocksActionType = `@@${GraphReducerName}/DESELECT_ALL_B
 export const MirrorBlockActionType = `@@${GraphReducerName}/MIRROR_BLOCK`;
 export const DeleteBlockActionType = `@@${GraphReducerName}/DELETE_BLOCK`;
 export const ChangedInternalDataActionType = `@@${GraphReducerName}/CHANGED_INTERNAL_DATA`;
+
+// Display Data Reducer Types
+export const AddedDisplayDataActionType = `@@${DisplayDataReducerName}/ADDED_DISPLAY_DATA`;

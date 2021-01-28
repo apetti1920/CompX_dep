@@ -1,7 +1,7 @@
 import {
     ActionType,
     SidebarButtonType,
-    SplitPaneName, MouseType
+    SplitPaneName, MouseType, DisplayDataType
 } from "../types";
 import {
     ClickedSidebarButtonActionType,
@@ -16,13 +16,13 @@ import {
     DeselectAllBlocksActionType,
     ToggleSelectedBlockActionType,
     AddedEdgeActionType,
-    MirrorBlockActionType, DeleteBlockActionType, ChangedInternalDataActionType
+    MirrorBlockActionType, DeleteBlockActionType, ChangedInternalDataActionType, AddedDisplayDataActionType
 
 } from "../types/actionTypes";
 import {PointType} from "../../../shared/types";
 import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
 
-// Block Library Actions
+// Block Library Actions -----------------------------------------------------------------------------------------------
 export const UpdatedBlockLibraryAction = (newBlocks: BlockStorageType[]): ActionType => {
     return {
         type: UpdatedBlockLibraryActionType,
@@ -30,7 +30,7 @@ export const UpdatedBlockLibraryAction = (newBlocks: BlockStorageType[]): Action
     }
 }
 
-// Canvas Actions
+// Canvas Actions ------------------------------------------------------------------------------------------------------
 export const ClickedSidebarButtonAction = (buttonGroup: number, buttonId: number): ActionType => {
     return {
         type: ClickedSidebarButtonActionType,
@@ -74,7 +74,7 @@ export const DraggingLibraryBlockAction = (draggingState: boolean): ActionType =
 };
 
 
-// Graph Actions
+// Graph Actions -------------------------------------------------------------------------------------------------------
 export const MovedBlockAction = (delta: PointType): ActionType => {
     return {
         type: MovedBlockActionType,
@@ -138,3 +138,11 @@ export const ChangedInternalDataAction = (blockId: string, internalDataId: strin
         payload: {blockId: blockId, internalDataId: internalDataId, value: value}
     }
 }
+
+// Display Data Actions ------------------------------------------------------------------------------------------------------
+export const AddedDisplayDataAction = (displayData: DisplayDataType): ActionType => {
+    return {
+        type: AddedDisplayDataActionType,
+        payload: displayData
+    }
+};

@@ -12,15 +12,12 @@
   <component name="ChangeListManager">
     <list default="true" id="c538594c-dc81-4851-b030-45f1dfddb73e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/dmg_background.tiff" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/dmg_background.tiff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/IPC/IpcService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/IPC/IpcService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/actions/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/actions/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/reducers/reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/reducers/reducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/types/actionTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/types/actionTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/types/stateTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/types/stateTypes.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/electron/IPC/Channels/RunModelChannel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/IPC/Channels/RunModelChannel.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/electron/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/Channels.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/Channels.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Graph.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/Graph.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/VisualBlockComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/VisualBlockComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/helpers/ModelChildProcess.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/GraphLibrary/helpers/ModelChildProcess.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -98,6 +95,8 @@
       <workItem from="1611702409505" duration="10232000" />
       <workItem from="1611778101202" duration="3049000" />
       <workItem from="1611798327648" duration="7192000" />
+      <workItem from="1611862567419" duration="2267000" />
+      <workItem from="1611864840309" duration="1755000" />
     </task>
     <servers />
   </component>
@@ -129,22 +128,22 @@
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="578" y="288" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.25.1680.1025@0.25.1680.1025" timestamp="1611807839435" />
-    <state width="1659" height="277" key="GridCell.Tab.0.bottom" timestamp="1611808641496">
+    <state width="1659" height="277" key="GridCell.Tab.0.bottom" timestamp="1611866717318">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="1659" height="277" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1611808641496" />
-    <state width="1659" height="277" key="GridCell.Tab.0.center" timestamp="1611808641496">
+    <state width="1659" height="277" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1611866717318" />
+    <state width="1659" height="277" key="GridCell.Tab.0.center" timestamp="1611866717317">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="1659" height="277" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1611808641496" />
-    <state width="1659" height="277" key="GridCell.Tab.0.left" timestamp="1611808641495">
+    <state width="1659" height="277" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1611866717317" />
+    <state width="1659" height="277" key="GridCell.Tab.0.left" timestamp="1611866717317">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="1659" height="277" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1611808641495" />
-    <state width="1659" height="277" key="GridCell.Tab.0.right" timestamp="1611808641496">
+    <state width="1659" height="277" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1611866717317" />
+    <state width="1659" height="277" key="GridCell.Tab.0.right" timestamp="1611866717318">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="1659" height="277" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1611808641496" />
+    <state width="1659" height="277" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1611866717318" />
     <state x="187" y="168" key="SettingsEditor" timestamp="1611503340025">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>

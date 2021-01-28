@@ -2,7 +2,13 @@ import {ActionType, defaultState, StateType} from "../types";
 import BlockLibraryReducer from "./blockLibraryReducer";
 import CanvasReducer from "./canvasReducers";
 import GraphReducer from "./graphReducer";
-import {BlockLibraryReducerName, CanvasReducerName, GraphReducerName} from "../types/actionTypes";
+import DisplayDataReducer from "./displayDataReducers"
+import {
+    BlockLibraryReducerName,
+    CanvasReducerName,
+    DisplayDataReducerName,
+    GraphReducerName
+} from "../types/actionTypes";
 
 export default function (state: StateType = defaultState, action: ActionType): StateType {
     let reducer = action.type.split("/")[0];
@@ -16,6 +22,8 @@ export default function (state: StateType = defaultState, action: ActionType): S
             return CanvasReducer(state, action);
         } case (GraphReducerName): {
             return GraphReducer(state, action);
+        } case (DisplayDataReducerName): {
+            return DisplayDataReducer(state, action);
         } default: {
             return state
         }
