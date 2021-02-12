@@ -47,11 +47,8 @@ export default class Block {
             return `if (displayData !== undefined) {displayData["${this.id}"]=${b}}`;
         });
 
-        let fn: Callback;
-        eval(`fn = (function(t, dt, prevInputs, prevOutputs, newInputs, displayData){${callbackString}}).bind(this);`);
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        return fn;
+        return new Function("t", "dt", "prevInputs", "prevOutputs", "newInputs", "displayData", callbackString)
+            .bind(this);
     }
 
     compile(t: number, dt: number, prevInputs: unknown[], prevOutputs: unknown[], newInputs: unknown[],

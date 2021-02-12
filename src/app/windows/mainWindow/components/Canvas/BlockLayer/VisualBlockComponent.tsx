@@ -13,11 +13,12 @@ import {
 import {connect} from "react-redux";
 import {ScreenToWorld} from "../../../../../utilities";
 import {MouseDownType} from "../../types";
+import {DataTransferType} from "../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 
 interface StateProps {
     canvas: CanvasType,
     block: BlockVisualType,
-    displayData?: {time: number, data: any}[]
+    displayData?: DataTransferType[]
 }
 
 interface DispatchProps {
@@ -102,72 +103,107 @@ class VisualBlockComponent extends React.Component<Props, State> {
         e.stopPropagation();
     };
 
-    updatedDisplayRenderer = (): string => {
-        const ans = this.props.block.blockStorage.display
-            .replace(new RegExp("<g>([\\s\\S]*)</g>","gm"), (a, b) =>
-            {
-            let temp: string = b;
+    defaultDisplay = (): React.ReactElement => {
+        const inputLabelComponents: React.ReactElement[] = []
+        if (this.props.block.blockStorage.inputPorts.length > 0) {
+            const yPct = 100.0 / (this.props.block.blockStorage.inputPorts.length + 1);
 
-            if (this.props.block.blockStorage.inputPorts.length > 0) {
-                const yPct = 100.0 / (this.props.block.blockStorage.inputPorts.length + 1);
-                for (let i=0; i<this.props.block.blockStorage.inputPorts.length; i++) {
-                    temp += `<text x="${!this.props.block.mirrored?"7%":"93%"}" y="${(yPct*(i+1)).toString() + "%"}" 
-                                dominantBaseline="middle" textAnchor="middle" 
-                                style={{font: "italic 3px sans-serif"}}>${this.props.block.blockStorage.inputPorts[i].name}</text>`;
+            for (let i=0; i<this.props.block.blockStorage.inputPorts.length; i++) {
+                inputLabelComponents.push(<text key={`input_label_${this.props.block.blockStorage.inputPorts[i].id}`}
+                                                x={!this.props.block.mirrored?"7%":"93%"}
+                                                y={(yPct*(i+1)).toString() + "%"}
+                                                dominantBaseline="middle" textAnchor="middle"
+                                                style={{font: "italic 3px sans-serif"}}>
+                    {this.props.block.blockStorage.inputPorts[i].name}
+                </text>);
+            }
+        }
+
+        const outputLabelComponents: React.ReactElement[] = []
+        if (this.props.block.blockStorage.outputPorts.length > 0) {
+            const yPct = 100.0 / (this.props.block.blockStorage.outputPorts.length + 1);
+
+            for (let i=0; i<this.props.block.blockStorage.outputPorts.length; i++) {
+                outputLabelComponents.push(<text key={`output_label_${this.props.block.blockStorage.outputPorts[i].id}`}
+                                                 x={this.props.block.mirrored?"7%":"93%"}
+                                                 y={(yPct*(i+1)).toString() + "%"}
+                                                 dominantBaseline="middle" textAnchor="middle"
+                                                 style={{font: "italic 3px sans-serif"}}>
+                    {this.props.block.blockStorage.outputPorts[i].name}
+                </text>);
+            }
+        }
+
+        return (
+            <g>
+                <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle"
+                      style={{font: "italic 6px sans-serif"}}>{this.props.block.blockStorage.name}</text>
+                {inputLabelComponents}
+                {outputLabelComponents}
+            </g>);
+
+    }
+
+    updatedDisplayRenderer = (): React.ReactElement => {
+        if (this.props.block.blockStorage.display === undefined) {
+            return this.defaultDisplay();
+        } else {
+            if (this.props.displayData === undefined) {
+                if (this.props.block.blockStorage.display.displayStatic !== undefined) {
+                    return (
+                        this.props.block.displayStatic(this.props.displayData)
+                    )
+                } else {
+                    return this.defaultDisplay();
+                }
+            } else {
+                if (this.props.block.blockStorage.display.displayDynamic !== undefined) {
+                    return (
+                        this.props.block.displayDynamic(this.props.displayData)
+                    )
+                } else {
+                    return this.defaultDisplay();
                 }
             }
-            if (this.props.block.blockStorage.outputPorts.length > 0) {
-                const yPct = 100.0 / (this.props.block.blockStorage.outputPorts.length + 1);
-                for (let i=0; i<this.props.block.blockStorage.outputPorts.length; i++) {
-                    temp += `<text x="${!this.props.block.mirrored?"93%":"7%"}" y="${(yPct*(i+1)).toString() + "%"}" 
-                                dominantBaseline="middle" textAnchor="middle" 
-                                style={{font: "italic 3px sans-serif"}}>${this.props.block.blockStorage.outputPorts[i].name}</text>`;
-                }
-            }
-            if (this.props.displayData !== undefined && this.props.displayData[this.props.displayData.length - 1].data !== undefined) {
-                temp += `<text x="50%" y="5%" 
-                                dominantBaseline="middle" textAnchor="middle" 
-                                style={{font: "italic 3px sans-serif"}}>${this.props.displayData[this.props.displayData.length - 1].data}</text>`;
-            }
-            return temp
-        });
-        return "<g>" + ans + "</g>";
+        }
+    }
+
+    makeDragComponents = (): React.ReactElement => {
+        return (
+            <g>
+                <rect x={this.props.block.position.x - 1} y={this.props.block.position.y - 1}
+                      width={this.cornerRadius} height={this.cornerRadius} fill="red"
+                      style={{cursor:this.state.isResizeHovering?"crosshair":"auto"}}
+                      onMouseEnter={() => {this.setState({...this.state, isResizeHovering: true})}}
+                      onMouseLeave={() => {this.setState({...this.state, isResizeHovering: false})}}
+                      onClick={() => {console.log("clicked")}}/>
+                <rect x={this.props.block.position.x + this.props.block.size.x - this.cornerRadius + 1 }
+                      y={this.props.block.position.y - 1}
+                      style={{cursor:this.state.isResizeHovering?"crosshair":"auto"}}
+                      width={this.cornerRadius} height={this.cornerRadius} fill="red"
+                      onMouseEnter={() => {this.setState({...this.state, isResizeHovering: true})}}
+                      onMouseLeave={() => {this.setState({...this.state, isResizeHovering: false})}}/>
+                <rect x={this.props.block.position.x - 1}
+                      y={this.props.block.position.y  + this.props.block.size.y - this.cornerRadius + 1}
+                      width={this.cornerRadius} height={this.cornerRadius} fill="red"
+                      style={{cursor:this.state.isResizeHovering?"crosshair":"auto"}}
+                      onMouseEnter={() => {this.setState({...this.state, isResizeHovering: true})}}
+                      onMouseLeave={() => {this.setState({...this.state, isResizeHovering: false})}}/>
+                <rect x={this.props.block.position.x  + this.props.block.size.x - this.cornerRadius + 1}
+                      y={this.props.block.position.y  + this.props.block.size.y - this.cornerRadius + 1}
+                      width={this.cornerRadius} height={this.cornerRadius} fill="red"
+                      style={{cursor:this.state.isResizeHovering?"crosshair":"auto"}}
+                      onMouseEnter={() => {this.setState({...this.state, isResizeHovering: true})}}
+                      onMouseLeave={() => {this.setState({...this.state, isResizeHovering: false})}}/>
+            </g>
+        )
     }
 
     render(): React.ReactNode {
         let dragComponents = <React.Fragment/>
         if (this.props.block.selected) {
-            dragComponents = (
-                <g>
-                    <rect x={this.props.block.position.x - 1} y={this.props.block.position.y - 1}
-                          width={this.cornerRadius} height={this.cornerRadius} fill="red"
-                          style={{cursor:this.state.isResizeHovering?"crosshair":"auto"}}
-                          onMouseEnter={() => {this.setState({...this.state, isResizeHovering: true})}}
-                          onMouseLeave={() => {this.setState({...this.state, isResizeHovering: false})}}
-                          onClick={() => {console.log("clicked")}}/>
-                    <rect x={this.props.block.position.x + this.props.block.size.x - this.cornerRadius + 1 }
-                          y={this.props.block.position.y - 1}
-                          style={{cursor:this.state.isResizeHovering?"crosshair":"auto"}}
-                          width={this.cornerRadius} height={this.cornerRadius} fill="red"
-                          onMouseEnter={() => {this.setState({...this.state, isResizeHovering: true})}}
-                          onMouseLeave={() => {this.setState({...this.state, isResizeHovering: false})}}/>
-                    <rect x={this.props.block.position.x - 1}
-                          y={this.props.block.position.y  + this.props.block.size.y - this.cornerRadius + 1}
-                          width={this.cornerRadius} height={this.cornerRadius} fill="red"
-                          style={{cursor:this.state.isResizeHovering?"crosshair":"auto"}}
-                          onMouseEnter={() => {this.setState({...this.state, isResizeHovering: true})}}
-                          onMouseLeave={() => {this.setState({...this.state, isResizeHovering: false})}}/>
-                    <rect x={this.props.block.position.x  + this.props.block.size.x - this.cornerRadius + 1}
-                          y={this.props.block.position.y  + this.props.block.size.y - this.cornerRadius + 1}
-                          width={this.cornerRadius} height={this.cornerRadius} fill="red"
-                          style={{cursor:this.state.isResizeHovering?"crosshair":"auto"}}
-                          onMouseEnter={() => {this.setState({...this.state, isResizeHovering: true})}}
-                          onMouseLeave={() => {this.setState({...this.state, isResizeHovering: false})}}/>
-                </g>
-            )
+            dragComponents = this.makeDragComponents()
         }
-
-        this.updatedDisplayRenderer();
 
         return (
             <g style={{pointerEvents: "none"}}
@@ -189,7 +225,7 @@ class VisualBlockComponent extends React.Component<Props, State> {
                      y={this.props.block.position.y + this.margin.top} rx={this.cornerRadius}
                      width={this.props.block.size.x - this.margin.left - this.margin.right}
                      height={this.props.block.size.y - this.margin.top - this.margin.bottom}>
-                    <JsxParser jsx={this.updatedDisplayRenderer()} renderInWrapper={false}/>
+                    {this.updatedDisplayRenderer()}
                 </svg>
             </g>
         );

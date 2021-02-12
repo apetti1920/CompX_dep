@@ -1,4 +1,4 @@
-import {ActionType, StateType} from "../types";
+import {ActionType, BlockVisualType, StateType} from "../types";
 import {
     AddedBlockActionType, AddedEdgeActionType, ChangedInternalDataActionType, DeleteBlockActionType,
     DeselectAllBlocksActionType, MirrorBlockActionType, MovedBlockActionType, ToggleSelectedBlockActionType
@@ -26,7 +26,7 @@ export default function (state: StateType, action: ActionType): StateType {
             return tempState;
         } case (AddedBlockActionType): {
             const tempState: StateType  = _.cloneDeep(state);
-            tempState.graph.blocks.push({
+            const block = new BlockVisualType({
                 id: uuidv4(),
                 position: action.payload['position'],
                 mirrored: false,
@@ -34,6 +34,7 @@ export default function (state: StateType, action: ActionType): StateType {
                 selected: false,
                 blockStorage: _.cloneDeep(tempState.blockLibrary.find(b => b.id === action.payload['blockStorageId']))
             });
+            tempState.graph.blocks.push(block);
             return tempState;
         } case (AddedEdgeActionType): {
             const tempState: StateType  = _.cloneDeep(state);

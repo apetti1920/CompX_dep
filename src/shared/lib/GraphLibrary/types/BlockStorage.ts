@@ -1,5 +1,4 @@
 import {Version} from './generic'
-import React from "react";
 
 export type PortStorageType = {
     id: string,
@@ -22,9 +21,11 @@ export type BlockStorageType = {
     description: string,
     tags: string[],
     internalData: InternalDataStorageType[],
-    display: string,
+    display?: {displayStatic?: string, displayDynamic?: string},
     inputPorts: PortStorageType[],
     outputPorts: PortStorageType[],
     pseudoSource: string,
     callback: string
 }
+
+export type DataTransferType = {time: number, data: any};

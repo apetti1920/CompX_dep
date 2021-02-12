@@ -68,47 +68,12 @@
       ]
     }
   },
-  "build": {
-    "appId": "com.example.compx",
-    "productName": "CompX",
-    "directories": {
-      "app": ".",
-      "output": "out",
-      "buildResources": "build-res"
-    },
-    "files": [
-      "package.json",
-      "app/**/*",
-      "node_modules"
-    ],
-    "mac": {
-      "target": "dmg",
-      "identity": null,
-      "icon": "assets/images/logo.ico",
-      "category": "public.app-categories.productivity"
-    },
-    "dmg": {
-      "background": "assets/images/dmg_background.tiff",
-      "icon": "assets/images/logo.ico",
-      "iconSize": 75,
-      "window": {
-        "width": 500,
-        "height": 467
-      },
-      "contents": [
-        {"x": 310, "y": 250},
-        {"x": 310, "y": 80, "type": "link", "path": "/Applications"}
-      ]
-    },
-    "win": {
-      "target": "nsis"
-    },
-    "linux": {
-      "target": "AppImage",
-      "category": "Utility"
-    }
-  },
   "devDependencies": {
+    "@babel/cli": "^7.12.13",
+    "@babel/core": "^7.12.13",
+    "@babel/plugin-proposal-class-properties": "^7.12.13",
+    "@babel/plugin-syntax-class-properties": "^7.12.13",
+    "@babel/preset-react": "^7.12.13",
     "@electron-forge/cli": "^6.0.0-beta.54",
     "@electron-forge/maker-deb": "^6.0.0-beta.54",
     "@electron-forge/maker-rpm": "^6.0.0-beta.54",
@@ -116,12 +81,18 @@
     "@electron-forge/maker-zip": "^6.0.0-beta.54",
     "@electron-forge/plugin-webpack": "^6.0.0-beta.54",
     "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
+    "@types/babel__core": "^7.1.12",
     "@types/d3": "^6.2.0",
+    "@types/he": "^1.1.1",
     "@types/lodash": "^4.14.168",
+    "@types/react": "^17.0.1",
+    "@types/react-dom": "^17.0.0",
     "@types/react-redux": "^7.1.16",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-react-auto-binding": "^1.0.5",
     "css-loader": "^4.3.0",
     "electron": "11.2.1",
     "electron-reload": "^1.5.0",
@@ -134,14 +105,12 @@
     "react-devtools-electron": "^4.7.0",
     "style-loader": "^1.3.0",
     "ts-loader": "^8.0.14",
-    "typescript": "^4.1.3",
     "webpack-hot-client": "^4.1.3",
     "webpack-hot-middleware": "^2.25.0"
   },
   "dependencies": {
+    "@babel/runtime": "^7.12.13",
     "@reduxjs/toolkit": "^1.5.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
     "csv-parser": "^3.0.0",
     "d3": "^6.4.0",
     "electron-is-dev": "^1.2.0",
@@ -153,6 +122,9 @@
     "react-feather": "^2.0.9",
     "react-jsx-parser": "^1.28.1",
     "react-redux": "^7.2.2",
+    "sucrase": "^3.17.1",
+    "typescript": "^4.1.3",
+    "uninstall": "^0.0.0",
     "uuid": "^8.3.2"
   }
 }

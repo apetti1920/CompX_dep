@@ -1,10 +1,9 @@
-import {app, BrowserWindow, ipcMain, session, autoUpdater, dialog} from 'electron';
+import {app, BrowserWindow, ipcMain, session} from 'electron';
 import {SystemInfoChannel} from "./IPC/Channels/SystemInfoChannel";
 import isDev from 'electron-is-dev';
 import {IpcChannelInterface} from "./IPC/Channels/IpcChannelInterface";
 import {BlockLibraryChannel} from "./IPC/Channels/BlockLibraryChannel";
 import {RunModelChannel} from "./IPC/Channels/RunModelChannel";
-import {TestScopeChannel} from "./IPC/Channels/TestScopeChannel";
 
 const path = require('path')
 const os = require('os')
@@ -84,8 +83,7 @@ const main = new Main();
 main.init([
     new SystemInfoChannel(),
     new BlockLibraryChannel(),
-    new RunModelChannel(),
-    new TestScopeChannel()
+    new RunModelChannel()
 ]);
 
 export default main;
