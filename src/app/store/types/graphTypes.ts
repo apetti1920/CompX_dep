@@ -1,6 +1,7 @@
 import {PointType} from "../../../shared/types";
 import {BlockStorageType, DataTransferType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
 import React from "react";
+import * as d3 from 'd3';
 
 export class BlockVisualType {
     id: string;
@@ -9,20 +10,21 @@ export class BlockVisualType {
     mirrored: boolean;
     selected: boolean;
     blockStorage: BlockStorageType
-    readonly displayStatic: ((displayData: DataTransferType[]) => React.ReactElement | undefined);
-    readonly displayDynamic: ((displayData: DataTransferType[]) => React.ReactElement | undefined);
+    readonly displayStatic: ((displayData: DataTransferType[], size: PointType, T?: number) => React.ReactElement | undefined);
+    readonly displayDynamic: ((displayData: DataTransferType[], size: PointType, T?: number) => React.ReactElement | undefined);
 
     public constructor(init?:Partial<BlockVisualType>) {
         Object.assign(this, init);
 
         if (this.blockStorage.display !== undefined && this.blockStorage.display.displayStatic !== undefined) {
-            this.displayStatic = (new Function("React", "displayData", this.blockStorage.display.displayStatic)).bind(undefined, React);
+            this.displayStatic = (new Function("React", "d3", "displayData", "size", "T", this.blockStorage.display.displayStatic)).bind(undefined, React, d3);
         } else {
             this.displayStatic = undefined;
         }
 
         if (this.blockStorage.display !== undefined && this.blockStorage.display.displayDynamic !== undefined) {
-            this.displayDynamic = (new Function("React", "displayData", this.blockStorage.display.displayDynamic)).bind(undefined, React);
+            console.log(this.blockStorage.display.displayDynamic);
+            this.displayDynamic = (new Function("React", "d3", "displayData", "size", "T", this.blockStorage.display.displayDynamic)).bind(undefined, React, d3);
         } else {
             this.displayDynamic = undefined;
         }

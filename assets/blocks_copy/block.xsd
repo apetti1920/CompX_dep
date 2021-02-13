@@ -71,7 +71,19 @@
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="pseudoSource" type="xs:string"/>
-                <xs:element name="display" type="xs:anyType"/>
+                <xs:element name="display" minOccurs="0">
+                    <xs:complexType>
+                        <xs:choice>
+                            <xs:sequence>
+                                <xs:element name="displayStaticPath" type="xs:string"/>
+                                <xs:element name="displayDynamicPath" type="xs:string" minOccurs="0"/>
+                            </xs:sequence>
+                            <xs:sequence>
+                                <xs:element name="displayDynamicPath" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:choice>
+                    </xs:complexType>
+                </xs:element>
                 <xs:element name="callback" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>

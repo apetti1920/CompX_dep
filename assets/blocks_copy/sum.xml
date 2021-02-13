@@ -41,12 +41,5 @@
         </port>
     </outputPorts>
     <pseudoSource>false</pseudoSource>
-    <display>
-        <![CDATA[
-            <g>
-                <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" style={{font: "italic 6px sans-serif"}}>Sum</text>
-            </g>
-        ]]>
-    </display>
     <callback>return [inputPort[a]+inputPort[b]];</callback>
 </block>

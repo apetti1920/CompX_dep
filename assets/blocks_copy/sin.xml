@@ -35,12 +35,5 @@
         </port>
     </outputPorts>
     <pseudoSource>false</pseudoSource>
-    <display>
-        <![CDATA[
-            <g>
-                <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" style={{font: "italic 6px sans-serif"}}>Sine</text>
-            </g>
-        ]]>
-    </display>
     <callback>return [Math.sin(internalData[bd1a9549-467c-4f75-84a2-745a75a8bfa3]*t+internalData[db85fd13-b73b-4471-95a1-f341aadf57e9])];</callback>
 </block>

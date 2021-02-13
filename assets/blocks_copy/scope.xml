@@ -15,18 +15,16 @@
     </tags>
     <inputPorts>
         <port>
-            <id>9ba5f457-9f71-435a-8d0a-be8fe95300e9</id>
+            <id>9ba5f457-`9f71`-435a-8d0a-be8fe95300e9</id>
             <name>x</name>
             <type>number</type>
         </port>
     </inputPorts>
     <pseudoSource>false</pseudoSource>
     <display>
-        <![CDATA[
-            <g>
-                <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" style={{font: "italic 6px sans-serif"}}>Scope</text>
-            </g>
-        ]]>
+        <displayDynamicPath>
+            <![CDATA[const margin = 20;const h = size.y - 2 * margin, w = size.x - 2 * margin;const xFormat = d3.format('.2');let x: d3.ScaleLinear<number, number, never>;if (T === undefined) { x = d3.scaleLinear().domain(d3.extent(displayData, d => d.time)).range([margin, w]);} else { x = d3.scaleLinear() .domain([0, T]).range([margin, w]);}const y = d3.scaleLinear() .domain(d3.extent(displayData, d => d.data)) .range([h, margin]);const line = d3.line() .x(d => x(d[0])) .y(d => y(d[1])) .curve(d3.curveCatmullRom.alpha(0.5));const xTicks = x.ticks(5).map(d => ( x(d) > margin && x(d) < w ? <g transform={`translate(${x(d)},${h + margin})`}> <text>{xFormat(d)}</text> <line x1='0' x2='0' y1='0' y2='5' transform="translate(0,-20)"/> </g> : null));const yTicks = y.ticks(5).map(d => ( y(d) > 10 && y(d) < h ? <g transform={`translate(${margin},${y(d)})`}> <text x="-12" y="5">{xFormat(d)}</text> <line x1='0' x2='5' y1='0' y2='0' transform="translate(-5,0)"/> <line className='gridline' x1='0' x2={w - margin} y1='0' y2='0' transform="translate(-5,0)"/> </g> : null));return ( <React.Fragment> <line className="axis" x1={margin} x2={w} y1={h} y2={h}/> <line className="axis" x1={margin} x2={margin} y1={margin} y2={h}/> <path d={line(displayData.map(b => [b.time, b.data]))}/> <g className="axis-labels"> {xTicks} </g> <g className="axis-labels"> {yTicks} </g> </React.Fragment>);]]>
+        </displayDynamicPath>
     </display>
-    <callback>console.log(inputPort[x]); return [];</callback>
+    <callback>display {inputPort[x]}; return [];</callback>
 </block>

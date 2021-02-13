@@ -36,12 +36,5 @@
         </port>
     </outputPorts>
     <pseudoSource>false</pseudoSource>
-    <display>
-        <![CDATA[
-            <g>
-                <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" style={{font: "italic 6px sans-serif"}}>Gain</text>
-            </g>
-        ]]>
-    </display>
     <callback>return [internalData[cfb547e5-533f-48dd-8cc3-ab53b7bbd8cc]*inputPort[x]];</callback>
 </block>

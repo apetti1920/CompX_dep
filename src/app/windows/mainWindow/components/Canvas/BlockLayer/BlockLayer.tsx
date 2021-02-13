@@ -69,7 +69,7 @@ class BlockLayer extends React.Component<Props, State> {
     onDropHandler = (e: React.DragEvent<HTMLDivElement>): void => {
         e.preventDefault();
         const cardID = e.dataTransfer.getData("cardID");
-        const defaultBlockSize: PointType = {x: 40, y: 40};
+        const defaultBlockSize: PointType = {x: 100, y: 100};
         const worldPos = ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY}, this.props.canvas.translation, this.props.canvas.zoom);
         const position: PointType = {
             x: worldPos.x - defaultBlockSize.x / 2.0,

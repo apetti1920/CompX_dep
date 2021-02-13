@@ -15,7 +15,7 @@ process.on("message", (message: any) => {
 
     if (g1.isValidGraph()) {
         process.send({cmd: "run_progress", data: {progress: "starting"}});
-        g1.run(10, 0.01, process);
+        g1.run(50, 0.01, process);
         process.send({cmd: "run_progress", data: {progress: "finished"}});
 
     } else {

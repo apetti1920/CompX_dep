@@ -148,10 +148,12 @@ class VisualBlockComponent extends React.Component<Props, State> {
         if (this.props.block.blockStorage.display === undefined) {
             return this.defaultDisplay();
         } else {
+            const size = {x: this.props.block.size.x - this.margin.left - this.margin.right,
+                y: this.props.block.size.y - this.margin.top - this.margin.bottom};
             if (this.props.displayData === undefined) {
                 if (this.props.block.blockStorage.display.displayStatic !== undefined) {
                     return (
-                        this.props.block.displayStatic(this.props.displayData)
+                        this.props.block.displayStatic(this.props.displayData, size)
                     )
                 } else {
                     return this.defaultDisplay();
@@ -159,7 +161,7 @@ class VisualBlockComponent extends React.Component<Props, State> {
             } else {
                 if (this.props.block.blockStorage.display.displayDynamic !== undefined) {
                     return (
-                        this.props.block.displayDynamic(this.props.displayData)
+                        this.props.block.displayDynamic(this.props.displayData, size)
                     )
                 } else {
                     return this.defaultDisplay();

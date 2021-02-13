@@ -36,12 +36,5 @@
         </port>
     </outputPorts>
     <pseudoSource>true</pseudoSource>
-    <display>
-        <![CDATA[
-            <g>
-                <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" style={{font: "italic 6px sans-serif"}}>Integral</text>
-            </g>
-        ]]>
-    </display>
     <callback>if (t===0.0){return [internalData[bae46021-fc04-42c8-9541-57d73427c04a]]}else{return [prevOutputs[z]+(dt*0.5*(inputPort[x]+(prevInputs[x]!==null?prevInputs[x]:internalData[bae46021-fc04-42c8-9541-57d73427c04a])))]}</callback>
 </block>

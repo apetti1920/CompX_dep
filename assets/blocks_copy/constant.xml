@@ -29,12 +29,5 @@
         </port>
     </outputPorts>
     <pseudoSource>false</pseudoSource>
-    <display>
-        <![CDATA[
-            <g>
-                <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" style={{font: "italic 6px sans-serif"}}>Constant</text>
-            </g>
-        ]]>
-    </display>
     <callback>return [internalData[886458d2-66f6-4146-9c4c-30fc85976202]];</callback>
 </block>
