@@ -1,6 +1,5 @@
 // @flow
 import * as React from 'react';
-import JsxParser from 'react-jsx-parser'
 import {BlockVisualType, CanvasType, MouseType, StateType} from "../../../../../store/types";
 import {PointType} from "../../../../../../shared/types";
 import {bindActionCreators, Dispatch} from "redux";
@@ -160,9 +159,7 @@ class VisualBlockComponent extends React.Component<Props, State> {
                 }
             } else {
                 if (this.props.block.blockStorage.display.displayDynamic !== undefined) {
-                    return (
-                        this.props.block.displayDynamic(this.props.displayData, size)
-                    )
+                    return this.props.block.displayDynamic(this.props.displayData, size);
                 } else {
                     return this.defaultDisplay();
                 }

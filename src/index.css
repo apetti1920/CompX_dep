@@ -13,7 +13,7 @@ body {
 
   --custom-font-family: Arial, Helvetica, sans-serif;
 
-  --breadcrumb-toolbar-height: 40px;
+  --toolbar-height: 60px;
   --sidebar-width: 30px;
   --browser-bar-width: 20%;
   --border-width: 3px;

@@ -23,7 +23,6 @@ export class BlockVisualType {
         }
 
         if (this.blockStorage.display !== undefined && this.blockStorage.display.displayDynamic !== undefined) {
-            console.log(this.blockStorage.display.displayDynamic);
             this.displayDynamic = (new Function("React", "d3", "displayData", "size", "T", this.blockStorage.display.displayDynamic)).bind(undefined, React, d3);
         } else {
             this.displayDynamic = undefined;

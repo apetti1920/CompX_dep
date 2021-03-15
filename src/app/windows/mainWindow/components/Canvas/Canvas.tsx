@@ -76,31 +76,13 @@ class Canvas extends React.Component<Props, never> {
 
     render() {
         return (
-            <div style={{display: "flex", flexDirection: "column", width: "100%", height: "100%", pointerEvents: "none"}}>
-                <div style={{display: "flex", flexDirection: "row", width: "100%", height: "var(--sidebar-width)", pointerEvents: "none"}}>
-                    <div style={{
-                        width: "var(--sidebar-width)", height: "var(--sidebar-width)",
-                        borderRight: "calc(var(--border-width)/2) solid var(--custom-accent-color)",
-                        borderBottom: "calc(var(--border-width)/2) solid var(--custom-accent-color)", pointerEvents: "auto"
-                    }} onClick={() => { this.centerGrid(); }}/>
-                    <div style={{height: "100%", flex: 1}}>
-                        <Ruler id={0} type="horizontal" minorTickSpacing={8} majorTickSpacing={80} />
-                    </div>
-                </div>
-                <div style={{display: "flex", flexDirection: "row", width: "100%", flex: 1, pointerEvents: "none"}}>
-                    <div style={{height: "100%", width: "var(--sidebar-width)"}}>
-                        <Ruler id={1} type="vertical" minorTickSpacing={8} majorTickSpacing={80} />
-                    </div>
-                    <div style={{
-                        height: "100%", width: "100%", position: "relative", zIndex: 0,
-                        borderLeft: "calc(var(--border-width)/2) solid var(--custom-accent-color)",
-                        borderTop: "calc(var(--border-width)/2) solid var(--custom-accent-color)", pointerEvents: "none"
-                    }} onWheel={this.handleScroll} ref={this.gridRef} >
-                        <Grid minorTickSpacing={8} majorTickSpacing={80} />
-                        <BlockLayer />
-                        <EdgeLayer />
-                    </div>
-                </div>
+            <div style={{
+                height: "100%", width: "100%", position: "relative", zIndex: 0,
+                pointerEvents: "none"
+            }} onWheel={this.handleScroll} ref={this.gridRef} >
+                <Grid tickSpacing={20} />
+                <BlockLayer />
+                <EdgeLayer />
             </div>
         );
     }

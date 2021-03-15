@@ -42,7 +42,7 @@ class PlayItem extends Component<Props, State> {
         }
 
         return (
-            <svg className="bi bi-play-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+            <svg className="bi bi-play-fill" width="50px" height="50px" viewBox="0 0 15 15" fill="currentColor"
                  color={!this.state.clicked ? "#006a4e" : "#960018"}
                  xmlns="http://www.w3.org/2000/svg" onClick={() => {
                 const tempState = {...this.state};
