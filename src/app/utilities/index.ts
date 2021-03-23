@@ -9,6 +9,10 @@ export function ScreenToWorld(point: PointType, translation: PointType, zoom: nu
     return {x: gX1, y: gY1}
 }
 
+export function SetOpacity(hex: string, alpha: number): string {
+    return `${hex}${Math.floor(alpha * 255).toString(16).padStart(2, "0")}`;
+}
+
 export function dataToLine(position: PointType, dimensions: PointType, steps: number, data: number[]): string {
     const xScale = d3.scaleLinear()
         .domain([0, steps])

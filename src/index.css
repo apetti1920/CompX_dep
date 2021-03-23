@@ -4,25 +4,9 @@
 /*  src: local('JetBrainsMono'), url("src/assets/fonts/JetBrainsMono/JetBrainsMono-Regular.woff2") format('woff2');*/
 /*}*/
 
-body {
-  --custom-background-color: #282a36;
-  --custom-text-color: #f8f8f2;
-  --custom-link-color: #016191;
-  --custom-accent-color: #6272a4;
-  --custom-shadow-color: #44475a;
-
-  --custom-font-family: Arial, Helvetica, sans-serif;
-
-  --toolbar-height: 60px;
-  --sidebar-width: 30px;
-  --browser-bar-width: 20%;
-  --border-width: 3px;
-}
-
 html, body, #root, .App {
   touch-action: none;
   overflow: hidden;
   margin: 0;
   padding: 0;
-  background-color: var(--custom-background-color);
 }

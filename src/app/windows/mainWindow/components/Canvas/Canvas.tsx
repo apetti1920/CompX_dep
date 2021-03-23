@@ -5,7 +5,6 @@ import Grid from "./Grid";
 import {MouseDownType} from "../types";
 import {PointType} from "../../../../../shared/types";
 import {Clamp, linearInterp} from "../../../../../electron/utils";
-import Ruler from "./Ruler";
 import {connect} from "react-redux";
 import {bindActionCreators, Dispatch} from 'redux';
 import {MouseAction, MovedCanvasAction, ZoomedCanvasAction} from "../../../../store/actions";

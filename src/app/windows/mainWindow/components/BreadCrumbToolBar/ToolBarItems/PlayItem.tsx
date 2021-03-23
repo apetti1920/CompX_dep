@@ -8,6 +8,11 @@ import {ipcRenderer} from "electron";
 import {bindActionCreators, Dispatch} from "redux";
 import {AddedDisplayDataAction} from "../../../../../store/actions";
 
+
+interface ComponentProps {
+    color: string
+}
+
 interface StateProps {
     graph: GraphVisualType
 }
@@ -16,7 +21,7 @@ interface DispatchProps {
     onAddedDisplayData: (displayData: DisplayDataType) => void
 }
 
-type Props = StateProps & DispatchProps
+type Props = StateProps & DispatchProps & ComponentProps
 
 interface State {
     clicked: boolean
@@ -31,6 +36,57 @@ class PlayItem extends Component<Props, State> {
         }
     }
 
+    buttonClick = () => {
+        const tempState = {...this.state};
+        tempState.clicked = !tempState.clicked;
+
+        if (tempState.clicked) {
+            const ipc = new IpcService();
+
+            const edges: Edge[] = this.props.graph.edges.map(edge => {
+                return {
+                    id: edge.id, outputBlock: edge.outputBlockVisualID,
+                    outputPort: edge.outputPortID, inputBlock: edge.inputBlockVisualID,
+                    inputPort: edge.inputPortID
+                }
+            });
+
+            //  Needs to return some kind of stream object
+            ipcRenderer.on(GET_DISPLAY_CHANNEL, (event, message) => {
+                if (message["cmd"] === "display_data") {
+                    this.props.onAddedDisplayData(message['data']);
+                } else if (message["cmd"] === "run_progress") {
+                    if (message['data']['progress'] === "starting") {
+                        console.log("registered");
+                        // clear display data
+                    } else {
+                        ipcRenderer.removeAllListeners(GET_DISPLAY_CHANNEL);
+                        this.setState({...this.state, clicked: false});
+                        console.log("Removed");
+                    }
+                } else {
+                    ipcRenderer.removeAllListeners(GET_DISPLAY_CHANNEL);
+                    this.setState({...this.state, clicked: false});
+                    console.log("Removed");
+                }
+            });
+            ipc.send<void>(RUN_MODEL_CHANNEL, {
+                params:
+                    {
+                        blocks: this.props.graph.blocks.map(block => {
+                            const storageBlock = block.blockStorage;
+                            storageBlock.id = block.id;
+                            return storageBlock;
+                        }),
+                        edges: edges
+                    }
+            });
+            this.setState(tempState);
+        } else {
+            this.setState({...this.state, clicked: false})
+        }
+    }
+
     render(): React.ReactElement {
         let pathButton;
         if (!this.state.clicked) {
@@ -42,60 +98,24 @@ class PlayItem extends Component<Props, State> {
         }
 
         return (
-            <svg className="bi bi-play-fill" width="50px" height="50px" viewBox="0 0 15 15" fill="currentColor"
-                 color={!this.state.clicked ? "#006a4e" : "#960018"}
-                 xmlns="http://www.w3.org/2000/svg" onClick={() => {
-                const tempState = {...this.state};
-                tempState.clicked = !tempState.clicked;
-
-                if (tempState.clicked) {
-                    const ipc = new IpcService();
-
-                    const edges: Edge[] = this.props.graph.edges.map(edge => {
-                        return {
-                            id: edge.id, outputBlock: edge.outputBlockVisualID,
-                            outputPort: edge.outputPortID, inputBlock: edge.inputBlockVisualID,
-                            inputPort: edge.inputPortID
-                        }
-                    });
-
-                    //  Needs to return some kind of stream object
-                    ipcRenderer.on(GET_DISPLAY_CHANNEL, (event, message) => {
-                        if (message["cmd"] === "display_data") {
-                            this.props.onAddedDisplayData(message['data']);
-                        } else if (message["cmd"] === "run_progress") {
-                            if (message['data']['progress'] === "starting") {
-                                console.log("registered");
-                                // clear display data
-                            } else {
-                                ipcRenderer.removeAllListeners(GET_DISPLAY_CHANNEL);
-                                this.setState({...this.state, clicked: false});
-                                console.log("Removed");
-                            }
-                        } else {
-                            ipcRenderer.removeAllListeners(GET_DISPLAY_CHANNEL);
-                            this.setState({...this.state, clicked: false});
-                            console.log("Removed");
-                        }
-                    });
-                    ipc.send<void>(RUN_MODEL_CHANNEL, {
-                        params:
-                            {
-                                blocks: this.props.graph.blocks.map(block => {
-                                    const storageBlock = block.blockStorage;
-                                    storageBlock.id = block.id;
-                                    return storageBlock;
-                                }),
-                                edges: edges
-                            }
-                    });
-                    this.setState(tempState);
-                } else {
-                    this.setState({...this.state, clicked: false})
-                }
-            }}>
-                {pathButton}
-            </svg>
+            <button id="play-button" style={{
+                width: "100%",
+                height: "100%",
+                backgroundColor: "transparent",
+                border: "none",
+                cursor: "pointer",
+                overflow: "hidden",
+                outline: "none",
+                color: this.props.color,
+                backgroundRepeat: "no-repeat",
+                opacity: "0.75",
+                fontSize: "50%"
+            }} onClick={() => console.log("clicked")}>
+                <svg className="bi bi-play-fill" width="40px" height="40px" viewBox="0 0 15 15"
+                     fill={this.props.color} opacity="75%" xmlns="http://www.w3.org/2000/svg">
+                    {pathButton}
+                </svg>
+            </button>
         );
     }
 }

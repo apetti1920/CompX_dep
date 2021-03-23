@@ -4,6 +4,7 @@ import isDev from 'electron-is-dev';
 import {IpcChannelInterface} from "./IPC/Channels/IpcChannelInterface";
 import {BlockLibraryChannel} from "./IPC/Channels/BlockLibraryChannel";
 import {RunModelChannel} from "./IPC/Channels/RunModelChannel";
+import GetThemeChannel from "./IPC/Channels/GetThemeChannel";
 
 const path = require('path')
 const os = require('os')
@@ -31,6 +32,9 @@ class Main {
         this.mainWindow = new BrowserWindow({
             width: 1000,
             height: 750,
+            transparent: true,
+            frame: false,
+            titleBarStyle: "hiddenInset",
             webPreferences: {
                 nodeIntegration: true
             }
@@ -83,7 +87,8 @@ const main = new Main();
 main.init([
     new SystemInfoChannel(),
     new BlockLibraryChannel(),
-    new RunModelChannel()
+    new RunModelChannel(),
+    new GetThemeChannel()
 ]);
 
 export default main;

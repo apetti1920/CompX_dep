@@ -12,10 +12,11 @@ const getFileDataPath = (objPath?: string): string => {
     }
 
     objPath = objPath ?? "";
-    console.log(path.join(userDataPath, ...objPath.split('/')));
-    return path.join(userDataPath, ...objPath.split('/'));
+    return path.join(userDataPath, "app_storage", ...objPath.split('/'));
 }
 
+export const themesDir = getFileDataPath("themes");
+export const getThemeDir = (id: string): string => getFileDataPath(`themes/${id}`);
 export const blocksDir = getFileDataPath("blocks");
 export const getBlockDir = (id: string): string => getFileDataPath(`blocks/${id}`);
 

@@ -8,6 +8,7 @@ import {CanvasType, MouseType, StateType} from "../../../../store/types";
 import {bindActionCreators, Dispatch} from "redux";
 import {DeselectAllBlocksAction, MouseAction, MovedCanvasAction, ZoomedCanvasAction} from "../../../../store/actions";
 import {connect} from "react-redux";
+import theme from '../../../../theme'
 
 const _ = require('lodash');
 
@@ -114,7 +115,7 @@ class Grid extends React.Component<Props, State> {
                         <pattern id="grid" width={this.props.tickSpacing} height={this.props.tickSpacing} patternUnits="userSpaceOnUse"
                                  patternTransform={`translate(${this.props.canvas.translation.x} ${this.props.canvas.translation.y}) 
                                                     scale(${this.props.canvas.zoom.toString()} ${this.props.canvas.zoom.toString()})`}>
-                            <circle cx={this.props.tickSpacing} cy={this.props.tickSpacing} r="1" fill="var(--custom-text-color)"/>
+                            <circle cx={this.props.tickSpacing} cy={this.props.tickSpacing} r="1" fill={theme.palette.text}/>
                         </pattern>
                     </defs>
 

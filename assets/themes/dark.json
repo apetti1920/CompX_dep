@@ -1,0 +1,9 @@
+{
+  "palette": {
+    "background": {"main": "#282a36"},
+    "text": {"main":  "#f8f8f2"},
+    "accent": {"main":  "#6272a4"},
+    "shadow": {"main":  "#44475a"},
+    "link": {"main":  "#44475a"}
+  }
+}

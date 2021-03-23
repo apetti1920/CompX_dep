@@ -7,6 +7,7 @@ module.exports = {
     index: './src/electron/index.ts',
     MainWindow: './src/app/windows/mainWindow/renderer.tsx',
     GetBlockLibraryFiles: './src/shared/lib/GraphLibrary/helpers/GetBlockLibraryFilesChildProcess.ts',
+    GetThemeFiles: './src/electron/helpers/GetThemeFiles.ts',
     ModelLib: './src/shared/lib/GraphLibrary/helpers/ModelChildProcess.ts'
   },
   output: {
