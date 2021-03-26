@@ -8,6 +8,6 @@ export default {
     },
     "spacing": {
         "titlebarHeight": "35px",
-        "toolbarHeight": "60px"
+        "toolbarWidth": "80px"
     }
 }

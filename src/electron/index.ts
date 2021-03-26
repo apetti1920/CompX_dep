@@ -32,6 +32,8 @@ class Main {
         this.mainWindow = new BrowserWindow({
             width: 1000,
             height: 750,
+            minWidth: 1000,
+            minHeight: 750,
             transparent: true,
             frame: false,
             titleBarStyle: "hiddenInset",

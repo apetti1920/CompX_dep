@@ -11,27 +11,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c538594c-dc81-4851-b030-45f1dfddb73e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/ui_design.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/utilities/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/utilities/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/theme.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/theme.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BreadCrumbToolBar/ToolBarItems/LibraryItem.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BreadCrumbToolBar/Toolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BreadCrumbToolBar/Toolbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/Canvas.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/Canvas.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/Grid.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/Grid.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/ThreeTest.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/renderer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/renderer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/electron/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/constants.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/electron/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/electron/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/Channels.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/Channels.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.main.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.main.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,8 +26,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -162,6 +146,11 @@
       <workItem from="1616264078425" duration="34000" />
       <workItem from="1616461109535" duration="4928000" />
       <workItem from="1616527648514" duration="2342000" />
+      <workItem from="1616550694505" duration="3085000" />
+      <workItem from="1616589947295" duration="182000" />
+      <workItem from="1616643714774" duration="1972000" />
+      <workItem from="1616722329381" duration="18355000" />
+      <workItem from="1616788882265" duration="86000" />
     </task>
     <servers />
   </component>
@@ -193,30 +182,30 @@
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="578" y="288" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.25.1680.1025@0.25.1680.1025" timestamp="1616530035374" />
-    <state width="819" height="295" key="GridCell.Tab.0.bottom" timestamp="1616530046395">
+    <state width="1659" height="295" key="GridCell.Tab.0.bottom" timestamp="1616788981308">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="819" height="295" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1616530046395" />
+    <state width="1659" height="295" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1616788981308" />
     <state width="2539" height="405" key="GridCell.Tab.0.bottom/1680.-1415.2560.1415/0.25.1680.1025@1680.-1415.2560.1415" timestamp="1612136556621" />
-    <state width="1659" height="295" key="GridCell.Tab.0.bottom/1680.-175.2560.1415/0.25.1680.1025@0.25.1680.1025" timestamp="1616111805255" />
-    <state width="819" height="295" key="GridCell.Tab.0.center" timestamp="1616530046395">
+    <state width="1659" height="295" key="GridCell.Tab.0.bottom/1680.-175.2560.1415/0.25.1680.1025@0.25.1680.1025" timestamp="1616767480657" />
+    <state width="1659" height="295" key="GridCell.Tab.0.center" timestamp="1616788981307">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="819" height="295" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1616530046395" />
+    <state width="1659" height="295" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1616788981307" />
     <state width="2539" height="405" key="GridCell.Tab.0.center/1680.-1415.2560.1415/0.25.1680.1025@1680.-1415.2560.1415" timestamp="1612136556620" />
-    <state width="1659" height="295" key="GridCell.Tab.0.center/1680.-175.2560.1415/0.25.1680.1025@0.25.1680.1025" timestamp="1616111805254" />
-    <state width="819" height="295" key="GridCell.Tab.0.left" timestamp="1616530046394">
+    <state width="1659" height="295" key="GridCell.Tab.0.center/1680.-175.2560.1415/0.25.1680.1025@0.25.1680.1025" timestamp="1616767480656" />
+    <state width="1659" height="295" key="GridCell.Tab.0.left" timestamp="1616788981306">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="819" height="295" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1616530046394" />
+    <state width="1659" height="295" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1616788981306" />
     <state width="2539" height="405" key="GridCell.Tab.0.left/1680.-1415.2560.1415/0.25.1680.1025@1680.-1415.2560.1415" timestamp="1612136556619" />
-    <state width="1659" height="295" key="GridCell.Tab.0.left/1680.-175.2560.1415/0.25.1680.1025@0.25.1680.1025" timestamp="1616111805253" />
-    <state width="819" height="295" key="GridCell.Tab.0.right" timestamp="1616530046395">
+    <state width="1659" height="295" key="GridCell.Tab.0.left/1680.-175.2560.1415/0.25.1680.1025@0.25.1680.1025" timestamp="1616767480655" />
+    <state width="1659" height="295" key="GridCell.Tab.0.right" timestamp="1616788981307">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="819" height="295" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1616530046395" />
+    <state width="1659" height="295" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1616788981307" />
     <state width="2539" height="405" key="GridCell.Tab.0.right/1680.-1415.2560.1415/0.25.1680.1025@1680.-1415.2560.1415" timestamp="1612136556620" />
-    <state width="1659" height="295" key="GridCell.Tab.0.right/1680.-175.2560.1415/0.25.1680.1025@0.25.1680.1025" timestamp="1616111805254" />
+    <state width="1659" height="295" key="GridCell.Tab.0.right/1680.-175.2560.1415/0.25.1680.1025@0.25.1680.1025" timestamp="1616767480656" />
     <state width="1659" height="342" key="GridCell.Tab.1.bottom" timestamp="1612669937144">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>

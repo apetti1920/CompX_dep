@@ -14,41 +14,45 @@ import {SetOpacity} from "../../utilities";
 
 const pageWrapStyle: React.CSSProperties = {
     width: "100vw",
-    height: "100vw"
-};
-
-const glass: React.CSSProperties = {
+    height: "100vw",
     backgroundColor: SetOpacity(theme.palette.background, 0.4),
     backgroundImage: `linear-gradient(to bottom right, ${SetOpacity(theme.palette.background, 0.2)}, ${SetOpacity(theme.palette.background, 0)})`,
     backdropFilter: "blur(7px)",
     boxShadow: "10px 10px 10px rgba(30, 30, 30, 0.1)"
-}
-
-const titlebarWrapStyle: React.CSSProperties = {
-    ...glass,
-    height: "35px",
-    width: "100%",
-    userSelect: "none",
 };
 
-const toolbarWrapStyle: React.CSSProperties = {
-    ...glass,
-    position: "relative",
-    height: `calc(${theme.spacing.toolbarHeight} + 45px)`,
+const titlebarWrapStyle: React.CSSProperties = {
+    height: theme.spacing.titlebarHeight,
     width: "100%",
-    zIndex: -1
+    userSelect: "none",
+    position: "relative",
+    zIndex: 10,
+    backgroundColor: SetOpacity(theme.palette.background, 0.1),
+    backdropFilter: "blur(7px)",
+    border: `1px solid ${SetOpacity(theme.palette.shadow, 0.5)}`
+};
+
+const workWindowWrapStyle: React.CSSProperties = {
+    position: 'relative',
+    width: "100%",
+    height: "100vh",
+    top: `-${theme.spacing.titlebarHeight}`
+}
+
+const toolbarWrapStyle: React.CSSProperties = {
+    height: `100%`,
+    width: theme.spacing.toolbarWidth,
+    float: "left",
+    paddingTop: theme.spacing.titlebarHeight
 };
 
 const mainContainerWrapStyle: React.CSSProperties = {
     backgroundColor: theme.palette.background,
-    position: 'relative',
-    height: `calc(100vh - ${theme.spacing.toolbarHeight} - 35px)`,
-    width: "100%",
-    top: `-45px`,
+    height: `100%`,
+    width: "auto",
     padding: "0px",
-    borderRadius: "45px 45px 0px 0px",
-    boxShadow: `0px 0 10px ${theme.palette.shadow}`,
-    borderTop: `1px solid ${theme.palette.accent}`,
+    borderRadius: "7px 0px 0px 7px",
+    boxShadow: `0px 0 3px ${theme.palette.shadow}`,
     overflow: "hidden"
 };
 
@@ -67,11 +71,13 @@ class App extends Component {
         return (
             <div className="pageWrap" style={pageWrapStyle}>
                 <div className="titlebarWrap" style={titlebarWrapStyle}/>
-                <div className="toolbarWrap" style={toolbarWrapStyle}>
-                    <ToolBar/>
-                </div>
-                <div className="mainContainerWrap" style={mainContainerWrapStyle}>
-                    <Canvas/>
+                <div className="workWindow" style={workWindowWrapStyle}>
+                    <div className="toolbarWrap" style={toolbarWrapStyle}>
+                        <ToolBar/>
+                    </div>
+                    <div className="mainContainerWrap" style={mainContainerWrapStyle}>
+                        <Canvas/>
+                    </div>
                 </div>
             </div>
         );
