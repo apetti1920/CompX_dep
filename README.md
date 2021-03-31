@@ -46,14 +46,6 @@ $ npm run start
 ![UI Design](resources/ui_design.png)
 ---
 
-![Alt Text](resources/running.gif)
-
-
-
-![UI Design](resources/graph_output.png)
-
-
-
 ## Example Graph
 
 ![Sample Graph](resources/sample_graph.png)
