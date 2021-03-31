@@ -3,7 +3,6 @@ import _ from 'lodash';
 
 import Portal from "./Portal";
 import {PointType} from "../../../../../shared/types";
-import {SetOpacity} from "../../../../utilities";
 import theme from "../../../../theme";
 
 type PlacementType = "right" | "bottom" | "left" | "top"
@@ -28,6 +27,7 @@ type Props = {
     placement?: PlacementType,
     space?: number,
     disabled?: boolean,
+    clickEvent?: boolean,
     children: {
         TooltipElement: React.ReactElement,
         MasterObject: React.ReactElement
@@ -35,17 +35,20 @@ type Props = {
 }
 
 type State = {
-    show: boolean
+    hoverButton: boolean,
+    hoverTooltip: boolean,
+    hoverTimout?: ReturnType<typeof setTimeout>
 }
 
 class ToolTip extends Component<Props, State> {
     private readonly posRef: React.MutableRefObject<PointType>;
-    private readonly tooltipRef: React.MutableRefObject<HTMLHtmlElement|null>;
+    private readonly tooltipRef: React.MutableRefObject<HTMLElement>;
 
     public static defaultProps = {
         placement: "right",
-        space: 15,
-        disabled: false
+        space: 0,
+        disabled: false,
+        clickEvent: false
     }
 
     constructor(props: Props) {
@@ -53,25 +56,29 @@ class ToolTip extends Component<Props, State> {
 
         this.posRef = React.createRef<PointType>();
         this.posRef.current = {x: 0, y: 0}
-        this.tooltipRef = React.createRef<HTMLHtmlElement>();
+        this.tooltipRef = React.createRef<HTMLElement>();
 
         this.state = {
-            show: false
+            hoverButton: false,
+            hoverTooltip: false
         }
     }
+
+    isOpen = (): boolean => (this.state.hoverButton || this.state.hoverTooltip) && !this.props.disabled
 
     getTooltipStyle = (): React.CSSProperties => ({
         position: 'fixed',
         top: `${this.posRef.current.y}px`,
         left: `${this.posRef.current.x}px`,
         zIndex: 99999,
+        pointerEvents: this.isOpen() ? "auto" : "none",
         display: "inline-block",
-        opacity: this.state.show ? 1.0 : 0.0
+        opacity: this.isOpen() ? 1.0 : 0.0
     });
     getPoint = (currentTarget: EventTarget & Element): PointType => {
         const bdys = {
             l: this.props.space,
-            t: this.props.space,
+            t: this.props.space + theme.spacing.titlebarHeight + theme.spacing.toolbarHeight,
             r: document.body.clientWidth + this.tooltipRef.current.clientWidth - this.props.space,
             b: window.innerHeight + this.tooltipRef.current.clientHeight - this.props.space
         }
@@ -119,25 +126,61 @@ class ToolTip extends Component<Props, State> {
         })()
     }
 
-    handleShowToolTip = (e: React.MouseEvent): void => {
+    handleShowHoverButton = (e: React.MouseEvent): void => {
         const tempState: State = _.cloneDeep(this.state);
-        tempState.show = true;
         this.posRef.current = this.getPoint(e.currentTarget);
+        tempState.hoverTimout = setTimeout(()=> {
+            const tempState: State = _.cloneDeep(this.state);
+            tempState.hoverButton = true;
+            this.setState(tempState);
+        }, 700);
         this.setState(tempState);
     }
-    handleHideTooltip = (e: React.MouseEvent): void => {
+    handleHideUnHoverButton = (e: React.MouseEvent): void => {
         const tempState: State = _.cloneDeep(this.state);
-        tempState.show = false;
+        tempState.hoverButton = false;
+        if (tempState.hoverTimout !== undefined) {
+            clearTimeout(tempState.hoverTimout);
+            tempState.hoverTimout = undefined
+        }
+        this.setState(tempState);
+    }
+    handleShowToolTipTooltip = (e: React.MouseEvent): void => {
+        const tempState: State = _.cloneDeep(this.state);
+        tempState.hoverTooltip = true;
+        this.setState(tempState);
+    }
+    handleHideTooltipTooltip = (e: React.MouseEvent): void => {
+        const tempState: State = _.cloneDeep(this.state);
+        tempState.hoverTooltip = false;
         this.setState(tempState);
     }
 
     render(): React.ReactNode {
+        const buttonElement = React.cloneElement(this.props.children.MasterObject as React.ReactElement<any>, {
+            onMouseOver: (e: React.MouseEvent)=>{
+                this.handleShowHoverButton(e)
+                if (this.props.children.MasterObject.props.onMouseOver !== undefined) {
+                    this.props.children.MasterObject.props.onMouseOver(e)
+                }
+            },
+            onMouseOut: (e: React.MouseEvent)=>{
+                this.handleHideUnHoverButton(e)
+                if (this.props.children.MasterObject.props.onMouseOut !== undefined) {
+                    this.props.children.MasterObject.props.onMouseOut(e)
+                }
+            },
+            onClick: (e: React.MouseEvent)=>{
+                this.handleHideUnHoverButton(e)
+                if (this.props.children.MasterObject.props.onClick !== undefined) {
+                    this.props.children.MasterObject.props.onClick(e)
+                }
+            }
+        });
+
         return (
             <React.Fragment>
-                {React.cloneElement(this.props.children.MasterObject as React.ReactElement<any>, {
-                    onMouseOver: this.handleShowToolTip,
-                    onMouseOut: this.handleHideTooltip
-                })}
+                {buttonElement}
                 <Portal>
                     {React.cloneElement(this.props.children.TooltipElement as React.ReactElement<any>, {
                         ref: this.tooltipRef,
