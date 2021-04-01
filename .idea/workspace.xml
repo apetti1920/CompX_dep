@@ -11,15 +11,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c538594c-dc81-4851-b030-45f1dfddb73e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ToolBar/Toolbar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/theme.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/theme.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BreadCrumbToolBar/BreadCrumb.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BreadCrumbToolBar/BreadCrumbToolBar.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BreadCrumbToolBar/ToolBarItems/PlayItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ToolBar/ToolBarItems/PlayItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BreadCrumbToolBar/Toolbar.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ComponentUtils/ToolTip.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ComponentUtils/ToolTip.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ToolBar/ToolBarItems/LibraryBrowser/Accordion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ToolBar/ToolBarItems/LibraryBrowser/Accordion.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ToolBar/ToolBarItems/LibraryBrowser/LibraryBrowser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ToolBar/ToolBarItems/LibraryBrowser/LibraryBrowser.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,6 +152,7 @@
       <workItem from="1616874729108" duration="2219000" />
       <workItem from="1616936965214" duration="6908000" />
       <workItem from="1617152347015" duration="11505000" />
+      <workItem from="1617237437332" duration="6919000" />
     </task>
     <servers />
   </component>
@@ -189,28 +184,28 @@
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="578" y="288" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.25.1680.1025@0.25.1680.1025" timestamp="1616530035374" />
-    <state width="1659" height="295" key="GridCell.Tab.0.bottom" timestamp="1617164065578">
+    <state width="1659" height="295" key="GridCell.Tab.0.bottom" timestamp="1617289307201">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="1659" height="295" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1617164065578" />
+    <state width="1659" height="295" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1617289307201" />
     <state width="2539" height="405" key="GridCell.Tab.0.bottom/1680.-1415.2560.1415/0.25.1680.1025@1680.-1415.2560.1415" timestamp="1612136556621" />
     <state width="1659" height="295" key="GridCell.Tab.0.bottom/1680.-175.2560.1415/0.25.1680.1025@0.25.1680.1025" timestamp="1616767480657" />
-    <state width="1659" height="295" key="GridCell.Tab.0.center" timestamp="1617164065578">
+    <state width="1659" height="295" key="GridCell.Tab.0.center" timestamp="1617289307201">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="1659" height="295" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1617164065578" />
+    <state width="1659" height="295" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1617289307201" />
     <state width="2539" height="405" key="GridCell.Tab.0.center/1680.-1415.2560.1415/0.25.1680.1025@1680.-1415.2560.1415" timestamp="1612136556620" />
     <state width="1659" height="295" key="GridCell.Tab.0.center/1680.-175.2560.1415/0.25.1680.1025@0.25.1680.1025" timestamp="1616767480656" />
-    <state width="1659" height="295" key="GridCell.Tab.0.left" timestamp="1617164065577">
+    <state width="1659" height="295" key="GridCell.Tab.0.left" timestamp="1617289307201">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="1659" height="295" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1617164065577" />
+    <state width="1659" height="295" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1617289307201" />
     <state width="2539" height="405" key="GridCell.Tab.0.left/1680.-1415.2560.1415/0.25.1680.1025@1680.-1415.2560.1415" timestamp="1612136556619" />
     <state width="1659" height="295" key="GridCell.Tab.0.left/1680.-175.2560.1415/0.25.1680.1025@0.25.1680.1025" timestamp="1616767480655" />
-    <state width="1659" height="295" key="GridCell.Tab.0.right" timestamp="1617164065578">
+    <state width="1659" height="295" key="GridCell.Tab.0.right" timestamp="1617289307201">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="1659" height="295" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1617164065578" />
+    <state width="1659" height="295" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1617289307201" />
     <state width="2539" height="405" key="GridCell.Tab.0.right/1680.-1415.2560.1415/0.25.1680.1025@1680.-1415.2560.1415" timestamp="1612136556620" />
     <state width="1659" height="295" key="GridCell.Tab.0.right/1680.-175.2560.1415/0.25.1680.1025@0.25.1680.1025" timestamp="1616767480656" />
     <state width="1659" height="342" key="GridCell.Tab.1.bottom" timestamp="1612669937144">
