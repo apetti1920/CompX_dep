@@ -2,11 +2,8 @@
 import * as React from 'react';
 import _ from "lodash";
 
-export type AccordionDataType = {
-    id: number,
-    name: string,
-    keywords: string[]
-}
+import LibraryBrowserCard from "./LibraryBrowserCard";
+import {BlockStorageType} from "../../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 
 const accordionStyle: React.CSSProperties = {
     width: "100%",
@@ -15,7 +12,7 @@ const accordionStyle: React.CSSProperties = {
 }
 
 type Props = {
-    data: AccordionDataType[]
+    data: BlockStorageType[]
 };
 type State = {
     expandedSubsectionID?: string
@@ -31,11 +28,11 @@ export class Accordion extends React.Component<Props, State> {
     }
 
     getOrderedKeywordList = (): string[] => {
-        const allKeywords = this.props.data.map(d => d.keywords).reduce((a, v) => a.concat(v));
+        const allKeywords = this.props.data.map(d => d.tags).reduce((a, v) => a.concat(v),  []);
         const uniqueKeywords = [...new Set(allKeywords)];
         uniqueKeywords.sort((a, b): number => {
-            const diff = this.props.data.filter(d => d.keywords.includes(b)).length -
-                this.props.data.filter(d => d.keywords.includes(a)).length;
+            const diff = this.props.data.filter(d => d.tags.includes(b)).length -
+                this.props.data.filter(d => d.tags.includes(a)).length;
             if (diff!==0) { return diff }
             else { return b<a?1:-1 }
         });
@@ -65,11 +62,10 @@ export class Accordion extends React.Component<Props, State> {
         const expandedElement = (
             <React.Fragment>
                 {keywordSeparator(this.state.expandedSubsectionID)}
-                <div style={{width: "100%", backgroundColor: "teal", display: "flex", flexFlow: "row wrap"}}>
+                <div style={{width: "100%", backgroundColor: "teal", display: "flex", flexFlow: "row wrap", justifyContent:  "space-around"}}>
                     {
-                        this.props.data.filter(d => d.keywords.includes(this.state.expandedSubsectionID)).map(d => (
-                            <div key={d.id}
-                                 style={{width: "25px", height: "25px", backgroundColor: "black", margin: "5px", color: "white"}}>{d.name}</div>
+                        this.props.data.filter(d => d.tags.includes(this.state.expandedSubsectionID)).map(d => (
+                            <LibraryBrowserCard key={d.id} data={d}/>
                         ))
                     }
                 </div>
@@ -77,12 +73,9 @@ export class Accordion extends React.Component<Props, State> {
         )
 
         return (
-            <React.Fragment>
-                <div style={{width: "100%", height: "30px", backgroundColor: "red"}}/>
-                <div style={accordionStyle}>
-                    {this.state.expandedSubsectionID===undefined?unExpandedElement:expandedElement}
-                </div>
-            </React.Fragment>
+            <div style={accordionStyle}>
+                {this.state.expandedSubsectionID===undefined?unExpandedElement:expandedElement}
+            </div>
         );
     }
 }

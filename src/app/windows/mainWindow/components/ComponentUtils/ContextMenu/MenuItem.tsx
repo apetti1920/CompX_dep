@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import {MenuItemSpacerType} from "../types";
+import {MenuItemSpacerType} from "../../types";
 
 type Props = {
     menuItem: MenuItemSpacerType

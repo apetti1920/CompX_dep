@@ -12,8 +12,28 @@
   <component name="ChangeListManager">
     <list default="true" id="c538594c-dc81-4851-b030-45f1dfddb73e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/types/canvasTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/types/canvasTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/store/types/stateTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/store/types/stateTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BrowserWindow/BrowserWindow.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BrowserWindow/EditBlock/CanvasEdit.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BrowserWindow/FunctionBrowser/Accordion.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BrowserWindow/FunctionBrowser/FunctionBrowser.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/BrowserWindow/FunctionBrowser/FunctionBrowserCard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/BlockLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Canvas/BlockLayer/BlockLayer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ComponentUtils/ContextMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ComponentUtils/ContextMenu/ContextMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ComponentUtils/MenuItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ComponentUtils/ContextMenu/MenuItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ComponentUtils/Split.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ComponentUtils/Split/Split.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ComponentUtils/Split.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ComponentUtils/Split/Split.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Sidebar/Sidebar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Sidebar/SidebarButton.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Sidebar/SidebarButtonGroup.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Sidebar/SidebarButtonStylesheet.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/Terminal/Terminal.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ToolBar/ToolBarItems/LibraryBrowser/Accordion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ToolBar/ToolBarItems/LibraryBrowser/Accordion.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ToolBar/ToolBarItems/LibraryBrowser/LibraryBrowser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ToolBar/ToolBarItems/LibraryBrowser/LibraryBrowser.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ToolBar/ToolBarItems/LibraryBrowser/LibraryBrowserButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/ToolBar/ToolBarItems/LibraryBrowser/LibraryBrowserButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/windows/mainWindow/components/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/windows/mainWindow/components/types/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +46,7 @@
         <option value="JavaScript File" />
         <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -49,6 +70,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/assets" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -60,20 +82,22 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="watcher.settings" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/windows/mainWindow/components/ComponentUtils" />
+      <recent name="$PROJECT_DIR$/src/app/windows/mainWindow/components/ToolBar/ToolBarItems/LibraryBrowser/SearchBar" />
+      <recent name="$PROJECT_DIR$/src/app/windows/mainWindow/components/ComponentUtils/Split" />
+      <recent name="$PROJECT_DIR$/src/app/windows/mainWindow/components/ComponentUtils/ContextMenu" />
+      <recent name="$PROJECT_DIR$/resources" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/assets" />
       <recent name="$PROJECT_DIR$/src/electron/IPC/Channels" />
       <recent name="$PROJECT_DIR$" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources" />
-      <recent name="$PROJECT_DIR$/assets/images" />
-      <recent name="$PROJECT_DIR$/src/shared/lib/GraphLibrary/helpers" />
     </key>
   </component>
   <component name="RunManager">
@@ -153,6 +177,7 @@
       <workItem from="1616936965214" duration="6908000" />
       <workItem from="1617152347015" duration="11505000" />
       <workItem from="1617237437332" duration="6919000" />
+      <workItem from="1617331923110" duration="9078000" />
     </task>
     <servers />
   </component>
@@ -176,36 +201,44 @@
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="1123" y="434" key="#ESLint/0.25.1680.1025@0.25.1680.1025" timestamp="1611504511077" />
+    <state x="713" y="420" key="#File_Watchers" timestamp="1617351144313">
+      <screen x="0" y="25" width="1680" height="1025" />
+    </state>
+    <state x="713" y="420" key="#File_Watchers/0.25.1680.1025@0.25.1680.1025" timestamp="1617351144313" />
     <state x="0" y="196" width="1071" height="706" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1611503386618">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="0" y="196" width="1071" height="706" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1680.1025@0.25.1680.1025" timestamp="1611503386618" />
-    <state x="578" y="288" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1616530035374">
+    <state x="578" y="288" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1617333960997">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state x="578" y="288" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.25.1680.1025@0.25.1680.1025" timestamp="1616530035374" />
-    <state width="1659" height="295" key="GridCell.Tab.0.bottom" timestamp="1617289307201">
+    <state x="578" y="288" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.25.1680.1025@0.25.1680.1025" timestamp="1617333960997" />
+    <state x="333" y="314" key="EditFileWatcherDialog" timestamp="1617351130794">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="1659" height="295" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1617289307201" />
+    <state x="333" y="314" key="EditFileWatcherDialog/0.25.1680.1025@0.25.1680.1025" timestamp="1617351130794" />
+    <state width="1659" height="295" key="GridCell.Tab.0.bottom" timestamp="1617352992348">
+      <screen x="0" y="25" width="1680" height="1025" />
+    </state>
+    <state width="1659" height="295" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1617352992348" />
     <state width="2539" height="405" key="GridCell.Tab.0.bottom/1680.-1415.2560.1415/0.25.1680.1025@1680.-1415.2560.1415" timestamp="1612136556621" />
     <state width="1659" height="295" key="GridCell.Tab.0.bottom/1680.-175.2560.1415/0.25.1680.1025@0.25.1680.1025" timestamp="1616767480657" />
-    <state width="1659" height="295" key="GridCell.Tab.0.center" timestamp="1617289307201">
+    <state width="1659" height="295" key="GridCell.Tab.0.center" timestamp="1617352992347">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="1659" height="295" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1617289307201" />
+    <state width="1659" height="295" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1617352992347" />
     <state width="2539" height="405" key="GridCell.Tab.0.center/1680.-1415.2560.1415/0.25.1680.1025@1680.-1415.2560.1415" timestamp="1612136556620" />
     <state width="1659" height="295" key="GridCell.Tab.0.center/1680.-175.2560.1415/0.25.1680.1025@0.25.1680.1025" timestamp="1616767480656" />
-    <state width="1659" height="295" key="GridCell.Tab.0.left" timestamp="1617289307201">
+    <state width="1659" height="295" key="GridCell.Tab.0.left" timestamp="1617352992347">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="1659" height="295" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1617289307201" />
+    <state width="1659" height="295" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1617352992347" />
     <state width="2539" height="405" key="GridCell.Tab.0.left/1680.-1415.2560.1415/0.25.1680.1025@1680.-1415.2560.1415" timestamp="1612136556619" />
     <state width="1659" height="295" key="GridCell.Tab.0.left/1680.-175.2560.1415/0.25.1680.1025@0.25.1680.1025" timestamp="1616767480655" />
-    <state width="1659" height="295" key="GridCell.Tab.0.right" timestamp="1617289307201">
+    <state width="1659" height="295" key="GridCell.Tab.0.right" timestamp="1617352992347">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="1659" height="295" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1617289307201" />
+    <state width="1659" height="295" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1617352992347" />
     <state width="2539" height="405" key="GridCell.Tab.0.right/1680.-1415.2560.1415/0.25.1680.1025@1680.-1415.2560.1415" timestamp="1612136556620" />
     <state width="1659" height="295" key="GridCell.Tab.0.right/1680.-175.2560.1415/0.25.1680.1025@0.25.1680.1025" timestamp="1616767480656" />
     <state width="1659" height="342" key="GridCell.Tab.1.bottom" timestamp="1612669937144">
@@ -256,10 +289,10 @@
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state width="1659" height="342" key="GridCell.Tab.3.right/0.25.1680.1025@0.25.1680.1025" timestamp="1612669937144" />
-    <state x="187" y="168" key="SettingsEditor" timestamp="1611503340025">
+    <state x="187" y="168" key="SettingsEditor" timestamp="1617351133511">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state x="187" y="168" key="SettingsEditor/0.25.1680.1025@0.25.1680.1025" timestamp="1611503340025" />
+    <state x="187" y="168" key="SettingsEditor/0.25.1680.1025@0.25.1680.1025" timestamp="1617351133511" />
     <state x="221" y="455" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1616096475505">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>

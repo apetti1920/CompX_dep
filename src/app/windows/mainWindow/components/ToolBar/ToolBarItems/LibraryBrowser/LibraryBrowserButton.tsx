@@ -4,7 +4,7 @@ import {Children} from "react";
 import ToolTip from "../../../ComponentUtils/ToolTip";
 import theme, {GetGlassStyle} from "../../../../../../theme";
 import {Library as LibraryIcon} from "@styled-icons/ionicons-sharp/Library";
-import {LibraryBrowser} from "./LibraryBrowser";
+import LibraryBrowser from "./LibraryBrowser";
 import _ from "lodash";
 
 type Props = {

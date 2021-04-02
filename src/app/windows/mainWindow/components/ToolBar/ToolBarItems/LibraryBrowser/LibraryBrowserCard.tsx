@@ -1,19 +1,10 @@
 // @flow
 import * as React from 'react';
-
-import {BlockStorageType} from "../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
-import {CanvasType, MouseType, StateType} from "../../../../../store/types";
 import {bindActionCreators, Dispatch} from "redux";
-import {
-    DraggingLibraryBlockAction,
-    MouseAction,
-    MovedCanvasAction,
-    ZoomedCanvasAction
-} from "../../../../../store/actions";
 import {connect} from "react-redux";
-import {PointType} from "../../../../../../shared/types";
 
-const _ = require('lodash');
+import {BlockStorageType} from "../../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {DraggingLibraryBlockAction} from "../../../../../../store/actions";
 
 type ComponentProps = {
     data: BlockStorageType
@@ -29,7 +20,7 @@ type State = {
     imgPath: string
 };
 
-class FunctionBrowserCard extends React.Component<Props, State> {
+class LibraryBrowserCard extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
@@ -49,7 +40,7 @@ class FunctionBrowserCard extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         return (
-        <div className="card" draggable="true" onDragStart={this.onDragStartHandler} onDragEnd={this.onDragEndHandler}>
+            <div className="card" draggable="true" onDragStart={this.onDragStartHandler} onDragEnd={this.onDragEndHandler}>
                 <div style={{
                     width: "40px", height: "50px", display: "flex", flexFlow: "column nowrap", margin: "10px",
                     border: "1px solid #ddd", borderRadius: "4px", backgroundColor: "var(--custom-accent-color)"
@@ -80,4 +71,4 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
 }
 
 
-export default connect(null, mapDispatchToProps)(FunctionBrowserCard)
+export default connect(null, mapDispatchToProps)(LibraryBrowserCard)

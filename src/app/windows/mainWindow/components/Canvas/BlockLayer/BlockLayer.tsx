@@ -13,7 +13,7 @@ import {connect} from "react-redux";
 import {PointType} from "../../../../../../shared/types";
 import {BlockStorageType} from "../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 import VisualBlockComponent from "./VisualBlockComponent";
-import {ContextMenu} from "../../ComponentUtils/ContextMenu"
+import {ContextMenu} from "../../ComponentUtils/ContextMenu/ContextMenu"
 import {Delete, Repeat, Settings} from 'react-feather';
 
 interface StateProps {
@@ -87,17 +87,6 @@ class BlockLayer extends React.Component<Props, State> {
         this.props.onToggleBlockSelection(blockID, true);
 
         tmpState.contextMenu = <ContextMenu position={{ x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY }} items={[
-            {
-                icon: <Settings height="100%" style={{flexGrow: 1}}/>, name: "Edit",
-                action: () => {
-                    const tmpState = {...this.state};
-                    if (!this.props.canvas.sidebarButtons.find(b => b.groupId === 0 && b.buttonId === 1).selected) {
-                        this.props.clickedButton(0, 1);
-                    }
-                    tmpState.contextMenu = undefined;
-                    this.setState(tmpState);
-                }
-            },
             {
                 icon: <Repeat height="100%" style={{flexGrow: 1}}/>,
                 name: !mir ? "Mirror" : "Un-Mirror",

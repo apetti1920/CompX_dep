@@ -6,8 +6,6 @@ export type MouseType = {mouseDownOn: MouseDownType, currentMouseLocation?: Poin
 export type CanvasType = {
     zoom: number,
     translation: PointType,
-    splitSizes: SplitSizeDictionaryType,
-    sidebarButtons: SidebarButtonType[],
     isDraggingFromBlockLibrary: boolean
     mouse: MouseType
 }

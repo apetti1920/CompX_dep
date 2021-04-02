@@ -5,17 +5,35 @@ import Portal from "../../../ComponentUtils/Portal"
 import {PointType} from "../../../../../../../shared/types";
 import theme, {GetGlassStyle} from "../../../../../../theme";
 import {Accordion} from "./Accordion";
+import {StateType} from "../../../../../../store/types";
+import {connect} from "react-redux";
+import {BlockStorageType} from "../../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {SearchBar} from "../../../ComponentUtils/SearchBar/SearchBar";
 
-type Props = {
+type ComponentProps = {
     open: boolean
     location: PointType
 };
 
-type State = {
+interface StateProps {
+    blockLibrary: BlockStorageType[]
+}
 
+type Props = ComponentProps & StateProps
+
+type State = {
+    searchString: string
 };
 
-export class LibraryBrowser extends React.Component<Props, State> {
+class LibraryBrowser extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+
+        this.state = {
+            searchString: ""
+        }
+    }
+
     GetLibraryBrowserStyle = (): React.CSSProperties => ({
         width: "300px",
         maxHeight: "600px",
@@ -34,15 +52,28 @@ export class LibraryBrowser extends React.Component<Props, State> {
         return (
             <Portal>
                 <div style={this.GetLibraryBrowserStyle()}>
-                    <Accordion data={
-                        [
-                            {id: 1, name: "Sum", keywords: ["Math", "Frequently Used"]},
-                            {id: 2, name: "Integral", keywords: ["Math", "DSP"]},
-                            {id: 3, name: "Gain", keywords: ["Math", "Frequently Used", "Temp"]}
-                        ]
-                    }/>
+                    <div style={{width: "100%", height: "30px"}}>
+                        <SearchBar onChange={(currentString) => {this.setState({searchString: currentString})}}/>
+                    </div>
+                    <Accordion data={this.props.blockLibrary.filter(b => {
+                        if (this.state.searchString === "") { return false }
+                        if (b.name.toLowerCase().includes(this.state.searchString.toLowerCase())) { return true }
+                        b.tags.forEach(t => {
+                            if (t.toLowerCase().includes(this.state.searchString.toLowerCase())) { return true }
+                        });
+
+                        return false;
+                    })}/>
                 </div>
             </Portal>
         );
     }
 }
+
+function mapStateToProps(state: StateType): StateProps {
+    return {
+        blockLibrary: state.blockLibrary
+    };
+}
+
+export default connect(mapStateToProps)(LibraryBrowser)

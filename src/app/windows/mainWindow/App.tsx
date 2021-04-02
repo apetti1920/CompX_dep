@@ -31,13 +31,6 @@ const titlebarWrapStyle: React.CSSProperties = {
     border: `1px solid ${SetOpacity(theme.palette.shadow, 0.5)}`
 };
 
-// const workWindowWrapStyle: React.CSSProperties = {
-//     position: 'relative',
-//     width: "100%",
-//     height: "100vh",
-//     top: `-${theme.spacing.titlebarHeight}px`
-// }
-
 const toolbarWrapStyle: React.CSSProperties = {
     width: `100%`,
     height: `${theme.spacing.toolbarHeight}px`,
