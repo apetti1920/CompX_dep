@@ -14,30 +14,21 @@ import {SetOpacity} from "../../utilities";
 
 const pageWrapStyle: React.CSSProperties = {
     width: "100vw",
-    height: "100vw",
+    height: "100vh",
     display: "flex",
     flexFlow: "column nowrap",
-    backgroundColor: SetOpacity(theme.palette.background, 0.4),
-    backgroundImage: `linear-gradient(to bottom right, ${SetOpacity(theme.palette.background, 0.2)}, ${SetOpacity(theme.palette.background, 0)})`,
-    backdropFilter: "blur(7px)",
-    boxShadow: "10px 10px 10px rgba(30, 30, 30, 0.1)"
+    ...GetGlassStyle(theme.palette.background, 0.4)
 };
 
 const titlebarWrapStyle: React.CSSProperties = {
     height: `${theme.spacing.titlebarHeight}px`,
     width: "100%",
-    userSelect: "none",
-    ...GetGlassStyle(theme.palette.background, 0.4),
-    border: `1px solid ${SetOpacity(theme.palette.shadow, 0.5)}`
+    userSelect: "none"
 };
 
 const toolbarWrapStyle: React.CSSProperties = {
     width: `100%`,
-    height: `${theme.spacing.toolbarHeight}px`,
-    overflow: "hidden",
-    backgroundColor: SetOpacity(theme.palette.background, 0.1),
-    backdropFilter: "blur(7px)",
-    border: `1px solid ${SetOpacity(theme.palette.shadow, 0.5)}`
+    height: `${theme.spacing.toolbarHeight}px`
 };
 
 const mainContainerWrapStyle: React.CSSProperties = {
@@ -45,7 +36,7 @@ const mainContainerWrapStyle: React.CSSProperties = {
     flexGrow: 1,
     backgroundColor: theme.palette.background,
     padding: "0px",
-    borderRadius: "7px 0px 0px 7px",
+    borderRadius: "10px 10px 0px 0px",
     boxShadow: `0px 0 3px ${theme.palette.shadow}`,
     overflow: "hidden"
 };

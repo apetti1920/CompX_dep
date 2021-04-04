@@ -79,7 +79,7 @@ class Canvas extends React.Component<Props, never> {
                 height: "100%", width: "100%", position: "relative", zIndex: 0,
                 pointerEvents: "none"
             }} onWheel={this.handleScroll} ref={this.gridRef} >
-                <Grid tickSpacing={20} />
+                <Grid tickSpacing={50} />
                 <BlockLayer />
                 <EdgeLayer />
             </div>

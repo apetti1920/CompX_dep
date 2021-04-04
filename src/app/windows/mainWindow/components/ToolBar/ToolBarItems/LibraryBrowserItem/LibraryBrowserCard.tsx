@@ -6,6 +6,8 @@ import {connect} from "react-redux";
 import {BlockStorageType} from "../../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 import {DraggingLibraryBlockAction} from "../../../../../../store/actions";
 
+import theme from "../../../../../../theme";
+
 type ComponentProps = {
     data: BlockStorageType
 };
@@ -17,15 +19,13 @@ interface DispatchProps {
 type Props = ComponentProps & DispatchProps
 
 type State = {
-    imgPath: string
+
 };
 
 class LibraryBrowserCard extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        // TODO: must update image (if from local use ipc otherwise use src)
-        this.state = {imgPath: this.props.data.thumbnail};
     }
 
     onDragStartHandler = (e: React.DragEvent<HTMLDivElement>): void => {
@@ -42,17 +42,17 @@ class LibraryBrowserCard extends React.Component<Props, State> {
         return (
             <div className="card" draggable="true" onDragStart={this.onDragStartHandler} onDragEnd={this.onDragEndHandler}>
                 <div style={{
-                    width: "40px", height: "50px", display: "flex", flexFlow: "column nowrap", margin: "10px",
-                    border: "1px solid #ddd", borderRadius: "4px", backgroundColor: "var(--custom-accent-color)"
+                    width: "60px", height: "70px", display: "flex", flexFlow: "column nowrap", margin: "10px",
+                    border: `1px solid ${theme.palette.shadow}`, borderRadius: "7px",
+                    backgroundColor: theme.palette.accent, overflow: "hidden"
                 }}>
                     <img style={{width: "100%", height: "75%", userSelect: "none"}} draggable="false"
                          src={this.props.data.thumbnail} alt={this.props.data.name}/>
                     <div style={{
                         width: "100%",
-                        fontFamily: "var(--custom-font-family)",
-                        fontSize: "8px",
+                        fontSize: "10px",
                         userSelect: "none",
-                        color: "var(--custom-text-color)",
+                        color: theme.palette.text,
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center"

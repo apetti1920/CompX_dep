@@ -1,19 +1,61 @@
 import {SetOpacity} from "./utilities";
 import React from "react";
 
-export default {
-    "palette": {
-        "background": "#282a36",
-        "text": "#f8f8f2",
-        "accent": "#6272a4",
-        "shadow": "#44475a",
-        "link": "#44475a"
+type ThemeType = {
+    palette: {
+        background: string,
+        text: string,
+        accent: string,
+        shadow: string,
+        link: string,
+        informational: string,
+        success: string,
+        warning: string,
+        error: string
+    },
+    spacing: {
+        titlebarHeight: number,
+        toolbarHeight: number
+    }
+}
+
+const darkTheme: ThemeType = {
+    palette: {
+        background: "#121212",
+        text: "#ffffff",
+        accent: "#03809d",
+        shadow: "#6c7086",
+        link: "#cb6501",
+        informational: "#ffffff",
+        success: "#32CD32",
+        warning: "#ffffff",
+        error: "#ffffff"
+    },
+    spacing: {
+        "titlebarHeight": 35,
+        "toolbarHeight": 35
+    }
+}
+
+const lightTheme: ThemeType = {
+    palette: {
+        background: "#ffffff",
+        text: "#000000",
+        accent: "#e5e5e5",
+        shadow: "#14213d",
+        link: "#fca311",
+        informational: "#ffffff",
+        success: "#ffffff",
+        warning: "#ffffff",
+        error: "#ffffff"
     },
     "spacing": {
         "titlebarHeight": 35,
         "toolbarHeight": 35
     }
 }
+
+export default darkTheme;
 
 export function GetGlassStyle(color: string, amount: number): React.CSSProperties {
     return {

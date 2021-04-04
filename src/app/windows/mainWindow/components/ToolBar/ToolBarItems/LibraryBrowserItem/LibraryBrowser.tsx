@@ -8,7 +8,7 @@ import {Accordion} from "./Accordion";
 import {StateType} from "../../../../../../store/types";
 import {connect} from "react-redux";
 import {BlockStorageType} from "../../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
-import {SearchBar} from "../../../ComponentUtils/SearchBar/SearchBar";
+import {SearchBar} from "../../../ComponentUtils/SearchBar";
 
 type ComponentProps = {
     open: boolean
@@ -36,17 +36,21 @@ class LibraryBrowser extends React.Component<Props, State> {
 
     GetLibraryBrowserStyle = (): React.CSSProperties => ({
         width: "300px",
-        maxHeight: "600px",
+        maxHeight: "350px",
         position: 'fixed',
         top: `${this.props.location.y}px`,
         left: `${this.props.location.x}px`,
         zIndex: 99999,
         pointerEvents: this.props.open ? "auto" : "none",
-        display: "inline-block",
+        display: "flex",
+        flexFlow: "column nowrap",
         opacity: this.props.open ? 1 : 0,
+        borderRadius: "7px",
         padding: "5px",
-        ...GetGlassStyle(theme.palette.accent, 0.3)
+        ...GetGlassStyle(theme.palette.accent, 0.5)
     })
+
+    // padding: "5px",
 
     render(): React.ReactNode {
         return (
@@ -55,15 +59,21 @@ class LibraryBrowser extends React.Component<Props, State> {
                     <div style={{width: "100%", height: "30px"}}>
                         <SearchBar onChange={(currentString) => {this.setState({searchString: currentString})}}/>
                     </div>
-                    <Accordion data={this.props.blockLibrary.filter(b => {
-                        if (this.state.searchString === "") { return false }
-                        if (b.name.toLowerCase().includes(this.state.searchString.toLowerCase())) { return true }
-                        b.tags.forEach(t => {
-                            if (t.toLowerCase().includes(this.state.searchString.toLowerCase())) { return true }
-                        });
+                    {
+                        this.state.searchString !== "" ? (
+                            <Accordion data={this.props.blockLibrary.filter(b => {
+                                if (this.state.searchString === "") { return false }
+                                for (let i=0; i<b.tags.length; i++) {
+                                    if (b.tags[i].toLowerCase().includes(this.state.searchString.toLowerCase())){
+                                        return true;
+                                    }
+                                }
+                                return b.name.toLowerCase().includes(this.state.searchString.toLowerCase());
 
-                        return false;
-                    })}/>
+
+                            })}/>
+                        ) : <React.Fragment/>
+                    }
                 </div>
             </Portal>
         );

@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {IpcService} from "../../../../../IPC/IpcService";
-import {GET_DISPLAY_CHANNEL, RUN_MODEL_CHANNEL} from "../../../../../../shared/Channels";
+import {IpcService} from "../../../../../../IPC/IpcService";
+import {GET_DISPLAY_CHANNEL, RUN_MODEL_CHANNEL} from "../../../../../../../shared/Channels";
 import {connect} from "react-redux";
-import {StateType, GraphVisualType, DisplayDataType} from "../../../../../store/types";
-import Edge from "../../../../../../shared/lib/GraphLibrary/Edge";
+import {StateType, GraphVisualType, DisplayDataType} from "../../../../../../store/types";
+import Edge from "../../../../../../../shared/lib/GraphLibrary/Edge";
 import {ipcRenderer} from "electron";
 import {bindActionCreators, Dispatch} from "redux";
-import {AddedDisplayDataAction} from "../../../../../store/actions";
+import {AddedDisplayDataAction} from "../../../../../../store/actions";
 
 
 interface ComponentProps {
@@ -27,7 +27,7 @@ interface State {
     clicked: boolean
 }
 
-class PlayItem extends Component<Props, State> {
+class PlayItemButton222 extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
@@ -132,4 +132,4 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
     }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayItem);
+export default connect(mapStateToProps, mapDispatchToProps)(PlayItemButton);

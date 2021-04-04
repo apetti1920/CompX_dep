@@ -31,7 +31,6 @@ export class LibraryBrowserButton extends React.Component<Props, State> {
     }
 
     ButtonStyle: React.CSSProperties = {
-        margin: "5px",
         cursor: "pointer",
         outline: "none",
         boxShadow: "none",
@@ -39,9 +38,9 @@ export class LibraryBrowserButton extends React.Component<Props, State> {
         flexFlow: "column nowrap",
         justifyContent: "center",
         backgroundColor: "transparent",
-        padding: "5px",
         border: "none",
-        borderRadius: "5px"
+        borderRadius: "5px",
+        paddingBottom: "2px"
     }
 
     TooltipStyle: React.CSSProperties = {
@@ -72,7 +71,7 @@ export class LibraryBrowserButton extends React.Component<Props, State> {
                                         style={!this.state.drawOpen?this.ButtonStyle:
                                             {...this.ButtonStyle, ...GetGlassStyle(theme.palette.accent, 0.3)}}
                                         onClick={this.handleClick}>
-                                    <LibraryIcon color={theme.palette.text} size="25px"/>
+                                    <LibraryIcon color={theme.palette.text} size="30px"/>
                                 </button>
                             ),
                             TooltipElement: <label style={this.TooltipStyle}>Library Browser</label>

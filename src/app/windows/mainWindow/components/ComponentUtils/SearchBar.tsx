@@ -1,8 +1,21 @@
 // @flow
 import * as React from 'react';
+import styled from "styled-components";
 import _ from "lodash";
 
-import "./SearchBar.css"
+import theme from "../../../../theme";
+
+const SearchField = styled.input`
+    font-size: 14px;
+    background: none;
+    color: ${theme.palette.text};
+    flex-grow: 5;
+    border: none;
+    appearance: none;
+    outline: none;
+    &::-webkit-search-cancel-button {
+      appearance: none;
+    }`;
 
 type Props = {
     onChange: (inputString: string) => void
@@ -37,14 +50,19 @@ export class SearchBar extends React.Component<Props, State> {
                     </symbol>
                 </svg>
                 <div style={{width: "100%", height: "100%", display: "flex", flexFlow: "row nowrap", alignContent: "center"}}>
-                    <div className="search-button">
-                        <svg className="submit-button">
+                    <div className="search-button" style={{
+                        flexGrow: 1, padding: 0, margin: 0,
+                        border: "none", background: "none", outline: "none !important"
+                    }}>
+                        <svg className="submit-button" style={{
+                            display: "block", margin: "auto", paddingTop: "5px", paddingBottom: "5px",
+                            width: "20px", height: "20px", fill: theme.palette.text
+                        }}>
                             <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#search"/>
                         </svg>
                     </div>
-                    <input type="search" value={this.state.currentString}
-                           placeholder="Search" className="search-input"
-                           onChange={this.onChange}/>
+                    <SearchField type="search" value={this.state.currentString}
+                           placeholder="Search" className="search-input" onChange={this.onChange}/>
                 </div>
             </React.Fragment>
         );

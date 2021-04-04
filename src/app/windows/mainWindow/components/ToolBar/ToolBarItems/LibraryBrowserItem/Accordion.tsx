@@ -5,10 +5,13 @@ import _ from "lodash";
 import LibraryBrowserCard from "./LibraryBrowserCard";
 import {BlockStorageType} from "../../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 
+import theme from "../../../../../../theme";
+import {SetOpacity} from "../../../../../../utilities";
+
 const accordionStyle: React.CSSProperties = {
     width: "100%",
-    backgroundColor: "blue",
-    paddingTop: "5px"
+    maxHeight: "inherit",
+    backgroundColor: "none",
 }
 
 type Props = {
@@ -41,7 +44,8 @@ export class Accordion extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         const keywordSeparator = (keyword: string) => (
-            <div style={{width: "100%", height: "15px", backgroundColor: "green", marginBottom: "5px", cursor: "pointer"}}
+            <div style={{width: "100%", height: "15px", backgroundColor: SetOpacity(theme.palette.accent, 0.6), marginTop: "5px", marginBottom: "5px",
+                padding: "5px", cursor: "pointer", borderRadius: "7px"}}
                  onClick={()=>{
                      const tempState: State = _.cloneDeep(this.state);
                      if (tempState.expandedSubsectionID===undefined) {
@@ -54,15 +58,22 @@ export class Accordion extends React.Component<Props, State> {
         )
 
         const unExpandedElement = (
-            this.getOrderedKeywordList().map(k => (
-                React.cloneElement(keywordSeparator(k), {key: k})
-            ))
+            <div style={{width: "100%", flexGrow: 1, display: "flex", flexFlow: "column nowrap", overflowY: "auto", overflowX: "visible"}}>
+                {
+                    this.getOrderedKeywordList().map(k => (
+                        React.cloneElement(keywordSeparator(k), {key: k})
+                    ))
+                }
+            </div>
+
         );
 
         const expandedElement = (
             <React.Fragment>
                 {keywordSeparator(this.state.expandedSubsectionID)}
-                <div style={{width: "100%", backgroundColor: "teal", display: "flex", flexFlow: "row wrap", justifyContent:  "space-around"}}>
+                <div style={{width: "100%", backgroundColor: SetOpacity(theme.palette.link, 0.4), flexGrow: 1,
+                    color: theme.palette.shadow, borderRadius: "7px", display: "flex", flexFlow: "row wrap",
+                    justifyContent:  "space-around", overflowY: "auto"}}>
                     {
                         this.props.data.filter(d => d.tags.includes(this.state.expandedSubsectionID)).map(d => (
                             <LibraryBrowserCard key={d.id} data={d}/>
@@ -72,10 +83,6 @@ export class Accordion extends React.Component<Props, State> {
             </React.Fragment>
         )
 
-        return (
-            <div style={accordionStyle}>
-                {this.state.expandedSubsectionID===undefined?unExpandedElement:expandedElement}
-            </div>
-        );
+        return this.state.expandedSubsectionID===undefined?unExpandedElement:expandedElement;
     }
 }

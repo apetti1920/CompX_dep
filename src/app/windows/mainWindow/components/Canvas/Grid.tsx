@@ -101,6 +101,7 @@ class Grid extends React.Component<Props, State> {
     };
 
     render(): React.ReactElement {
+        const radius = 2;
         const opacity = linearInterp(this.props.canvas.zoom, 0, 100, 0.6, 0.75);
         const cursor = (this.props.canvas.mouse.mouseDownOn === MouseDownType.GRID) ? "grabbing" : "grab";
 
@@ -112,10 +113,10 @@ class Grid extends React.Component<Props, State> {
                  onMouseDown={this.onMouseDownHandlerGrid} onMouseUp={this.onMouseUpHandlerGrid} onMouseMove={this.onMouseMoveOverGrid}>
                 <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                     <defs>
-                        <pattern id="grid" width={this.props.tickSpacing} height={this.props.tickSpacing} patternUnits="userSpaceOnUse"
+                        <pattern id="grid" x={radius} y={radius} width={this.props.tickSpacing} height={this.props.tickSpacing} patternUnits="userSpaceOnUse"
                                  patternTransform={`translate(${this.props.canvas.translation.x} ${this.props.canvas.translation.y}) 
                                                     scale(${this.props.canvas.zoom.toString()} ${this.props.canvas.zoom.toString()})`}>
-                            <circle cx={this.props.tickSpacing} cy={this.props.tickSpacing} r="1" fill={theme.palette.text}/>
+                            <circle cx={this.props.tickSpacing-radius} cy={this.props.tickSpacing-radius} r={radius} fill={theme.palette.text}/>
                         </pattern>
                     </defs>
 
