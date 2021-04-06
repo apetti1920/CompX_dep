@@ -5,18 +5,37 @@ import _ from "lodash";
 import {Children} from "react";
 import ToolTip from "../../../ComponentUtils/ToolTip";
 import {PlayFill as PlayIcon} from "@styled-icons/bootstrap/PlayFill";
+import {StopFill as StopIcon} from '@styled-icons/bootstrap/StopFill'
+import {DisplayDataType, GraphVisualType, StateType} from "../../../../../../store/types";
+import {bindActionCreators, Dispatch} from "redux";
+import {AddedDisplayDataAction, ClearedDisplayDataAction} from "../../../../../../store/actions";
+import {connect} from "react-redux";
+import {IpcService} from "../../../../../../IPC/IpcService";
+import Edge from "../../../../../../../shared/lib/GraphLibrary/Edge";
+import {ipcRenderer} from "electron";
+import {GET_DISPLAY_CHANNEL, RUN_MODEL_CHANNEL} from "../../../../../../../shared/Channels";
 
-type Props = {
-    onMouseOver?: (e: React.MouseEvent) => void,
-    onMouseOut?: (e: React.MouseEvent) => void,
-    onClick?: (e: React.MouseEvent) => void
-};
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface ComponentProps {
+}
 
-type State = {
+interface StateProps {
+    graph: GraphVisualType
+}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface DispatchProps {
+    onAddedDisplayData: (displayData: DisplayDataType) => void
+    onClearedDisplayData: () => void
+}
+
+type Props = StateProps & DispatchProps & ComponentProps
+
+interface State {
     isPlaying: boolean
-};
+}
 
-export class PlayItemButton extends React.Component<Props, State> {
+class PlayItemButton extends React.Component<Props, State> {
     private readonly buttonRef: React.RefObject<HTMLButtonElement>;
 
     constructor(props: Props) {
@@ -53,8 +72,57 @@ export class PlayItemButton extends React.Component<Props, State> {
         ...GetGlassStyle(theme.palette.accent, 0.4)
     }
 
+    handlePLayClick = (): void => {
+        this.props.onClearedDisplayData();
+
+        const edges: Edge[] = this.props.graph.edges.map(edge => {
+            return {
+                id: edge.id, outputBlock: edge.outputBlockVisualID,
+                outputPort: edge.outputPortID, inputBlock: edge.inputBlockVisualID,
+                inputPort: edge.inputPortID
+            }
+        });
+
+        const ipc = new IpcService();
+        ipcRenderer.on(GET_DISPLAY_CHANNEL, (event, message) => {
+            if (message["cmd"] === "display_data") {
+                this.props.onAddedDisplayData(message['data']);
+            } else if (message["cmd"] === "run_progress") {
+                if (message['data']['progress'] === "starting") {
+                    console.log("registered");
+                    // clear display data
+                } else {
+                    ipcRenderer.removeAllListeners(GET_DISPLAY_CHANNEL);
+                    this.setState({...this.state, isPlaying: false});
+                    console.log("Removed");
+                }
+            } else {
+                ipcRenderer.removeAllListeners(GET_DISPLAY_CHANNEL);
+                this.setState({...this.state, isPlaying: false});
+                console.log("Removed");
+            }
+        });
+
+        ipc.send<void>(RUN_MODEL_CHANNEL, {
+            params:
+                {
+                    blocks: this.props.graph.blocks.map(block => {
+                        const storageBlock = block.blockStorage;
+                        storageBlock.id = block.id;
+                        return storageBlock;
+                    }),
+                    edges: edges
+                }
+        });
+    }
+
+    handleStopClick = (): void => {
+        console.log("Stop Clicked")
+    }
+
     handleClick = (e: React.MouseEvent): void => {
         const tempState: State = _.cloneDeep(this.state);
+        !tempState.isPlaying ? this.handlePLayClick() : this.handleStopClick()
         tempState.isPlaying = !tempState.isPlaying;
         this.setState(tempState);
     }
@@ -66,10 +134,10 @@ export class PlayItemButton extends React.Component<Props, State> {
                     {{
                         MasterObject: (
                             <button ref={this.buttonRef}
-                                    style={!this.state.isPlaying?this.ButtonStyle:
-                                        {...this.ButtonStyle, ...GetGlassStyle(theme.palette.accent, 0.3)}}
+                                    style={this.ButtonStyle}
                                     onClick={this.handleClick}>
-                                <PlayIcon color={theme.palette.success} size="30px"/>
+                                {!this.state.isPlaying?<PlayIcon color={theme.palette.success} size="30px"/>:
+                                    <StopIcon color={theme.palette.error} size="30px"/>}
                             </button>
                         ),
                         TooltipElement: <label style={this.TooltipStyle}>Play</label>
@@ -79,3 +147,18 @@ export class PlayItemButton extends React.Component<Props, State> {
         )
     }
 }
+
+function mapStateToProps(state: StateType): StateProps {
+    return {
+        graph: state.graph,
+    };
+}
+
+function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
+    return bindActionCreators({
+        onAddedDisplayData: AddedDisplayDataAction,
+        onClearedDisplayData: ClearedDisplayDataAction
+    }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlayItemButton);

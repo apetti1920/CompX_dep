@@ -29,7 +29,7 @@ const darkTheme: ThemeType = {
         informational: "#ffffff",
         success: "#32CD32",
         warning: "#ffffff",
-        error: "#ffffff"
+        error: "#cf142b"
     },
     spacing: {
         "titlebarHeight": 35,
@@ -45,9 +45,9 @@ const lightTheme: ThemeType = {
         shadow: "#14213d",
         link: "#fca311",
         informational: "#ffffff",
-        success: "#ffffff",
+        success: "#32CD32",
         warning: "#ffffff",
-        error: "#ffffff"
+        error: "#cf142b"
     },
     "spacing": {
         "titlebarHeight": 35,
@@ -55,7 +55,7 @@ const lightTheme: ThemeType = {
     }
 }
 
-export default darkTheme;
+export default lightTheme;
 
 export function GetGlassStyle(color: string, amount: number): React.CSSProperties {
     return {

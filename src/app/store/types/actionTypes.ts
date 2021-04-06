@@ -27,3 +27,4 @@ export const ChangedInternalDataActionType = `@@${GraphReducerName}/CHANGED_INTE
 
 // Display Data Reducer Types
 export const AddedDisplayDataActionType = `@@${DisplayDataReducerName}/ADDED_DISPLAY_DATA`;
+export const ClearedDisplayDataActionType = `@@${DisplayDataReducerName}/CLEARED_DISPLAY_DATA`;

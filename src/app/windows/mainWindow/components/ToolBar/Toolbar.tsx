@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {LibraryBrowserButton} from "./ToolBarItems/LibraryBrowserItem/LibraryBrowserButton";
-import {PlayItemButton} from "./ToolBarItems/PlayButtonItem/PlayItemButton";
+import PlayItemButton from "./ToolBarItems/PlayButtonItem/PlayItemButton";
 
 class Toolbar extends Component {
     render(): React.ReactNode {

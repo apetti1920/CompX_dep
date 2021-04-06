@@ -101,8 +101,7 @@ class Grid extends React.Component<Props, State> {
     };
 
     render(): React.ReactElement {
-        const radius = 2;
-        const opacity = linearInterp(this.props.canvas.zoom, 0, 100, 0.6, 0.75);
+        const radius = Math.sqrt(2);
         const cursor = (this.props.canvas.mouse.mouseDownOn === MouseDownType.GRID) ? "grabbing" : "grab";
 
         // const smallGrid = `M ${this.props.minorTickSpacing} 0 L 0 0 0 ${this.props.minorTickSpacing}`;
@@ -116,11 +115,11 @@ class Grid extends React.Component<Props, State> {
                         <pattern id="grid" x={radius} y={radius} width={this.props.tickSpacing} height={this.props.tickSpacing} patternUnits="userSpaceOnUse"
                                  patternTransform={`translate(${this.props.canvas.translation.x} ${this.props.canvas.translation.y}) 
                                                     scale(${this.props.canvas.zoom.toString()} ${this.props.canvas.zoom.toString()})`}>
-                            <circle cx={this.props.tickSpacing-radius} cy={this.props.tickSpacing-radius} r={radius} fill={theme.palette.text}/>
+                            <circle cx={this.props.tickSpacing-radius} cy={this.props.tickSpacing-radius} r={radius} fill={theme.palette.text} opacity={0.75}/>
                         </pattern>
                     </defs>
 
-                    <rect width="100%" height="100%" fill="url(#grid)" opacity={opacity}/>
+                    <rect width="100%" height="100%" fill="url(#grid)"/>
                     <g transform={`translate(${this.props.canvas.translation.x} ${this.props.canvas.translation.y})  
                                                     scale(${this.props.canvas.zoom.toString()} ${this.props.canvas.zoom.toString()})`}>
                         <path d={`M 0 0 L 0 ${-this.props.tickSpacing / this.props.canvas.zoom}`} fill='none' stroke="red" strokeWidth="1"/>

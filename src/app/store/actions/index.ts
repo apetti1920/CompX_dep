@@ -16,7 +16,11 @@ import {
     DeselectAllBlocksActionType,
     ToggleSelectedBlockActionType,
     AddedEdgeActionType,
-    MirrorBlockActionType, DeleteBlockActionType, ChangedInternalDataActionType, AddedDisplayDataActionType
+    MirrorBlockActionType,
+    DeleteBlockActionType,
+    ChangedInternalDataActionType,
+    AddedDisplayDataActionType,
+    ClearedDisplayDataActionType
 
 } from "../types/actionTypes";
 import {PointType} from "../../../shared/types";
@@ -144,5 +148,12 @@ export const AddedDisplayDataAction = (displayData: DisplayDataType): ActionType
     return {
         type: AddedDisplayDataActionType,
         payload: displayData
+    }
+};
+
+export const ClearedDisplayDataAction = (): ActionType => {
+    return {
+        type: ClearedDisplayDataActionType,
+        payload: undefined
     }
 };
