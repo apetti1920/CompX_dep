@@ -17,10 +17,12 @@ export class RunModelChannel implements IpcChannelInterface {
             request.responseChannel = `${this.getName()}_response`;
         }
 
+        console.log("runtime2", request.params);
         const cp = fork(path.join(__dirname, 'ModelLib.js'));
         cp.on("message", (message: any) => {
             event.sender.send(GET_DISPLAY_CHANNEL, message);
         });
-        cp.send({"visualGraph": request.params});
+        cp.send({visualGraph: {blocks: request.params.blocks, edges: request.params.edges},
+            settings: {runTime: request.params.runTime}});
     }
 }

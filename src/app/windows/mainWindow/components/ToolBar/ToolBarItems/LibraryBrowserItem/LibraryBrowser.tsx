@@ -47,7 +47,7 @@ class LibraryBrowser extends React.Component<Props, State> {
         opacity: this.props.open ? 1 : 0,
         borderRadius: "7px",
         padding: "5px",
-        ...GetGlassStyle(theme.palette.accent, 0.5)
+        ...GetGlassStyle(theme.palette.accent, 0.8)
     })
 
     // padding: "5px",

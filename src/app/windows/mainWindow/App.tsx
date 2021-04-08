@@ -10,7 +10,6 @@ import store from "../../store"
 import {UpdatedBlockLibraryActionType} from "../../store/types/actionTypes";
 
 import theme, {GetGlassStyle} from "../../theme";
-import {SetOpacity} from "../../utilities";
 
 const pageWrapStyle: React.CSSProperties = {
     width: "100vw",

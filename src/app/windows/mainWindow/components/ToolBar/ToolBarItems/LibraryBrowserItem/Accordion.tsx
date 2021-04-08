@@ -5,7 +5,7 @@ import _ from "lodash";
 import LibraryBrowserCard from "./LibraryBrowserCard";
 import {BlockStorageType} from "../../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 
-import theme from "../../../../../../theme";
+import theme, {GetGlassStyle} from "../../../../../../theme";
 import {SetOpacity} from "../../../../../../utilities";
 
 const accordionStyle: React.CSSProperties = {
@@ -44,8 +44,8 @@ export class Accordion extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         const keywordSeparator = (keyword: string) => (
-            <div style={{width: "100%", height: "15px", backgroundColor: SetOpacity(theme.palette.accent, 0.6), marginTop: "5px", marginBottom: "5px",
-                padding: "5px", cursor: "pointer", borderRadius: "7px"}}
+            <div style={{width: "100%", height: "15px", marginTop: "5px", color: theme.palette.background, marginBottom: "5px",
+                padding: "5px", cursor: "pointer", borderRadius: "7px", backgroundColor: SetOpacity(theme.palette.text, 0.8)}}
                  onClick={()=>{
                      const tempState: State = _.cloneDeep(this.state);
                      if (tempState.expandedSubsectionID===undefined) {

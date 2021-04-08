@@ -1,9 +1,7 @@
 // @flow
 import * as React from 'react';
-import theme, {GetGlassStyle} from "../../../../../../theme";
+import theme from "../../../../../../theme";
 import _ from "lodash";
-import {Children} from "react";
-import ToolTip from "../../../ComponentUtils/ToolTip";
 import {PlayFill as PlayIcon} from "@styled-icons/bootstrap/PlayFill";
 import {StopFill as StopIcon} from '@styled-icons/bootstrap/StopFill'
 import {DisplayDataType, GraphVisualType, StateType} from "../../../../../../store/types";
@@ -14,9 +12,16 @@ import {IpcService} from "../../../../../../IPC/IpcService";
 import Edge from "../../../../../../../shared/lib/GraphLibrary/Edge";
 import {ipcRenderer} from "electron";
 import {GET_DISPLAY_CHANNEL, RUN_MODEL_CHANNEL} from "../../../../../../../shared/Channels";
+import {SetOpacity} from "../../../../../../utilities";
+import styled from "styled-components";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface ComponentProps {
+
+const InputButtonStyle: React.CSSProperties = {
+    verticalAlign: "middle",
+    padding: 0,
+    background: "none",
+    border: "none",
+    outline: "none"
 }
 
 interface StateProps {
@@ -29,50 +34,56 @@ interface DispatchProps {
     onClearedDisplayData: () => void
 }
 
-type Props = StateProps & DispatchProps & ComponentProps
+type Props = StateProps & DispatchProps
 
 interface State {
-    isPlaying: boolean
+    isPlaying: boolean,
+    inputText: string
 }
 
 class PlayItemButton extends React.Component<Props, State> {
-    private readonly buttonRef: React.RefObject<HTMLButtonElement>;
+    private InputField: any
 
     constructor(props: Props) {
         super(props);
 
-        this.buttonRef = React.createRef<HTMLButtonElement>();
-
+        this.SetInputField(false);
         this.state = {
-            isPlaying: false
+            isPlaying: false,
+            inputText: ""
         }
     }
 
-    ButtonStyle: React.CSSProperties = {
-        cursor: "pointer",
-        outline: "none",
-        boxShadow: "none",
-        display: "flex",
-        flexFlow: "column nowrap",
-        justifyContent: "center",
-        backgroundColor: "transparent",
-        border: "none",
-        borderRadius: "5px",
-        paddingBottom: "2px"
+    SetInputField = (isPlaying: boolean) => {
+        this.InputField = styled.input`
+            flex-grow: 1;
+            max-width: 60px;
+            vertical-align: middle;
+            border-style: none;
+            background: transparent;
+            outline: none;
+            text-align: right;
+            color: ${!isPlaying?theme.palette.text:SetOpacity(theme.palette.text, 0.5)};
+            &::placeholder {
+                color: ${SetOpacity(theme.palette.text, 0.5)};;
+            }
+            &::-webkit-search-cancel-button {
+              appearance: none;
+            }
+        `
     }
 
-    TooltipStyle: React.CSSProperties = {
-        height: "20px",
-        pointerEvents: "none",
-        color: theme.palette.text,
-        fontSize: "small",
-        borderRadius: "4px",
-        paddingLeft: "5px",
-        paddingRight: "5px",
-        ...GetGlassStyle(theme.palette.accent, 0.4)
-    }
-
-    handlePLayClick = (): void => {
+    handlePlayClick = (): void => {
+        let runTime: number | "inf";
+        if (!isNaN(parseFloat(this.state.inputText))) {
+            runTime = parseFloat(this.state.inputText);
+        } else if (this.state.inputText === "" || this.state.inputText.toLowerCase() == "inf") {
+            runTime = -1;
+        } else {
+            alert("Bad Number");
+            return;
+        }
+        console.log("runtime1", runTime)
         this.props.onClearedDisplayData();
 
         const edges: Edge[] = this.props.graph.edges.map(edge => {
@@ -106,6 +117,7 @@ class PlayItemButton extends React.Component<Props, State> {
         ipc.send<void>(RUN_MODEL_CHANNEL, {
             params:
                 {
+                    runTime: runTime,
                     blocks: this.props.graph.blocks.map(block => {
                         const storageBlock = block.blockStorage;
                         storageBlock.id = block.id;
@@ -122,28 +134,36 @@ class PlayItemButton extends React.Component<Props, State> {
 
     handleClick = (e: React.MouseEvent): void => {
         const tempState: State = _.cloneDeep(this.state);
-        !tempState.isPlaying ? this.handlePLayClick() : this.handleStopClick()
+        !tempState.isPlaying ? this.handlePlayClick() : this.handleStopClick()
+        this.SetInputField(!tempState.isPlaying);
         tempState.isPlaying = !tempState.isPlaying;
         this.setState(tempState);
     }
 
     render(): React.ReactElement {
+        const buttonGroup = (
+            <div style={{borderRadius: "2px", paddingBottom: "5px"}}>
+                <div style={{backgroundColor: !this.state.isPlaying?SetOpacity(theme.palette.accent, 0.8):
+                        SetOpacity(theme.palette.shadow, 0.8)}}>
+                    <this.InputField disabled={this.state.isPlaying} placeholder="inf" type="text" value={this.state.inputText}
+                             onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{
+                                this.setState({inputText: e.currentTarget.value})
+                             }}/>
+                    <button style={InputButtonStyle} onClick={this.handleClick}>
+                        {
+                            !this.state.isPlaying ? (
+                                <PlayIcon color={theme.palette.success} size="30px"/>
+                            ) : (
+                                <StopIcon color={theme.palette.error} size="30px"/>
+                            )
+                        }
+                    </button>
+                </div>
+            </div>
+        );
+
         return (
-            Children.only(
-                <ToolTip placement="bottom">
-                    {{
-                        MasterObject: (
-                            <button ref={this.buttonRef}
-                                    style={this.ButtonStyle}
-                                    onClick={this.handleClick}>
-                                {!this.state.isPlaying?<PlayIcon color={theme.palette.success} size="30px"/>:
-                                    <StopIcon color={theme.palette.error} size="30px"/>}
-                            </button>
-                        ),
-                        TooltipElement: <label style={this.TooltipStyle}>Play</label>
-                    }}
-                </ToolTip>
-            )
+            buttonGroup
         )
     }
 }
