@@ -89,8 +89,8 @@ class Canvas extends React.Component<Props, never> {
     private centerGrid() {
         const tempState = {...this.props};
         tempState.canvas.translation = {
-            x: this.gridRef.current?.clientWidth / 2,
-            y: this.gridRef.current?.clientHeight / 2
+            x: this.gridRef.current?.clientWidth??0 / 2,
+            y: this.gridRef.current?.clientHeight??0 / 2
         };
         this.props.onTranslate(tempState.canvas.translation)
     }

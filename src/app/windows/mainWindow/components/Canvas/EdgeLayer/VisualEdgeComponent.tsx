@@ -22,7 +22,7 @@ type Props = StateProps & ComponentProps
 type State = never;
 
 class VisualEdgeComponent extends React.Component<Props, State> {
-    getPath(): string {
+    getPath(): string | undefined {
         const dist = 8.0;
         if ((this.props.point1BlockMirrored === undefined && this.props.point2BlockMirrored === undefined) ||
             (!this.props.point1BlockMirrored && !this.props.point2BlockMirrored))
@@ -57,6 +57,8 @@ class VisualEdgeComponent extends React.Component<Props, State> {
                 }
             }
         }
+
+        return undefined;
     }
 
     render(): React.ReactNode {

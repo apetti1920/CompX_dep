@@ -43,19 +43,34 @@ export class Accordion extends React.Component<Props, State> {
     }
 
     render(): React.ReactNode {
-        const keywordSeparator = (keyword: string) => (
-            <div style={{width: "100%", height: "15px", marginTop: "5px", color: theme.palette.background, marginBottom: "5px",
-                padding: "5px", cursor: "pointer", borderRadius: "7px", backgroundColor: SetOpacity(theme.palette.text, 0.8)}}
-                 onClick={()=>{
-                     const tempState: State = _.cloneDeep(this.state);
-                     if (tempState.expandedSubsectionID===undefined) {
-                         tempState.expandedSubsectionID = keyword;
-                     } else {
-                         tempState.expandedSubsectionID = undefined
-                     }
-                     this.setState(tempState);
-                 }}>{keyword}</div>
-        )
+        const keywordSeparator = (keyword: string|undefined) => {
+            if (keyword !== undefined) {
+                return (
+                    <div style={{
+                        width: "100%",
+                        height: "15px",
+                        marginTop: "5px",
+                        color: theme.palette.background,
+                        marginBottom: "5px",
+                        padding: "5px",
+                        cursor: "pointer",
+                        borderRadius: "7px",
+                        backgroundColor: SetOpacity(theme.palette.text, 0.8)
+                    }}
+                         onClick={() => {
+                             const tempState: State = _.cloneDeep(this.state);
+                             if (tempState.expandedSubsectionID === undefined) {
+                                 tempState.expandedSubsectionID = keyword;
+                             } else {
+                                 tempState.expandedSubsectionID = undefined
+                             }
+                             this.setState(tempState);
+                         }}>{keyword}</div>
+                )
+            }
+
+            return <React.Fragment/>
+        }
 
         const unExpandedElement = (
             <div style={{width: "100%", flexGrow: 1, display: "flex", flexFlow: "column nowrap", overflowY: "auto", overflowX: "visible"}}>
@@ -75,7 +90,7 @@ export class Accordion extends React.Component<Props, State> {
                     color: theme.palette.shadow, borderRadius: "7px", display: "flex", flexFlow: "row wrap",
                     justifyContent:  "space-around", overflowY: "auto"}}>
                     {
-                        this.props.data.filter(d => d.tags.includes(this.state.expandedSubsectionID)).map(d => (
+                        this.props.data.filter(d => d.tags.includes(this.state.expandedSubsectionID??"-1")).map(d => (
                             <LibraryBrowserCard key={d.id} data={d}/>
                         ))
                     }

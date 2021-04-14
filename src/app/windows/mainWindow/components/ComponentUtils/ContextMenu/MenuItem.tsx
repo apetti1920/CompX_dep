@@ -1,6 +1,8 @@
 // @flow
 import * as React from 'react';
 import {MenuItemSpacerType} from "../../types";
+import theme, {GetGlassStyle} from "../../../../../theme";
+import {SetOpacity} from "../../../../../utilities";
 
 type Props = {
     menuItem: MenuItemSpacerType
@@ -22,15 +24,16 @@ export class MenuItem extends React.Component<Props, State> {
     render(): React.ReactNode {
         switch (typeof this.props.menuItem) {
             case "string" : {
-                return <hr style={{ borderBottomColor: 'black', borderBottomWidth: 1}} />
+                return <hr style={{ borderBottomColor: theme.palette.text, borderBottomWidth: 1}} />
             } case "object": {
                 switch (typeof this.props.menuItem.action) {
                     case "function": {
-                        const bgColor = this.state.hovering?"var(--custom-shadow-color)":"";
+                        const bgColor = this.state.hovering?GetGlassStyle(theme.palette.shadow, 0.5):"";
+                        const textColor = this.state.hovering?theme.palette.background:theme.palette.text;
                         const pointer = this.state.hovering?"pointer":""
                         return (
-                            <div style={{display: "flex", flexWrap: "nowrap", height: "20px", backgroundColor: bgColor,
-                                cursor: pointer}}
+                            <div style={{display: "flex", flexWrap: "nowrap", height: "20px",
+                                cursor: pointer, ...bgColor}}
                                  onMouseEnter={()=>{
                                      const tmpState={...this.state};
                                      tmpState.hovering=true;
@@ -40,10 +43,13 @@ export class MenuItem extends React.Component<Props, State> {
                                      tmpState.hovering=false;
                                      this.setState(tmpState)}}
                                  onClick={this.props.menuItem.action}>
-                                {this.props.menuItem.icon}
-                                <div style={{height: "100%", display: "flex", justifyContent: "center",
-                                    alignItems: "center", textAlign: "center", flexGrow: 3}}
-                                >{this.props.menuItem.name}</div>
+                                {this.props.menuItem.icon===undefined?<React.Fragment/>:
+                                    React.cloneElement(this.props.menuItem.icon, {style: {
+                                        height: "100%", width: "25px"
+                                    }, color: textColor})}
+                                <div style={{height: "100%", flexGrow: 1, textAlign: "center"}}>
+                                    <h1 style={{fontSize: "1vw", color: textColor}}>{this.props.menuItem.name}</h1>
+                                </div>
                             </div>
                         )
                     } case "object": {

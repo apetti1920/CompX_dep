@@ -10,6 +10,8 @@ import store from "../../store"
 import {UpdatedBlockLibraryActionType} from "../../store/types/actionTypes";
 
 import theme, {GetGlassStyle} from "../../theme";
+import {connect} from "react-redux";
+import {CanvasType, StateType} from "../../store/types";
 
 const pageWrapStyle: React.CSSProperties = {
     width: "100vw",
@@ -40,30 +42,50 @@ const mainContainerWrapStyle: React.CSSProperties = {
     overflow: "hidden"
 };
 
-class App extends Component {
+interface StateProps {
+    canvas: CanvasType
+}
+
+type Props = StateProps
+
+class App extends Component<Props, never> {
     componentDidMount(): void {
         const ipc = new IpcService();
-        ipc.send<BlockStorageType[]>(BLOCK_LIBRARY_CHANNEL)
-            .then(res => {
-                store.dispatch({type: UpdatedBlockLibraryActionType, payload: res});
-            }).catch((err) => {
-            console.log(err);
-        });
+        if (ipc !== undefined) {
+            const sendPromise = ipc.send<BlockStorageType[]>(BLOCK_LIBRARY_CHANNEL);
+            if (sendPromise !== undefined) {
+                sendPromise.then(res => {
+                    store.dispatch({type: UpdatedBlockLibraryActionType, payload: res});
+                }).catch((err) => {
+                    console.log(err);
+                });
+            }
+        }
     }
 
     render(): React.ReactElement {
         return (
-            <div className="pageWrap" style={pageWrapStyle}>
-                <div className="titlebarWrap" style={titlebarWrapStyle}/>
-                <div className="toolbarWrap" style={toolbarWrapStyle}>
-                    <ToolBar />
+            <React.Fragment>
+                <div className="pageWrap" style={pageWrapStyle}>
+                    <div className="titlebarWrap" style={titlebarWrapStyle}/>
+                    <div className="toolbarWrap" style={toolbarWrapStyle}>
+                        <ToolBar />
+                    </div>
+                    <div className="mainContainerWrap" style={mainContainerWrapStyle}>
+                        <Canvas/>
+                    </div>
                 </div>
-                <div className="mainContainerWrap" style={mainContainerWrapStyle}>
-                    <Canvas/>
-                </div>
-            </div>
+                {this.props.canvas.oneOffElements.contextMenu??<React.Fragment/>}
+                {this.props.canvas.oneOffElements.modal??<React.Fragment/>}
+            </React.Fragment>
         );
     }
 }
 
-export default App
+function mapStateToProps(state: StateType): StateProps {
+    return {
+        canvas: state.canvas
+    };
+}
+
+export default connect(mapStateToProps)(App)

@@ -2,6 +2,8 @@ import {CanvasType} from "./canvasTypes";
 import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
 import {GraphVisualType} from "./graphTypes";
 import {MouseDownType} from "../../windows/mainWindow/components/types";
+import {ContextMenu} from "../../windows/mainWindow/components/ComponentUtils/ContextMenu/ContextMenu";
+import * as React from "react";
 
 export type DisplayDataType = {
     time: number,
@@ -20,7 +22,11 @@ export const defaultState: StateType = {
         zoom: 1,
         translation: {x: 0, y: 0},
         isDraggingFromBlockLibrary: false,
-        mouse: {mouseDownOn: MouseDownType.NONE, currentMouseLocation: undefined}
+        mouse: {mouseDownOn: MouseDownType.NONE, currentMouseLocation: undefined},
+        oneOffElements: {
+            contextMenu: undefined,
+            modal: undefined
+        }
     },
     blockLibrary: [],
     graph: {blocks: [], edges: []},

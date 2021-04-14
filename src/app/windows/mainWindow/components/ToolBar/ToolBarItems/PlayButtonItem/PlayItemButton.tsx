@@ -83,7 +83,6 @@ class PlayItemButton extends React.Component<Props, State> {
             alert("Bad Number");
             return;
         }
-        console.log("runtime1", runTime)
         this.props.onClearedDisplayData();
 
         const edges: Edge[] = this.props.graph.edges.map(edge => {
@@ -141,14 +140,14 @@ class PlayItemButton extends React.Component<Props, State> {
     }
 
     render(): React.ReactElement {
-        const buttonGroup = (
+        return (
             <div style={{borderRadius: "2px", paddingBottom: "5px"}}>
                 <div style={{backgroundColor: !this.state.isPlaying?SetOpacity(theme.palette.accent, 0.8):
                         SetOpacity(theme.palette.shadow, 0.8)}}>
                     <this.InputField disabled={this.state.isPlaying} placeholder="inf" type="text" value={this.state.inputText}
-                             onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{
-                                this.setState({inputText: e.currentTarget.value})
-                             }}/>
+                                     onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{
+                                         this.setState({inputText: e.currentTarget.value})
+                                     }}/>
                     <button style={InputButtonStyle} onClick={this.handleClick}>
                         {
                             !this.state.isPlaying ? (
@@ -160,10 +159,6 @@ class PlayItemButton extends React.Component<Props, State> {
                     </button>
                 </div>
             </div>
-        );
-
-        return (
-            buttonGroup
         )
     }
 }

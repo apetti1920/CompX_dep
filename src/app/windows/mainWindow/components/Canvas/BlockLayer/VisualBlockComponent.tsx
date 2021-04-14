@@ -150,16 +150,24 @@ class VisualBlockComponent extends React.Component<Props, State> {
             const size = {x: this.props.block.size.x - this.margin.left - this.margin.right,
                 y: this.props.block.size.y - this.margin.top - this.margin.bottom};
             if (this.props.displayData === undefined) {
-                if (this.props.block.blockStorage.display.displayStatic !== undefined) {
-                    return (
-                        this.props.block.displayStatic(this.props.displayData, size)
-                    )
+                if (this.props.block.displayStatic !== undefined) {
+                    const ret = this.props.block.displayStatic(size);
+                    if (ret !== undefined) {
+                        return ret;
+                    } else {
+                        return this.defaultDisplay();
+                    }
                 } else {
                     return this.defaultDisplay();
                 }
             } else {
-                if (this.props.block.blockStorage.display.displayDynamic !== undefined) {
-                    return this.props.block.displayDynamic(this.props.displayData, size);
+                if (this.props.block.displayDynamic !== undefined) {
+                    const ret = this.props.block.displayDynamic(this.props.displayData, size);
+                    if (ret !== undefined) {
+                        return ret;
+                    } else {
+                        return this.defaultDisplay();
+                    }
                 } else {
                     return this.defaultDisplay();
                 }
@@ -232,14 +240,19 @@ class VisualBlockComponent extends React.Component<Props, State> {
 }
 
 function mapStateToProps(state: StateType, ownProps: ComponentProps): StateProps {
-    return {
-        canvas: state.canvas,
-        block: state.graph.blocks.find(b => b.id === ownProps.id),
-        displayData: state.displayData !== undefined ? state.displayData.map(data =>
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    const b1 = state.graph.blocks.find(b => b.id === ownProps.id);
+    if (b1 !== undefined) {
+        return {
+            canvas: state.canvas,
+            block: b1,
+            displayData: state.displayData !== undefined ? state.displayData.map(data =>
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             { // @ts-ignore
                 return {time: data.time, data: data.data[ownProps.id]} }) : undefined
-    };
+        };
+    } else {
+        throw Error("Block Not found");
+    }
 }
 
 function mapDispatchToProps(dispatch: Dispatch): DispatchProps {

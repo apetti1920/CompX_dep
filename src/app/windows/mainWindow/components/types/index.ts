@@ -1,9 +1,10 @@
 import React from "react";
 
 export type MenuItemType = {
-    icon: React.ReactNode,
     name: string,
-    action: ()=>void | MenuItemSpacerType[]
+    icon?: React.ReactElement,
+    action?: ()=>void
+    submenu?: MenuItemSpacerType[]
 };
 
 export type MenuItemSpacerType = MenuItemType | "Spacer";

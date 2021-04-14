@@ -13,7 +13,7 @@ export function SetOpacity(hex: string, alpha: number): string {
     return `${hex}${Math.floor(alpha * 255).toString(16).padStart(2, "0")}`;
 }
 
-export function dataToLine(position: PointType, dimensions: PointType, steps: number, data: number[]): string {
+export function dataToLine(position: PointType, dimensions: PointType, steps: number, data: number[]): string|undefined {
     const xScale = d3.scaleLinear()
         .domain([0, steps])
         .range([position.x, dimensions.x]);
@@ -25,24 +25,30 @@ export function dataToLine(position: PointType, dimensions: PointType, steps: nu
         .x(b => xScale(b[0]) ) // set the x values for the line generator
         .y( b => yScale(b[1])) // set the y values for the line generator
         .curve(d3.curveMonotoneX) // apply smoothing to the line
-    return line(data.map((data, ind) => [ind, data]));
+
+    return line(data.map((data, ind) => [ind, data]))??undefined;
 }
 
-export function PortToPoint(blockId: string, portId: string): PointType {
+export function PortToPoint(blockId: string, portId: string): PointType|undefined {
     const block = store.getState().graph.blocks.find(b => b.id === blockId);
 
-    let portIndex = block.blockStorage.inputPorts.findIndex(p => p.id === portId);
-    let xPos: number; let yPos: number;
-    if (portIndex !== -1) {
-        xPos = block.position.x  + (!block.mirrored?0:block.size.x);
-        yPos = block.position.y + (portIndex + 1) * (block.size.y / (block.blockStorage.inputPorts.length + 1));
-    } else {
-        portIndex = block.blockStorage.outputPorts.findIndex(p => p.id === portId);
-        xPos = block.position.x  + (!block.mirrored?block.size.x:0);
-        yPos = block.position.y + (portIndex + 1) * (block.size.y / (block.blockStorage.outputPorts.length + 1));
+    if (block !== undefined) {
+        let portIndex = block.blockStorage.inputPorts.findIndex(p => p.id === portId);
+        let xPos: number;
+        let yPos: number;
+        if (portIndex !== -1) {
+            xPos = block.position.x + (!block.mirrored ? 0 : block.size.x);
+            yPos = block.position.y + (portIndex + 1) * (block.size.y / (block.blockStorage.inputPorts.length + 1));
+        } else {
+            portIndex = block.blockStorage.outputPorts.findIndex(p => p.id === portId);
+            xPos = block.position.x + (!block.mirrored ? block.size.x : 0);
+            yPos = block.position.y + (portIndex + 1) * (block.size.y / (block.blockStorage.outputPorts.length + 1));
+        }
+
+        return {x: xPos, y: yPos};
     }
 
-    return {x: xPos, y: yPos};
+    return undefined;
 }
 
 export function getPortLineCommand(outputPoint: PointType, inputPoint: PointType,

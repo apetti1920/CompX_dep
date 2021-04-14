@@ -1,9 +1,11 @@
-import {ActionType, SidebarButtonType, StateType} from "../types";
+import {ActionType, StateType} from "../types";
 import {
     MovedCanvasActionType,
     ZoomedCanvasActionType,
-    ClickedSidebarButtonActionType,
-    MovedSplitPaneActionType, MouseActionType, DraggingLibraryBlockActionType
+    MouseActionType,
+    DraggingLibraryBlockActionType,
+    ChangedContextMenuActionType,
+    ChangedModalActionType
 } from "../types/actionTypes";
 
 const _ = require('lodash');
@@ -14,39 +16,37 @@ export default function(state: StateType, action: ActionType): StateType {
             const newTranslation = action.payload['newTranslation'];
             const tempState = _.cloneDeep(state);
             tempState.canvas.translation = newTranslation;
+            tempState.canvas.oneOffElements.contextMenu = undefined;
+            tempState.canvas.oneOffElements.modal = undefined;
             return tempState
         } case ZoomedCanvasActionType: {
             const newZoom = action.payload['newZoom'];
             const tempState = _.cloneDeep(state);
             tempState.canvas.zoom = newZoom;
+            tempState.canvas.oneOffElements.contextMenu = undefined;
+            tempState.canvas.oneOffElements.modal = undefined;
             return tempState;
-        } case ClickedSidebarButtonActionType: {
-            const tempState = _.cloneDeep(state);
-            for (let i=0; i<tempState.canvas.sidebarButtons.length; i++) {
-                if (tempState.canvas.sidebarButtons[i].groupId === action.payload['group']) {
-                    if (tempState.canvas.sidebarButtons[i].buttonId === action.payload['id']) {
-                        tempState.canvas.sidebarButtons[i].selected = !tempState.canvas.sidebarButtons[i].selected
-                    } else {
-                        tempState.canvas.sidebarButtons[i].selected = false;
-                    }
-                }
-            }
-
-            return tempState
-        } case MovedSplitPaneActionType: {
-            const pane = action.payload;
-            const tempState = _.cloneDeep(state);
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            tempState.canvas.splitSizes[pane['name']] = pane['size'];
-            return tempState;
-        } case (MouseActionType): {
+        }  case (MouseActionType): {
             const tempState = _.cloneDeep(state);
             tempState.canvas.mouse = action.payload["newMouse"];
+            tempState.canvas.oneOffElements.contextMenu = undefined;
+            tempState.canvas.oneOffElements.modal = undefined;
             return tempState;
         } case (DraggingLibraryBlockActionType): {
             const tempState = _.cloneDeep(state);
             tempState.canvas.isDraggingFromBlockLibrary = action.payload["draggingState"];
+            tempState.canvas.oneOffElements.contextMenu = undefined;
+            tempState.canvas.oneOffElements.modal = undefined;
+            return tempState;
+        } case (ChangedContextMenuActionType): {
+            const tempState = _.cloneDeep(state);
+            tempState.canvas.oneOffElements.contextMenu = action.payload["contextMenu"];
+            tempState.canvas.oneOffElements.modal = undefined;
+            return tempState;
+        } case (ChangedModalActionType): {
+            const tempState = _.cloneDeep(state);
+            tempState.canvas.oneOffElements.contextMenu = undefined;
+            tempState.canvas.oneOffElements.modal = action.payload["modal"];
             return tempState;
         } default: {
             return _.cloneDeep(state);

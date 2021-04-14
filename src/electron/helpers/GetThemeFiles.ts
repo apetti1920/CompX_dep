@@ -1,8 +1,10 @@
 const fs = require('fs');
 
 process.on("message", (message: any) => {
-    process.send(GetThemeFilesChildProcess(message.themesDir));
-    process.exit()
+    if (process.send !== undefined) {
+        process.send(GetThemeFilesChildProcess(message.themesDir));
+        process.exit()
+    }
 });
 
 function GetThemeFilesChildProcess(themesDir: string): string[] {

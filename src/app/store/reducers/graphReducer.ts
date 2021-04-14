@@ -37,31 +37,46 @@ export default function (state: StateType, action: ActionType): StateType {
             tempState.graph.blocks.push(block);
             return tempState;
         } case (AddedEdgeActionType): {
+            let is1Output: boolean|undefined;
+
             const tempState: StateType  = _.cloneDeep(state);
-            const is1Output = tempState.graph.blocks.find(b => b.id === action.payload['block1VisualId'])
-                .blockStorage.outputPorts.find(p => p.id === action.payload['port1VisualId']) !== undefined;
-            if (is1Output) {
-                const is2Input = tempState.graph.blocks.find(b => b.id === action.payload['block2VisualId'])
-                    .blockStorage.inputPorts.find(p => p.id === action.payload['port2VisualId']) !== undefined;
-                if (!is2Input) {
-                    return tempState;
-                }
-            } else {
-                const is2Output = tempState.graph.blocks.find(b => b.id === action.payload['block2VisualId'])
-                    .blockStorage.outputPorts.find(p => p.id === action.payload['port2VisualId']) !== undefined;
-                if (!is2Output) {
-                    return tempState;
+            const b1 = tempState.graph.blocks.find(b => b.id === action.payload['block1VisualId']);
+            if (b1 != undefined){
+                is1Output = b1.blockStorage.outputPorts
+                    .find(p => p.id === action.payload['port1VisualId']) !== undefined;
+
+                if (is1Output) {
+                    const b2 = tempState.graph.blocks.find(b => b.id === action.payload['block2VisualId']);
+                    if (b2 !== undefined) {
+                        const is2Input = b2.blockStorage.inputPorts
+                            .find(p => p.id === action.payload['port2VisualId']) !== undefined;
+                        if (!is2Input) {
+                            return tempState;
+                        }
+                    }
+
+                } else {
+                    const b2 = tempState.graph.blocks.find(b => b.id === action.payload['block2VisualId']);
+                    if (b2 !== undefined) {
+                        const is2Output = b2.blockStorage.outputPorts
+                            .find(p => p.id === action.payload['port2VisualId']) !== undefined;
+                        if (!is2Output) {
+                            return tempState;
+                        }
+                    }
                 }
             }
 
-            tempState.graph.edges.push({
-                id: uuidv4(),
-                outputBlockVisualID: is1Output?action.payload['block1VisualId']:action.payload['block2VisualId'],
-                outputPortID: is1Output?action.payload['port1VisualId']:action.payload['port2VisualId'],
-                inputBlockVisualID: is1Output?action.payload['block2VisualId']:action.payload['block1VisualId'],
-                inputPortID: is1Output?action.payload['port2VisualId']:action.payload['port1VisualId'],
-                type: "number"
-            })
+            if (is1Output !== undefined) {
+                tempState.graph.edges.push({
+                    id: uuidv4(),
+                    outputBlockVisualID: is1Output?action.payload['block1VisualId']:action.payload['block2VisualId'],
+                    outputPortID: is1Output?action.payload['port1VisualId']:action.payload['port2VisualId'],
+                    inputBlockVisualID: is1Output?action.payload['block2VisualId']:action.payload['block1VisualId'],
+                    inputPortID: is1Output?action.payload['port2VisualId']:action.payload['port1VisualId'],
+                    type: "number"
+                });
+            }
             return tempState;
         } case (ToggleSelectedBlockActionType): {
             const tempState: StateType  = _.cloneDeep(state);

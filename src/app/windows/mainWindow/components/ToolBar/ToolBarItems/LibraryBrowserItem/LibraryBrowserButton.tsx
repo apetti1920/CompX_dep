@@ -1,7 +1,6 @@
 // @flow
 import * as React from 'react';
 import {Children} from "react";
-import ToolTip from "../../../ComponentUtils/ToolTip";
 import theme, {GetGlassStyle} from "../../../../../../theme";
 import {Library as LibraryIcon} from "@styled-icons/ionicons-sharp/Library";
 import LibraryBrowser from "./LibraryBrowser";
@@ -64,24 +63,19 @@ export class LibraryBrowserButton extends React.Component<Props, State> {
         return (
             <React.Fragment>
                 {Children.only(
-                    <ToolTip placement="bottom" disabled={this.state.drawOpen}>
-                        {{
-                            MasterObject: (
-                                <button ref={this.buttonRef}
-                                        style={!this.state.drawOpen?this.ButtonStyle:
-                                            {...this.ButtonStyle, ...GetGlassStyle(theme.palette.accent, 0.3)}}
-                                        onClick={this.handleClick}>
-                                    <LibraryIcon color={theme.palette.text} size="30px"/>
-                                </button>
-                            ),
-                            TooltipElement: <label style={this.TooltipStyle}>Library Browser</label>
-                        }}
-                    </ToolTip>
+                    <button ref={this.buttonRef}
+                            style={!this.state.drawOpen?this.ButtonStyle:
+                                {...this.ButtonStyle, ...GetGlassStyle(theme.palette.accent, 0.3)}}
+                            onClick={this.handleClick}>
+                        <LibraryIcon color={theme.palette.text} size="30px"/>
+                    </button>
                 )}
-                <LibraryBrowser open={this.state.drawOpen}
-                                location={(this.buttonRef.current===null)?{x: 0, y:0}:
-                                    {x: this.buttonRef.current.getBoundingClientRect().left,
-                                        y: this.buttonRef.current.getBoundingClientRect().bottom}}/>
+                {this.state.drawOpen?<LibraryBrowser open={this.state.drawOpen}
+                                 location={(this.buttonRef.current === null) ? {x: 0, y: 0} :
+                                     {
+                                         x: this.buttonRef.current.getBoundingClientRect().left,
+                                         y: this.buttonRef.current.getBoundingClientRect().bottom
+                                     }}/>:<React.Fragment/>}
             </React.Fragment>
     )
     }

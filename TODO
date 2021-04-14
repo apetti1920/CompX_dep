@@ -1,3 +1,4 @@
-- Clear Scope Blocks on Reset
 - Make blocks expandable
-- Grid To Dots
+- Fix line routing
+- turn ports from triangles to secions of the block
+- Line colors

@@ -55,7 +55,7 @@ const lightTheme: ThemeType = {
     }
 }
 
-export default darkTheme;
+export default lightTheme;
 
 export function GetGlassStyle(color: string, amount: number): React.CSSProperties {
     return {

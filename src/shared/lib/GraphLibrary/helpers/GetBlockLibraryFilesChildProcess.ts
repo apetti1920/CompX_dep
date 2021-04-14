@@ -24,13 +24,13 @@ const makeRequest = async (url: string) => {
 
 
 process.on("message", (message: any) => {
-    process.send(GetBlockLibraryFilesChildProcess(message.blocksDir));
-    process.exit()
+    if (process.send !== undefined) {
+        process.send(GetBlockLibraryFilesChildProcess(message.blocksDir));
+        process.exit();
+    }
 });
 
 function GetBlockLibraryFilesChildProcess(blocksDir: string): BlockStorageType[] {
-    console.log("heeeeeeere3");
-
     axios.get('https://api.github.com/users/github')
         .then(function (response: AxiosResponse<any>) {
             console.log("respppp", response);

@@ -14,6 +14,8 @@ export const MovedCanvasActionType = `@@${CanvasReducerName}/MOVED_CANVAS`;
 export const MouseActionType = `@@${CanvasReducerName}/MOUSE_ACTION`;
 export const ZoomedCanvasActionType = `@@${CanvasReducerName}/ZOOMED_CANVAS`;
 export const DraggingLibraryBlockActionType = `@@${CanvasReducerName}/DRAGGING_LIBRARY_BLOCK`;
+export const ChangedContextMenuActionType = `@@${CanvasReducerName}/CHANGED_CONTEXT_MENU`;
+export const ChangedModalActionType = `@@${CanvasReducerName}/CHANGED_MODAL`;
 
 // Graph Reducer Types
 export const MovedBlockActionType = `@@${GraphReducerName}/MOVED_BLOCK`;

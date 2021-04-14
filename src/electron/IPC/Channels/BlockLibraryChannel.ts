@@ -22,7 +22,9 @@ export class BlockLibraryChannel implements IpcChannelInterface {
         const cp = fork(path.join(__dirname, 'GetBlockLibraryFiles.js'));
         cp.send({"blocksDir": blocksDir});
         cp.on("message", (blocks: BlockStorageType[]) => {
-            event.sender.send(request.responseChannel, blocks)
+            if (request.responseChannel !== undefined) {
+                event.sender.send(request.responseChannel, blocks)
+            }
         });
     }
 }

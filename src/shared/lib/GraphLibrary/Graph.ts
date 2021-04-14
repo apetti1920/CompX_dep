@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import Block from "./Block";
 import Edge from "./Edge";
 import {Zeros} from "./helpers/utils";
@@ -65,7 +67,30 @@ export default class Graph {
         return b.id;
     }
 
-    public addEdge(edge: Edge): string {
+    public addEdge(
+        edge: Edge |
+        {outputBlockId: string, outputPortName: string, inputBlockId: string, inputPortName: string}): string
+    {
+        if (!("id" in edge)) {
+            const edge2 = edge as {outputBlockId: string, outputPortName: string, inputBlockId: string, inputPortName: string}
+            const outputblock = this.blocks.find(b => b.id === edge2.outputBlockId);
+            const inputblock = this.blocks.find(b => b.id === edge2.inputBlockId);
+            if (outputblock !== undefined && inputblock !== undefined) {
+                const outputPort = outputblock.outputPorts.find(p => p.name === edge2.outputPortName);
+                const inputPort = inputblock.inputPorts.find(p => p.name === edge2.inputPortName);
+
+                if (outputPort !== undefined && inputPort !== undefined) {
+                    edge = {
+                        id: uuidv4(),
+                        outputBlock: outputblock.id,
+                        outputPort: outputPort.id,
+                        inputBlock: inputblock.id,
+                        inputPort: inputPort.id
+                    }
+                } else { throw Error("Bad Input Port"); }
+            } else { throw Error("Bad Input Block"); }
+        }
+
         this.edges.push(edge);
         return edge.id;
     }
@@ -206,6 +231,12 @@ export default class Graph {
     }
 
     public SCC(): Block[][] {
+        const edgeTypesDict = this.edgeClassifier();
+        const graphEdgeTypes = Object.keys(edgeTypesDict).map(key => edgeTypesDict.get(key));
+        if (!(EdgeType.BACK in graphEdgeTypes)) {
+            return [this.blocks];
+        }
+
         const l = new Set<DFSBlock>();
         const dfsBlocks = this.blocks.map(b => new DFSBlock(b));
         const retList: Block[][] = [];
@@ -281,7 +312,10 @@ export default class Graph {
 
     public run(T: number, dT: number, process?: NodeJS.Process): void {
         let t = 0.0;
+        console.log("pre comnp order")
         const compOrder = this.getCompileOrder().map(b => b.id);
+
+        console.log("post comp order", compOrder.map(i => this.blocks.find((b: Block) => b.id === i)?.name));
         let displayData: Map<string, unknown[]>;
 
        const throttled = _.throttle(() => {
@@ -317,7 +351,7 @@ export default class Graph {
            });
 
            //Update the process
-           if (process !== undefined && displayData !== undefined) {
+           if (process !== undefined && displayData !== undefined && process.send !== undefined) {
                process.send({cmd: "display_data", data: {"time": t, "data": displayData}});
            }
 

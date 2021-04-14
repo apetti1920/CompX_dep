@@ -4,7 +4,7 @@ import {CanvasType, GraphVisualType, StateType} from "../../../../../store/types
 import {ScreenToWorld} from "../../../../../utilities";
 import {bindActionCreators, Dispatch} from "redux";
 import {
-    AddedBlockAction,
+    AddedBlockAction, ChangedContextMenuAction, ChangedModalAction,
     ClickedSidebarButtonAction, DeleteBlockAction,
     MirrorBlockAction,
     ToggleSelectedBlockAction
@@ -14,7 +14,12 @@ import {PointType} from "../../../../../../shared/types";
 import {BlockStorageType} from "../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
 import VisualBlockComponent from "./VisualBlockComponent";
 import {ContextMenu} from "../../ComponentUtils/ContextMenu/ContextMenu"
-import {Delete, Repeat, Settings} from 'react-feather';
+
+import {Delete as DeleteIcon} from "@styled-icons/feather/Delete";
+import {Mirror as MirrorIcon} from "@styled-icons/octicons/Mirror";
+import {Edit as EditIcon} from "@styled-icons/boxicons-solid/Edit";
+import Modal from "../../ComponentUtils/Modal";
+import BlockEditor from "./BlockEditor/BlockEditor";
 
 interface StateProps {
     canvas: CanvasType,
@@ -26,6 +31,8 @@ interface DispatchProps {
     onAddedBlock: (blockStorageId: string, position: PointType, size: PointType) => void,
     onDeletedBlock: (blockStorageId: string) => void,
     clickedButton: (buttonGroup: number, buttonId: number) => void,
+    onChangeContextMenu: (contextMenu?: React.ReactElement) => void,
+    onChangeModal: (modal?: React.ReactElement) => void,
     onToggleBlockSelection: (visualBlockId: string, selected: boolean) => void,
     onMirrorBlock: (visualBlockId: string) => void
 }
@@ -33,7 +40,7 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps
 
 type State = {
-    contextMenu?: React.ReactNode
+
 }
 
 class BlockLayer extends React.Component<Props, State> {
@@ -42,14 +49,6 @@ class BlockLayer extends React.Component<Props, State> {
     // TODO: Add curve while draggingFromPoint
     // TODO: reject curves for not connecting same type
     // TODO: Color curves depending on type
-
-    constructor(props: Props) {
-        super(props);
-
-        this.state = {
-            contextMenu: undefined
-        }
-    }
 
     onDragEnterHandler = (e: React.DragEvent<HTMLDivElement>): void => {
         e.preventDefault();
@@ -81,34 +80,46 @@ class BlockLayer extends React.Component<Props, State> {
 
     onContextMenuBlockHandler = (e: React.MouseEvent, blockID: string): void => {
         e.preventDefault();
-        const tmpState = {...this.state};
-        const mir = this.props.graph.blocks.find(block => block.id === blockID).mirrored;
+        const b1 = this.props.graph.blocks.find(block => block.id === blockID);
+        if (b1 === undefined) { return; }
+        const mir = b1.mirrored;
 
         this.props.onToggleBlockSelection(blockID, true);
 
-        tmpState.contextMenu = <ContextMenu position={{ x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY }} items={[
+        const contextMenu = <ContextMenu position={{ x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY }} items={[
             {
-                icon: <Repeat height="100%" style={{flexGrow: 1}}/>,
+                icon: <MirrorIcon/>,
                 name: !mir ? "Mirror" : "Un-Mirror",
                 action: () => {
-                    const tmpState = {...this.state};
                     this.props.onMirrorBlock(blockID);
-                    tmpState.contextMenu = undefined;
-                    this.setState(tmpState);
+                    this.props.onChangeContextMenu(undefined);
+                }
+            },
+            {
+                icon: <EditIcon/>,
+                name: "Change Parameters",
+                action: () => {
+                    const block = this.props.graph.blocks.find(b => b.id === blockID);
+                    if (block !== undefined) {
+                        this.props.onChangeModal(
+                            <Modal>
+                                <BlockEditor block={block}/>
+                            </Modal>
+                        );
+                    }
                 }
             },
             "Spacer",
             {
-                icon: <Delete height="100%" style={{flexGrow: 1}}/>, name: "Delete",
+                icon: <DeleteIcon/>,
+                name: "Delete",
                 action: () => {
-                    const tmpState = {...this.state};
                     this.props.onDeletedBlock(blockID);
-                    tmpState.contextMenu = undefined;
-                    this.setState(tmpState);
+                    this.props.onChangeContextMenu(undefined);
                 }
             }
         ]}/>;
-        this.setState(tmpState);
+        this.props.onChangeContextMenu(contextMenu);
         e.stopPropagation();
     }
 
@@ -125,7 +136,6 @@ class BlockLayer extends React.Component<Props, State> {
                         )}
                     )}
                  </svg>
-                {this.state.contextMenu??<React.Fragment/>}
             </div>
         );
     }
@@ -145,7 +155,9 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
         onDeletedBlock: DeleteBlockAction,
         clickedButton: ClickedSidebarButtonAction,
         onToggleBlockSelection: ToggleSelectedBlockAction,
-        onMirrorBlock: MirrorBlockAction
+        onMirrorBlock: MirrorBlockAction,
+        onChangeContextMenu: ChangedContextMenuAction,
+        onChangeModal: ChangedModalAction
     }, dispatch)
 }
 

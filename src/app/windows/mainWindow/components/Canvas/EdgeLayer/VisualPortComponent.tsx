@@ -35,24 +35,28 @@ export class VisualPortComponent extends React.Component<Props, State> {
         const ydelt = Math.sin(Math.PI/3) * r;
 
         let path: string;
-        if (!this.props.block.mirrored) {
-            path = `M ${portPoint.x - xdelt} ${portPoint.y - ydelt} L ${portPoint.x + r} ${portPoint.y} 
+        if (portPoint !== undefined) {
+            if (!this.props.block.mirrored) {
+                path = `M ${portPoint.x - xdelt} ${portPoint.y - ydelt} L ${portPoint.x + r} ${portPoint.y} 
             L ${portPoint.x - xdelt} ${portPoint.y + ydelt}`;
-        } else {
-            path = `M ${portPoint.x + xdelt} ${portPoint.y - ydelt} L ${portPoint.x - r} ${portPoint.y} 
+            } else {
+                path = `M ${portPoint.x + xdelt} ${portPoint.y - ydelt} L ${portPoint.x - r} ${portPoint.y} 
             L ${portPoint.x + xdelt} ${portPoint.y + ydelt}`;
+            }
+
+            return (
+                <path d={path} stroke="red" strokeWidth={1}
+                      fill={(this.state.isHovering||((this.props.connectedPorts.indexOf(this.props.portId) >= 0)))?"red":"black"}
+                      pointerEvents="auto" cursor={this.state.isHovering?"crosshair":"auto"}
+                      onMouseDown={(event) =>
+                          this.props.mouseDownPort(event, this.props.block.id, this.props.portId)}
+                      onMouseUp={(event) =>
+                          this.props.mouseUpPort(event, this.props.block.id, this.props.portId)}
+                      onMouseEnter={() => {this.setState({...this.state, isHovering: true})}}
+                      onMouseLeave={() => {this.setState({...this.state, isHovering: false})}}/>
+            );
         }
 
-        return (
-            <path d={path} stroke="red" strokeWidth={1}
-                  fill={(this.state.isHovering||((this.props.connectedPorts.indexOf(this.props.portId) >= 0)))?"red":"black"}
-                  pointerEvents="auto" cursor={this.state.isHovering?"crosshair":"auto"}
-                  onMouseDown={(event) =>
-                      this.props.mouseDownPort(event, this.props.block.id, this.props.portId)}
-                  onMouseUp={(event) =>
-                      this.props.mouseUpPort(event, this.props.block.id, this.props.portId)}
-                  onMouseEnter={() => {this.setState({...this.state, isHovering: true})}}
-                  onMouseLeave={() => {this.setState({...this.state, isHovering: false})}}/>
-        );
+        return <React.Fragment/>
     }
 }

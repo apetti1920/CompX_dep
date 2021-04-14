@@ -1,18 +1,16 @@
 import {
-    ActionType,
-    SidebarButtonType,
-    SplitPaneName, MouseType, DisplayDataType
+    ActionType, MouseType, DisplayDataType
 } from "../types";
 import {
     ClickedSidebarButtonActionType,
     MovedCanvasActionType,
-    MovedSplitPaneActionType,
     UpdatedBlockLibraryActionType,
     ZoomedCanvasActionType,
     MovedBlockActionType,
     MouseActionType,
     AddedBlockActionType,
     DraggingLibraryBlockActionType,
+    ChangedContextMenuActionType,
     DeselectAllBlocksActionType,
     ToggleSelectedBlockActionType,
     AddedEdgeActionType,
@@ -20,7 +18,7 @@ import {
     DeleteBlockActionType,
     ChangedInternalDataActionType,
     AddedDisplayDataActionType,
-    ClearedDisplayDataActionType
+    ClearedDisplayDataActionType, ChangedModalActionType
 
 } from "../types/actionTypes";
 import {PointType} from "../../../shared/types";
@@ -39,13 +37,6 @@ export const ClickedSidebarButtonAction = (buttonGroup: number, buttonId: number
     return {
         type: ClickedSidebarButtonActionType,
         payload: {group: buttonGroup, id: buttonId}
-    }
-};
-
-export const MovedSplitPaneAction = (splitName: SplitPaneName, newSize: number): ActionType => {
-    return {
-        type: MovedSplitPaneActionType,
-        payload: {name: splitName, size: newSize}
     }
 };
 
@@ -74,6 +65,20 @@ export const DraggingLibraryBlockAction = (draggingState: boolean): ActionType =
     return {
         type: DraggingLibraryBlockActionType,
         payload: {draggingState: draggingState}
+    }
+};
+
+export const ChangedContextMenuAction = (contextMenu?: React.ReactElement): ActionType => {
+    return {
+        type: ChangedContextMenuActionType,
+        payload: {contextMenu: contextMenu}
+    }
+};
+
+export const ChangedModalAction = (modal?: React.ReactElement): ActionType => {
+    return {
+        type: ChangedModalActionType,
+        payload: {modal: modal}
     }
 };
 

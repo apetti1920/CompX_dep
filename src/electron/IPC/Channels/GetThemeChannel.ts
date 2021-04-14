@@ -21,7 +21,9 @@ export default class GetThemeChannel implements IpcChannelInterface {
         const cp = fork(path.join(__dirname, 'GetThemeFiles.js'));
         cp.send({"themesDir": themesDir});
         cp.on("message", (themes: string[]) => {
-            event.sender.send(request.responseChannel, themes)
+            if (request.responseChannel !== undefined) {
+                event.sender.send(request.responseChannel, themes)
+            }
         });
     }
 }

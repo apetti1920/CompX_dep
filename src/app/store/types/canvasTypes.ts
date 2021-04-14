@@ -1,5 +1,6 @@
 import {PointType} from "../../../shared/types";
 import {MouseDownType} from "../../windows/mainWindow/components/types";
+import React from "react";
 
 export type MouseType = {mouseDownOn: MouseDownType, currentMouseLocation?: PointType}
 
@@ -7,7 +8,11 @@ export type CanvasType = {
     zoom: number,
     translation: PointType,
     isDraggingFromBlockLibrary: boolean
-    mouse: MouseType
+    mouse: MouseType,
+    oneOffElements: {
+        contextMenu?: React.ReactElement,
+        modal?: React.ReactElement
+    }
 }
 
 export type SidebarButtonType = {

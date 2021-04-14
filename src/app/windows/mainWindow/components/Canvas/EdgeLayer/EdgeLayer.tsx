@@ -61,14 +61,16 @@ class EdgeLayer extends React.Component<Props, State> {
 
     mouseUpOnPort = (e: React.MouseEvent, blockId: string, portId: string) => {
         if (e.button === 0 && this.props.canvas.mouse.mouseDownOn == MouseDownType.PORT) {
-            this.props.onAddedEdgeAction(this.state.draggingFromPort.blockId, this.state.draggingFromPort.portId,
-                blockId, portId);
-            this.props.onMouseAction({
-                mouseDownOn: MouseDownType.NONE,
-                currentMouseLocation: ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY},
-                    this.props.canvas.translation, this.props.canvas.zoom)
-            });
-            this.setState({...this.state, draggingFromPort: undefined});
+            if (this.state.draggingFromPort !== undefined) {
+                this.props.onAddedEdgeAction(this.state.draggingFromPort.blockId, this.state.draggingFromPort.portId,
+                    blockId, portId);
+                this.props.onMouseAction({
+                    mouseDownOn: MouseDownType.NONE,
+                    currentMouseLocation: ScreenToWorld({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY},
+                        this.props.canvas.translation, this.props.canvas.zoom)
+                });
+                this.setState({...this.state, draggingFromPort: undefined});
+            }
         }
     }
 
@@ -86,9 +88,14 @@ class EdgeLayer extends React.Component<Props, State> {
     render(): React.ReactNode {
         let draggingEdge: React.ReactNode = <React.Fragment/>
         if (this.state.draggingFromPort !== undefined && this.props.canvas.mouse.mouseDownOn === MouseDownType.PORT) {
-            draggingEdge = <VisualEdgeComponent
-                point1={PortToPoint(this.state.draggingFromPort.blockId, this.state.draggingFromPort.portId)}
-                point2={this.props.canvas.mouse.currentMouseLocation}/>
+            const p2p = PortToPoint(this.state.draggingFromPort.blockId, this.state.draggingFromPort.portId);
+            const curLoc = this.props.canvas.mouse.currentMouseLocation;
+
+            if (p2p !== undefined && curLoc !== undefined) {
+                draggingEdge = <VisualEdgeComponent
+                    point1={p2p}
+                    point2={curLoc}/>
+            }
         }
 
         return (
@@ -146,13 +153,25 @@ class EdgeLayer extends React.Component<Props, State> {
                         {   // Draw all edges
                             this.props.graph.edges.map(e => {
                                 const outputBlock = this.props.graph.blocks.find(b => b.id === e.outputBlockVisualID);
-                                const outputPort = outputBlock.blockStorage.outputPorts.find(p => p.id === e.outputPortID);
-                                const inputBlock = this.props.graph.blocks.find(b => b.id === e.inputBlockVisualID);
-                                const inputPort = inputBlock.blockStorage.inputPorts.find(p => p.id === e.inputPortID);
-                                return <VisualEdgeComponent key={e.id} point1={PortToPoint(outputBlock.id, outputPort.id)}
-                                                            point2={PortToPoint(inputBlock.id, inputPort.id)}
-                                                            point1BlockMirrored={outputBlock.mirrored}
-                                                            point2BlockMirrored={inputBlock.mirrored} />
+                                if (outputBlock !== undefined) {
+                                    const outputPort = outputBlock.blockStorage.outputPorts.find(p => p.id === e.outputPortID);
+                                    const inputBlock = this.props.graph.blocks.find(b => b.id === e.inputBlockVisualID);
+                                    if (inputBlock !== undefined) {
+                                        const inputPort = inputBlock.blockStorage.inputPorts.find(p => p.id === e.inputPortID);
+                                        if (inputPort !== undefined && outputPort !== undefined) {
+                                            const p2p1 = PortToPoint(outputBlock.id, outputPort.id);
+                                            const p2p2 = PortToPoint(inputBlock.id, inputPort.id);
+                                            if (p2p1 !== undefined && p2p2 !== undefined) {
+                                                return <VisualEdgeComponent key={e.id} point1={p2p1}
+                                                                            point2={p2p2}
+                                                                            point1BlockMirrored={outputBlock.mirrored}
+                                                                            point2BlockMirrored={inputBlock.mirrored} />
+                                            }
+                                        }
+                                    }
+                                }
+
+                                return <React.Fragment key={e.id}/>
                             }) }
                     </g>
                 </svg>

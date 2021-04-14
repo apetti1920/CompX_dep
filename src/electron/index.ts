@@ -12,7 +12,7 @@ const os = require('os')
 declare const MAIN_WINDOW_WEBPACK_ENTRY: never;
 
 class Main {
-    private mainWindow: BrowserWindow;
+    private mainWindow: BrowserWindow | undefined;
 
     public init(ipcChannels: IpcChannelInterface[]) {
         // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -53,8 +53,10 @@ class Main {
                 //console.log("dirname", path.join(__dirname, 'react-devtools'));
                 session.defaultSession.loadExtension(
                     path.join(os.homedir(), '/Library/Application Support/Google/Chrome/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/2.17.0_0')
-                ).catch((err) => console.log("An error occurred: ", err))
-                this.mainWindow.webContents.openDevTools({mode: 'undocked'});
+                ).catch((err) => console.log("An error occurred: ", err));
+                if (this.mainWindow !== undefined) {
+                    this.mainWindow.webContents.openDevTools({mode: 'undocked'});
+                }
             });
         }
     }

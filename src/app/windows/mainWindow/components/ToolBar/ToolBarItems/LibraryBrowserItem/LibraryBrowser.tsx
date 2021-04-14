@@ -47,35 +47,33 @@ class LibraryBrowser extends React.Component<Props, State> {
         opacity: this.props.open ? 1 : 0,
         borderRadius: "7px",
         padding: "5px",
-        ...GetGlassStyle(theme.palette.accent, 0.8)
+        ...GetGlassStyle(theme.palette.accent, 1.5)
     })
 
     // padding: "5px",
 
     render(): React.ReactNode {
         return (
-            <Portal>
-                <div style={this.GetLibraryBrowserStyle()}>
-                    <div style={{width: "100%", height: "30px"}}>
-                        <SearchBar onChange={(currentString) => {this.setState({searchString: currentString})}}/>
-                    </div>
-                    {
-                        this.state.searchString !== "" ? (
-                            <Accordion data={this.props.blockLibrary.filter(b => {
-                                if (this.state.searchString === "") { return false }
-                                for (let i=0; i<b.tags.length; i++) {
-                                    if (b.tags[i].toLowerCase().includes(this.state.searchString.toLowerCase())){
-                                        return true;
-                                    }
-                                }
-                                return b.name.toLowerCase().includes(this.state.searchString.toLowerCase());
-
-
-                            })}/>
-                        ) : <React.Fragment/>
-                    }
+            <div style={this.GetLibraryBrowserStyle()}>
+                <div style={{width: "100%", height: "30px"}}>
+                    <SearchBar onChange={(currentString) => {this.setState({searchString: currentString})}}/>
                 </div>
-            </Portal>
+                {
+                    this.state.searchString !== "" ? (
+                        <Accordion data={this.props.blockLibrary.filter(b => {
+                            if (this.state.searchString === "") { return false }
+                            for (let i=0; i<b.tags.length; i++) {
+                                if (b.tags[i].toLowerCase().includes(this.state.searchString.toLowerCase())){
+                                    return true;
+                                }
+                            }
+                            return b.name.toLowerCase().includes(this.state.searchString.toLowerCase());
+
+
+                        })}/>
+                    ) : <React.Fragment/>
+                }
+            </div>
         );
     }
 }

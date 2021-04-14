@@ -43,19 +43,51 @@ export default class Block {
         callbackString = callbackString.replace(new RegExp("internalData\\[(\\b[0-9a-f]{8}\\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\\b[0-9a-f]{12}\\b)\\]","gm"), (a, b) => {
             return `Number(this.internalData.find(i => i.id === "${b}").value)`;
         });
-        callbackString = callbackString.replace(new RegExp("display\\s*{([\\s\\S]*)}","gm"), (a, b) => {
+        callbackString = callbackString.replace(new RegExp("display\\s*\\(([\\s\\S]*)\\)\\s*;?","gm"), (a, b) => {
             return `if (displayData !== undefined) {displayData["${this.id}"]=${b}}`;
         });
 
-        return new Function("t", "dt", "prevInputs", "prevOutputs", "newInputs", "displayData", callbackString)
-            .bind(this);
+        callbackString = `try{${callbackString}}catch(err){console.log(err);}`
+
+        try {
+            const func = new Function("t", "dt", "prevInputs", "prevOutputs", "newInputs", "displayData", callbackString)
+                .bind(this);
+            return func;
+        } catch (syntaxError) {
+            console.error("illegal code; syntax errors: ", syntaxError);
+            console.info(syntaxError.name ,"-", syntaxError.message);
+            throw syntaxError;
+        }
+
     }
 
-    compile(t: number, dt: number, prevInputs: unknown[], prevOutputs: unknown[], newInputs: unknown[],
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    public setInternalData(dataName: string, data: any): void {
+        const dataInd = this.internalData.findIndex(d => d.name === dataName);
+        if (dataInd !== -1) {
+            if (typeof data === this.internalData[dataInd].type) {
+                this.internalData[dataInd].value = data;
+            } else {
+                throw Error("Incorrect DataType");
+            }
+        } else {
+            throw Error("Value Does Not Exist in Internal Data")
+        }
+    }
+
+    public compile(t: number, dt: number, prevInputs: unknown[], prevOutputs: unknown[], newInputs: unknown[],
             displayData?: Map<string, unknown[]>): void {
-        const newOutputs = this.callback(t, dt, prevInputs, prevOutputs, newInputs, displayData);
-        for (let i=0; i<this.outputPorts.length; i++) {
-            this.outputPorts[i].objectValue = newOutputs[i] as AcceptedPortTypes;
+        // console.log("here", this.name, this.callback);
+        try {
+            const newOutputs = this.callback(t, dt, prevInputs, prevOutputs, newInputs, displayData);
+            // e.logconsol("here", this.name, newOutputs);
+            for (let i=0; i<this.outputPorts.length; i++) {
+                this.outputPorts[i].objectValue = newOutputs[i] as AcceptedPortTypes;
+            }
+        } catch (runtimeError) {
+            console.error("legal code; unforeseen result: ", runtimeError);
+            console.info(runtimeError.name ,"-", runtimeError.message);
+            throw runtimeError;
         }
     }
 }
