@@ -12,7 +12,7 @@ import {
 import {connect} from "react-redux";
 import {ScreenToWorld} from "../../../../../utilities";
 import {MouseDownType} from "../../types";
-import {DataTransferType} from "../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {DataTransferType} from "@compx/sharedtypes";
 
 interface StateProps {
     canvas: CanvasType,

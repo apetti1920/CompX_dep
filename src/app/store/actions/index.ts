@@ -22,7 +22,7 @@ import {
 
 } from "../types/actionTypes";
 import {PointType} from "../../../shared/types";
-import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType} from "@compx/sharedtypes";
 
 // Block Library Actions -----------------------------------------------------------------------------------------------
 export const UpdatedBlockLibraryAction = (newBlocks: BlockStorageType[]): ActionType => {

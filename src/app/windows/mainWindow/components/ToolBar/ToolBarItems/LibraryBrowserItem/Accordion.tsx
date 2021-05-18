@@ -3,7 +3,7 @@ import * as React from 'react';
 import _ from "lodash";
 
 import LibraryBrowserCard from "./LibraryBrowserCard";
-import {BlockStorageType} from "../../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType} from "@compx/sharedtypes";
 
 import theme, {GetGlassStyle} from "../../../../../../theme";
 import {SetOpacity} from "../../../../../../utilities";

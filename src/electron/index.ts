@@ -1,13 +1,12 @@
-import {app, BrowserWindow, ipcMain, session} from 'electron';
-import {SystemInfoChannel} from "./IPC/Channels/SystemInfoChannel";
+import {app, BrowserWindow, ipcMain} from 'electron';
 import isDev from 'electron-is-dev';
+import installExtension, { REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
+
+import {SystemInfoChannel} from "./IPC/Channels/SystemInfoChannel";
 import {IpcChannelInterface} from "./IPC/Channels/IpcChannelInterface";
 import {BlockLibraryChannel} from "./IPC/Channels/BlockLibraryChannel";
 import {RunModelChannel} from "./IPC/Channels/RunModelChannel";
 import GetThemeChannel from "./IPC/Channels/GetThemeChannel";
-
-const path = require('path')
-const os = require('os')
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: never;
 
@@ -42,21 +41,23 @@ class Main {
             }
         });
 
-        console.log(MAIN_WINDOW_WEBPACK_ENTRY);
         this.mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY).then(() => {
             // disableZoom(mainWindow);
         });
 
         if (isDev) {
             app.whenReady().then(() => {
-                import('react-devtools-electron');
-                //console.log("dirname", path.join(__dirname, 'react-devtools'));
-                session.defaultSession.loadExtension(
-                    path.join(os.homedir(), '/Library/Application Support/Google/Chrome/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/2.17.0_0')
-                ).catch((err) => console.log("An error occurred: ", err));
-                if (this.mainWindow !== undefined) {
-                    this.mainWindow.webContents.openDevTools({mode: 'undocked'});
-                }
+                installExtension(REACT_DEVELOPER_TOOLS)
+                    .then((name) => {
+                        console.log(`Added Extension:  ${name}`);
+                        installExtension(REDUX_DEVTOOLS)
+                            .then((name) => {
+                                console.log(`Added Extension:  ${name}`)
+                                if (this.mainWindow !== undefined) {
+                                    this.mainWindow.webContents.openDevTools({mode: 'undocked'});
+                                }
+                            }).catch((err) => console.log('An error occurred: ', err));
+                    }).catch((err) => console.log('An error occurred: ', err));
             });
         }
     }

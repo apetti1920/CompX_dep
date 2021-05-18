@@ -1,5 +1,5 @@
 import {Edge, Graph} from "../index";
-import {BlockStorageType} from "../types/BlockStorage";
+import {BlockStorageType} from "@compx/sharedtypes";
 
 process.on("message", (message: any) => {
     const visualGraph: {blocks: BlockStorageType[], edges: Edge[]} = message.visualGraph;

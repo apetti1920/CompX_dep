@@ -1,5 +1,5 @@
 import {CanvasType} from "./canvasTypes";
-import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType} from "@compx/sharedtypes";
 import {GraphVisualType} from "./graphTypes";
 import {MouseDownType} from "../../windows/mainWindow/components/types";
 import {ContextMenu} from "../../windows/mainWindow/components/ComponentUtils/ContextMenu/ContextMenu";

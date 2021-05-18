@@ -1,16 +1,17 @@
 import * as path from 'path'
 import { v4 as uuidv4 } from 'uuid';
 
-import {XmlToBlockStorageType} from "../helpers/utils";
+import {XmlToBlockStorageType} from "@compx/sharedtypes";
 import Graph from "../Graph";
 
 function getSinSumGraph(): Graph {
-    const blockPath = "/Users/aidanpetti/Library/Application Support/compx/app_storage/blocks";
+    const blockPath = "/Users/apetti1920/Library/Application Support/compx/app_storage/blocks";
 
     const g1 = new Graph();
 
     let b = XmlToBlockStorageType(path.join(blockPath, "sin.xml")); b.id = uuidv4(); const sin1 = g1.addBlock(b); g1.blocks[0].setInternalData("Angular Frequency", 60)
     b = XmlToBlockStorageType(path.join(blockPath, "sin.xml")); b.id = uuidv4(); const sin2 = g1.addBlock(b); g1.blocks[1].setInternalData("Angular Frequency", 40)
+    console.log(b);
     const sum = g1.addBlock(XmlToBlockStorageType(path.join(blockPath, "sum.xml")));
     const scope = g1.addBlock(XmlToBlockStorageType(path.join(blockPath, "scope.xml")));
 

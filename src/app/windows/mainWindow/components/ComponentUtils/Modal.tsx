@@ -31,7 +31,7 @@ class Modal extends React.Component<Props, State> {
         return (
             <Portal>
                 <div style={{position: "fixed", width: "100vw", height: "100vh",
-                    top: "0px", left: "0px", ...GetGlassStyle(theme.palette.background, 0.8)}}
+                    top: `${theme.spacing.titlebarHeight}px`, left: "0px", ...GetGlassStyle(theme.palette.background, 0.8)}}
                      onClick={()=>this.props.onChangeModal(undefined)}>
                     <div style={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
                         width: "50%", height: "50%", borderRadius: "7px", padding: "5px", overflow: "hidden",

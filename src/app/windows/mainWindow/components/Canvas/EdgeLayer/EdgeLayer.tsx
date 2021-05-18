@@ -99,12 +99,8 @@ class EdgeLayer extends React.Component<Props, State> {
         }
 
         return (
-            <div style={{width: "100%", height: "100%", position: "absolute", zIndex: 3,
-                pointerEvents: "none", cursor:this.state.draggingFromPort!==undefined?"crosshair":"grab"}}>
-                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                     style={{pointerEvents: this.state.draggingFromPort!==undefined?'auto':'none'}}
-                     onMouseMove={this.mouseDragBetweenPorts} onMouseUp={this.mouseUpOnLayer}>
-
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
+                 style={{position: "absolute"}}>
                     <g style={{pointerEvents: "none"}}
                        transform={`translate(${this.props.canvas.translation.x} ${this.props.canvas.translation.y}) 
                                    scale(${this.props.canvas.zoom.toString()} ${this.props.canvas.zoom.toString()})`}>
@@ -113,7 +109,7 @@ class EdgeLayer extends React.Component<Props, State> {
                                 return (
                                     <g key={b.id}>
                                         {
-                                            b.blockStorage.inputPorts.map(p => {
+                                            b.blockStorage.inputPorts.map((p: any) => {
                                                 const keyId = "b_" + b.id + "_" + p.id;
                                                 return (
                                                     <VisualPortComponent key={keyId} block={b} portId={p.id} zoom={this.props.canvas.zoom}
@@ -175,7 +171,6 @@ class EdgeLayer extends React.Component<Props, State> {
                             }) }
                     </g>
                 </svg>
-            </div>
         );
     }
 }

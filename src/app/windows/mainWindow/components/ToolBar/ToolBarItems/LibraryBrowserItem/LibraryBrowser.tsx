@@ -7,7 +7,7 @@ import theme, {GetGlassStyle} from "../../../../../../theme";
 import {Accordion} from "./Accordion";
 import {StateType} from "../../../../../../store/types";
 import {connect} from "react-redux";
-import {BlockStorageType} from "../../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType} from "@compx/sharedtypes";
 import {SearchBar} from "../../../ComponentUtils/SearchBar";
 
 type ComponentProps = {

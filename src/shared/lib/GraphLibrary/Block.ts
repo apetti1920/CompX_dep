@@ -1,5 +1,5 @@
 import Port, {AcceptedPortTypes} from "./Port";
-import {BlockStorageType, InternalDataStorageType} from "./types/BlockStorage";
+import {BlockStorageType, InternalDataStorageType} from "@compx/sharedtypes";
 
 type Callback = ((t: number, dt: number, prevInputs: unknown[], prevOutputs: unknown[], newInputs: unknown[], displayData?: Map<string, unknown[]>) => unknown[]);
 

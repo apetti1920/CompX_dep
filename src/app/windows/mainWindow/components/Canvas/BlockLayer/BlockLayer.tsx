@@ -11,7 +11,7 @@ import {
 } from "../../../../../store/actions";
 import {connect} from "react-redux";
 import {PointType} from "../../../../../../shared/types";
-import {BlockStorageType} from "../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType} from "@compx/sharedtypes";
 import VisualBlockComponent from "./VisualBlockComponent";
 import {ContextMenu} from "../../ComponentUtils/ContextMenu/ContextMenu"
 
@@ -125,7 +125,7 @@ class BlockLayer extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         return (
-            <div style={{width: "100%", height: "100%", position: "absolute", zIndex: 2,
+            <div style={{width: "100%", height: "100%", position: "absolute", zIndex: 3,
                 pointerEvents: this.props.canvas.isDraggingFromBlockLibrary?"auto":"none"}}
                  onDragEnter={this.onDragEnterHandler} onDragOver={this.onDragOverHandler}
                  onDragLeave={this.onDragLeaveHandler} onDrop={this.onDropHandler}>

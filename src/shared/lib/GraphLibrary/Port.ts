@@ -1,4 +1,4 @@
-import {PortStorageType} from "./types/BlockStorage";
+import {PortStorageType} from "@compx/sharedtypes";
 
 export enum PortTypes { string, number}
 export type AcceptedPortTypes = (string | number | null)

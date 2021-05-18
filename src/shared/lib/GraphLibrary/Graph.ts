@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Block from "./Block";
 import Edge from "./Edge";
 import {Zeros} from "./helpers/utils";
-import {BlockStorageType} from "./types/BlockStorage";
+import {BlockStorageType} from "@compx/sharedtypes";
 import Port from "./Port";
 
 const _ = require('lodash');

@@ -2,12 +2,10 @@ import {IpcChannelInterface} from "./IpcChannelInterface";
 import {IpcMainEvent} from 'electron';
 import {IpcRequest} from "../../../shared/types";
 import {BLOCK_LIBRARY_CHANNEL} from "../../../shared/Channels";
-import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType} from "@compx/sharedtypes";
 import {blocksDir} from "../../constants";
-
-const path = require('path');
-
-const {fork} = require('child_process')
+import * as path from 'path'
+import {fork} from 'child_process'
 
 export class BlockLibraryChannel implements IpcChannelInterface {
     getName(): string {

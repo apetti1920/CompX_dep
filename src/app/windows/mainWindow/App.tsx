@@ -4,7 +4,7 @@ import './App.css';
 import ToolBar from "./components/ToolBar/Toolbar";
 import Canvas from "./components/Canvas/Canvas";
 import {IpcService} from "../../IPC/IpcService";
-import {BlockStorageType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType} from "@compx/sharedtypes";
 import {BLOCK_LIBRARY_CHANNEL} from "../../../shared/Channels";
 import store from "../../store"
 import {UpdatedBlockLibraryActionType} from "../../store/types/actionTypes";

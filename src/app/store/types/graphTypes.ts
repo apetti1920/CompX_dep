@@ -1,5 +1,5 @@
 import {PointType} from "../../../shared/types";
-import {BlockStorageType, DataTransferType} from "../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType, DataTransferType} from "@compx/sharedtypes";
 import React from "react";
 import * as d3 from 'd3';
 

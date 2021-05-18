@@ -3,7 +3,7 @@ import * as React from 'react';
 import {bindActionCreators, Dispatch} from "redux";
 import {connect} from "react-redux";
 
-import {BlockStorageType} from "../../../../../../../shared/lib/GraphLibrary/types/BlockStorage";
+import {BlockStorageType} from "@compx/sharedtypes";
 import {DraggingLibraryBlockAction} from "../../../../../../store/actions";
 
 import theme from "../../../../../../theme";
